@@ -2,7 +2,11 @@
   "extends": ["next/core-web-vitals","airbnb"],
   "rules":{
     "linebreak-style": 0,
-    "react-in-jsx-scope": "off",
-    "no-extraneous-dependencies" : "off"
+    "no-extraneous-dependencies" : "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension" : "off",
+    "import/no-extraneous-dependencies" : "off",
+    "react/jsx-props-no-spreading" : "off"
   }
 }
