@@ -13,16 +13,19 @@ const monthTable = Array.from(Array(5),(val)=>{
   }
   return arr;
 });
+const date = new Date()
 
 
 const MonthPage = () => {
+  // getRestDeInfo("2021", "02")
+  console.log(date)
   console.log(monthTable);
   return (
     <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
       <div className='bg-white'>
         <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6'>5</div>
-        <div className='flex mb-2 mt-4'>{days.map((val)=> {
-          return val==="Sun"?<div className='w-32 flex justify-center text-[#FF0000]'>{val}</div>:<div className='w-32 flex justify-center'>{val}</div>
+        <div className='flex mb-2 mt-4'>{days.map((val, idx)=> {
+          return val==="Sun"?<div className='w-32 flex justify-center text-[#FF0000]' key={idx}>{val}</div>:<div className='w-32 flex justify-center' key={idx}>{val}</div>
         })}
         </div>
         <table className='border-collapse border border-black'>
