@@ -1,8 +1,8 @@
 import React from 'react'
 
-const MonthDate = ({isHoliday,day,key}) => {
+const MonthDate = ({locdate, day, isHoliday}) => {
   return (
-    <td className={`border w-32 h-32  border-black ${isHoliday? 'text-[#FF0000]' : null}`} key={key}>{day}</td>
+    <td className={`border w-32 h-32 border-black ${isHoliday?"text-[#FF0000]":"text-black"}`}>{locdate}</td>
   )
 }
 
