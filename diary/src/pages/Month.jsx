@@ -1,5 +1,5 @@
 import { setCal } from '@/Redux/action';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import MonthWeek from './Components/Month/MonthWeek';
 import Holiday from './Json/holidays_kr.json'
@@ -33,15 +33,20 @@ const getCalendar = (year, month) =>{
 const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 const MonthPage = () => {
-  const MonthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+  let date = new Date();
   const dispatch = useDispatch();
-  dispatch(setCal(getCalendar("2023","01")))
+  const MonthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+  dispatch(setCal(getCalendar("2023",MonthList[date.getMonth()])))
   const {calendar} = useSelector((state)=> state.calendarReducer);
+  useEffect(() => {
+  console.log(calendar)
 
+  }, [!calendar])
+  
   return (
     <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
       <div className='bg-white'>
-        <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6'>2</div>
+        <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6'>{date.getMonth()+1}</div>
         <div className='flex mb-2 mt-4'>
           {dayOfTheWeek.map((val, idx)=> 
             <div className={`w-32 flex justify-center ${val==="Sun"? "text-[#FF0000]":""}`} key={idx}>{val}</div>
@@ -60,11 +65,3 @@ const MonthPage = () => {
 }
 
 export default MonthPage
-
-/*
- 요일별로 객체 만들 예정
-
- {locdate : 1,
-  day : "Sun",
-  isHoliday: true}
- */
