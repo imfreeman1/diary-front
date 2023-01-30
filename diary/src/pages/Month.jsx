@@ -1,23 +1,27 @@
+import { setCal } from '@/Redux/action';
 import React from 'react'
-import MonthWeek from './Month/MonthWeek';
+import { useDispatch, useSelector } from 'react-redux';
+import MonthWeek from './Components/Month/MonthWeek';
+import Holiday from './Json/holidays_kr.json'
 
 const getCalendar = (year, month) =>{
-    // 윤달
     const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-    const monthStartDay = new Date(year, month, 1).getDay()
+    const monthStartDay = new Date(year, month*1-1, 1).getDay()
 
-    const makeMonthTable = Array.from(Array(5),(_, idx)=>{
+    const makeMonthTable = Array.from(Array(5),(_,idx)=>{
       let week = [];
       let startday = 1;
       for (let i of dayOfTheWeek) {
         let dateObj = {};
         let date = (idx*7)-monthStartDay+startday++
-        if(date>monthDays[month]||date<1) date = undefined
-        dateObj.locdate = date;
+        if(date>monthDays[month*1 -1]||date<1) date = undefined
+        dateObj.date = date;
+        if(date) dateObj.locdate = `${year}-${month}-`+ date.toString().padStart(2,"0")
+        else dateObj.locdate = undefined
         dateObj.day = i;
-        dateObj.isHoliday = i==="Sun"? true: false
-        dateObj.dateName = ""
+        dateObj.dateName = Holiday[year][dateObj.locdate]
+        dateObj.isHoliday = i==="Sun"? true: dateObj.dateName?true:false
         week.push(dateObj);
       }
       return week;
@@ -26,13 +30,14 @@ const getCalendar = (year, month) =>{
     return makeMonthTable
     
 }
-// date.getFullYear(); date.getMonth() + 1; date.getDate();
 const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 const MonthPage = () => {
-  // getRestDeInfo("2021", "02")
-  let monthTable = getCalendar(2023,1)
-  console.log(monthTable)
+  const MonthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+  const dispatch = useDispatch();
+  dispatch(setCal(getCalendar("2023","01")))
+  const {calendar} = useSelector((state)=> state.calendarReducer);
+
   return (
     <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
       <div className='bg-white'>
@@ -43,7 +48,7 @@ const MonthPage = () => {
         )}
         </div>
         <table className='border-collapse border border-black'>
-          {monthTable.map((val,idx) => {
+          {calendar.map((val,idx) => {
           return <MonthWeek key={idx} week={val}/>
           })
         }
