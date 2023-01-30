@@ -1,4 +1,5 @@
 import React from 'react'
+import NavBar from './Components/NavBar/NavBar';
 import MonthWeek from './Month/MonthWeek';
 
 const days = ["Sun","Sat","Mon","Tue","Wed","Thu","Fri"];
@@ -16,13 +17,12 @@ const monthTable = Array.from(Array(5),(val)=>{
 
 
 const MonthPage = () => {
-  console.log(monthTable);
   return (
     <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
       <div className='bg-white'>
         <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6'>5</div>
         <div className='flex mb-2 mt-4'>{days.map((val)=> {
-          return val==="Sun"?<div className='w-32 flex justify-center text-[#FF0000]'>{val}</div>:<div className='w-32 flex justify-center'>{val}</div>
+          return <div className={`w-32 flex justify-center ${val==="Sun" ? 'text-[#FF0000]' : null}`}>{val[0]}</div>
         })}
         </div>
         <table className='border-collapse border border-black'>
@@ -31,7 +31,6 @@ const MonthPage = () => {
           })
         }
         </table>
-
       </div>
     </div>
   )
