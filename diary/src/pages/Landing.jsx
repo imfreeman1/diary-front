@@ -6,7 +6,7 @@ import Pen from 'public/Logo/pen.svg';
 import Lottie from 'lottie-react';
 import GleLoginContainer from './Components/GleLoginContainer';
 
-function Landing(props) {
+function Landing() {
   return (
     <>
       <div className="flex items-center justify-between px-8 absolute w-full h-12 bg-white">
@@ -22,6 +22,10 @@ function Landing(props) {
       </div>
     </>
   );
+}
+Landing.getInitialProps = async (ctx) => {
+   const navHidden = true;
+  return {navHidden}
 }
 
 export default Landing;
