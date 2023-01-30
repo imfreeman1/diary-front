@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Landing from "./Landing";
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
@@ -8,7 +8,7 @@ import Main from "./Main";
 export default function Home() {
   const [{ token }] = useCookies(["token"]);
 
-  const [hydrated, setHydrated] = React.useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     setHydrated(true);
