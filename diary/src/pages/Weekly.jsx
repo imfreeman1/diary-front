@@ -1,5 +1,5 @@
 import React from 'react'
-import WeeklyDiaplay from './Components/WeeklyDiaplay'
+import WeeklyDiaplay from './Components/Weekly/WeeklyDiaplay'
 
 const Weekly = () => {
     const days = ["Weekly", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
