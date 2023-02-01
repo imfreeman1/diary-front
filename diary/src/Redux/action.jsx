@@ -1,4 +1,5 @@
-import { calendarSlice, googleAuthSlice } from './slice';
+import { googleAuthSlice } from './googleAuthSlice';
+import { calendarSlice } from './calendarSlice';
 
 export const { setAuth, removeAuth } = googleAuthSlice.actions;
 

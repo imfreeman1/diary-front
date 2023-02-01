@@ -7,9 +7,7 @@ import useCalendar from './hooks/useCalendar';
 const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MonthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 
-const onClick=(dayInfo)=>{
-  console.log({dayInfo})
-}
+
 const MonthPage = () => {
 
   let date = new Date();
@@ -20,6 +18,9 @@ const MonthPage = () => {
   }, [])
   const {calendar} = useSelector((state)=> state.calendarReducer);
   console.log(calendar)
+
+
+  
   return (
     <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
       <div className='bg-white'>
@@ -31,7 +32,7 @@ const MonthPage = () => {
         </div>
         <table className='border-collapse border border-black'>
           {calendar.map((val,idx) => {
-          return <MonthWeek key={idx} week={val} onClick={onClick}/>
+          return <MonthWeek key={idx} week={val}/>
           })
         }
         </table>
