@@ -12,14 +12,12 @@ const MonthPage = () => {
 
   let date = new Date();
   const dispatch = useDispatch();
+  const {calendar} = useSelector((state)=> state.calendarReducer);
 
   useEffect(() => {
     dispatch(setCal(useCalendar("2023",MonthList[date.getMonth()])))
   }, [])
-  const {calendar} = useSelector((state)=> state.calendarReducer);
   console.log(calendar)
-
-
   
   return (
     <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
@@ -31,9 +29,9 @@ const MonthPage = () => {
         )}
         </div>
         <table className='border-collapse border border-black'>
-          {calendar.map((val,idx) => {
+          {calendar.length?calendar.map((val,idx) => {
           return <MonthWeek key={idx} week={val}/>
-          })
+          }):null
         }
         </table>
       </div>
