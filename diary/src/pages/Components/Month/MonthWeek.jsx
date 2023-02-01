@@ -2,11 +2,11 @@ import React from 'react'
 import MonthDate from './MonthDate'
 
 
-const MonthWeek = ({week, onClick}) => {
+const MonthWeek = ({week}) => {
   return (
     <tbody>
       <tr className='flex' >{week.map((val,idx) => {
-        return <MonthDate dayInfo={val} onClick={onClick} key={idx}/>
+        return <MonthDate dayInfo={val} key={idx}/>
       })}
       </tr>
     </tbody>
