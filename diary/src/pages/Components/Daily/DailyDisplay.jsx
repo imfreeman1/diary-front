@@ -1,3 +1,4 @@
+import Tiptap from '@/pages/Components/Tiptap/Tiptap'
 import React from 'react'
 import RoundLine from '../RoundLine'
 
@@ -28,8 +29,8 @@ const DailyDisplay = () => {
                 </div>
             </div>
             <div className='h-[230px]'></div>
-            <div className='h-[380px] border-2 border-gray-200'>
-                <textarea className='w-full h-full bg-[#ececec] border-2 border-black text-xl leading-loose underline underline-offset-8' placeholder='글 작성'></textarea>
+            <div className='h-[380px] border-2 border-gray-200 overflow-auto'>
+            <Tiptap></Tiptap>
             </div>
 
 
