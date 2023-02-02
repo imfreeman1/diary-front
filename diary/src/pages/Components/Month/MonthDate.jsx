@@ -3,22 +3,21 @@ import React, { useState } from 'react'
 
 const MonthDate = ({dayInfo}) => {
   const [visible, setVisible] = useState(false)
+
   const handleModalOpen = () =>{
-      setVisible(true)
-      console.log(visible)
+      setTimeout(() => {
+        setVisible(true)
+      }, 300);
   }
   const handleModalClose = () =>{
     setVisible(false)
-  }
-  const onClick=(dayInfo)=>{
-    console.log({dayInfo})
+    console.log(visible)
+
   }
   return (
     <>
-    <td onDoubleClick={handleModalOpen} className={`border w-32 h-32 border-black ${dayInfo.isHoliday?"text-[#FF0000]":"text-black"}`}>{dayInfo.date} {dayInfo.dateName}</td>
-    <div>
-    {visible?<MonthModal onClick={handleModalClose}></MonthModal>:undefined}
-    </div>
+    <td onDoubleClick={()=>handleModalOpen()} className={`border w-32 h-32 border-black ${dayInfo.isHoliday?"text-[#FF0000]":"text-black"}`}>{dayInfo.date} {dayInfo.dateName}</td>
+    <MonthModal dayInfo={dayInfo} visible={visible} handleModalClose={handleModalClose}></MonthModal>
     </>
   )
 }

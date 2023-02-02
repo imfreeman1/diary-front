@@ -17,7 +17,6 @@ const MonthPage = () => {
   useEffect(() => {
     dispatch(setCal(useCalendar("2023",MonthList[date.getMonth()])))
   }, [])
-  console.log(calendar)
   
   return (
     <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
