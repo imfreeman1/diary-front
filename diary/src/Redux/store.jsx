@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { googleAuthReducer, calendarReducer } from './calendarSlice';
+import { googleAuthReducer } from './googleAuthSlice';
+import { calendarReducer } from './calendarSlice';
 
 const rootReducer = combineReducers({googleAuthReducer, calendarReducer})
 
