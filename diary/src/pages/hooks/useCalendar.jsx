@@ -6,16 +6,29 @@ const useCalendar = (year, month) =>{
     const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
     const monthStartDay = new Date(year, month*1-1, 1).getDay()
 
-    const makeMonthTable = Array.from(Array(5),(_,idx)=>{
+    const makeMonthTable = Array.from(Array(6),(_,idx)=>{
       let week = [];
       let startday = 1;
       for (let i of dayOfTheWeek) {
+
         let dateObj = {};
         let date = (idx*7)-monthStartDay+startday++
-        if(date>monthDays[month*1 -1]||date<1) date = undefined
-        dateObj.date = date;
-        if(date) dateObj.locdate = `${year}-${month}-`+ date.toString().padStart(2,"0")
-        else dateObj.locdate = undefined
+        if(date>monthDays[month*1 -1]) {
+          dateObj.isInMonth = false
+          dateObj.date = date - monthDays[month*1 -1]
+          dateObj.locdate = undefined
+          if(idx===5 && i==="Sun") break
+        }
+        else if(date<1) {
+          dateObj.isInMonth = false
+          dateObj.date = date + (31 && monthDays[month*1 -2]) 
+          dateObj.locdate = undefined
+        }
+        else {
+          dateObj.isInMonth = true
+          dateObj.date = date;
+          dateObj.locdate = `${year}-${month}-`+ date.toString().padStart(2,"0")
+        }
         dateObj.day = i;
         dateObj.dateName = Holiday[year][dateObj.locdate]
         dateObj.isHoliday = i==="Sun"? true: dateObj.dateName?true:false

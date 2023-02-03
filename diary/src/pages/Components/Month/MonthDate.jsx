@@ -11,12 +11,10 @@ const MonthDate = ({dayInfo}) => {
   }
   const handleModalClose = () =>{
     setVisible(false)
-    console.log(visible)
-
   }
   return (
     <>
-    <td onDoubleClick={()=>handleModalOpen()} className={`border w-32 h-32 border-black ${dayInfo.isHoliday?"text-[#FF0000]":"text-black"}`}>{dayInfo.date} {dayInfo.dateName}</td>
+    <td onDoubleClick={()=>handleModalOpen()} className={`border w-32 h-32 border-black font-bold text-lg ${dayInfo.isInMonth?dayInfo.isHoliday?"text-[#FF0000]":"text-black":"text-gray-400"}`}>{dayInfo.date} {dayInfo.dateName}</td>
     <MonthModal dayInfo={dayInfo} visible={visible} handleModalClose={handleModalClose}></MonthModal>
     </>
   )
