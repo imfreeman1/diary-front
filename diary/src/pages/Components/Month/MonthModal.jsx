@@ -4,8 +4,8 @@ import MonthModalTodo from './MonthModalTodo'
 const MonthModal = ({dayInfo, visible, handleModalClose}) => {
 
   return (
-    (visible ?
-      <MonthModalTodo  dayInfo={dayInfo} handleModalClose={handleModalClose} ></MonthModalTodo>
+    (visible && dayInfo.locdate ?
+      <MonthModalTodo  dayInfo={dayInfo} handleModalClose={handleModalClose} />
     : null
     )
   )
