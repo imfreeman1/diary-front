@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../Button'
 import { useRouter } from 'next/router'
 
-const hoverBgColorObj = {Month:"hover:bg-orange-200", Weekly:"hover:bg-[#9DBC9D]",};
+const hoverBgColorObj = {Month:"hover:bg-gray-100", Weekly:"hover:bg-[#9DBC9D]",};
 
 const NavItem = ({title}) => {
   const router = useRouter().pathname.replace('/','');

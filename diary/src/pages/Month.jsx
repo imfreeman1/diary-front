@@ -19,8 +19,8 @@ const MonthPage = () => {
   }, [])
   
   return (
-    <div className='flex justify-center pt-5 h-full w-full bg-orange-200'>
-      <div className='bg-white'>
+    <div className='flex justify-center pt-5 h-screen w-full bg-gray-100'>
+      <div className='bg-white m-5 h-fit'>
         <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6'>{date.getMonth()+1}</div>
         <div className='flex mb-2 mt-4'>
           {dayOfTheWeek.map((val, idx)=> 
