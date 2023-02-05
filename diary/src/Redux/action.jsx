@@ -6,4 +6,4 @@ export const { setAuth, removeAuth } = googleAuthSlice.actions;
 
 export const { setCal } = calendarSlice.actions;
 
-export const { setTodo, delTodo } = todoSlice.actions;
+export const { setTodo, delTodo, editTodo } = todoSlice.actions;
