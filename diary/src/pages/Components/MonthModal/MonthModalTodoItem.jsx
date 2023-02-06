@@ -23,7 +23,7 @@ const MonthModalTodoItem = ({idx, todo, dayInfo}) => {
   return (
     <>
         <li key={idx} onClick={()=>handleItemModalOpen()} className="bg-red-100">{todo.text}</li>
-        {/* <MonthEditModal ref={modalRef} modalOutSideClick={modalOutSideClick} todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal> */}
+        <MonthEditModal ref={modalRef} modalOutSideClick={modalOutSideClick} todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal>
     </>
   )
 }
