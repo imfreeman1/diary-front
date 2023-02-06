@@ -1,36 +1,23 @@
 import MonthInputModal from '@/pages/Components/MonthModal/MonthInputModal'
 import useOnClickOutside from '@/pages/hooks/useOnClickOutSide'
-import { openModal } from '@/Redux/action'
 import React, { useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import MonthEditModal from '../MonthModal/MonthEditModal'
+import { useSelector } from 'react-redux'
+import MonthModalTodoItem from '../MonthModal/MonthModalTodoItem'
 
 const MonthDate = ({dayInfo}) => {
   const [visible, setVisible] = useState(false)
   const inputModalRef = useRef()
-
-  const [itemVisible, setItemVisible] = useState(false)
-  const editModalRef = useRef()
 
   const handleModalOpen = () =>{
       setTimeout(() => {
         setVisible(true)
       }, 300);
   }
-  const handleItemModalOpen = () =>{
-    setTimeout(() => {
-      setItemVisible(true)
-    }, 300);
-}
+
   const handleModalClose = () =>{
     setVisible(false)
   }
-  const handleItemModalClose = () =>{
-    setItemVisible(false)
-  }
-
   useOnClickOutside(inputModalRef, () => setVisible(false))
-  useOnClickOutside(editModalRef, () => setItemVisible(false))
 
   const {locdate} = dayInfo
   const {todos} = useSelector((state)=>state.todoReducer)
@@ -41,18 +28,13 @@ const MonthDate = ({dayInfo}) => {
       <div>
         {todos.map((todo, idx)=>{
           return todo.date=== locdate ? 
-          <>
-            <li key={idx} onClick={()=>handleItemModalOpen()}>{todo.text}</li>
-            <div ref={editModalRef}>
-              <MonthEditModal todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal>
-            </div>
-          </>
+            <MonthModalTodoItem idx={idx} todo={todo} dayInfo={dayInfo} />
           :null
         }
         )}
       </div>
       <div ref={inputModalRef}>
-      <MonthInputModal dayInfo={dayInfo} visible={visible} handleModalClose={handleModalClose}></MonthInputModal>
+      <MonthInputModal dayInfo={dayInfo} visible={visible} handleModalClose={handleModalClose} />
       </div>
     </td>
     </>
