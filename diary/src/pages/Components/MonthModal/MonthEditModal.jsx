@@ -1,29 +1,29 @@
 import { delTodo, editTodo } from '@/Redux/action';
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '../Button';
 
 const MonthEditModal = ({ref, modalOutSideClick, todo, dayInfo, itemVisible, handleItemModalClose}) => {
 
-    // const dispatch = useDispatch();
-    // const [edited, setEdited] =useState(false)
-    // const [text, setText] = useState(todo.text)
+    const dispatch = useDispatch();
+    const [edited, setEdited] =useState(false)
+    const [text, setText] = useState(todo.text)
   
-    // const handleKeyPress = (e) => {
-    //     e.preventDefault()
-    //     dispatch(editTodo([text, todo]))
-    //     setEdited(false)
-    //   }
-    // const handleEditText = (e) =>{
-    //     setText(e.target.value)
-    // }
-    // const onDelete = (todo) => {
-    //     dispatch(delTodo(todo));
-    // };
-    //   console.log(todo)
+    const handleKeyPress = (e) => {
+        e.preventDefault()
+        dispatch(editTodo([text, todo]))
+        setEdited(false)
+      }
+    const handleEditText = (e) =>{
+        setText(e.target.value)
+    }
+    const onDelete = (todo) => {
+        dispatch(delTodo(todo));
+    };
+      console.log(todo)
   return (
     (itemVisible && dayInfo.locdate ?
-      <div className='z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl' ref={ref} onClick={(e)=>modalOutSideClick(e)}>
+      <div className='z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl'>
         <div className='m-3'>
 
             <Button onClick={()=>setEdited(true)} content="수정" />

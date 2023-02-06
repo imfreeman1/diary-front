@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCal } from '@/Redux/action';
 import MonthWeek from './Components/Month/MonthWeek';
 import useCalendar from './hooks/useCalendar';
 import Button from './Components/Button';
-import MonthInputModal from './Components/MonthModal/MonthInputModal';
 
 const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MonthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
@@ -48,7 +47,6 @@ const MonthPage = () => {
           }):null
         }
         </table>
-        <MonthInputModal></MonthInputModal>
       </div>
     </div>
   )
