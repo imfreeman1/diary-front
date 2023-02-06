@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCal } from '@/Redux/action';
 import MonthWeek from './Components/Month/MonthWeek';
 import useCalendar from './hooks/useCalendar';
 import Button from './Components/Button';
+import MonthInputModal from './Components/MonthModal/MonthInputModal';
 
 const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MonthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
@@ -22,13 +23,11 @@ const MonthPage = () => {
   const moveToNextMonth = (month) =>{
       setMonth(date.getMonth()+1)
   }
-  // useEffect(()=>{
-
-  // },[month])
   useEffect(() => {
     dispatch(setCal(useCalendar("2023",MonthList[month])))
-    console.log("check")
   }, [month])
+
+
   
   return (
     <div className='flex justify-center pt-5 h-screen w-full bg-gray-100'>
@@ -49,6 +48,7 @@ const MonthPage = () => {
           }):null
         }
         </table>
+        <MonthInputModal></MonthInputModal>
       </div>
     </div>
   )
