@@ -24,8 +24,11 @@ const MonthDate = ({dayInfo}) => {
   console.log("todos", todos)
   return (
     <>
-    <td onDoubleClick={()=>handleModalOpen()} className={`static border w-32 h-32 border-black font-bold text-lg ${dayInfo.isInMonth?dayInfo.isHoliday?"text-[#FF0000]":"text-black":"text-gray-400"}`}>{dayInfo.date} {dayInfo.dateName}
-      <div>
+    <td onDoubleClick={()=>handleModalOpen()} className="static border w-36 h-40 border-black "> 
+      <div className={`font-bold text-md ${dayInfo.isInMonth?dayInfo.isHoliday?"text-[#FF0000]":"text-black":"text-gray-400"}`}>
+        <span>{dayInfo.date} </span>
+        <span>{dayInfo.dateName}</span>
+      </div>
         {todos.map((todo, idx)=>{
           return todo.date=== locdate ? 
             <MonthModalTodoItem idx={idx} todo={todo} dayInfo={dayInfo} />

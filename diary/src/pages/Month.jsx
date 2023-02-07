@@ -31,14 +31,15 @@ const MonthPage = () => {
   return (
     <div className='flex justify-center pt-5 h-screen w-full bg-gray-100'>
       <div className='bg-white m-5 h-fit'>
-      <div className='inline text-4xl border-black border-2 rounded-[50%] w-min px-6 m-3'></div>
-        <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6 m-3'>{month+1}
+      <div className='inline text-4xl border-black border-2 rounded-[50%] w-min px-6 m-3'>
         <Button onClick={(month)=>moveToLastMonth(month)} content="<"></Button>
         <Button onClick={(month)=>moveToNextMonth(month)} content=">"></Button>
+      </div>
+        <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6 m-3'>{month+1}
         </div>
         <div className='flex mb-2 mt-4'>
           {dayOfTheWeek.map((val, idx)=> 
-            <div className={`w-32 flex justify-center ${val==="Sun"? "text-[#FF0000]":""}`} key={idx}>{val[0]}</div>
+            <div className={`w-36 flex justify-center ${val==="Sun"? "text-[#FF0000]":""}`} key={idx}>{val[0]}</div>
         )}
         </div>
         <table className='border-collapse border border-black'>
