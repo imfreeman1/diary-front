@@ -11,7 +11,7 @@ const MonthEditModal = ({ref, modalOutSideClick, todo, dayInfo, itemVisible, han
   
     const handleKeyPress = (e) => {
         e.preventDefault()
-        dispatch(editTodo([text, todo]))
+        dispatch(editTodo({"text": text, "todo": todo}))
         setEdited(false)
       }
     const handleEditText = (e) =>{

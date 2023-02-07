@@ -13,7 +13,7 @@ const MonthInputModal = ({ dayInfo, visible, handleModalClose }) => {
 
   const handleKeyPress = (e) => {
       e.preventDefault()
-      dispatch(setTodo([text, dayInfo]))
+      dispatch(setTodo({"text":text, "dayInfo":dayInfo}))
       setText("");
     }
 
