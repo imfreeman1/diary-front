@@ -1,7 +1,6 @@
 import useOnClickOutside from '@/pages/hooks/useOnClickOutSide'
 import React, { useRef, useState } from 'react'
 import MonthEditModal from '../MonthModal/MonthEditModal'
-import MonthTodoItemsModal from '../MonthModal/MonthTodoItemsModal'
 
 const MonthTodoItem = ({idx, todo, dayInfo}) => {
   const [itemVisible, setItemVisible] = useState(false)
@@ -25,7 +24,6 @@ const MonthTodoItem = ({idx, todo, dayInfo}) => {
     <div ref={editModalRef}>
         <MonthEditModal todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal>
     </div>
-      {/* <MonthTodoItemsModal></MonthTodoItemsModal> */}
     </>
   )
 }
