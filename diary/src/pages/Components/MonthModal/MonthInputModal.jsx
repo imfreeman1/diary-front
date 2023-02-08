@@ -1,11 +1,12 @@
 import { setTodo } from '@/Redux/action';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import Button from '../Button';
 
 const MonthInputModal = ({ dayInfo, visible, handleModalClose }) => {
   const dispatch = useDispatch()
   const [text, setText] = useState("")
+  const focusRef = useRef();
 
   const handleChange = (e) => {
     setText(e.target.value)
@@ -15,7 +16,12 @@ const MonthInputModal = ({ dayInfo, visible, handleModalClose }) => {
       e.preventDefault()
       dispatch(setTodo({"text":text, "dayInfo":dayInfo}))
       setText("");
+      handleModalClose()
     }
+
+  useEffect(()=>{
+    if(visible) focusRef.current.focus()
+  },[visible])
 
   return (
     (visible && dayInfo.locdate ?
@@ -26,7 +32,7 @@ const MonthInputModal = ({ dayInfo, visible, handleModalClose }) => {
         </div>
         <div className='text-left m-10'>
           <form onSubmit={handleKeyPress}>
-            <span>■ </span><input className = "text-xl border-b-2 " placeholder='입력하세요' value={text} onChange={handleChange} ></input>
+            <span>■ </span><input placeholder='입력하세요' value={text} ref={focusRef} onChange={handleChange} className="text-xl border-b-2"></input>
           </form>
         </div>
       </div>
