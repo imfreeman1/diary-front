@@ -1,7 +1,6 @@
 import MonthInputModal from '@/pages/Components/MonthModal/MonthInputModal'
 import useOnClickOutside from '@/pages/hooks/useOnClickOutSide'
 import React, { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import MonthTodo from './MonthTodo'
 import MonthTodoItem from './MonthTodoItem'
 
@@ -20,10 +19,6 @@ const MonthDate = ({dayInfo}) => {
   }
   useOnClickOutside(inputModalRef, () => setVisible(false))
 
-  const {locdate} = dayInfo
-  const {todos} = useSelector((state)=>state.todoReducer)
-  // console.log("todos", todos)
-
   return (
     <>
     <td onDoubleClick={()=>handleModalOpen()} className="static border w-36 h-40 border-black "> 
@@ -31,12 +26,7 @@ const MonthDate = ({dayInfo}) => {
         <span>{dayInfo.date} </span>
         <span>{dayInfo.dateName}</span>
       </div>
-      <MonthTodo todos={todos} dayInfo={dayInfo}>
-      {todos[locdate]?
-      todos[locdate].map((todo, idx)=>{
-          return <MonthTodoItem idx={idx} todo={todo} dayInfo={dayInfo} />
-        }
-        ): null}
+      <MonthTodo dayInfo={dayInfo}>
       </MonthTodo>
       <div ref={inputModalRef}>
         <MonthInputModal dayInfo={dayInfo} visible={visible} handleModalClose={handleModalClose} />
