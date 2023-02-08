@@ -1,13 +1,14 @@
 import { delTodo, editTodo } from '@/Redux/action';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import Button from '../Button';
 
-const MonthEditModal = ({ref, modalOutSideClick, todo, dayInfo, itemVisible, handleItemModalClose}) => {
+const MonthEditModal = ({todo, dayInfo, itemVisible, handleItemModalClose}) => {
 
     const dispatch = useDispatch();
     const [edited, setEdited] =useState(false)
     const [text, setText] = useState(todo.text)
+    const focusRef = useRef()
   
     const handleKeyPress = (e) => {
         e.preventDefault()
@@ -21,6 +22,10 @@ const MonthEditModal = ({ref, modalOutSideClick, todo, dayInfo, itemVisible, han
         dispatch(delTodo(todo));
     };
       console.log(todo)
+
+    useEffect(()=>{
+      if(itemVisible && edited) focusRef.current.focus()
+    },[itemVisible, edited])
   return (
     (itemVisible && dayInfo.locdate ?
       <div className='z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl'>
@@ -35,7 +40,7 @@ const MonthEditModal = ({ref, modalOutSideClick, todo, dayInfo, itemVisible, han
         <div className='text-left m-10'>
             {edited ? 
             <form  onSubmit={handleKeyPress}>
-                <span>■ </span><input className = "text-xl border-b-2 " placeholder='입력하세요' value={text} onChange={handleEditText} ></input>
+                <span>■ </span><input placeholder='입력하세요' value={text} ref={focusRef} onChange={handleEditText} className = "text-xl border-b-2"></input>
             </form>
             : <><span>■ </span><span>{todo.text}</span></>
             }
