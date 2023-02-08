@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Button from '../Button'
+import MonthTodoItem from '../Month/MonthTodoItem'
 
 const MonthListModal = ({ dayInfo, listVisible, handleListModalClose }) => {
   console.log(dayInfo)
@@ -9,14 +10,14 @@ const MonthListModal = ({ dayInfo, listVisible, handleListModalClose }) => {
 
   return (
     (listVisible ?
-      <div className='w-96 h-96 bg-white text-right select-none rounded drop-shadow-2xl'>
+    <div onDoubleClick={()=>console.log(null)} className='z-1 w-96 h-96 bg-white text-right select-none rounded drop-shadow-2xl'>
         <div>
         <Button onClick={()=>handleListModalClose()} content="X" />
         </div>
-        <div className='text-left'>{locdate}
+        <div className='text-left p-5 bg-slate-100 '>{locdate}
         {todos[locdate]?
         todos[locdate].map((todo, idx)=>{
-          return <li key={idx} className="truncate bg-red-100 p-1 my-2">{todo.text}</li>
+          return <MonthTodoItem idx={idx} todo={todo} dayInfo={dayInfo} />
         } 
         ): null}
         </div>
