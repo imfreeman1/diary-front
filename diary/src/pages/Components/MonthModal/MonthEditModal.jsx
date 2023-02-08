@@ -1,7 +1,7 @@
 import { delTodo, editTodo } from '@/Redux/action';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import Button from '../Button';
+import { BiEdit, BiTrash, BiTransfer, BiX } from 'react-icons/bi'
 
 const MonthEditModal = ({todo, dayInfo, itemVisible, handleItemModalClose}) => {
 
@@ -29,14 +29,12 @@ const MonthEditModal = ({todo, dayInfo, itemVisible, handleItemModalClose}) => {
   return (
     (itemVisible && dayInfo.locdate ?
       <div className='z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl'>
-        <div className='m-3'>
-
-            <Button onClick={()=>setEdited(true)} content="수정" />
-            <Button onClick={()=>setEdited(false)} content="확인" />
-            <Button onClick={()=>onDelete(todo)} content="삭제" />
-            <Button onClick={()=>handleItemModalClose()} content="옮기기" />
-          <Button onClick={()=>handleItemModalClose()} content="X" />
-        </div>
+          <div className='m-3 flex flex-row-reverse'>
+            <BiX onClick={()=>handleItemModalClose()} size="25" className='rounded cursor-pointer hover:bg-gray-200'></BiX>
+            <BiTransfer size="25" className='rounded cursor-pointer hover:bg-gray-200'></BiTransfer>
+            <BiTrash onClick={()=>onDelete(todo)} size="25" className='rounded cursor-pointer hover:bg-gray-200'></BiTrash>
+            <BiEdit onClick={()=>setEdited(true)} size="25" className='rounded cursor-pointer hover:bg-gray-200'></BiEdit>
+          </div>
         <div className='text-left m-10'>
             {edited ? 
             <form  onSubmit={handleKeyPress}>
