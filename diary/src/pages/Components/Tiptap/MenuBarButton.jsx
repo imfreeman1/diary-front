@@ -5,7 +5,7 @@ const MenuBarButton = ({onClick, disabled, className, content}) => {
     <button
     onClick={()=>onClick()}
     disabled={disabled}
-    className={`p-1 m-1 rounded-xl border-2 border-black hover:bg-slate-200 ${className}`}>
+    className={`outline-none focus:outline-none border-r border-gray-200 w-20 h-10 hover:text-indigo-500 active:bg-gray-50 ${className}`}>
     {content}
   </button>
   )
