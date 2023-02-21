@@ -12,30 +12,26 @@ const MonthPage = () => {
 
   const date = new Date();
   const [month, setMonth] = useState(date.getMonth())
-
   const dispatch = useDispatch();
   const {calendar} = useSelector((state)=> state.calendarReducer);
 
-  const moveToLastMonth = (month) =>{
-      setMonth(date.getMonth()-1)
-  }
-  const moveToNextMonth = (month) =>{
-      setMonth(date.getMonth()+1)
-  }
+  const moveToLastMonth = () =>{
+      setMonth(month-1)
+    }
+  const moveToNextMonth = () =>{
+      setMonth(month+1)
+    }
   useEffect(() => {
     dispatch(setCal(useCalendar("2023",MonthList[month])))
   }, [month])
 
-
-  
   return (
     <div className='flex justify-center pt-5 h-screen w-full bg-gray-100'>
       <div className='bg-white m-5 h-fit'>
-      <div className='inline text-4xl border-black border-2 rounded-[50%] w-min px-6 m-3'>
-        <Button onClick={(month)=>moveToLastMonth(month)} content="<"></Button>
-        <Button onClick={(month)=>moveToNextMonth(month)} content=">"></Button>
-      </div>
-        <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6 m-3'>{month+1}
+        <div className='flex text-4xl w-min px-6 mx-auto'>
+          <Button onClick={()=>moveToLastMonth()} content="<"></Button>
+          <div className='text-4xl border-black border-2 rounded-[50%] w-min px-6 m-3'>{month+1}</div>
+          <Button onClick={()=>moveToNextMonth()} content=">"></Button>
         </div>
         <div className='flex mb-2 mt-4'>
           {dayOfTheWeek.map((val, idx)=> 
