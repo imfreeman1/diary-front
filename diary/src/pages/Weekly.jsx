@@ -1,4 +1,4 @@
-import React from 'react'
+import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
 import WeeklyDisplay from './Components/Weekly/WeeklyDisplay'
 import Button from './Components/Button'
 
@@ -32,6 +32,7 @@ const Weekly = () => {
 
   return (
     <div className='h-screen bg-[#9DBC9D] text-center'>Weekly
+        <DatepickerComponent selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
         <div className='w-fit h-fit rounded border-2 bg-white shadow-sm mt-10 mx-auto'>
             <div className='text-2xl font-bold text-green-900 text-left ml-5'>{year}. {month}</div>
             <div className='flex justify-end gap-5 h-10 text-right mr-5'> 
