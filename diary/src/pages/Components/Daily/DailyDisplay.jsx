@@ -27,7 +27,7 @@ const DailyDisplay = ({selectedDate}) => {
                 <RoundLine/>
                 <RoundLine/>
             </div>
-            <div className='flex text-center text-xl font-bold'>
+            <div className='flex text-center text-xl font-bold border'>
                 <div className='basis-1/2'>
                    {year} . {month} . {date} 
                 </div>
@@ -35,9 +35,9 @@ const DailyDisplay = ({selectedDate}) => {
                     {week}
                 </div>
             </div>
-            <div className='m-10'>
+            <div className='m-8 mb-20'>
                 <label className='block mb-2 text-md font-medium text-gray-900 dark:text-gray-400'>Title</label>
-                <textarea rows="1" maxLength="10" className='block p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500' placeholder='title...'></textarea>
+                <textarea rows="1" className='block min-h-[52px] max-h-[52px] p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-300 focus:border-blue-300' placeholder='title...'></textarea>
             </div>
             <div className='border-2 border-gray-200 overflow-hidden'>
                 <Tiptap></Tiptap>

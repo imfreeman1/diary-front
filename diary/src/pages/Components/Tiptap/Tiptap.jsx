@@ -14,7 +14,7 @@ const Tiptap = () => {
           spellcheck: 'false',
         },
       },
-      content: `<h1>Hi there,</h1>`,
+      content: `<h1>오늘의 일기를 적어볼까요?</h1>`,
       autofocus: true,
       editable: true,
       injectCSS: false,
