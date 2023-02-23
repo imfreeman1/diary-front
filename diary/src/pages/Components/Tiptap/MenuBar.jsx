@@ -42,20 +42,9 @@ const MenuBar = ({ editor }) => {
         className={editor.isActive('strike') ? 'is-active' : ''}
         content="strike" />
       <MenuBarButton         
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        className={editor.isActive('paragraph') ? 'is-active' : ''}
-        content="paragraph" />
-      <MenuBarButton         
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
         content="h1" />
-      <MenuBarButton         
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-        content="h2" />
-      <MenuBarButton         
-        onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        content="horizontal rule" />
       <MenuBarButton         
                 onClick={() => editor.chain().focus().undo().run()}
                 disabled={
