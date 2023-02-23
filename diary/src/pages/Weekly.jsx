@@ -17,20 +17,20 @@ const Weekly = () => {
     dispatch(setWeek(useGetWeekly(selectedDate)))
   }, [selectedDate])
 
-  const lastWeek = () =>{
+  const moveToLastWeek = () =>{
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate()-7)))
   }
-  const nextWeek = () =>{
+  const moveToNextWeek = () =>{
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate()+7)))
   }
   return (
     <div className='h-screen bg-[#9DBC9D] text-center'>Weekly
         <DatepickerComponent selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
         <div className='w-fit h-fit rounded border-2 bg-white shadow-sm mt-10 mx-auto'>
-            <div className='text-2xl font-bold text-green-900 text-left ml-5'>{year}. {month} - {weeks+1}Weeks</div>
+            <div className='text-2xl font-bold text-green-900 text-left ml-5'>{year}. {month} --- {weeks+1} Weeks</div>
             <div className='flex justify-end gap-5 h-10 text-right mr-5'> 
-              <Button content="<" onClick={lastWeek}></Button>
-              <Button content=">" onClick={nextWeek}></Button>
+              <Button content="<" onClick={moveToLastWeek} />
+              <Button content=">" onClick={moveToNextWeek} />
             </div>
             
             <div className='m-3 mx-5 grid grid-cols-4 shadow'>
