@@ -22,6 +22,7 @@ const MonthTodo = ({dayInfo}) => {
   const {locdate} = dayInfo
   const {todos} = useSelector((state)=>state.todoReducer)
   const viewNum = todos[locdate]?(todos[locdate].length>3?2:3):false
+
   return (
     <>
     {todos[locdate]?
