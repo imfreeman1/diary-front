@@ -1,13 +1,13 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import TextStyle from '@tiptap/extension-text-style'
+import Color from '@tiptap/extension-color'
 import MenuBar from './MenuBar'
 
 const Tiptap = () => {
 
     const editor = useEditor({
-      extensions: [
-        StarterKit,
-      ],
+      extensions: [ StarterKit, TextStyle, Color ],
       editorProps: {
         attributes: {
           class: 'prose sm:prose lg:prose-lg xl:prose-2xl text-lg m-5 focus:outline-none',
@@ -27,7 +27,6 @@ const Tiptap = () => {
         <div className="min-w-screen min-h-fit bg-gray-200 flex items-center justify-center p-5">
           <div className="w-full max-w-6xl mx-auto rounded-xl bg-white shadow-lg p-5 text-black">
             <div className="border border-gray-200 overflow-hidden rounded-md">
-
               <div className="prose w-full flex border-b border-gray-200 text-xl text-gray-600">
                   <MenuBar editor={editor} />
               </div>
