@@ -6,7 +6,7 @@ const MonthWeek = ({week}) => {
   return (
     <tbody>
       <tr className='flex' >{week.map((val,idx) => {
-        return <MonthDate date={val.date} day={val.day} dateName={val.dateName} isHoliday={val.isHoliday} key={idx}/>
+        return <MonthDate dayInfo={val} key={idx}/>
       })}
       </tr>
     </tbody>

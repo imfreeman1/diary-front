@@ -9,7 +9,7 @@ import { setAuth } from '@/Redux/action';
 
 function GleLoginContainer() {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.userInfo);
+  const {userInfo} = useSelector((state) => state.googleAuthReducer);
   const [{ token }, setCookie] = useCookies(['token']);
 
   const setUserInfoCookies = (data) => {
