@@ -18,10 +18,13 @@ const MonthTodoItem = ({idx, todo, dayInfo}) => {
 
   useOnClickOutside(editModalRef, () => setItemVisible(false))
 
+  const onChildDbclick = (e) =>{
+    e.stopPropagation()
+  }
   return (
     <>
-    <li key={idx} onClick={()=>handleItemModalOpen()} className="truncate bg-red-100 p-1 my-2">{todo.text}</li>
-    <div ref={editModalRef}>
+    <li key={idx} onClick={()=>handleItemModalOpen()} className="block truncate bg-gray-200 p-1 pl-2 my-2">{todo.text}</li>
+    <div onDoubleClick={onChildDbclick} ref={editModalRef}>
         <MonthEditModal todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal>
     </div>
     </>

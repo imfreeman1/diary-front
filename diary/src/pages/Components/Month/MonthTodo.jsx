@@ -23,6 +23,10 @@ const MonthTodo = ({dayInfo}) => {
   const {todos} = useSelector((state)=>state.todoReducer)
   const viewNum = todos[locdate]?(todos[locdate].length>3?2:3):false
 
+  const onChildDbclick = (e) =>{
+    e.stopPropagation()
+  }
+
   return (
     <>
     {todos[locdate]?
@@ -33,8 +37,8 @@ const MonthTodo = ({dayInfo}) => {
         if(idx===viewNum){
           return <>
           <Button onClick={()=>handleListModalOpen()} content="더보기" />
-          <div ref = {listModalRef}>
-              <MonthListModal dayInfo={dayInfo} listVisible={listVisible} handleListModalClose={handleListModalClose}/>
+          <div onDoubleClick={onChildDbclick} ref={listModalRef}>
+              <MonthListModal  dayInfo={dayInfo} listVisible={listVisible} handleListModalClose={handleListModalClose}/>
           </div>
           </>
         }
