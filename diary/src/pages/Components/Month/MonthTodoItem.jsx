@@ -23,7 +23,7 @@ const MonthTodoItem = ({idx, todo, dayInfo}) => {
   }
   return (
     <>
-    <li key={idx} onClick={()=>handleItemModalOpen()} className="block truncate bg-gray-200 p-1 pl-2 my-2">{todo.text}</li>
+    <li key={idx} onClick={()=>handleItemModalOpen()} className="block truncate bg-gray-200 p-1 pl-2 my-2 mx-0.5 border-gray-400 border-2 rounded-xl hover:bg-gray-300 hover:border-gray-600 hover:cursor-pointer">{todo.text}</li>
     <div onDoubleClick={onChildDbclick} ref={editModalRef}>
         <MonthEditModal todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal>
     </div>

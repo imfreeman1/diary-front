@@ -1,20 +1,21 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import Button from '../Button'
 import MonthTodoItem from '../Month/MonthTodoItem'
+import { BiX } from 'react-icons/bi'
 
 const MonthListModal = ({ dayInfo, listVisible, handleListModalClose }) => {
-  console.log(dayInfo)
   const {locdate} = dayInfo
+  const {day} = dayInfo
   const {todos} = useSelector((state)=>state.todoReducer)
-
+  console.log(dayInfo)
   return (
     (listVisible ?
-    <div onDoubleClick={()=>console.log(null)} className='z-1 w-96 h-96 bg-white text-right select-none rounded drop-shadow-2xl'>
-        <div>
-        <Button onClick={()=>handleListModalClose()} content="X" />
+    <div className='z-1 w-96 h-96 p-1 bg-white text-right rounded drop-shadow-2xl select-none'>
+        <div className='flex m-3 justify-end'>
+          <BiX onClick={()=>handleListModalClose()} size="25" className='rounded cursor-pointer hover:bg-gray-200' />
         </div>
-        <div className='text-left p-5 bg-slate-100 '>{locdate}
+        <div className='text-left px-3'>
+          <p className='text-lg text-center text-blue-900 border-2'>{locdate} {day}</p>
         {todos[locdate]?
         todos[locdate].map((todo, idx)=>{
           return <MonthTodoItem idx={idx} todo={todo} dayInfo={dayInfo} />
@@ -24,7 +25,6 @@ const MonthListModal = ({ dayInfo, listVisible, handleListModalClose }) => {
       </div>
       :null
       )
-    
   )
 }
 

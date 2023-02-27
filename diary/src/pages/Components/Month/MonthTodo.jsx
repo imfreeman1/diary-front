@@ -36,7 +36,7 @@ const MonthTodo = ({dayInfo}) => {
         } 
         if(idx===viewNum){
           return <>
-          <Button onClick={()=>handleListModalOpen()} content="더보기" />
+          <Button onClick={()=>handleListModalOpen()} content={`일정 ${todos[locdate].length-2}개 더보기`} className="block font-semibold p-1 pl-2 my-2 mx-auto rounded hover:bg-gray-300 hover:cursor-pointer"/>
           <div onDoubleClick={onChildDbclick} ref={listModalRef}>
               <MonthListModal  dayInfo={dayInfo} listVisible={listVisible} handleListModalClose={handleListModalClose}/>
           </div>
