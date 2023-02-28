@@ -6,8 +6,9 @@ import MenuBar from './MenuBar'
 import { useState } from 'react'
 
 const Tiptap = ({date}) => {
-    const dailyDate = date.toISOString().substring(0, 10)
-    const [content, setContent] = useState("")
+    const offset = date.getTimezoneOffset() * 60000
+    const dateOffset = new Date(date.getTime() - offset)
+    const dailyDate = dateOffset.toISOString().substring(0, 10)
     const editor = useEditor({
       extensions: [ StarterKit, TextStyle, Color ],
       editorProps: {
