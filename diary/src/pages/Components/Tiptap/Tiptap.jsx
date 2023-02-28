@@ -3,9 +3,11 @@ import StarterKit from '@tiptap/starter-kit'
 import TextStyle from '@tiptap/extension-text-style'
 import Color from '@tiptap/extension-color'
 import MenuBar from './MenuBar'
+import { useState } from 'react'
 
-const Tiptap = () => {
-
+const Tiptap = ({date}) => {
+    const dailyDate = date.toISOString().substring(0, 10)
+    const [content, setContent] = useState("")
     const editor = useEditor({
       extensions: [ StarterKit, TextStyle, Color ],
       editorProps: {
@@ -14,12 +16,16 @@ const Tiptap = () => {
           spellcheck: 'false',
         },
       },
-      content: `<h1>오늘의 일기를 적어볼까요?</h1>`,
+      content: content,
       autofocus: true,
-      editable: true,
       injectCSS: false,
+      onUpdate: ({editor}) => {
+        const html = editor.getHTML()
+        setContent(html)
+        console.log(content)
+      },
     })
-  
+
 
     return (
       <>

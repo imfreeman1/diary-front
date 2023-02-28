@@ -9,13 +9,11 @@ const Daily = () => {
 
   return (
     <div className='bg-[#E5C7AF]'>
-
         <div className='w-[964px] h-fit bg-white mx-auto'>
-			<DatepickerComponent selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+			      <DatepickerComponent selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             <div className='w-fit px-3 m-5 border-2 border-black rounded-full text-xl'>Daily</div>
             <DailyDisplay selectedDate={selectedDate} />
         </div>
-
     </div>
   )
 }
