@@ -14,24 +14,25 @@ const useCalendar = (year, month) =>{
         let dateObj = {};
         let date = (idx*7)-monthStartDay+startday++
         if(date>monthDays[month*1 -1]) {
-          dateObj.isInMonth = false
+          dateObj.locdate = false
           dateObj.date = date - monthDays[month*1 -1]
-          dateObj.locdate = undefined
+          dateObj.isInMonth = false
           if(idx===5 && i==="Sun") break
         }
         else if(date<1) {
-          dateObj.isInMonth = false
+          dateObj.locdate = false
           dateObj.date = date + (31 && monthDays[month*1 -2]) 
-          dateObj.locdate = undefined
+          dateObj.isInMonth = false
         }
         else {
-          dateObj.isInMonth = true
-          dateObj.date = date;
           dateObj.locdate = `${year}-${month}-`+ date.toString().padStart(2,"0")
+          dateObj.date = date;
+          dateObj.isInMonth = true
         }
         dateObj.day = i;
-        dateObj.dateName = Holiday[year][dateObj.locdate]
+        dateObj.dateName = Holiday[year][dateObj.locdate]?Holiday[year][dateObj.locdate]:""
         dateObj.isHoliday = i==="Sun"? true: dateObj.dateName?true:false
+        dateObj.todos = [];
         week.push(dateObj);
       }
       return week;
