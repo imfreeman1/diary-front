@@ -3,12 +3,20 @@ import StarterKit from '@tiptap/starter-kit'
 import TextStyle from '@tiptap/extension-text-style'
 import Color from '@tiptap/extension-color'
 import MenuBar from './MenuBar'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { setEditorContent } from '@/Redux/action'
 
 const Tiptap = ({date}) => {
+    console.log("date",date)
     const offset = date.getTimezoneOffset() * 60000
     const dateOffset = new Date(date.getTime() - offset)
     const dailyDate = dateOffset.toISOString().substring(0, 10)
+
+    const dispatch = useDispatch();
+    const {content} = useSelector((state)=>state.editorContentReducer)
+    console.log(content[dailyDate], content, dailyDate)
+    
     const editor = useEditor({
       extensions: [ StarterKit, TextStyle, Color ],
       editorProps: {
@@ -17,16 +25,20 @@ const Tiptap = ({date}) => {
           spellcheck: 'false',
         },
       },
-      content: content,
+      content: "",
       autofocus: true,
       injectCSS: false,
       onUpdate: ({editor}) => {
         const html = editor.getHTML()
-        setContent(html)
-        console.log(content)
+        console.log("확인", dailyDate, html)
+        dispatch(setEditorContent({locdate: dailyDate, html: html}))
+        console.log("확인2",content)
       },
     })
-
+    useEffect(() => {
+      if(editor) editor.commands.setContent(content[dailyDate])
+    }, [date])
+    
 
     return (
       <>
