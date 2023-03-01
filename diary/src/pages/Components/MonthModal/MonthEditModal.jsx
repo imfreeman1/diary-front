@@ -21,11 +21,11 @@ const MonthEditModal = ({todo, dayInfo, itemVisible, handleItemModalClose}) => {
     const onDelete = (todo) => {
         dispatch(delTodo(todo));
     };
-      console.log(todo)
 
     useEffect(()=>{
       if(itemVisible && edited) focusRef.current.focus()
     },[itemVisible, edited])
+    
   return (
     (itemVisible && dayInfo.locdate ?
       <div className='z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl'>

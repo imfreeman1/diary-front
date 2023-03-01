@@ -15,7 +15,7 @@ const MonthPage = () => {
   const [month, setMonth] = useState(date.getMonth())
   const dispatch = useDispatch();
   const {calendar} = useSelector((state)=> state.calendarReducer);
-
+  
   const moveToLastMonth = () =>{
       if(month>0) setMonth(month-1)
     }
@@ -25,7 +25,6 @@ const MonthPage = () => {
   useEffect(() => {
     dispatch(setCal(useCalendar(year,MonthList[month])))
   }, [month])
-
   return (
     <div className='flex justify-center pt-5 h-screen w-full bg-gray-100'>
       <div className='bg-zinc-50 m-5 h-fit border'>

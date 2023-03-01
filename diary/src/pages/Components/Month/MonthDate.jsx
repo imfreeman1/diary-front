@@ -23,7 +23,6 @@ const MonthDate = ({dayInfo}) => {
   const onChildDbclick = (e) =>{
       e.stopPropagation()
   }
-  console.log(dayInfo)
   return (
     <>
     <td onDoubleClick={()=>handleModalOpen()} className="static w-36 h-40 border border-gray-600"> 
