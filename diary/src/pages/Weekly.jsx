@@ -12,7 +12,7 @@ const Weekly = () => {
   let [year, month, weeks] = [selectedDate.getFullYear(), selectedDate.getMonth()+1, selectedDate.getDate()/7>>0]
   const dispatch = useDispatch();
   const {weeklyPlanner} = useSelector((state)=> state.weeklyReducer);
-
+  console.log(weeklyPlanner)
   useEffect(() => {
     dispatch(setWeek(useGetWeekly(selectedDate)))
   }, [selectedDate])
