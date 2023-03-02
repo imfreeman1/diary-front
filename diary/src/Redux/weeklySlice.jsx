@@ -5,11 +5,11 @@ const calNAME = "weeklyPlanner";
 export const weeklySlice = createSlice({
   name: calNAME,
   initialState:{
-    weeklyPlanner:[],
+    weeklyContent:[],
   },
   reducers:{
     setWeek: (state, action) =>{
-      state.weeklyPlanner = action.payload 
+      state.weeklyContent = action.payload 
     }
   }
 }); 
