@@ -8,7 +8,7 @@ function NavItem({ title }) {
   const router = useRouter().pathname.replace('/', '');
   return (
     <li className={`font-bold p-2 w-min ${hoverBgColorObj[router]}`}>
-      <Button content={title} />
+      <Button content={title} onClick={()=>{}} />
     </li>
   );
 }
