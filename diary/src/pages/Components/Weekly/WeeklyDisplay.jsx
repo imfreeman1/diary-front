@@ -2,7 +2,6 @@ import React from 'react'
 
 const WeeklyDisplay = ({day}) => {
 
-
   return (
     <div className='relative w-[250px] h-[450px] bg-white rounded-xl border-2 border-black border-dashed'>
         <div className='absolute m-3 w-5 h-5 border-2 border-black rounded-full'></div>

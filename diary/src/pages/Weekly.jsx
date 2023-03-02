@@ -11,8 +11,8 @@ const Weekly = () => {
   const [selectedDate, setSelectedDate] = useState(dateInWeekly)
   let [year, month, weeks] = [selectedDate.getFullYear(), selectedDate.getMonth()+1, selectedDate.getDate()/7>>0]
   const dispatch = useDispatch();
-  const {weeklyPlanner} = useSelector((state)=> state.weeklyReducer);
-
+  const {weeklyContent} = useSelector((state)=> state.weeklyReducer);
+  console.log(weeklyContent)
   useEffect(() => {
     dispatch(setWeek(useGetWeekly(selectedDate)))
   }, [selectedDate])
@@ -34,7 +34,7 @@ const Weekly = () => {
             </div>
             
             <div className='m-3 mx-5 grid grid-cols-4 shadow'>
-                {weeklyPlanner.length?weeklyPlanner.map((day, i)=>
+                {weeklyContent.length?weeklyContent.map((day, i)=>
                 <WeeklyDisplay key={i} day={day}/>
                 ):null}
             </div>
