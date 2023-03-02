@@ -7,19 +7,23 @@ const useGetWeekly = (dateInWeekly) => {
     const calcMon = dateInWeekly.getDate() - week; 
     const nextDate = (calc) =>{
         let copyDate = new Date (dateInWeekly)
-        return new Date(copyDate.setDate(calc)).toISOString().substring(0, 10);
+        return new Date(copyDate.setDate(calc))
     } 
-    const weeklyPlan = []
+    const weeklyContent = []
     for(let i=0; i<days.length; i++){
         let weekObj={}
-        weekObj.days = days[i] 
+        weekObj.day = days[i] 
         if(i) {
-        weekObj.date = calcMon + i
-        weekObj.locdate = nextDate(calcMon + i)
+            weekObj.date = calcMon + i
+            weekObj.locdate = nextDate(calcMon + i).toISOString().substring(0, 10);
+        } else {
+            const weekcontent = nextDate(calcMon)
+            weekObj.locdate = `${weekcontent.getFullYear()}-${(weekcontent.getMonth()+1).toString().padStart(2,"0")}-W${(weekcontent.getDate()/7>>0)+1}`
         }
-        weeklyPlan.push(weekObj)
+        weekObj.text = ""
+        weeklyContent.push(weekObj)
     }
-    return weeklyPlan
+    return weeklyContent
 }
 
 export default useGetWeekly
