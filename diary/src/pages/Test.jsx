@@ -5,18 +5,19 @@ import Sticker from './Components/Sticker/Sticker';
 import StickerTable from './Components/StickerTable/StickerTable';
 
 function Test() {
-  const stickers = useSelector((state) => state.stickerReducer.sticker);
+  const stickerList = useSelector((state) => state.stickerReducer.sticker);
   return (
     <div>
-      <div>
-        {stickers.Test?.map((val) => (
+      <div className=' relative'>
+        {stickerList.Test?.map((sticker) => (
           <Sticker
-            url={val.url}
+            url={sticker.url}
             key={v4()}
-            id={val.id}
-            position={[val['data-x'], val['data-y']]}
-            width={val.width}
-            height={val.height}
+            id={sticker.id}
+            position={[sticker['data-x'], sticker['data-y']]}
+            width={sticker.width}
+            height={sticker.height}
+            selected={sticker.selected}
           />
         ))}
       </div>
