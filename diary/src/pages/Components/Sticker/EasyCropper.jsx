@@ -3,7 +3,7 @@ import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import { useDispatch } from 'react-redux';
 import Button from '../Button';
-import { addTableSticker } from '@/Redux/stickerAction';
+import { addTableSticker } from '@/Redux/action';
 
 function EasyCropper({ modalHandler }) {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ function EasyCropper({ modalHandler }) {
       const stickerURL = cropper.getCroppedCanvas().toDataURL();
       const [stickerWidth, stickerHeight] = [cropper.cropBoxData.width, cropper.cropBoxData.height];
       dispatch(addTableSticker({ url: stickerURL, width: stickerWidth, height: stickerHeight }));
+      modalHandler();
     }
   };
   return (
