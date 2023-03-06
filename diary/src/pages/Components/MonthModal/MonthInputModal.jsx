@@ -3,6 +3,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { BiX } from 'react-icons/bi'
 
+/**
+ * 
+ * @param {dayInfo} obj
+ * @param {visible} boolean
+ * @param {handleModalClose} func
+ * @returns 
+ */
+
 const MonthInputModal = ({ dayInfo, visible, handleModalClose }) => {
   const dispatch = useDispatch()
   const [text, setText] = useState("")

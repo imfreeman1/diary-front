@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import Datepicker from "tailwind-datepicker-react"
 
+/**
+ * 
+ * @param {selectedDate} date
+ * @param {setSelectedDate} func
+ * @returns 
+ */
+
 const options = {
 	title: "날짜 선택하기",
 	autoHide: true,
@@ -24,7 +31,7 @@ const options = {
 		next: () => <span>Next</span>,
 	},
 	datepickerClassNames: "top-12",
-	defaultDate: new Date("2023-02-01"),
+	defaultDate: new Date(),
 	language: "en",
 }
 

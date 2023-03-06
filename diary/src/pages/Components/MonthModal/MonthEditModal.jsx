@@ -3,6 +3,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { BiEdit, BiTrash, BiTransfer, BiX } from 'react-icons/bi'
 
+/**
+ * 
+ * @param {todo} obj
+ * @param {dayInfo} obj
+ * @param {itemVisible} boolean
+ * @param {handleItemModalClose} func
+ * @returns 
+ */
+
 const MonthEditModal = ({todo, dayInfo, itemVisible, handleItemModalClose}) => {
 
     const dispatch = useDispatch();

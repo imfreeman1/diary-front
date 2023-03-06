@@ -5,18 +5,27 @@ import Color from '@tiptap/extension-color'
 import MenuBar from './MenuBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { setEditorContent } from '@/Redux/action'
+import { setEditor } from '@/Redux/action'
 
-const Tiptap = ({date}) => {
-    console.log("date",date)
-    const offset = date.getTimezoneOffset() * 60000
-    const dateOffset = new Date(date.getTime() - offset)
-    const dailyDate = dateOffset.toISOString().substring(0, 10)
+/**
+ * 
+ * @param {dateInDaily} date
+ * @returns 
+ */
 
+const Tiptap = ({dateInDaily}) => {
+  const dateOffset = (dateInDaily) => {
+    const offset = dateInDaily.getTimezoneOffset() * 60000
+    const dateOffset = new Date(dateInDaily.getTime() - offset)
+    return dateOffset.toISOString().substring(0, 10)
+  }
+    const date = dateOffset(dateInDaily)
+    const locDaily = useSelector((state)=>state.dailyReducer.dailyContent[`D-${date}`])
+    console.log("loc", locDaily)
     const dispatch = useDispatch();
-    const {content} = useSelector((state)=>state.editorContentReducer)
-    console.log(content[dailyDate], content, dailyDate)
+    // console.log(locdate, dailyContent)
     
+
     const editor = useEditor({
       extensions: [ StarterKit, TextStyle, Color ],
       editorProps: {
@@ -27,22 +36,23 @@ const Tiptap = ({date}) => {
       },
       content: "",
       autofocus: true,
-      injectCSS: false,
-      onUpdate: ({editor}) => {
-        const html = editor.getHTML()
-        console.log("확인", dailyDate, html)
-        dispatch(setEditorContent({locdate: dailyDate, html: html}))
-        console.log("확인2",content)
-      },
     })
+
     useEffect(() => {
-      if(editor) editor.commands.setContent(content[dailyDate])
-    }, [date])
-    
+      if(editor){
+        editor.off("update");
+        editor.on("update", ({ editor }) => {
+          const html = editor.getHTML()
+          dispatch(setEditor({locdate: locDaily.locdate, html: html}))
+        });
+      }
+  }, [editor, locDaily]);
+
+    // useEffect(() => {
+    //   if(editor) editor.commands.setContent(locDaily.editorContent)
+    // }, [locDaily])
 
     return (
-      <>
-      <div>
         <div className="min-w-screen min-h-fit bg-gray-200 flex items-center justify-center p-5">
           <div className="w-full max-w-6xl mx-auto rounded-xl bg-white shadow-lg p-5 text-black">
             <div className="border border-gray-200 overflow-hidden rounded-md">
@@ -68,8 +78,6 @@ const Tiptap = ({date}) => {
 
           </div>
         </div>
-      </div>
-      </>
     )
   }
 

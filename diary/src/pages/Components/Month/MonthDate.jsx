@@ -3,6 +3,12 @@ import MonthTodo from './MonthTodo'
 import MonthInputModal from '@/pages/Components/MonthModal/MonthInputModal'
 import useOnClickOutside from '@/pages/hooks/useOnClickOutSide'
 
+/**
+ * 
+ * @param {dayInfo} obj
+ * @returns 
+ */
+
 const MonthDate = ({dayInfo}) => {
   const [visible, setVisible] = useState(false)
   const inputModalRef = useRef()
