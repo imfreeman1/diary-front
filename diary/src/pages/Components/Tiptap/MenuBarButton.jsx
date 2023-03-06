@@ -1,5 +1,13 @@
 import React from 'react'
 
+/**
+ * 
+ * @param {onClick} func
+ * @param {disabled} boolean
+ * @param {content} str
+ * @returns 
+ */
+
 const MenuBarButton = ({onClick, disabled, className, content}) => {
   return (
     <button

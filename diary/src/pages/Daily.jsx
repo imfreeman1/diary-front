@@ -4,7 +4,6 @@ import DailyDisplay from './Components/Daily/DailyDisplay'
 import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent'
 
 const Daily = () => {
-	const [show, setShow] = useState(false)
   	const [selectedDate, setSelectedDate] = useState(null)
 
   return (

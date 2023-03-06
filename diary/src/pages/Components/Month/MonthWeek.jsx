@@ -1,6 +1,11 @@
 import React from 'react'
 import MonthDate from './MonthDate'
 
+/**
+ * 
+ * @param {week} list
+ * @returns 
+ */
 
 const MonthWeek = ({week}) => {
   return (

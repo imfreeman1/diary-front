@@ -2,6 +2,14 @@ import React from 'react'
 import MonthTodoItem from '../Month/MonthTodoItem'
 import { BiX } from 'react-icons/bi'
 
+/**
+ * 
+ * @param {dayInfo} obj
+ * @param {listVisible} boolean
+ * @param {handleListModalClose} func
+ * @returns 
+ */
+
 const MonthListModal = ({ dayInfo, listVisible, handleListModalClose }) => {
   const {locdate} = dayInfo
   const {todos} = dayInfo

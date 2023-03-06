@@ -4,6 +4,12 @@ import Button from '../Button';
 import MonthListModal from '../MonthModal/MonthListModal';
 import MonthTodoItem from './MonthTodoItem';
 
+/**
+ * 
+ * @param {dayInfo} obj
+ * @returns 
+ */
+
 const MonthTodo = ({dayInfo}) => {
   const [listVisible, setListVisible] = useState(false)
   const listModalRef = useRef()

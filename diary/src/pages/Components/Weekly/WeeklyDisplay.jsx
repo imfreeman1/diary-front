@@ -1,5 +1,11 @@
 import React from 'react'
 
+/**
+ * 
+ * @param {day} obj
+ * @returns 
+ */
+
 const WeeklyDisplay = ({day}) => {
 
   return (
