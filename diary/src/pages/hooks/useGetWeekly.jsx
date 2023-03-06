@@ -1,5 +1,11 @@
 import React from 'react'
 
+/**
+ * 
+ * @param {dateInWeekly} date
+ * @returns 
+ */
+
 const useGetWeekly = (dateInWeekly) => {
     
     const days = ["Weekly", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
