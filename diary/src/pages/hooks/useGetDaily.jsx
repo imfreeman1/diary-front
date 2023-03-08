@@ -2,23 +2,18 @@ import React from 'react'
 
 /**
  * 
- * @param {dateInDaily} date
+ * @param {dateInDaily} str (0000-00-00)
  * @returns 
  */
 
-const useGetDaily = (dateInDaily) => {
+const useGetDaily = (date) => {
     const WEEKDAY = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+    const dateInDaily = new Date(date)
 
-    const dateOffset = (dateInDaily) => {
-        const offset = dateInDaily.getTimezoneOffset() * 60000
-        const dateOffset = new Date(dateInDaily.getTime() - offset)
-        return dateOffset.toISOString().substring(0, 10)
-      }
     const dailyContent = {}
-    // dailyContent.dateInDaily = dateInDaily
-    dailyContent.locdate = (dateOffset(dateInDaily)) 
+    dailyContent.locdate = date
     dailyContent.week = WEEKDAY[dateInDaily.getDay()] 
-    dailyContent.text =""
+    dailyContent.titleText =""
     dailyContent.editorContent = ""
   return dailyContent
 }
