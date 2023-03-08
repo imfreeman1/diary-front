@@ -9,37 +9,34 @@ export const calendarSlice = createSlice({
     calendar:{},
   },
   reducers:{
-    setCal: (state, action) => {
-      state.calendar = action.payload 
+    setCal: (state, {payload}) => {
+      state.calendar = payload
     },
-    setTodo: (state, action) => {
-      const date = action.payload.dayInfo["locdate"]
+    setTodo: ({calendar}, {payload: {dayInfo, text}}) => {
       const todo = {
         id: v4(),
-        date: date,
-        text: action.payload.text
+        date: dayInfo.locdate,
+        text: text
       }
-      state.calendar.map((week)=>week.map((day)=>{
-        if(day.locdate===date){
+      calendar.map((week)=>week.map((day)=>{
+        if(day.locdate===dayInfo.locdate){
           day.todos = [...day.todos, todo]
         }
       }))
     },
-    delTodo: (state, action) => {
-      const date = action.payload.date
-      state.calendar.map((week)=>week.map((day)=>{
+    delTodo: ({calendar}, {payload:{date, id}}) => {
+      calendar.map((week)=>week.map((day)=>{
         if(day.locdate===date){
           day.todos = [...day.todos.filter((todo)=>
-            todo.id !== action.payload.id)]
+            todo.id !== id)]
         }
       }))
     },
-    editTodo: (state, action) => {
-      const date = action.payload.todo.date
-      state.calendar.map((week)=> week.map((day)=>{
-        if(day.locdate===date){
-          const findTodo = day.todos.find((todo)=>todo.id===action.payload.todo.id)
-          findTodo.text = action.payload.text
+    editTodo: ({calendar}, {payload: {todo, text}}) => {
+      calendar.map((week)=> week.map((day)=>{
+        if(day.locdate===todo.date){
+          const findTodo = day.todos.find((letodo)=>letodo.id===todo.id)
+          findTodo.text = text
         }
       }))
     }

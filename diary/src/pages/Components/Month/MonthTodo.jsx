@@ -36,13 +36,13 @@ const MonthTodo = ({dayInfo}) => {
     <>
     {todos.map((todo, idx)=>{
         if(idx<viewNum){
-          return <MonthTodoItem idx={idx} todo={todo} dayInfo={dayInfo} />
+          return <MonthTodoItem key={idx} todo={todo} dayInfo={dayInfo} />
         } 
         if(idx===viewNum){
           return <>
           <Button onClick={()=>handleListModalOpen()} content={`일정 ${todos.length-2}개 더보기`} className="block font-semibold p-1 pl-2 my-2 mx-auto rounded hover:bg-gray-300 hover:cursor-pointer"/>
           <div onDoubleClick={onChildDbclick} ref={listModalRef}>
-              <MonthListModal  dayInfo={dayInfo} listVisible={listVisible} handleListModalClose={handleListModalClose}/>
+              <MonthListModal dayInfo={dayInfo} listVisible={listVisible} handleListModalClose={handleListModalClose}/>
           </div>
           </>
         }
