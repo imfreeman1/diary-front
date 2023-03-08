@@ -12,4 +12,4 @@ export const { setWeek } = weeklySlice.actions;
 
 export const { setEditorContent } = editorContentSlice.actions;
 
-export const { setDaily, setEditor } = dailySlice.actions;
+export const { setDaily, setDate, setEditor, setTitle } = dailySlice.actions;
