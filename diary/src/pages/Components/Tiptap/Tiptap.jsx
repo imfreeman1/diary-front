@@ -13,18 +13,12 @@ import { setEditor } from '@/Redux/action'
  * @returns 
  */
 
-const Tiptap = ({dateInDaily}) => {
-  const dateOffset = (dateInDaily) => {
-    const offset = dateInDaily.getTimezoneOffset() * 60000
-    const dateOffset = new Date(dateInDaily.getTime() - offset)
-    return dateOffset.toISOString().substring(0, 10)
-  }
-    const date = dateOffset(dateInDaily)
-    const locDaily = useSelector((state)=>state.dailyReducer.dailyContent[`D-${date}`])
-    console.log("loc", locDaily)
-    const dispatch = useDispatch();
-    // console.log(locdate, dailyContent)
+const Tiptap = () => {
+
+    const {date} = useSelector((state)=>state.dailyReducer.dailyContent)
+    const daily = useSelector((state)=>state.dailyReducer.dailyContent[`D-${date}`])
     
+    const dispatch = useDispatch();
 
     const editor = useEditor({
       extensions: [ StarterKit, TextStyle, Color ],
@@ -36,21 +30,20 @@ const Tiptap = ({dateInDaily}) => {
       },
       content: "",
       autofocus: true,
+      injectCSS: false,
+      parseOptions: {
+        preserveWhitespace: true
+      },
     })
-
+  // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
     useEffect(() => {
-      if(editor){
-        editor.off("update");
-        editor.on("update", ({ editor }) => {
+        editor?.off("update");
+        if(daily && daily.editorContent) editor?.commands.setContent(daily.editorContent)
+        editor?.on("update", ({ editor }) => {
           const html = editor.getHTML()
-          dispatch(setEditor({locdate: locDaily.locdate, html: html}))
+          dispatch(setEditor({locdate: daily.locdate, html: html}))
         });
-      }
-  }, [editor, locDaily]);
-
-    // useEffect(() => {
-    //   if(editor) editor.commands.setContent(locDaily.editorContent)
-    // }, [locDaily])
+  }, [editor, daily]);
 
     return (
         <div className="min-w-screen min-h-fit bg-gray-200 flex items-center justify-center p-5">
