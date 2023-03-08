@@ -23,7 +23,7 @@ const MonthListModal = ({ dayInfo, listVisible, handleListModalClose }) => {
         <div className='text-left px-3'>
           <p className='text-lg text-center text-blue-900 border-2'>{locdate} {day}</p>
         {todos.map((todo, idx)=>{
-          return <MonthTodoItem idx={idx} todo={todo} dayInfo={dayInfo} />
+          return <MonthTodoItem key={idx} todo={todo} dayInfo={dayInfo} />
         } 
         )}
         </div>
