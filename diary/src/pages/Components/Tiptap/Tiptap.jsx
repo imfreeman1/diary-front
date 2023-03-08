@@ -29,7 +29,6 @@ const Tiptap = () => {
         },
       },
       content: "",
-      autofocus: true,
       injectCSS: false,
       parseOptions: {
         preserveWhitespace: true
@@ -38,7 +37,7 @@ const Tiptap = () => {
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
     useEffect(() => {
         editor?.off("update");
-        if(daily && daily.editorContent) editor?.commands.setContent(daily.editorContent)
+        if(editor && !editor.isDestroyed && daily) editor?.commands.setContent(daily.editorContent)
         editor?.on("update", ({ editor }) => {
           const html = editor.getHTML()
           dispatch(setEditor({locdate: daily.locdate, html: html}))

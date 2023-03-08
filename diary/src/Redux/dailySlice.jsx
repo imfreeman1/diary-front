@@ -8,25 +8,20 @@ export const dailySlice = createSlice({
       dailyContent:{},
     },
     reducers:{
-      setDaily: (state, action) =>{
-        const locdate = action.payload.locdate
-        if(!state.dailyContent[`D-${locdate}`]){
-          state.dailyContent[`D-${locdate}`] = action.payload
+      setDaily: ({dailyContent}, {payload, payload : {locdate}}) =>{
+        if(!dailyContent[`D-${locdate}`]){
+          dailyContent[`D-${locdate}`] = payload
         }
       },
-      setDate: (state, action) => {
-        state.dailyContent.date = action.payload
+      setDate: ({dailyContent}, {payload}) => {
+        dailyContent.date = payload
       },
-      setEditor: (state, action) => {
-        const locdate = action.payload.locdate
-        console.log("Action",action.payload)
-        state.dailyContent[`D-${locdate}`].editorContent = action.payload.html
+      setEditor: ({dailyContent}, {payload : {locdate, html}}) => {
+        dailyContent[`D-${locdate}`].editorContent = html
       },
-      setTitle: (state, action) => {
-        const locdate = action.payload.date
-        const titleText = action.payload.titleText
-        if(state.dailyContent[`D-${locdate}`]){
-          state.dailyContent[`D-${locdate}`].titleText = titleText
+      setTitle: ({dailyContent}, { payload: {locdate, titleText}}) => {
+        if(dailyContent[`D-${locdate}`]){
+          dailyContent[`D-${locdate}`].titleText = titleText
         }
       },
     }
