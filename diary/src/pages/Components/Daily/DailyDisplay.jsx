@@ -30,7 +30,7 @@ const DailyDisplay = () => {
     }, [date])
 
     useEffect(() => {
-        dispatch(setTitle({titleText: content, date: date}))
+        dispatch(setTitle({titleText: content, locdate: date}))
     }, [content])
     
     const handleInput = (e) =>{
