@@ -15,19 +15,19 @@ function EasyCropper({ modalHandler }) {
   // input이 들어왔을때, file을 읽음.
   const onChange = (e) => {
     e.preventDefault();
+    // file을 let으로 두어 바꾸는건 좋아보이지 않음
     let files;
+    // 구조분해할당 가능한지 체크
+    const reader = new FileReader();
     if (e.dataTransfer) {
       files = e.dataTransfer.files;
     } else if (e.target) {
       files = e.target.files;
     }
-    const reader = new FileReader();
     reader.onload = () => {
       setInputImage(reader.result);
     };
-    if (files.length) {
-      reader.readAsDataURL(files[0]);
-    }
+    if (files.length) reader.readAsDataURL(files[0]);
   };
   const getCropData = () => {
     const imageElement = cropperRef?.current;

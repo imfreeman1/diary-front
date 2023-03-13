@@ -37,6 +37,7 @@ export const stickerSlice = createSlice({
       data.id = v4();
       data['data-x'] = position.x;
       data['data-y'] = position.y;
+      // if의 있는 조건 결과물을 변수로 한번 빼내자
       if (stickersArray[origin].filter((sticker)=> sticker.selected===true)) {
         stickersArray[origin].map((sticker)=> sticker.selected=false);
       }
@@ -72,9 +73,11 @@ export const stickerSlice = createSlice({
       stickersArray.Table.push(newSticker);
     },
     setSelect: ({stickersArray}, {payload:{origin,id}}) => {
+      // 결과물 한번 뺴놓자
       if (stickersArray[origin].some((sticker)=> sticker.selected===true)) {
         stickersArray[origin].map((sticker)=> sticker.selected=false);
       }
+      // 최악의 변수명 data
       const data = stickersArray[origin].find((sticker) => sticker.id === id);
       data.selected = !(data.selected);
     },
