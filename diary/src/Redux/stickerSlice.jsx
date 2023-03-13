@@ -15,6 +15,7 @@ const makeSticker = (num) => {
       'data-y': 0,
       width: 70,
       height: 70,
+      selected:false
     };
     arr.push(exPicture);
   }
@@ -26,43 +27,61 @@ const exStickers = makeSticker(10);
 export const stickerSlice = createSlice({
   name: NAME,
   initialState: {
-    sticker: {
+    stickersArray: {
       Month: [], Table: [...exStickers], Weekly: [], Daily: [], Test: [],
     },
   },
   reducers: {
-    setSticker: (state, action) => {
-      const data = state.sticker.Table.find((val) => val.id === action.payload.id);
+    setSticker: ({stickersArray}, {payload:{id,position,origin}}) => {
+      const data = stickersArray.Table.find((sticker) => sticker.id === id);
       data.id = v4();
-      state.sticker[action.payload.ref] = [...state.sticker[action.payload.ref], data];
+      data['data-x'] = position.x;
+      data['data-y'] = position.y;
+      if (stickersArray[origin].filter((sticker)=> sticker.selected===true)) {
+        stickersArray[origin].map((sticker)=> sticker.selected=false);
+      }
+      stickersArray[origin] = [...stickersArray[origin], data];
     },
-    removeSticker: (state) => {
-      state.userInfo = {};
+    removeSticker: ({stickersArray}, {payload:{id,origin}}) => {
+      stickersArray[origin]= stickersArray[origin].filter((sticker) => sticker.id !== id);
     },
-    setInit: (state, action) => {
-      state.sticker[action.payload.ref] = [...action.payload.data];
+    setInit: ({stickersArray}, {payload:{origin,data}}) => {
+      stickersArray[origin] = [...data];
     },
-    setPosition: (state, action) => {
-      const data = state.sticker[action.payload.ref].find((val) => val.id === action.payload.id);
-      data['data-x'] = action.payload.data[0];
-      data['data-y'] = action.payload.data[1];
+    setPosition: ({stickersArray}, {payload:{origin,id,position}}) => {
+      const data = stickersArray[origin].find((sticker) => sticker.id === id);
+      if (!data.selected) stickersArray[origin].map((sticker)=> sticker.selected=false);
+      data['data-x'] = position.x;
+      data['data-y'] = position.y;
     },
-    setResize: (state, action) => {
-      const data = state.sticker[action.payload.ref].find((val) => val.id === action.payload.id);
-      data.height = action.payload.data.y;
-      data.width = action.payload.data.x;
+    setResize: ({stickersArray}, {payload:{origin,id,size}}) => {
+      const data = stickersArray[origin].find((sticker) => sticker.id === id);
+      data.height = size.height;
+      data.width = size.width;
     },
-    addTableSticker: (state, action) => {
+    addTableSticker: ({stickersArray}, {payload:{url,size}}) => {
       const newSticker = {
         id: v4(),
-        url: action.payload.url,
+        url: url,
         'data-x': 0,
         'data-y': 0,
-        width: action.payload.width,
-        height: action.payload.height,
+        width: size.width,
+        height: size.height,
+        selected:false
       };
-      state.sticker.Table.push(newSticker);
+      stickersArray.Table.push(newSticker);
     },
+    setSelect: ({stickersArray}, {payload:{origin,id}}) => {
+      if (stickersArray[origin].some((sticker)=> sticker.selected===true)) {
+        stickersArray[origin].map((sticker)=> sticker.selected=false);
+      }
+      const data = stickersArray[origin].find((sticker) => sticker.id === id);
+      data.selected = !(data.selected);
+    },
+    resetSelect: ({stickersArray}, {payload:{origin}}) => {
+      stickersArray[origin].map((sticker)=> sticker.selected=false);
+    }
+
   },
 });
 
