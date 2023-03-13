@@ -81,6 +81,7 @@ export const stickerSlice = createSlice({
     resetSelect: ({stickersArray}, {payload:{origin}}) => {
       stickersArray[origin].map((sticker)=> sticker.selected=false);
     }
+
   },
 });
 
