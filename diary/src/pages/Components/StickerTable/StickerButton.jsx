@@ -2,19 +2,18 @@ import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import Image from 'next/image';
-import { setSticker } from '@/Redux/stickerAction';
+import { setSticker } from '@/Redux/action';
 
 function StickerButton({ url, id }) {
-  const currRef = useRef(null);
-  currRef.current = id;
   const dispatch = useDispatch();
   const currRouter = useRouter().pathname.replace('/', '');
-  const makeStickerHandler = () => {
-    dispatch(setSticker({ ref: currRouter, id: currRef.current }));
+  const makeStickerHandler = (e) => {
+    const stickerPosition = {x:e.view.innerWidth/2,y:e.view.innerHeight/2};
+    dispatch(setSticker({ origin: currRouter, id, position: stickerPosition }));
   };
   return (
-    <button id={id} onClick={makeStickerHandler} className="w-20 h-20">
-      <img className=" object-fill" src={url} width={100} height={100} alt="" />
+    <button id={id} onDoubleClick={(e)=>makeStickerHandler(e)} className="w-16 h-16">
+      <img className=" object-fill w-full h-full" src={url} width={100} height={100} alt="" />
     </button>
   );
 }
