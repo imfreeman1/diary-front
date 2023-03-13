@@ -4,11 +4,11 @@ import StickerButton from './StickerButton';
 function StickerColumn({ tableList }) {
   return (
     <tr>
-      {tableList.map((val) => (
-        <td key={val.id}>
+      {tableList.map((sticker) => (
+        <td className='p-2' key={sticker.id}>
           <StickerButton
-            url={val.url}
-            id={val.id}
+            url={sticker.url}
+            id={sticker.id}
           />
         </td>
       ))}

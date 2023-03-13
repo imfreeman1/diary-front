@@ -34,8 +34,8 @@ function EasyCropper({ modalHandler }) {
     const cropper = imageElement?.cropper;
     if (typeof cropper !== 'undefined') {
       const stickerURL = cropper.getCroppedCanvas().toDataURL();
-      const [stickerWidth, stickerHeight] = [cropper.cropBoxData.width, cropper.cropBoxData.height];
-      dispatch(addTableSticker({ url: stickerURL, width: stickerWidth, height: stickerHeight }));
+      const stickerSize = {width:cropper.cropBoxData.width, height:cropper.cropBoxData.height};
+      dispatch(addTableSticker({ url: stickerURL, size:stickerSize }));
       modalHandler();
     }
   };
