@@ -6,7 +6,7 @@ import { weeklyReducer } from './weeklySlice';
 import { editorContentReducer } from './editorContentSlice';
 import { dailyReducer } from './dailySlice';
 
-const rootReducer = combineReducers({googleAuthReducer, calendarReducer, weeklyReducer, editorContentReducer, dailyReducer})
+const rootReducer = combineReducers({googleAuthReducer, calendarReducer, weeklyReducer, editorContentReducer, dailyReducer, stickerReducer})
 
 export const store = configureStore({
   reducer: rootReducer,
