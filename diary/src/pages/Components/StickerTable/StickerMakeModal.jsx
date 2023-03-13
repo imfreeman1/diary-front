@@ -1,13 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import EasyCropper from '../Sticker/EasyCropper';
+
 
 function StickerMakeModal({ modalHandler }) {
   const focusRef = useRef(null);
-  console.log(focusRef);
+
+  useEffect(() => {
+    focusRef.current.focus();
+  }, [])
+  
+
   return (
-    <div className=" h-screen w-screen absolute z-[9999999]">
-      <div className="h-full bg-opacity-75 bg-gray-400 flex justify-center z-40 items-center">
-        <div className=" fixed border-2 bg-white z-50 opacity-100" ref={focusRef}>
+    <div className=" h-screen w-screen" >
+      <div className="h-screen bg-opacity-75 bg-gray-400 flex justify-center items-center" onClick={(e)=> e.stopPropagation()}>
+        <div className=" fixed border-2 bg-white opacity-100" ref={focusRef}>
           <EasyCropper modalHandler={modalHandler} />
         </div>
       </div>
