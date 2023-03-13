@@ -5,7 +5,7 @@ import Sticker from './Components/Sticker/Sticker';
 import StickerTable from './Components/StickerTable/StickerTable';
 
 function Test() {
-  const stickerList = useSelector((state) => state.stickerReducer.sticker);
+  const stickerList = useSelector((state) => state.stickerReducer.stickersArray);
   return (
     <div>
       <div className=' relative'>
