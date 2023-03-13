@@ -5,26 +5,31 @@ import MonthWeek from './Components/Month/MonthWeek';
 import useCalendar from './hooks/useCalendar';
 import { BiCaretUp, BiCaretDown } from "react-icons/bi";
 
+// 상수를 따로 뺴보자
 const dayOfTheWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MonthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 
 const MonthPage = () => {
 
+  // 변수이름을 파일 또는 기능에 맞추어서 알아볼수있게
   const date = new Date();
   const year = date.getFullYear()
   const [month, setMonth] = useState(date.getMonth())
   const dispatch = useDispatch();
   const {calendar} = useSelector((state)=> state.calendarReducer);
-  
+
+  useEffect(() => {
+    dispatch(setCal(useCalendar(year,MonthList[month])))
+  }, [month])
+
   const moveToLastMonth = () =>{
       if(month>0) setMonth(month-1)
     }
   const moveToNextMonth = () =>{
       if(month<11) setMonth(month+1)
     }
-  useEffect(() => {
-    dispatch(setCal(useCalendar(year,MonthList[month])))
-  }, [month])
+
+  
   return (
     <div className='flex justify-center pt-5 h-screen w-full bg-gray-100'>
       <div className='bg-zinc-50 m-5 h-fit border'>
@@ -33,6 +38,7 @@ const MonthPage = () => {
             <BiCaretUp onClick={()=>moveToNextMonth()} className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300" />
             <BiCaretDown onClick={()=>moveToLastMonth()} className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300" />
           </div>
+          {/* 월이라는 단어 도 상수다 */}
           <p className='text-5xl w-fit px-6 m-3 text-gray-700 select-none'>{month+1}월</p>
         </div>
         <div className='flex my-2 border-2'>
@@ -41,6 +47,7 @@ const MonthPage = () => {
         )}
         </div>
         <table className='border-collapse border border-gray-500'>
+          {/* val를 의미가 있는 변수로 바꿔보자 */}
           {calendar.length?calendar.map((val,idx) => {
           return <MonthWeek key={idx} week={val}/>
           }):null

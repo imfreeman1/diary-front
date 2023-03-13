@@ -16,8 +16,11 @@ const useGetWeekly = (dateInWeekly) => {
         return new Date(copyDate.setDate(calc))
     } 
     const weeklyContent = []
+    // i=> daysIndex
+    // 향상된 for in, for of, for each
     for(let i=0; i<days.length; i++){
-        let weekObj={}
+        // 내용물 키값 미리 선언 weekObj = {day:"", date:"", locdate:"", text:""}
+        let weekObj={};
         weekObj.day = days[i] 
         if(i) {
             weekObj.date = calcMon + i
@@ -27,6 +30,7 @@ const useGetWeekly = (dateInWeekly) => {
             weekObj.locdate = `${weekcontent.getFullYear()}-${(weekcontent.getMonth()+1).toString().padStart(2,"0")}-W${(weekcontent.getDate()/7>>0)+1}`
         }
         weekObj.text = ""
+        //불변성 고려 바람
         weeklyContent.push(weekObj)
     }
     return weeklyContent

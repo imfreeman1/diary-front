@@ -8,7 +8,7 @@ import RoundLine from './RoundLine'
 /**
  * 
  * @param {selectedDate} date
- * @param {dailyContent} obj
+ * @param {dailyContent} obj // 무슨객체인데?
  * @returns 
  */
 
@@ -17,12 +17,13 @@ const DailyDisplay = () => {
     const dispatch = useDispatch()
 
     const {dailyContent} = useSelector((state)=>state.dailyReducer)
+    // date이름이 너무 많다
     const {date} = useSelector((state)=>state.dailyReducer.dailyContent)
     const daily = useSelector((state)=>state.dailyReducer.dailyContent[`D-${date}`])
 
+    // if 문으로 바꾸자 
     const initContent = daily?daily.titleText?daily.titleText:"":""
     const [content, setContent] = useState("")
-    console.log(dailyContent)
     
     useEffect(() => {
         if(date) dispatch(setDaily(useGetDaily(date)))

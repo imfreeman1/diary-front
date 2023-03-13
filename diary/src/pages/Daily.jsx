@@ -7,7 +7,7 @@ import { setDate } from '@/Redux/action'
 /**
  * 
  * @param {selectedDate} date
- * @returns 
+ * @returns {string} 2021-08-01
  */
 
 const dateOffset = (dateInDaily) => {
@@ -23,6 +23,7 @@ const Daily = () => {
 
   const dispatch = useDispatch()
   // date() 객체는 redux action 객체로 불러올 수 없음. 간단한 날짜 형식으로 바꿔 넣어주기
+  // date변수가 파일마다 동일하게 많이 나온다,
   const date = dateOffset(dateInDaily)
   useEffect(() => {
     dispatch(setDate(date))

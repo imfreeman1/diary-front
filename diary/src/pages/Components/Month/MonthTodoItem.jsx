@@ -4,12 +4,13 @@ import MonthEditModal from '../MonthModal/MonthEditModal'
 
 /**
  * 
- * @param {idx} num
- * @param {todo} obj
- * @param {dayInfo} obj
+ * @param {idx} numbers
+ * @param {todo} obj // 무슨 객체야?
+ * @param {dayInfo} obj // 무슨 객체야?
  * @returns 
  */
 
+// 로직이랑 비지블 나눠
 const MonthTodoItem = ({idx, todo, dayInfo}) => {
   const [itemVisible, setItemVisible] = useState(false)
   const editModalRef = useRef()
@@ -31,10 +32,10 @@ const MonthTodoItem = ({idx, todo, dayInfo}) => {
   }
   return (
     <>
-    <li key={idx} onClick={()=>handleItemModalOpen()} className="block truncate bg-gray-200 p-1 pl-2 my-2 mx-0.5 border-gray-400 border-2 rounded-xl hover:bg-gray-300 hover:border-gray-600 hover:cursor-pointer">{todo.text}</li>
-    <div onDoubleClick={onChildDbclick} ref={editModalRef}>
-        <MonthEditModal todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal>
-    </div>
+      <li key={idx} onClick={()=>handleItemModalOpen()} className="block truncate bg-gray-200 p-1 pl-2 my-2 mx-0.5 border-gray-400 border-2 rounded-xl hover:bg-gray-300 hover:border-gray-600 hover:cursor-pointer">{todo.text}</li>
+      <div onDoubleClick={onChildDbclick} ref={editModalRef}>
+          <MonthEditModal todo={todo} dayInfo={dayInfo} itemVisible={itemVisible} handleItemModalClose={handleItemModalClose}></MonthEditModal>
+      </div>
     </>
   )
 }

@@ -11,6 +11,7 @@ const MonthWeek = ({week}) => {
   return (
     <tbody>
       <tr className='flex'>
+        {/* val => dayInfo */}
         {week.map((val,idx) => {
         return <MonthDate dayInfo={val} key={idx}/>
       })}

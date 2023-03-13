@@ -20,6 +20,7 @@ const Tiptap = () => {
     
     const dispatch = useDispatch();
 
+    // editorsetting은 따로 빼자
     const editor = useEditor({
       extensions: [ StarterKit, TextStyle, Color ],
       editorProps: {

@@ -9,7 +9,9 @@ import useOnClickOutside from '@/pages/hooks/useOnClickOutSide'
  * @returns 
  */
 
+// 파일 분리 presenter와, container로 분리를 해보자
 const MonthDate = ({dayInfo}) => {
+  // modal visible?
   const [visible, setVisible] = useState(false)
   const inputModalRef = useRef()
 
