@@ -5,6 +5,7 @@ import Logo from 'public/Logo/logo.svg';
 import Pen from 'public/Logo/pen.svg';
 import Lottie from 'lottie-react';
 import GleLoginContainer from './Components/GleLoginContainer';
+import App from 'next/app';
 
 function Landing() {
   return (
@@ -23,9 +24,12 @@ function Landing() {
     </>
   );
 }
-Landing.getInitialProps = async (ctx) => {
-   const navHidden = true;
-  return {navHidden}
+Landing.getInitialProps = async ({Component,ctx}) => {
+  let context = {};
+  if (Component) context = await Component.getInitialProps(ctx);
+  const navHidden = true;
+  
+  return {...context,navHidden};
 }
 
 export default Landing;
