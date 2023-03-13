@@ -8,7 +8,7 @@ export const { setAuth, removeAuth } = googleAuthSlice.actions;
 
 export const { setCal, setTodo, delTodo, editTodo } = calendarSlice.actions;
 
-export const { setWeek } = weeklySlice.actions;
+export const { setWeek, setWeekText } = weeklySlice.actions;
 
 export const { setEditorContent } = editorContentSlice.actions;
 
