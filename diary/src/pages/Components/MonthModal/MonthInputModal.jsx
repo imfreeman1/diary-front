@@ -6,40 +6,41 @@ import { BiX } from 'react-icons/bi'
 /**
  * 
  * @param {dayInfo} obj
- * @param {visible} boolean
- * @param {handleModalClose} func
+ * @param {inputModalVisible} boolean
+ * @param {handleInputModalClose} func
  * @returns 
  */
 
-const MonthInputModal = ({ dayInfo, visible, handleModalClose }) => {
+const MonthInputModal = ({ dayInfo, inputModalVisible, handleInputModalClose }) => {
   const dispatch = useDispatch()
-  const [text, setText] = useState("")
+  const [inputText, setInputText] = useState("")
   const focusRef = useRef();
 
   const handleChange = (e) => {
-    setText(e.target.value)
+    setInputText(e.target.value)
   };
 
   const handleKeyPress = (e) => {
       e.preventDefault()
-      dispatch(setTodo({"text":text, "dayInfo":dayInfo}))
-      setText("");
-      handleModalClose()
+      dispatch(setTodo({"text":inputText, "dayInfo":dayInfo}))
+      setInputText("");
+      handleInputModalClose()
     }
 
   useEffect(()=>{
-    if(visible) focusRef.current.focus()
-  },[visible])
+    if(inputModalVisible) focusRef.current.focus()
+  },[inputModalVisible])
 
   return (
-    (visible && dayInfo.locdate ?
+    (inputModalVisible && dayInfo.locdate ?
       <div className='z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl'>
         <div className='flex m-3 justify-end'>
-          <BiX size="25" onClick={()=>handleModalClose()} className="rounded cursor-pointer hover:bg-gray-200"/>
+          <BiX size="25" onClick={()=>handleInputModalClose()} className="rounded cursor-pointer hover:bg-gray-200"/>
         </div>
         <div className='text-left m-10'>
           <form onSubmit={handleKeyPress}>
-            <span>■ </span><input placeholder='입력하세요' value={text} ref={focusRef} onChange={handleChange} className="text-xl m-1 pl-2 border-b-2"></input>
+            <span>■ </span>
+            <input placeholder='입력하세요' value={inputText} ref={focusRef} onChange={handleChange} className="text-xl m-1 pl-2 border-b-2"/>
           </form>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import React from 'react'
 import MonthDate from './MonthDate'
+import { v4 } from "uuid"
 
 /**
- * 
  * @param {week} list
  * @returns 
  */
@@ -11,9 +11,8 @@ const MonthWeek = ({week}) => {
   return (
     <tbody>
       <tr className='flex'>
-        {/* val => dayInfo */}
-        {week.map((val,idx) => {
-        return <MonthDate dayInfo={val} key={idx}/>
+        {week.map((dayInfo) => {
+        return <MonthDate dayInfo={dayInfo} key={v4()}/>
       })}
       </tr>
     </tbody>

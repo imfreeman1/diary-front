@@ -3,30 +3,33 @@ import React, { useRef, useState } from 'react'
 import Button from '../Button';
 import MonthListModal from '../MonthModal/MonthListModal';
 import MonthTodoItem from './MonthTodoItem';
+import { v4 } from "uuid"
 
 /**
- * 
  * @param {dayInfo} obj
  * @returns 
  */
 
 const MonthTodo = ({dayInfo}) => {
-  const [listVisible, setListVisible] = useState(false)
+  const BASIC_SHOW_TODO = 2
+  const MAX_SHOW_TODO = 3
+  
+  const [listModalVisible, setListModalVisible] = useState(false)
   const listModalRef = useRef()
 
   const handleListModalOpen = () => {
     setTimeout(()=> {
-      setListVisible(true)
+      setListModalVisible(true)
     }, 300)
   }
   const handleListModalClose = () =>{
-    setListVisible(false)
+    setListModalVisible(false)
   }
 
-  useOnClickOutside(listModalRef, () => setListVisible(false))
+  useOnClickOutside(listModalRef, () => setListModalVisible(false))
 
   const {todos} = dayInfo
-  const viewNum = todos?(todos.length>3?2:3):false
+  const viewTodoLen = todos?(todos.length>MAX_SHOW_TODO?BASIC_SHOW_TODO:MAX_SHOW_TODO):false
   
   const onChildDbclick = (e) =>{
     e.stopPropagation()
@@ -35,14 +38,14 @@ const MonthTodo = ({dayInfo}) => {
   return (
     <>
     {todos.map((todo, idx)=>{
-        if(idx<viewNum){
-          return <MonthTodoItem key={idx} todo={todo} dayInfo={dayInfo} />
+        if(idx<viewTodoLen){
+          return <MonthTodoItem key={v4()} todo={todo} dayInfo={dayInfo} />
         } 
-        if(idx===viewNum){
+        if(idx===viewTodoLen){
           return <>
           <Button onClick={()=>handleListModalOpen()} content={`일정 ${todos.length-2}개 더보기`} className="block font-semibold p-1 pl-2 my-2 mx-auto rounded hover:bg-gray-300 hover:cursor-pointer"/>
           <div onDoubleClick={onChildDbclick} ref={listModalRef}>
-              <MonthListModal dayInfo={dayInfo} listVisible={listVisible} handleListModalClose={handleListModalClose}/>
+              <MonthListModal dayInfo={dayInfo} listModalVisible={listModalVisible} handleListModalClose={handleListModalClose}/>
           </div>
           </>
         }
