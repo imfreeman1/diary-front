@@ -11,6 +11,7 @@ import MonthEditModal from '../MonthModal/MonthEditModal'
  */
 
 // 로직이랑 비지블 나눠
+
 const MonthTodoItem = ({idx, todo, dayInfo}) => {
   const [itemVisible, setItemVisible] = useState(false)
   const editModalRef = useRef()
