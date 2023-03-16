@@ -19,6 +19,7 @@ const useDraggable = (position) => {
       timer.current = null;
     }, time);
   };
+  // 라이브러리 세팅은 confing 따로 관리하자
   useEffect(() => {
     interact('.draggable').draggable({
       overlap: 'pointer',
