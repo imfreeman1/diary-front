@@ -1,5 +1,5 @@
 import React from "react";
-import MonthDateContainer from "./MonthDateContainer";
+import MonthDate from "./MonthDate";
 import { v4 } from "uuid";
 import PropTypes from "prop-types";
 
@@ -13,7 +13,7 @@ const MonthWeek = ({ week }) => {
     <tbody>
       <tr className="flex">
         {week.map((dayInfo) => {
-          return <MonthDateContainer dayInfo={dayInfo} key={v4()} />;
+          return <MonthDate dayInfo={dayInfo} key={v4()} />;
         })}
       </tr>
     </tbody>

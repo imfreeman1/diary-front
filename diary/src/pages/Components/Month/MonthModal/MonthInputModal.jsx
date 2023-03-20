@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { BiX } from "react-icons/bi";
 import PropTypes from "prop-types";
-
+import { INPUT_PLACEHOLDER } from "@/Constants/monthConstants";
 /**
  *
  * @param {dayInfo} obj
@@ -16,6 +16,7 @@ const MonthInputModal = ({
   dayInfo,
   inputModalVisible,
   handleInputModalClose,
+  inputModalRef,
 }) => {
   const dispatch = useDispatch();
   const [inputText, setInputText] = useState("");
@@ -36,8 +37,16 @@ const MonthInputModal = ({
     if (inputModalVisible) focusRef.current.focus();
   }, [inputModalVisible]);
 
+  const onChildDbclick = (e) => {
+    e.stopPropagation();
+  };
+
   return inputModalVisible && dayInfo.locdate ? (
-    <div className="z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl">
+    <div
+      onDoubleClick={onChildDbclick}
+      ref={inputModalRef}
+      className="z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl"
+    >
       <div className="flex m-3 justify-end">
         <BiX
           size="25"
