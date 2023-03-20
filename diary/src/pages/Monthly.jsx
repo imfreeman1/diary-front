@@ -59,8 +59,9 @@ const MonthlyPage = () => {
           </div>
           <p className="text-5xl w-fit px-6 m-3 text-gray-700 select-none">
             {selectedMonth + 1}
-            {MONTH_INDICATING} {yearInMonth}
+            {MONTH_INDICATING}
           </p>
+          <p className="text-2xl text-green-900 select-none">{yearInMonth}</p>
         </div>
         <div className="flex my-2 border-2">
           {DAY_OF_WEEK.map((day) => (
@@ -76,9 +77,7 @@ const MonthlyPage = () => {
         </div>
         <table className="border-collapse border border-gray-500">
           {monthCalendar.length
-            ? monthCalendar.map((week) => {
-                return <MonthWeek key={v4()} week={week} />;
-              })
+            ? monthCalendar.map((week) => <MonthWeek key={v4()} week={week} />)
             : null}
         </table>
       </div>
