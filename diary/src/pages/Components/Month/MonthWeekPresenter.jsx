@@ -1,22 +1,27 @@
-import React from 'react'
-import MonthDate from './MonthDate'
-import { v4 } from "uuid"
+import React from "react";
+import MonthDateContainer from "./MonthDateContainer";
+import { v4 } from "uuid";
+import PropTypes from "prop-types";
 
 /**
  * @param {week} list
- * @returns 
+ * @returns
  */
 
-const MonthWeek = ({week}) => {
+const MonthWeek = ({ week }) => {
   return (
     <tbody>
-      <tr className='flex'>
+      <tr className="flex">
         {week.map((dayInfo) => {
-        return <MonthDate dayInfo={dayInfo} key={v4()}/>
-      })}
+          return <MonthDateContainer dayInfo={dayInfo} key={v4()} />;
+        })}
       </tr>
     </tbody>
-  )
-}
+  );
+};
 
-export default MonthWeek
+MonthWeek.propTypes = {
+  week: PropTypes.array,
+};
+
+export default MonthWeek;

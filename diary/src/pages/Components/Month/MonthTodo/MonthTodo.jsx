@@ -1,6 +1,6 @@
 import useOnClickOutside from "@/pages/hooks/useOnClickOutSide";
 import React, { useRef, useState } from "react";
-import Button from "../Button";
+import Button from "../../Button";
 import MonthListModal from "../MonthModal/MonthListModal";
 import MonthTodoItem from "./MonthTodoItem";
 import { v4 } from "uuid";
@@ -9,6 +9,7 @@ import {
   MAX_SHOW_TODO,
   SHOW_MORE_TODO,
 } from "@/Constants/monthConstants";
+import PropTypes from "prop-types";
 
 /**
  * @param {dayInfo} obj
@@ -67,4 +68,7 @@ const MonthTodo = ({ dayInfo }) => {
   );
 };
 
+MonthTodo.propTypes = {
+  dayInfo: PropTypes.object,
+};
 export default MonthTodo;

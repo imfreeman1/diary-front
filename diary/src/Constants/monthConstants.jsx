@@ -26,3 +26,5 @@ export const MAX_SHOW_TODO = 3;
 export const SHOW_MORE_TODO = (todos) => {
   return `일정 ${todos.length - BASIC_SHOW_TODO}개 더보기`;
 };
+
+export const INPUT_PLACEHOLDER = "입력하세요";

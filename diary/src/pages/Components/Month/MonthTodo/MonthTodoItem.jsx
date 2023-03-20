@@ -2,6 +2,7 @@ import useOnClickOutside from "@/pages/hooks/useOnClickOutSide";
 import React, { useRef, useState } from "react";
 import MonthEditModal from "../MonthModal/MonthEditModal";
 import { v4 } from "uuid";
+import PropTypes from "prop-types";
 
 /**
  * @param {todo} obj {text, date, id}
@@ -51,4 +52,8 @@ const MonthTodoItem = ({ todo, dayInfo }) => {
   );
 };
 
+MonthTodoItem.propTypes = {
+  todo: PropTypes.array,
+  dayInfo: PropTypes.object,
+};
 export default MonthTodoItem;
