@@ -6,7 +6,6 @@ import { INPUT_PLACEHOLDER } from "@/Constants/monthConstants";
 import PropTypes from "prop-types";
 
 /**
- *
  * @param {todo} obj {text, id date}
  * @param {dayInfo} obj
  * @param {itemVisible} boolean
@@ -17,8 +16,9 @@ import PropTypes from "prop-types";
 const MonthEditModal = ({
   todo,
   dayInfo,
-  itemModalVisible,
-  handleItemModalClose,
+  editModalVisible,
+  handleEditModalClose,
+  editModalRef,
 }) => {
   const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ const MonthEditModal = ({
   const [editText, setEditText] = useState(todo.text);
   const focusRef = useRef();
 
-  const handleKeyPress = (e) => {
+  const handleEditKeyPress = (e) => {
     e.preventDefault();
     dispatch(editTodo({ text: editText, todo: todo }));
     setIsEdited(false);
@@ -39,14 +39,22 @@ const MonthEditModal = ({
   };
 
   useEffect(() => {
-    if (itemModalVisible && isEdited) focusRef.current.focus();
-  }, [itemModalVisible, isEdited]);
+    if (editModalVisible && isEdited) focusRef.current.focus();
+  }, [editModalVisible, isEdited]);
 
-  return itemModalVisible && dayInfo.locdate ? (
-    <div className="z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl">
+  const onChildDbclick = (e) => {
+    e.stopPropagation();
+  };
+
+  return editModalVisible && dayInfo.locdate ? (
+    <div
+      onDoubleClick={onChildDbclick}
+      ref={editModalRef}
+      className="z-0 absolute inset-x-auto w-96 h-fit bg-white text-right select-none rounded drop-shadow-2xl"
+    >
       <div className="m-3 flex flex-row-reverse">
         <BiX
-          onClick={() => handleItemModalClose()}
+          onClick={() => handleEditModalClose()}
           size="25"
           className="rounded cursor-pointer hover:bg-gray-200"
         />
@@ -67,7 +75,7 @@ const MonthEditModal = ({
       </div>
       <div className="text-left m-10">
         {isEdited ? (
-          <form onSubmit={handleKeyPress}>
+          <form onSubmit={handleEditKeyPress}>
             <span>■ </span>
             <input
               placeholder={INPUT_PLACEHOLDER}
@@ -80,7 +88,7 @@ const MonthEditModal = ({
         ) : (
           <>
             <span>■ </span>
-            <span>{todo.text}</span>
+            <span>{todo.todoContent}</span>
           </>
         )}
       </div>

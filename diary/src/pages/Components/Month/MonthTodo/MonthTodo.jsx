@@ -10,6 +10,7 @@ import {
   SHOW_MORE_TODO,
 } from "@/Constants/monthConstants";
 import PropTypes from "prop-types";
+import useControlModal from "@/pages/hooks/useControlModal";
 
 /**
  * @param {dayInfo} obj
@@ -17,28 +18,11 @@ import PropTypes from "prop-types";
  */
 
 const MonthTodo = ({ dayInfo }) => {
-  const [listModalVisible, setListModalVisible] = useState(false);
-  const listModalRef = useRef();
-
-  const handleListModalOpen = () => {
-    setTimeout(() => {
-      setListModalVisible(true);
-    }, 300);
-  };
-  const handleListModalClose = () => {
-    setListModalVisible(false);
-  };
-
-  useOnClickOutside(listModalRef, () => setListModalVisible(false));
+  const ctrListModal = useControlModal(dayInfo);
 
   const { todos } = dayInfo;
   const viewTodoLen =
     todos?.length > MAX_SHOW_TODO ? BASIC_SHOW_TODO : MAX_SHOW_TODO;
-
-  const onChildDbclick = (e) => {
-    e.stopPropagation();
-  };
-
   return (
     <>
       {todos.map((todo, idx) => {
@@ -49,17 +33,16 @@ const MonthTodo = ({ dayInfo }) => {
           return (
             <>
               <Button
-                onClick={() => handleListModalOpen()}
+                onClick={() => ctrListModal.handleModalOpen()}
                 content={SHOW_MORE_TODO(todos)}
                 className="block font-semibold p-1 pl-2 my-2 mx-auto rounded hover:bg-gray-300 hover:cursor-pointer"
               />
-              <div onDoubleClick={onChildDbclick} ref={listModalRef}>
-                <MonthListModal
-                  dayInfo={dayInfo}
-                  listModalVisible={listModalVisible}
-                  handleListModalClose={handleListModalClose}
-                />
-              </div>
+              <MonthListModal
+                dayInfo={dayInfo}
+                listModalVisible={ctrListModal.modalVisible}
+                handleListModalClose={ctrListModal.handleModalClose}
+                listModalRef={ctrListModal.modalRef}
+              />
             </>
           );
         }

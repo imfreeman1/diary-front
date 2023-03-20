@@ -7,6 +7,11 @@ import useControlModal from "@/pages/hooks/useControlModal";
 // MonthTodo : 입력한 투두 나타냄
 // MonthInputModal : 더블 클릭 -> input창 열림
 
+/**
+ * @param {ctrInputModal} { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f} }
+ * @returns
+ */
+
 const MonthDate = ({ dayInfo }) => {
   const ctrInputModal = useControlModal(dayInfo);
   return (
@@ -31,7 +36,7 @@ const MonthDate = ({ dayInfo }) => {
         dayInfo={dayInfo}
         inputModalVisible={ctrInputModal.modalVisible}
         handleInputModalClose={ctrInputModal.handleModalClose}
-        ref={ctrInputModal.modalRef}
+        inputModalRef={ctrInputModal.modalRef}
       />
     </td>
   );
