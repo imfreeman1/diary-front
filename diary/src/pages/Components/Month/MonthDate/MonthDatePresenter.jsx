@@ -1,8 +1,7 @@
 import React from "react";
-import MonthTodo from "./MonthTodo/MonthTodo";
-import MonthInputModal from "@/pages/Components/Month/MonthModal/MonthInputModal";
+import MonthTodoContainer from "../MonthTodo/MonthTodoContainer";
+import MonthInputModalContainer from "@/pages/Components/Month/MonthModal/MonthInputModal/MonthInputModalContainer";
 import PropTypes from "prop-types";
-import useControlModal from "@/pages/hooks/useControlModal";
 
 // MonthTodo : 입력한 투두 나타냄
 // MonthInputModal : 더블 클릭 -> input창 열림
@@ -12,8 +11,7 @@ import useControlModal from "@/pages/hooks/useControlModal";
  * @returns
  */
 
-const MonthDate = ({ dayInfo }) => {
-  const ctrInputModal = useControlModal(dayInfo);
+const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => {
   return (
     <td
       onDoubleClick={() => ctrInputModal.handleModalOpen()}
@@ -31,8 +29,8 @@ const MonthDate = ({ dayInfo }) => {
         <span>{dayInfo.date} </span>
         <span className="text-sm">{dayInfo.dateName}</span>
       </div>
-      <MonthTodo dayInfo={dayInfo} />
-      <MonthInputModal
+      <MonthTodoContainer dayInfo={dayInfo} />
+      <MonthInputModalContainer
         dayInfo={dayInfo}
         inputModalVisible={ctrInputModal.modalVisible}
         handleInputModalClose={ctrInputModal.handleModalClose}
@@ -41,8 +39,8 @@ const MonthDate = ({ dayInfo }) => {
     </td>
   );
 };
-
-MonthDate.propTypes = {
+MonthDatePresenter.propTypes = {
   dayInfo: PropTypes.object,
+  ctrInputModal: PropTypes.object,
 };
-export default MonthDate;
+export default MonthDatePresenter;

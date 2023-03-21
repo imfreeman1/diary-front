@@ -1,43 +1,31 @@
-import useOnClickOutside from "@/pages/hooks/useOnClickOutSide";
-import React, { useRef, useState } from "react";
+import React from "react";
 import Button from "../../Button";
-import MonthListModal from "../MonthModal/MonthListModal";
-import MonthTodoItem from "./MonthTodoItem";
+import MonthTodoItemContainer from "../MonthTodoItem/MonthTodoItemContainer";
+import MonthListModalContainer from "../MonthModal/MonthListModal/MonthListModalContainer";
 import { v4 } from "uuid";
-import {
-  BASIC_SHOW_TODO,
-  MAX_SHOW_TODO,
-  SHOW_MORE_TODO,
-} from "@/Constants/monthConstants";
+import { SHOW_MORE_TODO } from "@/Constants/monthConstants";
 import PropTypes from "prop-types";
-import useControlModal from "@/pages/hooks/useControlModal";
 
-/**
- * @param {dayInfo} obj
- * @returns
- */
-
-const MonthTodo = ({ dayInfo }) => {
-  const ctrListModal = useControlModal(dayInfo);
-
+const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;
-  const viewTodoLen =
-    todos?.length > MAX_SHOW_TODO ? BASIC_SHOW_TODO : MAX_SHOW_TODO;
   return (
     <>
       {todos.map((todo, idx) => {
         if (idx < viewTodoLen) {
-          return <MonthTodoItem key={v4()} todo={todo} dayInfo={dayInfo} />;
+          return (
+            <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />
+          );
         }
         if (idx === viewTodoLen) {
           return (
             <>
               <Button
+                key={v4()}
                 onClick={() => ctrListModal.handleModalOpen()}
-                content={SHOW_MORE_TODO(todos)}
+                content={SHOW_MORE_TODO(dayInfo.todos)}
                 className="block font-semibold p-1 pl-2 my-2 mx-auto rounded hover:bg-gray-300 hover:cursor-pointer"
               />
-              <MonthListModal
+              <MonthListModalContainer
                 dayInfo={dayInfo}
                 listModalVisible={ctrListModal.modalVisible}
                 handleListModalClose={ctrListModal.handleModalClose}
@@ -51,7 +39,10 @@ const MonthTodo = ({ dayInfo }) => {
   );
 };
 
-MonthTodo.propTypes = {
+MonthTodoPresenter.propTypes = {
   dayInfo: PropTypes.object,
+  ctrListModal: PropTypes.object,
+  viewTodoLen: PropTypes.number,
 };
-export default MonthTodo;
+
+export default MonthTodoPresenter;

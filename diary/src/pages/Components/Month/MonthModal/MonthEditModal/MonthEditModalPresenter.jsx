@@ -1,51 +1,23 @@
-import { delTodo, editTodo } from "@/Redux/action";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { BiEdit, BiTrash, BiTransfer, BiX } from "react-icons/bi";
 import { INPUT_PLACEHOLDER } from "@/Constants/monthConstants";
 import PropTypes from "prop-types";
 
-/**
- * @param {todo} obj {text, id date}
- * @param {dayInfo} obj
- * @param {itemVisible} boolean
- * @param {handleItemModalClose} func
- * @returns
- */
-
-const MonthEditModal = ({
+const MonthEditModalPresenter = ({
   todo,
   dayInfo,
   editModalVisible,
   handleEditModalClose,
   editModalRef,
+  handleEditKeyPress,
+  onDelete,
+  onChildDbclick,
+  setIsEdited,
+  isEdited,
+  editText,
+  focusRef,
+  handleEditText,
 }) => {
-  const dispatch = useDispatch();
-
-  const [isEdited, setIsEdited] = useState(false);
-  const [editText, setEditText] = useState(todo.text);
-  const focusRef = useRef();
-
-  const handleEditKeyPress = (e) => {
-    e.preventDefault();
-    dispatch(editTodo({ text: editText, todo: todo }));
-    setIsEdited(false);
-  };
-  const handleEditText = (e) => {
-    setEditText(e.target.value);
-  };
-  const onDelete = (todo) => {
-    dispatch(delTodo(todo));
-  };
-
-  useEffect(() => {
-    if (editModalVisible && isEdited) focusRef.current.focus();
-  }, [editModalVisible, isEdited]);
-
-  const onChildDbclick = (e) => {
-    e.stopPropagation();
-  };
-
   return editModalVisible && dayInfo.locdate ? (
     <div
       onDoubleClick={onChildDbclick}
@@ -96,10 +68,19 @@ const MonthEditModal = ({
   ) : null;
 };
 
-MonthEditModal.propTypes = {
-  todo: PropTypes.array,
+MonthEditModalPresenter.propTypes = {
+  todo: PropTypes.object,
   dayInfo: PropTypes.object,
-  itemModalVisible: PropTypes.boolean,
-  handleItemModalClose: PropTypes.func,
+  editModalVisible: PropTypes.bool,
+  handleEditModalClose: PropTypes.func,
+  editModalRef: PropTypes.object,
+  handleEditKeyPress: PropTypes.func,
+  onDelete: PropTypes.func,
+  onChildDbclick: PropTypes.func,
+  setIsEdited: PropTypes.func,
+  isEdited: PropTypes.bool,
+  editText: PropTypes.string,
+  focusRef: PropTypes.object,
+  handleEditText: PropTypes.func,
 };
-export default MonthEditModal;
+export default MonthEditModalPresenter;

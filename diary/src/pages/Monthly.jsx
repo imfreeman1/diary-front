@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCal } from "@/Redux/action";
-import MonthWeek from "./Components/Month/MonthWeekPresenter";
+import MonthWeekPresenter from "./Components/Month/MonthWeek/MonthWeekPresenter";
 import useMonthCalendar from "./Utils/useMonthCalendar";
 import { BiCaretUp, BiCaretDown } from "react-icons/bi";
 import {
@@ -77,7 +77,9 @@ const MonthlyPage = () => {
         </div>
         <table className="border-collapse border border-gray-500">
           {monthCalendar.length
-            ? monthCalendar.map((week) => <MonthWeek key={v4()} week={week} />)
+            ? monthCalendar.map((week) => (
+                <MonthWeekPresenter key={v4()} week={week} />
+              ))
             : null}
         </table>
       </div>

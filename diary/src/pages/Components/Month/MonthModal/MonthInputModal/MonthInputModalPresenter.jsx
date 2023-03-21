@@ -1,46 +1,19 @@
-import { setTodo } from "@/Redux/action";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { INPUT_PLACEHOLDER } from "@/Constants/monthConstants";
 import { BiX } from "react-icons/bi";
 import PropTypes from "prop-types";
-import { INPUT_PLACEHOLDER } from "@/Constants/monthConstants";
-/**
- *
- * @param {dayInfo} obj
- * @param {inputModalVisible} boolean
- * @param {handleInputModalClose} func
- * @returns
- */
 
-const MonthInputModal = ({
+const MonthInputModalPresenter = ({
   dayInfo,
   inputModalVisible,
-  handleInputModalClose,
   inputModalRef,
+  handleInputModalClose,
+  onChildDbclick,
+  inputText,
+  focusRef,
+  handleChange,
+  handleKeyPress,
 }) => {
-  const dispatch = useDispatch();
-  const [inputText, setInputText] = useState("");
-  const focusRef = useRef();
-
-  const handleChange = (e) => {
-    setInputText(e.target.value);
-  };
-
-  const handleKeyPress = (e) => {
-    e.preventDefault();
-    dispatch(setTodo({ text: inputText, dayInfo: dayInfo }));
-    setInputText("");
-    handleInputModalClose();
-  };
-
-  useEffect(() => {
-    if (inputModalVisible) focusRef.current.focus();
-  }, [inputModalVisible]);
-
-  const onChildDbclick = (e) => {
-    e.stopPropagation();
-  };
-
   return inputModalVisible && dayInfo.locdate ? (
     <div
       onDoubleClick={onChildDbclick}
@@ -70,9 +43,15 @@ const MonthInputModal = ({
   ) : null;
 };
 
-MonthInputModal.propTypes = {
+MonthInputModalPresenter.propTypes = {
   dayInfo: PropTypes.object,
-  inputModalVisible: PropTypes.boolean,
+  inputModalVisible: PropTypes.bool.isRequired,
+  inputModalRef: PropTypes.object,
   handleInputModalClose: PropTypes.func,
+  onChildDbclick: PropTypes.func,
+  inputText: PropTypes.string,
+  focusRef: PropTypes.object,
+  handleChange: PropTypes.func,
+  handleKeyPress: PropTypes.func,
 };
-export default MonthInputModal;
+export default MonthInputModalPresenter;

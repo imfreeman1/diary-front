@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import useOnClickOutside from "./useOnClickOutSide";
+import PropTypes from "prop-types";
 
 const useControlModal = (dayInfo) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,4 +27,7 @@ const useControlModal = (dayInfo) => {
   };
 };
 
+useControlModal.propTypes = {
+  dayInfo: PropTypes.object,
+};
 export default useControlModal;

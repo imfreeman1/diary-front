@@ -1,18 +1,16 @@
 import React from "react";
-import MonthEditModal from "../MonthModal/MonthEditModal";
+import MonthEditModalContainer from "../MonthModal/MonthEditModal/MonthEditModalContainer";
 import { v4 } from "uuid";
 import PropTypes from "prop-types";
-import useControlModal from "@/pages/hooks/useControlModal";
 
 /**
  * @param {todo} obj {text, date, id}
- * @param {dayInfo} obj {locdate, ...}
+ * @param {dayInfo} obj {날짜정보, ...}
  * @param {ctrEditModal} { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f} }
  * @returns
  */
 
-const MonthTodoItem = ({ todo, dayInfo }) => {
-  const ctrEditModal = useControlModal(dayInfo);
+const MonthTodoItemPresenter = ({ todo, dayInfo, ctrEditModal }) => {
   return (
     <>
       <li
@@ -22,19 +20,21 @@ const MonthTodoItem = ({ todo, dayInfo }) => {
       >
         {todo.todoContent}
       </li>
-      <MonthEditModal
+      <MonthEditModalContainer
         todo={todo}
         dayInfo={dayInfo}
         editModalVisible={ctrEditModal.modalVisible}
         handleEditModalClose={ctrEditModal.handleModalClose}
-        editModalRef={ctrModalRef.editModalRef}
+        editModalRef={ctrEditModal.modalRef}
       />
     </>
   );
 };
 
-MonthTodoItem.propTypes = {
-  todo: PropTypes.array,
+MonthTodoItemPresenter.propTypes = {
+  todo: PropTypes.object,
   dayInfo: PropTypes.object,
+  ctrEditModal: PropTypes.object,
 };
-export default MonthTodoItem;
+
+export default MonthTodoItemPresenter;

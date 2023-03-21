@@ -1,26 +1,17 @@
 import React from "react";
-import MonthTodoItem from "../MonthTodo/MonthTodoItem";
-import { BiX } from "react-icons/bi";
 import { v4 } from "uuid";
+import { BiX } from "react-icons/bi";
+import MonthTodoItemContainer from "../../MonthTodoItem/MonthTodoItemContainer";
 import PropTypes from "prop-types";
 
-/**
- * @param {dayInfo} obj
- * @param {ctrInputModal} { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f}
- * @returns
- */
-
-const MonthListModal = ({
+const MonthListModalPresenter = ({
   dayInfo,
   listModalVisible,
   handleListModalClose,
   listModalRef,
+  onChildDbclick,
 }) => {
   const { locdate, todos, day } = dayInfo;
-
-  const onChildDbclick = (e) => {
-    e.stopPropagation();
-  };
 
   return listModalVisible ? (
     <div
@@ -40,17 +31,18 @@ const MonthListModal = ({
           {locdate} {day}
         </p>
         {todos.map((todo) => (
-          <MonthTodoItem key={v4()} todo={todo} dayInfo={dayInfo} />
+          <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />
         ))}
       </div>
     </div>
   ) : null;
 };
 
-MonthListModal.propTypes = {
+MonthListModalPresenter.propTypes = {
   dayInfo: PropTypes.object,
-  listModalVisible: PropTypes.boolean,
+  listModalVisible: PropTypes.bool,
   handleListModalClose: PropTypes.func,
-  listModalRef: PropTypes.ref,
+  listModalRef: PropTypes.object,
+  onChildDbclick: PropTypes.func,
 };
-export default MonthListModal;
+export default MonthListModalPresenter;
