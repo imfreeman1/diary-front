@@ -1,9 +1,13 @@
-import { useState, useRef } from 'react';
-import Cropper from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
-import { useDispatch } from 'react-redux';
-import Button from '../Button';
-import { addTableSticker } from '@/Redux/action';
+import { useState, useRef } from "react";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import { useDispatch } from "react-redux";
+import Button from "../Button";
+import { addTableSticker } from "@/Redux/action";
+import {
+  STICKER_CLOSE_BUTTON_CONTENT,
+  STICKER_SAVE_BUTTON_CONTENT,
+} from "@/constants/constants";
 
 function EasyCropper({ modalHandler }) {
   const dispatch = useDispatch();
@@ -11,43 +15,47 @@ function EasyCropper({ modalHandler }) {
   // 유저가 첨부한 이미지
   const [inputImage, setInputImage] = useState(null);
   // 유저가 선택한 영역만큼 크롭된 이미지
+  const files = useRef(null);
 
   // input이 들어왔을때, file을 읽음.
   const onChange = (e) => {
     e.preventDefault();
-    // file을 let으로 두어 바꾸는건 좋아보이지 않음
-    let files;
-    // 구조분해할당 가능한지 체크
     const reader = new FileReader();
     if (e.dataTransfer) {
-      files = e.dataTransfer.files;
+      files.current = e.dataTransfer.files;
     } else if (e.target) {
-      files = e.target.files;
+      files.current = e.target.files;
     }
     reader.onload = () => {
       setInputImage(reader.result);
     };
-    if (files.length) reader.readAsDataURL(files[0]);
+    if (files.current.length) reader.readAsDataURL(files.current[0]);
   };
   const getCropData = () => {
     const imageElement = cropperRef?.current;
     const cropper = imageElement?.cropper;
-    if (typeof cropper !== 'undefined') {
+    if (cropper) {
       const stickerURL = cropper.getCroppedCanvas().toDataURL();
-      const stickerSize = {width:cropper.cropBoxData.width, height:cropper.cropBoxData.height};
-      dispatch(addTableSticker({ url: stickerURL, size:stickerSize }));
+      const stickerSize = {
+        width: cropper.cropBoxData.width,
+        height: cropper.cropBoxData.height,
+      };
+      dispatch(addTableSticker({ imgURL: stickerURL, size: stickerSize }));
       modalHandler();
     }
   };
   return (
     <div>
       <div className="flex justify-end mt-3 mr-3">
-        <Button content="X" onClick={() => modalHandler()} />
+        <Button content={STICKER_CLOSE_BUTTON_CONTENT} onClick={modalHandler} />
       </div>
-
       <input type="file" accept="image/*" onChange={onChange} />
-      <Cropper className=" h-[60vh] w-[65vw] mx-12 my-8" src={inputImage} ref={cropperRef} />
-      <Button onClick={getCropData} content="저장" />
+      <Cropper
+        className=" h-[60vh] w-[65vw] mx-12 my-8"
+        src={inputImage}
+        ref={cropperRef}
+      />
+      <Button onClick={getCropData} content={STICKER_SAVE_BUTTON_CONTENT} />
     </div>
   );
 }
