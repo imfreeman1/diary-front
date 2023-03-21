@@ -1,20 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { v4 } from 'uuid';
-import Sticker from './Components/Sticker/Sticker';
-import StickerTable from './Components/StickerTable/StickerTable';
+import React from "react";
+import { useSelector } from "react-redux";
+import { v4 } from "uuid";
+import Sticker from "./Components/Sticker/StickerContainer";
+import StickerTable from "./Components/SideBar/SideBarPresent/SideBarPresent";
 
 function Test() {
-  const stickerList = useSelector((state) => state.stickerReducer.stickersArray);
+  const stickerList = useSelector(
+    (state) => state.stickerReducer.stickersArray
+  );
   return (
     <div>
-      <div className=' relative'>
+      <div className=" relative">
         {stickerList.Test?.map((sticker) => (
           <Sticker
             url={sticker.url}
             key={v4()}
             id={sticker.id}
-            position={[sticker['data-x'], sticker['data-y']]}
+            position={[sticker["data-x"], sticker["data-y"]]}
             width={sticker.width}
             height={sticker.height}
             selected={sticker.selected}
@@ -23,7 +25,6 @@ function Test() {
       </div>
       <StickerTable />
     </div>
-
   );
 }
 
