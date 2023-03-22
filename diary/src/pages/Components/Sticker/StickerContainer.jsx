@@ -46,13 +46,13 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
   }, []);
 
   const focusHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.id;
+    const selectedStickerId = e.target.parentNode.parentNode.id;
     // if (selected && selectedStickerId===id) return; // 이 조건문을 건 이유 : 처음에 온클릭으로 해서
     dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current }));
   };
 
   const removeStickerHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.parentNode.id;
+    const selectedStickerId = e.target.parentNode.id;
     dispatch(
       removeSticker({ id: selectedStickerId, origin: routerRef.current })
     );
