@@ -66,10 +66,15 @@ export const stickerSlice = createSlice({
       selectedSticker.positionX = position.positionX;
       selectedSticker.positionY = position.positionY;
     },
-    setResize: ({ stickersArray }, { payload: { origin, id, size } }) => {
+    setResize: (
+      { stickersArray },
+      { payload: { origin, id, size, position } }
+    ) => {
       const selectedSticker = stickersArray[origin].find(
         (sticker) => sticker.id === id
       );
+      selectedSticker.positionX = selectedSticker.positionX + position.x;
+      selectedSticker.positionY = selectedSticker.positionY + position.y;
       selectedSticker.height = size.height;
       selectedSticker.width = size.width;
     },

@@ -36,16 +36,17 @@ export const NAVBAR_HOVER_BG_COLOR_OBJECT = {
 export const LANDING_PAGE_CONTENT = "Let's Write";
 export const STICKER_CLOSE_BUTTON_CONTENT = "X";
 export const STICKER_SAVE_BUTTON_CONTENT = "저장";
-export const SELECT_IN_STICKER_DIV = "img";
+export const SELECT_IN_STICKER_DIV = "div";
 
 //얘들은 hook으로 빼내는게 좋지 않을까? 특히 PATH나 OBJECT 같은 경우.
 export const STICKER_SELECTOR_ID = (id) => `[id="${id}"]`;
 export const CURRENT_ROUTER_PATH = () => useRouter().pathname.replace("/", "");
 
-export const STICKER_IMG_SIZE_OBJECT = (width, height) => {
+export const STICKER_IMG_SIZE_OBJECT = (width, height, x, y) => {
   return {
     width: `${width}px`,
     height: `${height}px`,
+    transform: `translate(${x}px, ${y}px)`,
   };
 };
 
