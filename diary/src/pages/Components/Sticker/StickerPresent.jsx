@@ -6,40 +6,38 @@ import Button from "../Button";
 const StickerPresent = ({
   id,
   imgURL,
-  width,
-  height,
   selected,
   focusHandler,
   removeStickerHandler,
   blurHandler,
-}) => {
-  return (
+}) => (
+  <div
+    className="absolute draggable"
+    id={id}
+    tabIndex={0}
+    onBlur={selected ? (e) => blurHandler(e) : null}
+  >
     <div
-      className="absolute draggable"
-      id={id}
-      tabIndex={0}
-      onBlur={selected ? blurHandler : null}
+      className={`${selected ? "resizable ring" : null}`}
+      onDoubleClick={(e) => focusHandler(e)}
     >
       {selected ? (
-        <div className="flex justify-end m-1">
-          <Button
-            className="p-1"
-            onClick={(e) => removeStickerHandler(e)}
-            content={STICKER_CLOSE_BUTTON_CONTENT}
-          />
-        </div>
+        <Button
+          className="absolute -right-2 -top-6"
+          onClick={(e) => removeStickerHandler(e)}
+          content={STICKER_CLOSE_BUTTON_CONTENT}
+        />
       ) : null}
       <img
-        onDoubleClick={(e) => focusHandler(e)}
-        className={`${selected ? "resizable ring" : null} object-fill`}
+        className="object-fill w-full h-full"
         src={imgURL}
-        width={width}
-        height={height}
+        width={screen.width}
+        height={screen.height}
         alt="스티커"
       />
     </div>
-  );
-};
+  </div>
+);
 
 StickerPresent.propTypes = {};
 
