@@ -1,17 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Image from "next/image";
+import PropTypes from "prop-types";
 import { setSticker } from "@/Redux/action";
 import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
 import StickerButtonPresent from "./StickerButtonPresent";
 
-function StickerButtonContainer({ imgURL, id }) {
+function StickerButtonContainer({ id, imgURL }) {
   const dispatch = useDispatch();
   const currRouter = CURRENT_ROUTER_PATH();
   const makeStickerHandler = (e) => {
+    console.log(e);
     const stickerPosition = {
-      x: e.view.innerWidth / 2,
-      y: e.view.innerHeight / 2,
+      positionX: e.view.innerWidth / 2,
+      positionY: e.view.innerHeight / 4,
     };
     dispatch(setSticker({ origin: currRouter, id, position: stickerPosition }));
   };
@@ -25,3 +26,7 @@ function StickerButtonContainer({ imgURL, id }) {
 }
 
 export default StickerButtonContainer;
+StickerButtonContainer.propTypes = {
+  id: PropTypes.string.isRequired,
+  imgURL: PropTypes.string.isRequired,
+};
