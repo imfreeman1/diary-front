@@ -1,12 +1,13 @@
-import React from "react";
-import useControlModal from "@/pages/hooks/useControlModal";
-import MonthTodoItemPresenter from "./MonthTodoItemPresenter";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import useControlModal from '@/pages/hooks/useControlModal';
+import MonthTodoItemPresenter from './MonthTodoItemPresenter';
 
 /**
  * @param {todo} obj {text, date, id}
  * @param {dayInfo} obj {날짜정보, ...}
- * @param {ctrEditModal} { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f} }
+ * @param {ctrEditModal}
+ * { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f} }
  * @returns
  */
 
