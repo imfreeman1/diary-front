@@ -1,10 +1,11 @@
-import React from "react";
-import MonthListModalPresenter from "./MonthListModalPresenter";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import MonthListModalPresenter from './MonthListModalPresenter';
 
 /**
  * @param {dayInfo} obj
- * @param {ctrInputModal} { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f}
+ * @param {ctrInputModal}
+ * { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f}
  * @returns
  */
 
