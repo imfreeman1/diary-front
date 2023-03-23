@@ -2,12 +2,12 @@ import React from "react";
 import { v4 } from "uuid";
 import StickerColumn from "./StickerColumn";
 import Button from "../../Button";
-import StickerMakeModal from "./StickerMakeModal";
 import {
   SIDEBAR_CLOSER,
   SIDEBAR_OPENER,
   STICKER_MAKER_BUTTON_CONTENT,
 } from "@/constants/constants";
+import StickerMakeModal from "../StickerMakeModal/StickerMakeModal";
 /*
 
 배열을 1차원 배열로 교체해야할 듯
