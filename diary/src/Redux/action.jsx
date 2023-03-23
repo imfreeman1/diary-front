@@ -1,17 +1,8 @@
-<<<<<<< HEAD
 import { googleAuthSlice } from './googleAuthSlice';
 import { monthCalendarSlice } from './monthCalendarSlice';
 import { weeklySlice } from './weeklySlice';
-import { editorContentSlice } from './editorContentSlice';
 import { dailySlice } from './dailySlice';
-=======
-import { googleAuthSlice } from "./googleAuthSlice";
-import { calendarSlice } from "./calendarSlice";
-import { weeklySlice } from "./weeklySlice";
-import { stickerSlice } from "./stickerSlice";
-import { editorContentSlice } from "./editorContentSlice";
-import { dailySlice } from "./dailySlice";
->>>>>>> main
+import { stickerSlice } from './stickerSlice';
 
 export const { setAuth, removeAuth } = googleAuthSlice.actions;
 
@@ -19,11 +10,6 @@ export const { setCal, setTodo, delTodo, editTodo } = monthCalendarSlice.actions
 
 export const { setWeek, setWeekText } = weeklySlice.actions;
 
-export const { setEditorContent } = editorContentSlice.actions;
-
-<<<<<<< HEAD
-export const { setDaily, setDate, setEditor, setTitle } = dailySlice.actions;
-=======
 export const { setDaily, setDate, setEditor, setTitle } = dailySlice.actions;
 
 export const {
@@ -36,4 +22,3 @@ export const {
   setSelect,
   resetSelect,
 } = stickerSlice.actions;
->>>>>>> main
