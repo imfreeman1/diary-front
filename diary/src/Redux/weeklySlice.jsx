@@ -1,21 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { current } from "@reduxjs/toolkit";
 
 const calNAME = "weeklyPlanner";
 
 export const weeklySlice = createSlice({
   name: calNAME,
-  initialState:{
-    weeklyContent:[],
+  initialState: {
+    weeklyContent: [],
   },
-  reducers:{
+  reducers: {
     setWeek: (state, action) => {
-      state.weeklyContent = action.payload 
+      state.weeklyContent = action.payload;
     },
     setWeekText: (state, action) => {
-      console.log(action)
-      state.weeklyContent[action.payload.idx].text= action.payload.content
+      // console.log(action.payload, current(state.weeklyContent[action.payload.idx]))
+      state.weeklyContent[action.payload.idx].textContent =
+        action.payload.content;
     },
-  }
-}); 
+  },
+});
 
 export const weeklyReducer = weeklySlice.reducer;

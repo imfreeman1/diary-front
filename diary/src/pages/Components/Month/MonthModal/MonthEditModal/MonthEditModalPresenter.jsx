@@ -1,9 +1,11 @@
-import React from "react";
-import { BiEdit, BiTrash, BiTransfer, BiX } from "react-icons/bi";
-import { INPUT_PLACEHOLDER } from "@/Constants/monthConstants";
-import PropTypes from "prop-types";
+import React from 'react';
+import {
+  BiEdit, BiTrash, BiTransfer, BiX,
+} from 'react-icons/bi';
+import PropTypes from 'prop-types';
+import { INPUT_PLACEHOLDER } from '@/Constants/monthlyConstants';
 
-const MonthEditModalPresenter = ({
+function MonthEditModalPresenter({
   todo,
   dayInfo,
   editModalVisible,
@@ -17,7 +19,7 @@ const MonthEditModalPresenter = ({
   editText,
   focusRef,
   handleEditText,
-}) => {
+}) {
   return editModalVisible && dayInfo.locdate ? (
     <div
       onDoubleClick={onChildDbclick}
@@ -66,7 +68,7 @@ const MonthEditModalPresenter = ({
       </div>
     </div>
   ) : null;
-};
+}
 
 MonthEditModalPresenter.propTypes = {
   todo: PropTypes.object,

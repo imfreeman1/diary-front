@@ -1,5 +1,5 @@
 import React from "react";
-import { INPUT_PLACEHOLDER } from "@/Constants/monthConstants";
+import { INPUT_PLACEHOLDER } from "@/Constants/monthlyConstants";
 import { BiX } from "react-icons/bi";
 import PropTypes from "prop-types";
 

@@ -1,18 +1,19 @@
-import React from "react";
-import useControlModal from "@/pages/hooks/useControlModal";
-import MonthDatePresenter from "./MonthDatePresenter";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import useControlModal from '@/pages/hooks/useControlModal';
+import MonthDatePresenter from './MonthDatePresenter';
 
 /**
- * @param {ctrInputModal} { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f} }
+ * @param {ctrInputModal}
+ * { modalVisible: boolean, modalRef:modalRef,handleModalOpen: {f}, handleModalClose: {f} }
  * @returns
  */
 
-const MonthDateContainer = ({ dayInfo }) => {
+function MonthDateContainer({ dayInfo }) {
   const ctrInputModal = useControlModal(dayInfo);
 
   return <MonthDatePresenter dayInfo={dayInfo} ctrInputModal={ctrInputModal} />;
-};
+}
 
 MonthDateContainer.propTypes = {
   dayInfo: PropTypes.object,

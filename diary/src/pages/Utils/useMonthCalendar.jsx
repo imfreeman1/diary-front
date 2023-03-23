@@ -1,5 +1,5 @@
 import React from "react";
-import { DAY_OF_WEEK, MONTH_DAYS } from "../../Constants/monthConstants";
+import { DAY_OF_WEEK, MONTH_DAYS } from "../../Constants/monthlyConstants";
 import Holiday from "../Json/holidays_kr.json";
 import PropTypes from "prop-types";
 

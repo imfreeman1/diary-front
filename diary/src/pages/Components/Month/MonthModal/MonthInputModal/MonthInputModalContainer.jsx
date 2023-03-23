@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setTodo } from "@/Redux/action";
-import MonthInputModalPresenter from "./MonthInputModalPresenter";
-import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setTodo } from '@/Redux/action';
+import MonthInputModalPresenter from './MonthInputModalPresenter';
 /**
  *
  * @param {dayInfo} obj
@@ -11,14 +11,14 @@ import PropTypes from "prop-types";
  * @returns
  */
 
-const MonthInputModalContainer = ({
+function MonthInputModalContainer({
   dayInfo,
   inputModalVisible,
   handleInputModalClose,
   inputModalRef,
-}) => {
+}) {
   const dispatch = useDispatch();
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
   const focusRef = useRef();
 
   const handleChange = (e) => {
@@ -27,8 +27,8 @@ const MonthInputModalContainer = ({
 
   const handleKeyPress = (e) => {
     e.preventDefault();
-    dispatch(setTodo({ text: inputText, dayInfo: dayInfo }));
-    setInputText("");
+    dispatch(setTodo({ text: inputText, dayInfo }));
+    setInputText('');
     handleInputModalClose();
   };
 
@@ -53,7 +53,7 @@ const MonthInputModalContainer = ({
       handleKeyPress={handleKeyPress}
     />
   );
-};
+}
 
 MonthInputModalContainer.propTypes = {
   dayInfo: PropTypes.object,

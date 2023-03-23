@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { delTodo, editTodo } from "@/Redux/action";
-import { useDispatch } from "react-redux";
-import MonthEditModalPresenter from "./MonthEditModalPresenter";
-import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { delTodo, editTodo } from '@/Redux/action';
+import MonthEditModalPresenter from './MonthEditModalPresenter';
 
 /**
  * @param {todo} obj {text, id date}
@@ -12,13 +12,13 @@ import PropTypes from "prop-types";
  * @returns
  */
 
-const MonthEditModalContainer = ({
+function MonthEditModalContainer({
   todo,
   dayInfo,
   editModalVisible,
   handleEditModalClose,
   editModalRef,
-}) => {
+}) {
   const dispatch = useDispatch();
 
   const [isEdited, setIsEdited] = useState(false);
@@ -27,7 +27,7 @@ const MonthEditModalContainer = ({
 
   const handleEditKeyPress = (e) => {
     e.preventDefault();
-    dispatch(editTodo({ text: editText, todo: todo }));
+    dispatch(editTodo({ text: editText, todo }));
     setIsEdited(false);
   };
   const handleEditText = (e) => {
@@ -61,7 +61,7 @@ const MonthEditModalContainer = ({
       handleEditText={handleEditText}
     />
   );
-};
+}
 
 MonthEditModalContainer.propTypes = {
   todo: PropTypes.object,

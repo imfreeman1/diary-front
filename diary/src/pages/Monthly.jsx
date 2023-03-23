@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCal } from "@/Redux/action";
-import MonthWeekPresenter from "./Components/Month/MonthWeek/MonthWeekPresenter";
-import useMonthCalendar from "./Utils/useMonthCalendar";
-import { BiCaretUp, BiCaretDown } from "react-icons/bi";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BiCaretUp, BiCaretDown } from 'react-icons/bi';
+import { v4 } from 'uuid';
+import { setCal } from '@/Redux/action';
+import MonthWeekPresenter from './Components/Month/MonthWeek/MonthWeekPresenter';
+import useMonthCalendar from './Utils/useMonthCalendar';
 import {
   DAY_OF_WEEK,
   MONTH_LIST,
   MONTH_INDICATING,
-} from "../Constants/monthConstants";
-import { v4 } from "uuid";
+} from '../Constants/monthlyConstants';
 
 /**
  * @param {selectedMonth} number, 기본 날짜는 현재 월 (0-11)
  * @returns
  */
 
-const MonthlyPage = () => {
+function MonthlyPage() {
   const dateInMonth = new Date();
   const [yearInMonth, setYearInMonth] = useState(dateInMonth.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(dateInMonth.getMonth());
@@ -67,7 +67,7 @@ const MonthlyPage = () => {
           {DAY_OF_WEEK.map((day) => (
             <div
               className={`flex border w-36 text-lg font-bold justify-center ${
-                day === "Sun" ? "text-[#FF0000]" : ""
+                day === 'Sun' ? 'text-[#FF0000]' : ''
               }`}
               key={v4()}
             >
@@ -78,13 +78,13 @@ const MonthlyPage = () => {
         <table className="border-collapse border border-gray-500">
           {monthCalendar.length
             ? monthCalendar.map((week) => (
-                <MonthWeekPresenter key={v4()} week={week} />
-              ))
+              <MonthWeekPresenter key={v4()} week={week} />
+            ))
             : null}
         </table>
       </div>
     </div>
   );
-};
+}
 
 export default MonthlyPage;
