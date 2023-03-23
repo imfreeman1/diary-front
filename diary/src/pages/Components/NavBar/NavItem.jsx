@@ -3,7 +3,7 @@ import Button from "../Button";
 import {
   CURRENT_ROUTER_PATH,
   NAVBAR_HOVER_BG_COLOR_OBJECT,
-} from "@/constants/constants";
+} from "@/constants/navbarConstants";
 
 function NavItem({ title }) {
   return (

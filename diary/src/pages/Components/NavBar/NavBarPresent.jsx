@@ -1,4 +1,4 @@
-import { NAV_ITEM_LIST } from "@/constants/constants";
+import { NAV_ITEM_LIST } from "@/constants/navbarConstants";
 import React from "react";
 import { v4 } from "uuid";
 import NavItem from "./NavItem";
