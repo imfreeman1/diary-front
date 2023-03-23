@@ -14,6 +14,11 @@
     "jsx-props-no-spreading": "off",
     "react/jsx-filename-extension" : "off",
     "import/no-extraneous-dependencies" : "off",
-    "react/jsx-props-no-spreading" : "off"
+    "react/jsx-props-no-spreading" : "off",
+    "import/no-unresolved":0,
+    "import/extensions": [
+      "off"
+    ],
+    "no-console":"off"
   }
 }
