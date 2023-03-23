@@ -52,7 +52,7 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
   };
 
   const removeStickerHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.id;
+    const selectedStickerId = e.target.parentNode.parentNode.id;
     dispatch(
       removeSticker({ id: selectedStickerId, origin: routerRef.current })
     );
