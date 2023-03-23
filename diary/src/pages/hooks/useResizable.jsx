@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 const useResizable = () => {
-  const stickerSize = useRef({ width: 0, height: 0 });
+  const stickerSize = useRef(null);
   const stickerTimer = useRef(null);
   const dispatch = useDispatch();
   const currRouter = useRef(null);
