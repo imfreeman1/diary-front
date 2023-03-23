@@ -5,6 +5,8 @@ import Logo from 'public/Logo/logo.svg';
 import Pen from 'public/Logo/pen.svg';
 import Lottie from 'lottie-react';
 import GleLoginContainer from './Components/GleLoginContainer';
+import App from 'next/app';
+import { landingPageContent } from '@/constants/constants';
 
 function Landing() {
   return (
@@ -16,16 +18,11 @@ function Landing() {
       <div className=" w-full h-screen bg-slate-200 flex flex-col gap-6 items-center justify-center">
         <Lottie animationData={bookDrop} />
         <div className="text-5xl font-bold">
-          Let's Write
+          {landingPageContent}
         </div>
         <GleLoginContainer />
       </div>
     </>
   );
 }
-Landing.getInitialProps = async (ctx) => {
-   const navHidden = true;
-  return {navHidden}
-}
-
 export default Landing;
