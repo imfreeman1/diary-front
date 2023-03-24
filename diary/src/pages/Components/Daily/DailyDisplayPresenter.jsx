@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tiptap from '@/pages/Components/Tiptap/Tiptap';
 import RoundLine from './RoundLine';
 import { TITLE } from '@/Constants/dailyConstant';
+import TiptapContainer from '@/pages/Components/Tiptap/TiptapContainer';
 
 function DailyDisplayPresenter({ currentDaily, content, handleInput }) {
   return (
@@ -27,7 +27,7 @@ function DailyDisplayPresenter({ currentDaily, content, handleInput }) {
         />
       </div>
       <div className="border-2 border-gray-200 overflow-hidden">
-        <Tiptap />
+        <TiptapContainer />
       </div>
     </div>
   );
