@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const WeeklyDisplayPresenter = ({ weekly, weekTextContent, handleChange }) => (
   <div className="relative w-[250px] h-[450px] bg-white rounded-xl border-2 border-black border-dashed">
@@ -16,4 +17,9 @@ const WeeklyDisplayPresenter = ({ weekly, weekTextContent, handleChange }) => (
   </div>
 );
 
+WeeklyDisplayPresenter.propTypes = {
+  weekly: PropTypes.object,
+  weekTextContent: PropTypes.string,
+  handleChange: PropTypes.func,
+};
 export default WeeklyDisplayPresenter;
