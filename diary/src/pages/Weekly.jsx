@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
 import Button from './Components/Button';
-import WeeklyDisplay from './Components/Weekly/WeeklyDisplay';
 import useGetWeekly, { getlocWeek } from './Utils/useGetWeekly';
 import { setlocWeek, setWeekly } from '@/Redux/action';
 import { WEEKLY_LOGO } from '@/Constants/weeklyConstant';
+import WeeklyDisplayContainer from './Components/Weekly/WeeklyDisplayContainer';
 
 /**
  * @param {dateInWeekly} date
@@ -29,7 +29,9 @@ const WeeklyPage = () => {
   const dispatch = useDispatch();
   const weeklyContent = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${locThisWeek}`]);
 
-  dispatch(setlocWeek(locThisWeek));
+  useEffect(() => {
+    dispatch(setlocWeek(locThisWeek));
+  });
 
   useEffect(() => {
     dispatch(setWeekly({ currentWeekly, locWeek: locThisWeek }));
@@ -56,12 +58,10 @@ const WeeklyPage = () => {
         <div className="m-3 mx-5 grid grid-cols-4 shadow">
           {weeklyContent
             ? weeklyContent.map((day, i) => (
-              <WeeklyDisplay
+              <WeeklyDisplayContainer
                 key={i}
-                ㄴ
                 idx={i}
                 day={day}
-                locThisWeek={locThisWeek}
               />
             ))
             : null}
