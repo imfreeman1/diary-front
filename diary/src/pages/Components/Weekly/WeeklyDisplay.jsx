@@ -5,15 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import { setTextContent } from '@/Redux/action';
 /**
- * @param {day} obj
+ * @param {idx} number, 배열의 idx (0-7)
+ * @param {currentlocWeek} str, "2023-03-W3"
+ * @param {weekly} obj, 해당 요일의 정보 {day:"", locdate:"", textContent:""}
+ * @param {weekTextContent} str 해당 요일의 textContent
+ *
  * @returns
  */
-const WeeklyDisplay = ({ idx, locThisWeek }) => {
-  const weekly = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${locThisWeek}`][idx]);
-  const [weekText, setWeekText] = useState('');
+const WeeklyDisplay = ({ idx }) => {
+  const { currentlocWeek } = useSelector((state) => state.weeklyReducer.weeklyContent);
+  const weekly = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${currentlocWeek}`][idx]);
   const dispatch = useDispatch();
   const weekContentsTimer = useRef(null);
-  const weekTextContent = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${locThisWeek}`][idx].textContent);
+  const weekTextContent = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${currentlocWeek}`][idx].textContent);
 
   const debounce = (index, contents, locThisWeek, time, timer) => {
     if (timer.current) clearTimeout(timer.current);
@@ -23,14 +27,9 @@ const WeeklyDisplay = ({ idx, locThisWeek }) => {
       timer.current = null;
     }, time);
   };
-
-  useEffect(() => {
-    debounce(idx, weekText, locThisWeek, 1000, weekContentsTimer);
-  }, [weekText]);
-
   const handleChange = (e) => {
-    setWeekText(e.target.value);
-    // dispatch(setWeekText({ content: e.target.value, idx, locThisWeek }));
+    // debounce(idx, e.target.value, currentlocWeek, 1000, weekContentsTimer);
+    dispatch(setTextContent({ content: e.target.value, idx, locThisWeek: currentlocWeek }));
     console.log('id', e.target.id, idx, typeof (e.target.id), typeof (`${idx}`));
   };
 
@@ -41,7 +40,7 @@ const WeeklyDisplay = ({ idx, locThisWeek }) => {
       <textarea
         spellCheck="false"
         id={v4()}
-        value={weekText}
+        value={weekTextContent}
         onChange={handleChange}
         className="block min-h-[200px] max-h-[200px] mt-5 mx-auto p-4 border-4 overflow-hidden rounded-lg"
       />

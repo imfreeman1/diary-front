@@ -7,9 +7,22 @@ import useGetWeekly, { getlocWeek } from './Utils/useGetWeekly';
 import { setlocWeek, setWeekly } from '@/Redux/action';
 import { WEEKLY_LOGO } from '@/Constants/weeklyConstant';
 
+/**
+ * @param {dateInWeekly} date
+ * @param {selectedDate} date
+ * @param {currentWeekly, weeklyContent} object, 이 주의 날짜 정보
+ * selectedDate가 바뀌면 dispatch함
+ * [{"locdate":"", day:"", textContent:""},{}...]
+ * @param {locThisWeek} str, 몇째주인지를 나타냄 ex."2023-03-W3"
+ * @param {moveToWeek} func, selectedDate를 전주와 다음주로 바꿈
+ * @component <DatepickerComponent/> selectedDate를 달력의 해당 날짜로 바꿈
+ * @returns
+ */
+
 const WeeklyPage = () => {
   const dateInWeekly = new Date();
   const [selectedDate, setSelectedDate] = useState(dateInWeekly);
+
   const currentWeekly = useGetWeekly(selectedDate);
   const locThisWeek = getlocWeek(selectedDate);
 
@@ -45,6 +58,7 @@ const WeeklyPage = () => {
             ? weeklyContent.map((day, i) => (
               <WeeklyDisplay
                 key={i}
+                ㄴ
                 idx={i}
                 day={day}
                 locThisWeek={locThisWeek}

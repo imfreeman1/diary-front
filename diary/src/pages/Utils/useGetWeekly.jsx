@@ -2,7 +2,10 @@ import React from 'react';
 import { DAYS_WEEKLY } from '../../Constants/weeklyConstant';
 
 /**
- * @param {dateInWeekly} date
+ * @param {getMonday} func, 그 주의 월요일 date 리턴 (plusDay=0일때 월요일)
+ * @param {getlocWeek} func , 그 주가 몇째주인지를 표현 "2023-03-W3"
+ * @param {useGetWeekly} func , weekly페이지의 날짜 정보
+ * array [{day: 요일, locdate: '', textContent: ''},{},{}...]
  * @returns
  */
 const getMonday = (dateInWeekly, plusDay) => {
