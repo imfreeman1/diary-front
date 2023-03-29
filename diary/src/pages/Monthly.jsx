@@ -68,7 +68,6 @@ function MonthlyPage() {
           selected={sticker.selected}
         />
       ))}
-
     <div classname="flex justify-center p-10 h-full w-full bg-gray-100">
       <div classname="bg-zinc-50 border p-2 my-10 h-fit shadow-lg rounded">
         <div classname="flex gap-5">
@@ -100,7 +99,11 @@ function MonthlyPage() {
               </div>
             ))}
           </div>
+<<<<<<< HEAD
           <table className="border-collapse border border-gray-400">
+=======
+          <table className="border-collapse border border-gray-500">
+>>>>>>> 8d02e8cc2dad6d631fce7fe03eae77ce077b8f98
             {monthCalendar.length
               ? monthCalendar.map((week) => (
                   <MonthWeekPresenter key={v4()} week={week} />
