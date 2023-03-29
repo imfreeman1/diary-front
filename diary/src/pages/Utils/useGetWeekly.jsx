@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 } from 'uuid';
 import { DAYS_WEEKLY } from '../../Constants/weeklyConstant';
 
 /**
@@ -32,7 +33,9 @@ const useGetWeekly = (dateInWeekly) => {
   let weeklyList = [];
   let plusDay = 0;
   for (const days of DAYS_WEEKLY) {
-    const weekObj = { day: days, locdate: '', textContent: '' };
+    const weekObj = {
+      day: days, locdate: '', textContent: '', id: v4(),
+    };
     if (days === 'Weekly') weekObj.locdate = representWeekly;
     else if (days !== 'Weekly') {
       weekObj.locdate = getMonday(dateInWeekly, plusDay).toISOString().substring(0, 10);
