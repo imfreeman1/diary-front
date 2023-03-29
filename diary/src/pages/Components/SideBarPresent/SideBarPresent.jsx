@@ -5,8 +5,8 @@ import {
   SIDEBAR_OPENER,
   STICKER_MAKER_BUTTON_CONTENT,
 } from "@/Constants/constants";
-import StickerMakeModal from "../StickerMakeModal/StickerMakeModal";
-import Button from "../../Button";
+import StickerMakeModal from "../SideBar/StickerMakeModal/StickerMakeModal";
+import Button from "../Button";
 import SideBarColumn from "./SideBarColumn";
 /*
 
