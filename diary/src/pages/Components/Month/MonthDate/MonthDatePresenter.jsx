@@ -29,7 +29,7 @@ const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
       <span>
         {dayInfo.date}
       </span>
-      <span className="text-sm">{dayInfo.dateName}</span>
+      <span className="text-sm ml-1">{dayInfo.dateName}</span>
     </div>
     <MonthTodoContainer dayInfo={dayInfo} />
     <MonthInputModalContainer

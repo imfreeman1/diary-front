@@ -44,9 +44,9 @@ function MonthlyPage() {
   };
 
   return (
-    <div className="flex justify-center pt-5 h-screen w-full bg-gray-100">
-      <div className="bg-zinc-50 m-5 h-fit border">
-        <div className="flex bg-zinc-50 gap-5">
+    <div className="flex justify-center p-10 h-full w-full bg-gray-100">
+      <div className="bg-zinc-50 border p-2 my-10 h-fit shadow-lg rounded">
+        <div className="flex gap-5">
           <div className="text-3xl w-min px-6 my-auto">
             <BiCaretUp
               onClick={() => moveToNextMonth()}
@@ -66,16 +66,16 @@ function MonthlyPage() {
         <div className="flex my-2 border-2">
           {DAY_OF_WEEK.map((day) => (
             <div
-              className={`flex border w-36 text-lg font-bold justify-center ${
+              className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
                 day === 'Sun' ? 'text-[#FF0000]' : ''
               }`}
               key={v4()}
             >
-              {day[0]}
+              {day}
             </div>
           ))}
         </div>
-        <table className="border-collapse border border-gray-500">
+        <table className="border-collapse border border-gray-400">
           {monthCalendar.length
             ? monthCalendar.map((week) => (
               <MonthWeekPresenter key={v4()} week={week} />
