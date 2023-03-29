@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import SideBarPresent from "../SideBarPresent/SideBarPresent";
+import SideBarPresent from "./SideBarPresent";
 
 function SideBarContainer() {
   const stickerList = useSelector(
