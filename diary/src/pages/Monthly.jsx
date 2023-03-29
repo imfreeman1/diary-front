@@ -54,6 +54,21 @@ function MonthlyPage() {
   return (
     <>
       <NavBarContainer />
+      {stickerList[currRouter]?.map((sticker) => (
+        <StickerContainer
+          imgURL={sticker.imgURL}
+          key={v4()}
+          id={sticker.id}
+          position={{
+            positionX: sticker.positionX,
+            positionY: sticker.positionY,
+          }}
+          width={sticker.width}
+          height={sticker.height}
+          selected={sticker.selected}
+        />
+      ))}
+
     <div classname="flex justify-center p-10 h-full w-full bg-gray-100">
       <div classname="bg-zinc-50 border p-2 my-10 h-fit shadow-lg rounded">
         <div classname="flex gap-5">
@@ -93,20 +108,6 @@ function MonthlyPage() {
               : null}
           </table>
         </div>
-        {stickerList[currRouter]?.map((sticker) => (
-          <StickerContainer
-            imgURL={sticker.imgURL}
-            key={v4()}
-            id={sticker.id}
-            position={{
-              positionX: sticker.positionX,
-              positionY: sticker.positionY,
-            }}
-            width={sticker.width}
-            height={sticker.height}
-            selected={sticker.selected}
-          />
-        ))}
         <SideBarContainer />
       </div>
     </>
