@@ -31,13 +31,13 @@ function Daily() {
   }, [dateInDaily]);
 
   return (
-    <div className="bg-[#E5C7AF]">
-      <div className="w-[964px] h-fit bg-white mx-auto">
-        <DatepickerComponent
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
-        <div className="w-fit px-3 m-5 border-2 border-black rounded-full text-xl">
+    <div className="h-full p-10 bg-[#E5C7AF] ">
+      <DatepickerComponent
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
+      <div className="w-[964px] h-fit my-10 pb-5 bg-white mx-auto rounded">
+        <div className="p-2 px-5 ml-20 border-4 border-gray-200 font-bold text-2xl text-left rounded-full w-fit">
           {DAILY_LOGO}
         </div>
         <DailyDisplayContainer />

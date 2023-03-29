@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-const calNAME = "editorContent";
+const calNAME = 'editorContent';
 
 export const dailySlice = createSlice({
   name: calNAME,

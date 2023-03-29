@@ -25,6 +25,6 @@ EditorMenuBarButton.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.boolean,
   className: PropTypes.string,
-  content: PropTypes.string,
+  content: PropTypes.object,
 };
 export default EditorMenuBarButton;

@@ -1,3 +1,3 @@
-export const DAILY_LOGO = "daily";
+export const DAILY_LOGO = 'Daily';
 
-export const TITLE = "title";
+export const TITLE = 'Title';
