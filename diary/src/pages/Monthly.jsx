@@ -99,11 +99,7 @@ function MonthlyPage() {
               </div>
             ))}
           </div>
-<<<<<<< HEAD
           <table className="border-collapse border border-gray-400">
-=======
-          <table className="border-collapse border border-gray-500">
->>>>>>> 8d02e8cc2dad6d631fce7fe03eae77ce077b8f98
             {monthCalendar.length
               ? monthCalendar.map((week) => (
                   <MonthWeekPresenter key={v4()} week={week} />
