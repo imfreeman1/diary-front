@@ -7,7 +7,7 @@ import { addTableSticker } from "@/Redux/action";
 import {
   STICKER_CLOSE_BUTTON_CONTENT,
   STICKER_SAVE_BUTTON_CONTENT,
-} from "@/constants/constants";
+} from "@/Constants/constants";
 
 function StickerCropper({ modalHandler }) {
   const dispatch = useDispatch();
