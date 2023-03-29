@@ -26,7 +26,7 @@ export const stickerSlice = createSlice({
   name: NAME,
   initialState: {
     stickersArray: {
-      Month: [],
+      Monthly: [],
       Table: [...exStickers],
       Weekly: [],
       Daily: [],
@@ -39,8 +39,8 @@ export const stickerSlice = createSlice({
         (sticker) => sticker.id === id
       );
       selectedSticker.id = v4();
-      selectedSticker.positionX = position.x;
-      selectedSticker.positionY = position.y;
+      selectedSticker.positionX = position.positionX;
+      selectedSticker.positionY = position.positionY;
       // if의 있는 조건 결과물을 변수로 한번 빼내자
       const selectedChecker = stickersArray[origin].some(
         (sticker) => sticker.selected === true

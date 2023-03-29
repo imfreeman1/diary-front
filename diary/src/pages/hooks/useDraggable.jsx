@@ -5,7 +5,7 @@ import { setPosition } from "@/Redux/action";
 import {
   CURRENT_ROUTER_PATH,
   STICKER_POSITION_TRANSLATOR,
-} from "@/constants/constants";
+} from "@/Constants/constants";
 
 const useDraggable = (position) => {
   const positions = useRef(null);
@@ -16,7 +16,6 @@ const useDraggable = (position) => {
   const currStickersList = useSelector(
     (state) => state.stickerReducer.stickersArray[currRouter]
   );
-
   const debounce = (id, time, timer) => {
     if (timer.current) clearTimeout(timer.current);
 
@@ -48,8 +47,6 @@ const useDraggable = (position) => {
             positionX: currSticker.positionX,
             positionY: currSticker.positionY,
           };
-          console.log(event);
-          console.log(event.type, event.target);
         },
         move(event) {
           positions.current.positionX += event.dx;

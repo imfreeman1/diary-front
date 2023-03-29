@@ -9,7 +9,7 @@ import {
   STICKER_IMG_SIZE_OBJECT,
   STICKER_POSITION_TRANSLATOR,
   STICKER_SELECTOR_ID,
-} from "@/constants/constants";
+} from "@/Constants/constants";
 import StickerPresent from "./StickerPresent";
 
 /*

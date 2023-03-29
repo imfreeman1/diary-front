@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import EasyCropper from "../../Sticker/EasyCropper";
+import EasyCropper from "./StickerCropper";
 
 function StickerMakeModal({ modalHandler }) {
   const focusRef = useRef(null);
