@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import StickerTable from "./SideBarPresent/SideBarPresent";
+import SideBarPresent from "./SideBarPresent/SideBarPresent";
 
 function SideBarContainer() {
   const stickerList = useSelector(
@@ -31,7 +31,7 @@ function SideBarContainer() {
   };
   return (
     <div className=" absolute">
-      <StickerTable
+      <SideBarPresent
         stickerList={stickerList}
         modalVisible={modalVisible}
         modalHandler={modalHandler}

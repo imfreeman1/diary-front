@@ -1,13 +1,13 @@
 import React from "react";
 import { v4 } from "uuid";
-import StickerColumn from "./StickerColumn";
-import Button from "../../Button";
 import {
   SIDEBAR_CLOSER,
   SIDEBAR_OPENER,
   STICKER_MAKER_BUTTON_CONTENT,
-} from "@/constants/constants";
+} from "@/Constants/constants";
 import StickerMakeModal from "../StickerMakeModal/StickerMakeModal";
+import Button from "../../Button";
+import SideBarColumn from "./SideBarColumn";
 /*
 
 배열을 1차원 배열로 교체해야할 듯
@@ -63,7 +63,7 @@ function SideBarPresent({
             <table>
               <tbody>
                 {tableMaker(stickerList, 2).map((stickerCol) => (
-                  <StickerColumn tableList={stickerCol} key={v4()} />
+                  <SideBarColumn stickerCol={stickerCol} key={v4()} />
                 ))}
               </tbody>
             </table>
