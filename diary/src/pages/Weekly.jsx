@@ -7,6 +7,10 @@ import { setlocWeek, setWeekly } from "@/Redux/action";
 import { WEEKLY_LOGO } from "@/Constants/weeklyConstant";
 import WeeklyDisplayContainer from "./Components/Weekly/WeeklyDisplayContainer";
 import NavBarContainer from "./Components/NavBar/NavBarContainer";
+import SideBarContainer from "./Components/SideBar/SideBarContainer";
+import StickerContainer from "./Components/Sticker/StickerContainer";
+import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
+import { v4 } from "uuid";
 /**
  * @param {dateInWeekly} date
  * @param {selectedDate} date
@@ -24,7 +28,10 @@ const WeeklyPage = () => {
   const [selectedDate, setSelectedDate] = useState(dateInWeekly);
   const currentWeekly = useGetWeekly(selectedDate);
   const locThisWeek = getlocWeek(selectedDate);
-
+  const stickerList = useSelector(
+    (state) => state.stickerReducer.stickersArray
+  );
+  const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const weeklyContent = useSelector(
     (state) => state.weeklyReducer.weeklyContent[`W-${locThisWeek}`]
@@ -47,7 +54,21 @@ const WeeklyPage = () => {
   return (
     <>
       <NavBarContainer />
-      <div className="h-full bg-[#9DBC9D] text-center p-10">
+      {stickerList[currRouter]?.map((sticker) => (
+        <StickerContainer
+          imgURL={sticker.imgURL}
+          key={v4()}
+          id={sticker.id}
+          position={{
+            positionX: sticker.positionX,
+            positionY: sticker.positionY,
+          }}
+          width={sticker.width}
+          height={sticker.height}
+          selected={sticker.selected}
+        />
+      ))}
+      <div className="h-full w-full bg-[#9DBC9D] text-center p-10">
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
@@ -77,6 +98,7 @@ const WeeklyPage = () => {
               : null}
           </div>
         </div>
+        <SideBarContainer />
       </div>
     </>
   );
