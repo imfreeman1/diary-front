@@ -7,7 +7,7 @@ import TiptapPresenter from './TiptapPresenter';
 /**
  *
  * @param {currentDate} date 현재 날짜
- * @param {daily} obj 현재 페이지 정보
+ * @param {Daily} obj 현재 페이지 정보
  * "D-currentDate":{day: "Fri",editorContent: "",locdate: "2023-03-24",titleText: ""}
  * @param {editor} 에디터 설정값들
  * @returns
@@ -15,26 +15,25 @@ import TiptapPresenter from './TiptapPresenter';
 
 const TiptapContainer = () => {
   const { currentDate } = useSelector(
-    (state) => state.dailyReducer.dailyContent,
+    (state) => state.dailyReducer.dailyContents,
   );
-  const daily = useSelector(
-    (state) => state.dailyReducer.dailyContent[`D-${currentDate}`],
+  const Daily = useSelector(
+    (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
   const dispatch = useDispatch();
 
   const editor = useGetEditor();
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
-  console.log(editor, typeof (editor));
   useEffect(() => {
     editor?.off('update');
-    if (editor && !editor.isDestroyed && daily) {
-      editor?.commands.setContent(daily.editorContent);
+    if (editor && !editor.isDestroyed && Daily) {
+      editor?.commands.setContent(Daily.editorContent);
     }
     editor?.on('update', () => {
       const html = editor.getHTML();
-      dispatch(setEditor({ locdate: daily.locdate, html }));
+      dispatch(setEditor({ locdate: Daily.locdate, html }));
     });
-  }, [dispatch, editor, daily]);
+  }, [dispatch, editor, Daily]);
 
   return (
     <TiptapPresenter editor={editor} />

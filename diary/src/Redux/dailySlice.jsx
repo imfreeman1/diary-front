@@ -5,23 +5,23 @@ const calNAME = 'editorContent';
 export const dailySlice = createSlice({
   name: calNAME,
   initialState: {
-    dailyContent: {},
+    dailyContents: {},
   },
   reducers: {
-    setDaily: ({ dailyContent }, { payload, payload: { locdate } }) => {
-      if (!dailyContent[`D-${locdate}`]) {
-        dailyContent[`D-${locdate}`] = payload;
+    setDaily: ({ dailyContents }, { payload, payload: { locdate } }) => {
+      if (!dailyContents[`D-${locdate}`]) {
+        dailyContents[`D-${locdate}`] = payload;
       }
     },
-    setDate: ({ dailyContent }, { payload }) => {
-      dailyContent.currentDate = payload;
+    setDate: ({ dailyContents }, { payload }) => {
+      dailyContents.currentDate = payload;
     },
-    setEditor: ({ dailyContent }, { payload: { locdate, html } }) => {
-      dailyContent[`D-${locdate}`].editorContent = html;
+    setEditor: ({ dailyContents }, { payload: { locdate, html } }) => {
+      dailyContents[`D-${locdate}`].editorContent = html;
     },
-    setTitle: ({ dailyContent }, { payload: { locdate, titleText } }) => {
-      if (dailyContent[`D-${locdate}`]) {
-        dailyContent[`D-${locdate}`].titleText = titleText;
+    setTitle: ({ dailyContents }, { payload: { locdate, titleText } }) => {
+      if (dailyContents[`D-${locdate}`]) {
+        dailyContents[`D-${locdate}`].titleText = titleText;
       }
     },
   },
