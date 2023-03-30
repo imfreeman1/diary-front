@@ -44,7 +44,7 @@ function SideBarPresent({
   tableMaker,
 }) {
   return (
-    <div className="fixed right-0">
+    <div className="fixed right-0 bg-white">
       {modalVisible ? <StickerMakeModal modalHandler={modalHandler} /> : null}
       <div className="flex h-screen">
         {sidebarVisible ? (
