@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BiCaretUp, BiCaretDown } from "react-icons/bi";
 import { v4 } from "uuid";
-import { setCal } from "@/Redux/action";
+import {
+  setCal,
+  setMoveToLastMonth,
+  setMoveToNextMonth,
+  setMonth,
+} from "@/Redux/action";
 import MonthWeekPresenter from "./Components/Month/MonthWeek/MonthWeekPresenter";
 import useMonthCalendar from "./Utils/useMonthCalendar";
 import {
@@ -21,39 +26,30 @@ import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
  */
 
 function MonthlyPage() {
-  const dateInMonth = new Date();
-  const [yearInMonth, setYearInMonth] = useState(dateInMonth.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(dateInMonth.getMonth());
-
+  const { yearInMonth, selectedMonth } = useSelector(
+    (state) => state.monthSelectorReducer
+  );
   const stickerList = useSelector(
     (state) => state.stickerReducer.stickersArray
   );
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
-
   useEffect(() => {
     dispatch(setCal(useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth])));
-  }, [selectedMonth]);
+  }, [selectedMonth, yearInMonth]);
 
+  //여기서부터 reducer로 변경 useEffect에서 selectedMonth에 종속되는걸 빼야할까요? 의미가 있나? 그
   const moveToLastMonth = () => {
-    if (selectedMonth > 0) setSelectedMonth(selectedMonth - 1);
-    else {
-      setSelectedMonth(selectedMonth + 11);
-      setYearInMonth(yearInMonth - 1);
-    }
+    dispatch(setMoveToLastMonth());
   };
   const moveToNextMonth = () => {
-    if (selectedMonth < 11) setSelectedMonth(selectedMonth + 1);
-    else {
-      setSelectedMonth(selectedMonth - 11);
-      setYearInMonth(yearInMonth + 1);
-    }
+    dispatch(setMoveToNextMonth());
   };
 
   return (
     <>
-      <NavBarContainer setSelectedMonth={setSelectedMonth} />
+      <NavBarContainer />
       {stickerList[currRouter]?.map((sticker) => (
         <StickerContainer
           imgURL={sticker.imgURL}
@@ -73,11 +69,11 @@ function MonthlyPage() {
           <div className="flex gap-5">
             <div className="text-3xl w-min px-6 my-auto">
               <BiCaretUp
-                onClick={() => moveToNextMonth()}
+                onClick={moveToNextMonth}
                 className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
               />
               <BiCaretDown
-                onClick={() => moveToLastMonth()}
+                onClick={moveToLastMonth}
                 className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
               />
             </div>
