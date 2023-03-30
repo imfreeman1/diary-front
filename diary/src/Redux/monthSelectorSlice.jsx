@@ -11,6 +11,10 @@ export const monthSelectorSlice = createSlice({
     selectedMonth: dateInMonth.getMonth(),
   },
   reducers: {
+    setMonthRouter: (state, { payload: { willMoveMonth, currYear } }) => {
+      state.selectedMonth = willMoveMonth;
+      state.yearInMonth = currYear;
+    },
     setMoveToLastMonth: (state) => {
       if (state.selectedMonth > 0) {
         state.selectedMonth -= 1;
