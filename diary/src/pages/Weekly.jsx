@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
-import useGetWeekly, { getlocWeek } from './Utils/useGetWeekly';
-import { setlocWeek, setWeekly } from '@/Redux/action';
-import { WEEKLY_LOGO } from '@/Constants/weeklyConstant';
-import WeeklyDisplayContainer from './Components/Weekly/WeeklyDisplayContainer';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import DatepickerComponent from "./Components/DatepickerComponent/DatepickerComponent";
+import useGetWeekly, { getlocWeek } from "./Utils/useGetWeekly";
+import { setlocWeek, setWeekly } from "@/Redux/action";
+import { WEEKLY_LOGO } from "@/Constants/weeklyConstant";
+import WeeklyDisplayContainer from "./Components/Weekly/WeeklyDisplayContainer";
+import NavBarContainer from "./Components/NavBar/NavBarContainer";
 /**
  * @param {dateInWeekly} date
  * @param {selectedDate} date
@@ -25,7 +26,9 @@ const WeeklyPage = () => {
   const locThisWeek = getlocWeek(selectedDate);
 
   const dispatch = useDispatch();
-  const weeklyContent = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${locThisWeek}`]);
+  const weeklyContent = useSelector(
+    (state) => state.weeklyReducer.weeklyContent[`W-${locThisWeek}`]
+  );
 
   useEffect(() => {
     dispatch(setlocWeek(locThisWeek));
@@ -36,34 +39,46 @@ const WeeklyPage = () => {
   }, [dispatch, selectedDate]);
 
   const moveToWeek = (weekNum) => {
-    const dateCalculation = new Date(selectedDate.setDate(selectedDate.getDate() + weekNum));
+    const dateCalculation = new Date(
+      selectedDate.setDate(selectedDate.getDate() + weekNum)
+    );
     setSelectedDate(dateCalculation);
   };
   return (
-    <div className="h-full bg-[#9DBC9D] text-center p-10">
-      <DatepickerComponent selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-      <div className="w-fit h-fit rounded border-2 bg-white shadow-sm my-10 mx-auto">
-        <div className="text-2xl font-bold text-left ml-5">
-          <span className="text-black border-4 rounded-full p-2 bg-white">{WEEKLY_LOGO}</span>
-          <span className="text-green-900 p-2">{locThisWeek}</span>
-        </div>
-        <div className="flex text-3xl px-6 justify-end gap-5 h-10">
-          <BiChevronLeft onClick={() => moveToWeek(-7)} className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300" />
-          <BiChevronRight onClick={() => moveToWeek(7)} className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300" />
-        </div>
-        <div className="m-3 mx-5 grid grid-cols-4 shadow">
-          {weeklyContent
-            ? weeklyContent.map((day, i) => (
-              <WeeklyDisplayContainer
-                key={day.id}
-                idx={i}
-                day={day}
-              />
-            ))
-            : null}
+    <>
+      <NavBarContainer />
+      <div className="h-full bg-[#9DBC9D] text-center p-10">
+        <DatepickerComponent
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
+        <div className="w-fit h-fit rounded border-2 bg-white shadow-sm my-10 mx-auto">
+          <div className="text-2xl font-bold text-left ml-5">
+            <span className="text-black border-4 rounded-full p-2 bg-white">
+              {WEEKLY_LOGO}
+            </span>
+            <span className="text-green-900 p-2">{locThisWeek}</span>
+          </div>
+          <div className="flex text-3xl px-6 justify-end gap-5 h-10">
+            <BiChevronLeft
+              onClick={() => moveToWeek(-7)}
+              className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
+            />
+            <BiChevronRight
+              onClick={() => moveToWeek(7)}
+              className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
+            />
+          </div>
+          <div className="m-3 mx-5 grid grid-cols-4 shadow">
+            {weeklyContent
+              ? weeklyContent.map((day, i) => (
+                  <WeeklyDisplayContainer key={day.id} idx={i} day={day} />
+                ))
+              : null}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
