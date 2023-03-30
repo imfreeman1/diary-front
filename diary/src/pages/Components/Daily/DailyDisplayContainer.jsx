@@ -5,7 +5,7 @@ import { setDaily, setTitle } from '@/Redux/action';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
 
 /**
- * @param {selectedDate} date
+ * @param {currentDate} str 현재 선택된 날짜 "0000-00-00"
  * @param {dailyContent} obj
  * @returns
  */

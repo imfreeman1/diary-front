@@ -6,7 +6,7 @@ import {
   STICKER_MAKER_BUTTON_CONTENT,
 } from "@/Constants/constants";
 import StickerMakeModal from "../StickerMakeModal/StickerMakeModal";
-import Button from "../../Button";
+import Button from "../Button";
 import SideBarColumn from "./SideBarColumn";
 /*
 

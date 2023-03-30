@@ -6,11 +6,15 @@ import { stickerSlice } from './stickerSlice';
 
 export const { setAuth, removeAuth } = googleAuthSlice.actions;
 
-export const { setCal, setTodo, delTodo, editTodo } = monthCalendarSlice.actions;
+export const {
+  setCal, setTodo, delTodo, editTodo,
+} = monthCalendarSlice.actions;
 
-export const { setWeek, setWeekText } = weeklySlice.actions;
+export const { setWeekly, setlocWeek, setTextContent } = weeklySlice.actions;
 
-export const { setDaily, setDate, setEditor, setTitle } = dailySlice.actions;
+export const {
+  setDaily, setDate, setEditor, setTitle,
+} = dailySlice.actions;
 
 export const {
   setInit,

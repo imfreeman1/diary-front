@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 import React from 'react';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
@@ -10,7 +12,7 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;
   return (
     <>
-      {todos.map((idx, todo) => {
+      {todos.map((todo, idx) => {
         if (idx < viewTodoLen) {
           return (
             <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />

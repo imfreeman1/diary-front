@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { useDispatch } from "react-redux";
-import Button from "../../Button";
+import Button from "../Button";
 import { addTableSticker } from "@/Redux/action";
 import {
   STICKER_CLOSE_BUTTON_CONTENT,
