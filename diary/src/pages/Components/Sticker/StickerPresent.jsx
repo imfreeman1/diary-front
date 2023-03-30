@@ -12,7 +12,7 @@ const StickerPresent = ({
   blurHandler,
 }) => (
   <div
-    className="absolute draggable"
+    className="absolute draggable z-50"
     id={id}
     tabIndex={0}
     onBlur={selected ? (e) => blurHandler(e) : null}
