@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 } from "uuid";
-
-const NAME = "sticker";
+import { STICKER_NAME } from "./sliceName";
 
 const makeSticker = (num) => {
   const arr = [];
@@ -23,10 +22,10 @@ const makeSticker = (num) => {
 const exStickers = makeSticker(10);
 
 export const stickerSlice = createSlice({
-  name: NAME,
+  name: STICKER_NAME,
   initialState: {
     stickersArray: {
-      Month: [],
+      Monthly: [],
       Table: [...exStickers],
       Weekly: [],
       Daily: [],
@@ -39,8 +38,8 @@ export const stickerSlice = createSlice({
         (sticker) => sticker.id === id
       );
       selectedSticker.id = v4();
-      selectedSticker.positionX = position.x;
-      selectedSticker.positionY = position.y;
+      selectedSticker.positionX = position.positionX;
+      selectedSticker.positionY = position.positionY;
       // if의 있는 조건 결과물을 변수로 한번 빼내자
       const selectedChecker = stickersArray[origin].some(
         (sticker) => sticker.selected === true

@@ -1,7 +1,7 @@
 import {
   CURRENT_ROUTER_PATH,
   STICKER_IMG_SIZE_OBJECT,
-} from "@/constants/constants";
+} from "@/Constants/constants";
 import { setResize } from "@/Redux/action";
 import interact from "interactjs";
 import { useEffect, useRef } from "react";

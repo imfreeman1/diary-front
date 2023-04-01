@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { STICKER_CLOSE_BUTTON_CONTENT } from "@/constants/constants";
+import { STICKER_CLOSE_BUTTON_CONTENT } from "@/Constants/constants";
 import Button from "../Button";
 
 const StickerPresent = ({
@@ -12,7 +12,7 @@ const StickerPresent = ({
   blurHandler,
 }) => (
   <div
-    className="absolute draggable"
+    className="absolute draggable z-50"
     id={id}
     tabIndex={0}
     onBlur={selected ? (e) => blurHandler(e) : null}
