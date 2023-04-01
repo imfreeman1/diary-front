@@ -19,7 +19,7 @@ export const NAV_ITEM_LIST = [
 ];
 
 export const NAVBAR_HOVER_BG_COLOR_OBJECT = {
-  Month: "hover:bg-gray-100",
+  Monthly: "hover:bg-gray-100",
   Weekly: "hover:bg-[#9DBC9D]",
   Daily: "hover:bg-[#E5C7AF]",
 };

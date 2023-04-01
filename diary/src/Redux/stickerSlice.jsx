@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 } from "uuid";
-
-const NAME = "sticker";
+import { STICKER_NAME } from "./sliceName";
 
 const makeSticker = (num) => {
   const arr = [];
@@ -23,7 +22,7 @@ const makeSticker = (num) => {
 const exStickers = makeSticker(10);
 
 export const stickerSlice = createSlice({
-  name: NAME,
+  name: STICKER_NAME,
   initialState: {
     stickersArray: {
       Monthly: [],
