@@ -20,7 +20,6 @@ import { v4 } from "uuid";
  * @param {locThisWeek} str, 몇째주인지를 나타냄 ex."2023-03-W3"
  * @param {moveToWeek} func, selectedDate를 전주와 다음주로 바꿈
  * @component <DatepickerComponent/> selectedDate를 달력의 해당 날짜로 바꿈
- * @returns
  */
 
 const WeeklyPage = () => {
@@ -33,14 +32,10 @@ const WeeklyPage = () => {
   );
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
-  const weeklyContent = useSelector(
-    (state) => state.weeklyReducer.weeklyContent[`W-${locThisWeek}`]
-  );
-
+  const weeklyContents = useSelector((state) => state.weeklyReducer.weeklyContents[`W-${locThisWeek}`]);
   useEffect(() => {
     dispatch(setlocWeek(locThisWeek));
   });
-
   useEffect(() => {
     dispatch(setWeekly({ currentWeekly, locWeek: locThisWeek }));
   }, [dispatch, selectedDate]);
@@ -91,8 +86,8 @@ const WeeklyPage = () => {
             />
           </div>
           <div className="m-3 mx-5 grid grid-cols-4 shadow">
-            {weeklyContent
-              ? weeklyContent.map((day, i) => (
+            {weeklyContents
+              ? weeklyContents.map((day, i) => (
                   <WeeklyDisplayContainer key={day.id} idx={i} day={day} />
                 ))
               : null}

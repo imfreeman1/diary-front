@@ -5,21 +5,20 @@ const calNAME = 'weeklyPlanner';
 export const weeklySlice = createSlice({
   name: calNAME,
   initialState: {
-    weeklyContent: {},
+    weeklyContents: {},
   },
   reducers: {
-    setWeekly: ({ weeklyContent }, { payload: { locWeek, currentWeekly } }) => {
-      if (!weeklyContent[`W-${locWeek}`]) {
-        weeklyContent[`W-${locWeek}`] = currentWeekly;
-        console.log(current(weeklyContent));
+    setWeekly: ({ weeklyContents }, { payload: { locWeek, currentWeekly } }) => {
+      if (!weeklyContents[`W-${locWeek}`]) {
+        weeklyContents[`W-${locWeek}`] = currentWeekly;
       }
     },
-    setlocWeek: ({ weeklyContent }, { payload }) => {
-      weeklyContent.currentlocWeek = payload;
+    setlocWeek: ({ weeklyContents }, { payload }) => {
+      weeklyContents.currentWeek = payload;
     },
-    setTextContent: ({ weeklyContent }, { payload: { idx, content, locThisWeek } }) => {
+    setTextContent: ({ weeklyContents }, { payload: { idx, content, locThisWeek } }) => {
       console.log('action', idx, content);
-      weeklyContent[`W-${locThisWeek}`][idx].textContent = content;
+      weeklyContents[`W-${locThisWeek}`][idx].textContent = content;
     },
   },
 });

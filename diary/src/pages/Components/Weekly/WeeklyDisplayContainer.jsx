@@ -1,6 +1,4 @@
-import React, {
-  useEffect, useRef, useState,
-} from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setTextContent } from '@/Redux/action';
@@ -14,15 +12,13 @@ import WeeklyDisplayPresenter from './WeeklyDisplayPresenter';
  * @returns
  */
 const WeeklyDisplayContainer = ({ idx }) => {
-  const { currentlocWeek } = useSelector((state) => state.weeklyReducer.weeklyContent);
-  const weekly = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${currentlocWeek}`][idx]);
+  const { currentWeek } = useSelector((state) => state.weeklyReducer.weeklyContents);
+  const weekly = useSelector((state) => state.weeklyReducer.weeklyContents[`W-${currentWeek}`][idx]);
   const dispatch = useDispatch();
-  const weekTextContent = useSelector((state) => state.weeklyReducer.weeklyContent[`W-${currentlocWeek}`][idx].textContent);
-  const weekContentsTimer = useRef(null);
+  const weekTextContent = useSelector((state) => state.weeklyReducer.weeklyContents[`W-${currentWeek}`][idx].textContent);
 
   const handleChange = (e) => {
-    // debounce(idx, e.target.value, currentlocWeek, 1000, weekContentsTimer);
-    dispatch(setTextContent({ content: e.target.value, idx, locThisWeek: currentlocWeek }));
+    dispatch(setTextContent({ content: e.target.value, idx, locThisWeek: currentWeek }));
   };
 
   return (
@@ -36,15 +32,6 @@ const WeeklyDisplayContainer = ({ idx }) => {
 
 WeeklyDisplayContainer.propTypes = {
   idx: PropTypes.number,
-};
-
-const debounce = (index, contents, locThisWeek, time, timer) => {
-  if (timer.current) clearTimeout(timer.current);
-
-  timer.current = setTimeout(() => {
-    dispatch(setTextContent({ content: contents, idx: index, locThisWeek }));
-    timer.current = null;
-  }, time);
 };
 
 export default WeeklyDisplayContainer;
