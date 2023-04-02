@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { STICKER_CLOSE_BUTTON_CONTENT } from "@/Constants/constants";
-import Button from "../Button";
+import { BiX } from "react-icons/bi";
 
 const StickerPresent = ({
   id,
@@ -22,10 +21,10 @@ const StickerPresent = ({
       onDoubleClick={(e) => focusHandler(e)}
     >
       {selected ? (
-        <Button
-          className="absolute -right-2 -top-6"
+        <BiX
+          className="absolute -right-2 -top-6 hover:cursor-pointer"
           onClick={(e) => removeStickerHandler(e)}
-          content={STICKER_CLOSE_BUTTON_CONTENT}
+          size={24}
         />
       ) : null}
       <img
