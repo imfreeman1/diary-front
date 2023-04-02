@@ -37,6 +37,7 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
   // CURRENT_ROUTER_PATH function을 dispatch안에서 실행시킬경우 react의 hook 규칙을 위반하게 되어 Ref의 current에 저장해서 사용하는 방식을 채택.
   // 더 좋은 방법이 있다면 수정할 예정.
   routerRef.current = CURRENT_ROUTER_PATH();
+  const focusRef = useRef(null);
 
   useEffect(() => {
     const stickerPosition = document.querySelector(STICKER_SELECTOR_ID(id));
@@ -44,6 +45,11 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
     const stickerImgSize = stickerPosition.querySelector(SELECT_IN_STICKER_DIV); //변수명 맘에 안듦.
     Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
   }, []);
+
+  // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
+  useEffect(() => {
+    if (selected) focusRef.current.focus();
+  }, [selected]);
 
   const focusHandler = (e) => {
     const selectedStickerId = e.target.parentNode.parentNode.id;
@@ -61,9 +67,9 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
   // onBlur event를 사용할 때에는 tabIndex속성을 같이 사용해줘야 onBlur가 트리거 됨.
   // 참고 https://velog.io/@broccoliindb/onBlur-on-react
   const blurHandler = (e) => {
-    const nextElem = e.relatedTarget;
+    const nextElemId = e.relatedTarget?.id;
     // 문제가 생기기 전까지는 보류.
-    if (!nextElem) {
+    if (nextElemId !== id) {
       dispatch(resetSelect({ origin: routerRef.current }));
     }
   };
@@ -76,6 +82,7 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
       width={width}
       height={height}
       selected={selected}
+      focusRef={focusRef}
       focusHandler={focusHandler}
       removeStickerHandler={removeStickerHandler}
       blurHandler={blurHandler}
