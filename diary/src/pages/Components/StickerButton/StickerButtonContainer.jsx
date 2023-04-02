@@ -9,7 +9,6 @@ function StickerButtonContainer({ id, imgURL }) {
   const dispatch = useDispatch();
   const currRouter = CURRENT_ROUTER_PATH();
   const makeStickerHandler = (e) => {
-    console.log(e);
     const stickerPosition = {
       positionX: e.view.innerWidth / 2,
       positionY: e.view.innerHeight / 4,
