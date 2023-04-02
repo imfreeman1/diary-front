@@ -6,6 +6,7 @@ const StickerPresent = ({
   id,
   imgURL,
   selected,
+  focusRef,
   focusHandler,
   removeStickerHandler,
   blurHandler,
@@ -14,6 +15,7 @@ const StickerPresent = ({
     className="absolute draggable z-50"
     id={id}
     tabIndex={0}
+    ref={focusRef}
     onBlur={selected ? (e) => blurHandler(e) : null}
   >
     <div
