@@ -35,10 +35,10 @@ function MonthlyPage() {
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
+  console.log(monthCalendar);
   useEffect(() => {
     dispatch(setCal(useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth])));
   }, [selectedMonth, yearInMonth]);
-
   //여기서부터 reducer로 변경 useEffect에서 selectedMonth에 종속되는걸 빼야할까요? 의미가 있나? 그
   const moveToLastMonth = () => {
     dispatch(setMoveToLastMonth());

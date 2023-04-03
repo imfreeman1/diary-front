@@ -31,14 +31,16 @@ const useMonthCalendar = (year, month) => {
         todos: [],
       };
       let date = fewWeeks * 7 - monthStartDay + startday++;
+      console.log(date);
 
       if (date > MONTH_DAYS[idxMonth]) {
         monthCalendar.locdate = false;
-        monthCalendar.date = date - (31 || MONTH_DAYS[idxMonth]);
+        monthCalendar.date = date - MONTH_DAYS[idxMonth];
         if (fewWeeks === 5 && dayOfWeek === "Sun") break;
       } else if (date < 1) {
         monthCalendar.locdate = false;
-        monthCalendar.date = date + (31 || MONTH_DAYS[idxMonth - 1]);
+        monthCalendar.date = date + (MONTH_DAYS[idxMonth - 1] || 31);
+        console.log("date", date);
       } else if (date >= 1 && date <= MONTH_DAYS[idxMonth]) {
         monthCalendar.locdate =
           `${year}-${month}-` + date.toString().padStart(2, "0");
