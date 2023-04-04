@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import EasyCropper from "./StickerCropper";
+import StickerCropper from "./StickerCropper";
 
 function StickerMakeModal({ modalHandler }) {
   const focusRef = useRef(null);
@@ -10,9 +10,9 @@ function StickerMakeModal({ modalHandler }) {
 
   return (
     <div className=" h-screen w-screen">
-      <div className="h-screen bg-opacity-75 bg-gray-400 flex justify-center items-center">
-        <div className=" fixed border-2 bg-white opacity-75" ref={focusRef}>
-          <EasyCropper modalHandler={modalHandler} />
+      <div className="h-screen bg-opacity-75 bg-gray-400 flex justify-center items-center z-[100000000022]">
+        <div className=" sticky border-2 bg-white opacity-100" ref={focusRef}>
+          <StickerCropper modalHandler={modalHandler} />
         </div>
       </div>
     </div>

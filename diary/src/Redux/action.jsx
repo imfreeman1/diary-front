@@ -15,7 +15,6 @@ export const { setWeekly, setlocWeek, setTextContent } = weeklySlice.actions;
 export const { setDaily, setDate, setEditor, setTitle } = dailySlice.actions;
 
 export const {
-  setInit,
   setSticker,
   removeSticker,
   setPosition,

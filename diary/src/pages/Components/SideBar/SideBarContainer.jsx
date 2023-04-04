@@ -30,16 +30,14 @@ function SideBarContainer() {
     return arrBox;
   };
   return (
-    <div className=" absolute inset-y-0">
-      <SideBarPresent
-        stickerList={stickerList}
-        modalVisible={modalVisible}
-        modalHandler={modalHandler}
-        sidebarVisible={sidebarVisible}
-        sidebarHandler={sidebarHandler}
-        tableMaker={tableMaker}
-      />
-    </div>
+    <SideBarPresent
+      stickerList={stickerList}
+      modalVisible={modalVisible}
+      modalHandler={modalHandler}
+      sidebarVisible={sidebarVisible}
+      sidebarHandler={sidebarHandler}
+      tableMaker={tableMaker}
+    />
   );
 }
 

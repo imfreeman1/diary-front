@@ -1,20 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { STICKER_CLOSE_BUTTON_CONTENT } from "@/Constants/constants";
-import Button from "../Button";
+import { BiX } from "react-icons/bi";
 
 const StickerPresent = ({
   id,
   imgURL,
   selected,
+  focusRef,
   focusHandler,
   removeStickerHandler,
   blurHandler,
 }) => (
   <div
-    className="absolute draggable z-50"
+    className="absolute draggable z-20"
     id={id}
     tabIndex={0}
+    ref={focusRef}
     onBlur={selected ? (e) => blurHandler(e) : null}
   >
     <div
@@ -22,10 +23,10 @@ const StickerPresent = ({
       onDoubleClick={(e) => focusHandler(e)}
     >
       {selected ? (
-        <Button
-          className="absolute -right-2 -top-6"
+        <BiX
+          className="absolute -right-2 -top-6 hover:cursor-pointer"
           onClick={(e) => removeStickerHandler(e)}
-          content={STICKER_CLOSE_BUTTON_CONTENT}
+          size={24}
         />
       ) : null}
       <img

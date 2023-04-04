@@ -37,24 +37,23 @@ export const stickerSlice = createSlice({
       const selectedSticker = stickersArray.Table.find(
         (sticker) => sticker.id === id
       );
-      selectedSticker.id = v4();
-      selectedSticker.positionX = position.positionX;
-      selectedSticker.positionY = position.positionY;
+      //여기서 문제가 생김 table의 sticker id와 page에서 sticker id가 같아짐. 선택된 스티커를 깊은 복사로 복제하여, id를 변경해주어야함.
+      const newSticker = selectedSticker;
+      newSticker.id = v4();
+      newSticker.positionX = position.positionX;
+      newSticker.positionY = position.positionY;
       // if의 있는 조건 결과물을 변수로 한번 빼내자
       const selectedChecker = stickersArray[origin].some(
         (sticker) => sticker.selected === true
       );
       if (selectedChecker)
         stickersArray[origin].map((sticker) => (sticker.selected = false));
-      stickersArray[origin] = [...stickersArray[origin], selectedSticker];
+      stickersArray[origin] = [...stickersArray[origin], newSticker];
     },
     removeSticker: ({ stickersArray }, { payload: { id, origin } }) => {
       stickersArray[origin] = stickersArray[origin].filter(
         (sticker) => sticker.id !== id
       );
-    },
-    setInit: ({ stickersArray }, { payload: { origin, selectedSticker } }) => {
-      stickersArray[origin] = [...selectedSticker];
     },
     setPosition: ({ stickersArray }, { payload: { origin, id, position } }) => {
       const selectedSticker = stickersArray[origin].find(
