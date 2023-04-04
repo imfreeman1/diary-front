@@ -67,9 +67,9 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
   // onBlur event를 사용할 때에는 tabIndex속성을 같이 사용해줘야 onBlur가 트리거 됨.
   // 참고 https://velog.io/@broccoliindb/onBlur-on-react
   const blurHandler = (e) => {
-    const nextElemId = e.relatedTarget?.id;
+    const nextElem = e.relatedTarget;
     // 문제가 생기기 전까지는 보류.
-    if (nextElemId !== id) {
+    if (!nextElem) {
       dispatch(resetSelect({ origin: routerRef.current }));
     }
   };
