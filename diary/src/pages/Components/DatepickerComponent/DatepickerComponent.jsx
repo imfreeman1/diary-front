@@ -7,7 +7,11 @@ import "react-datepicker/dist/react-datepicker.css";
  * @param {setSelectedDate} func
  * @returns
  */
-const DatepickerComponent = ({ selectedDate, setSelectedDate }) => {
+const DatepickerComponent = ({
+  selectedDate,
+  setSelectedDate,
+  highlightDatesArr,
+}) => {
   const [show, setShow] = useState(false);
   const handleClose = (state) => {
     setShow(state);
@@ -29,7 +33,7 @@ const DatepickerComponent = ({ selectedDate, setSelectedDate }) => {
       <DatePicker
         selected={selectedDate}
         onChange={handleChange}
-        highlightDates={[new Date()]}
+        highlightDates={highlightDatesArr}
         show={show}
         setShow={handleClose}
         customInput={<ExampleCustomInput />}
