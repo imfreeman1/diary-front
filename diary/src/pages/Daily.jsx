@@ -29,6 +29,12 @@ function Daily() {
   const stickerList = useSelector(
     (state) => state.stickerReducer.stickersArray
   );
+  const dailyHighlight = useSelector(
+    (state) => state.dailyReducer.dailyContents
+  );
+  const dailyHighlightArr = Object.keys(dailyHighlight)
+    .filter((key) => key !== "currentDate")
+    .map((item) => new Date(dailyHighlight[item].locdate));
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   // date() 객체는 redux action 객체로 불러올 수 없음. 간단한 날짜 형식으로 바꿔 넣어주기
@@ -59,6 +65,7 @@ function Daily() {
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          highlightDatesArr={dailyHighlightArr}
         />
         <div className="w-[964px] h-fit my-10 pb-5 bg-white mx-auto rounded">
           <div className="p-2 px-5 ml-20 border-4 border-gray-200 font-bold text-2xl text-left rounded-full w-fit">
