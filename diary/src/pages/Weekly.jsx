@@ -20,7 +20,6 @@ import WeeklyMovingBtn from "./Components/Weekly/WeeklyMovingBtn";
  * selectedDate가 바뀌면 dispatch함
  * [{"locdate":"", day:"", textContent:""},{}...]
  * @param {locThisWeek} str, 몇째주인지를 나타냄 ex."2023-03-W3"
- * @param {moveToWeek} func, selectedDate를 전주와 다음주로 바꿈
  * @component <DatepickerComponent/> selectedDate를 달력의 해당 날짜로 바꿈
  */
 
@@ -46,6 +45,14 @@ const WeeklyPage = () => {
     dispatch(setWeekly({ currentWeeklyPage, locWeek: locThisWeek }));
   }, [dispatch, selectedDateInWeek]);
 
+  const weeklyHighlight = useSelector(
+    (state) => state.weeklyReducer.weeklyContents
+  );
+  const weeklyHighlightArr = Object.keys(weeklyHighlight)
+    .filter((key) => key !== "currlocWeek")
+    .map((item) => new Date(weeklyHighlight[item][1].locdate));
+  console.log(weeklyHighlight, weeklyHighlightArr);
+
   return (
     <>
       <NavBarContainer />
@@ -67,6 +74,7 @@ const WeeklyPage = () => {
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          highlightDatesArr={weeklyHighlightArr}
         />
         <div className="w-fit h-fit rounded border-2 bg-white shadow-sm my-10 mx-auto">
           <div className="text-2xl font-bold text-left ml-5">

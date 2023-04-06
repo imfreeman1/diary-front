@@ -5,7 +5,7 @@ import { setTextContent } from "@/Redux/action";
 import WeeklyDisplayPresenter from "./WeeklyDisplayPresenter";
 /**
  * @param {idx} number, 배열의 idx (0-7)
- * @param {currentlocWeek} str, "2023-03-W3"
+ * @param {curlocWeek} str, "2023-03-W3"
  * @param {weekly} obj, 해당 요일의 정보 {day:"", locdate:"", textContent:""}
  * @param {weekTextContent} str 해당 요일의 textContent
  *
