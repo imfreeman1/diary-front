@@ -1,14 +1,15 @@
-import React from 'react';
-import { v4 } from 'uuid';
-import { DAYS_WEEKLY } from '../../Constants/weeklyConstant';
+import React from "react";
+import { v4 } from "uuid";
+import { DAYS_WEEKLY } from "../../Constants/weeklyConstant";
 
 /**
- * @param {getMonday} func, 그 주의 월요일 date 리턴 (plusDay=0일때 월요일)
+ * @param {getMonday} func, 그 주의 월요일 date 리턴 (plusDay=1일때 월요일)
  * @param {getlocWeek} func , 그 주가 몇째주인지를 표현 "2023-03-W3"
  * @param {useGetWeekly} func , weekly페이지의 날짜 정보
  * array [{day: 요일, locdate: '', textContent: ''},{},{}...]
  * @returns
  */
+
 const getMonday = (dateInWeekly, plusDay) => {
   const week = dateInWeekly.getDay();
   const calcMon = dateInWeekly.getDate() - week;
@@ -20,27 +21,32 @@ const getMonday = (dateInWeekly, plusDay) => {
 };
 
 export const getlocWeek = (dateInWeekly) => {
-  const mondayDate = getMonday(dateInWeekly, 0);
+  const mondayDate = getMonday(dateInWeekly, 1);
   const year = mondayDate.getFullYear();
   const month = mondayDate.getMonth() + 1;
   const weeks = parseInt(mondayDate.getDate() / 7, 10);
-  return `${year}-${month.toString().padStart(2, '0')}-W${weeks + 1}`;
+  return `${year}-${month.toString().padStart(2, "0")}-W${weeks + 1}`;
 };
 
 const useGetWeekly = (dateInWeekly) => {
   const representWeekly = getlocWeek(dateInWeekly);
 
   let weeklyList = [];
-  let plusDay = 0;
+  let plusDay = 1;
   for (const days of DAYS_WEEKLY) {
     const weekObj = {
-      day: days, locdate: '', textContent: '', id: v4(),
+      day: days,
+      locdate: "",
+      textContent: "",
+      id: v4(),
     };
-    if (days === 'Weekly') weekObj.locdate = representWeekly;
-    else if (days !== 'Weekly') {
-      weekObj.locdate = getMonday(dateInWeekly, plusDay).toISOString().substring(0, 10);
+    if (days === "Weekly") weekObj.locdate = representWeekly;
+    else if (days !== "Weekly") {
+      weekObj.locdate = getMonday(dateInWeekly, plusDay)
+        .toISOString()
+        .substring(0, 10);
+      plusDay += 1;
     }
-    plusDay += 1;
     weeklyList = [...weeklyList, weekObj];
   }
   return weeklyList;
