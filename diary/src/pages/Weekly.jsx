@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import DatepickerComponent from "./Components/DatepickerComponent/DatepickerComponent";
 import useGetWeekly, { getlocWeek } from "./Utils/useGetWeekly";
 import { setlocWeek, setWeekly } from "@/Redux/action";
@@ -11,6 +10,7 @@ import SideBarContainer from "./Components/SideBar/SideBarContainer";
 import StickerContainer from "./Components/Sticker/StickerContainer";
 import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
 import { v4 } from "uuid";
+import WeeklyMovingBtn from "./Components/Weekly/WeeklyMovingBtn";
 /**
  * @param {dateInWeekly} date
  * @param {selectedDate} date
@@ -32,7 +32,9 @@ const WeeklyPage = () => {
   );
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
-  const weeklyContents = useSelector((state) => state.weeklyReducer.weeklyContents[`W-${locThisWeek}`]);
+  const weeklyContents = useSelector(
+    (state) => state.weeklyReducer.weeklyContents[`W-${locThisWeek}`]
+  );
   useEffect(() => {
     dispatch(setlocWeek(locThisWeek));
   });
@@ -40,12 +42,6 @@ const WeeklyPage = () => {
     dispatch(setWeekly({ currentWeekly, locWeek: locThisWeek }));
   }, [dispatch, selectedDate]);
 
-  const moveToWeek = (weekNum) => {
-    const dateCalculation = new Date(
-      selectedDate.setDate(selectedDate.getDate() + weekNum)
-    );
-    setSelectedDate(dateCalculation);
-  };
   return (
     <>
       <NavBarContainer />
@@ -75,16 +71,12 @@ const WeeklyPage = () => {
             </span>
             <span className="text-green-900 p-2">{locThisWeek}</span>
           </div>
-          <div className="flex text-3xl px-6 justify-end gap-5 h-10">
-            <BiChevronLeft
-              onClick={() => moveToWeek(-7)}
-              className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
-            />
-            <BiChevronRight
-              onClick={() => moveToWeek(7)}
-              className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
-            />
-          </div>
+          <WeeklyMovingBtn
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            locThisWeek={locThisWeek}
+          />
+
           <div className="m-3 mx-5 grid grid-cols-4 shadow">
             {weeklyContents
               ? weeklyContents.map((day, i) => (
