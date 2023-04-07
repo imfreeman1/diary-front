@@ -5,20 +5,21 @@ import { setDaily, setTitle } from '@/Redux/action';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
 
 /**
- * @param {selectedDate} date
- * @param {dailyContent} obj
+ * @param {dailyContents} obj daily 페이지의 정보
+ * @param {currentDate} str 현재 선택된 날짜 "0000-00-00"
  * @returns
  */
 
 function DailyDisplayContainer() {
   const dispatch = useDispatch();
+
   const { currentDate } = useSelector(
-    (state) => state.dailyReducer.dailyContent,
+    (state) => state.dailyReducer.dailyContents,
   );
-  const currentDaily = useSelector(
-    (state) => state.dailyReducer.dailyContent[`D-${currentDate}`],
+  const Daily = useSelector(
+    (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
-  const initContent = currentDaily?.titleText ? currentDaily.titleText : '';
+  const initContent = Daily?.titleText ? Daily.titleText : '';
   const [content, setContent] = useState('');
 
   const getDaily = useGetDaily(currentDate);
@@ -38,7 +39,7 @@ function DailyDisplayContainer() {
 
   return (
     <DailyDisplayPresenter
-      currentDaily={currentDaily}
+      Daily={Daily}
       content={content}
       handleInput={handleInput}
     />

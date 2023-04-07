@@ -2,14 +2,10 @@ import { useState, useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { useDispatch } from "react-redux";
-import Button from "../Button";
 import { addTableSticker } from "@/Redux/action";
-import {
-  STICKER_CLOSE_BUTTON_CONTENT,
-  STICKER_SAVE_BUTTON_CONTENT,
-} from "@/constants/constants";
+import { BiDuplicate, BiX } from "react-icons/bi";
 
-function EasyCropper({ modalHandler }) {
+function StickerCropper({ modalHandler }) {
   const dispatch = useDispatch();
   const cropperRef = useRef(null);
   // 유저가 첨부한 이미지
@@ -32,6 +28,7 @@ function EasyCropper({ modalHandler }) {
     if (files.current.length) reader.readAsDataURL(files.current[0]);
   };
   const getCropData = () => {
+    // 수정할 사항 : 이미지 크롭을 진행하지 않고 저장버튼을 눌렀을 때, 에러 발생
     const imageElement = cropperRef?.current;
     const cropper = imageElement?.cropper;
     if (cropper) {
@@ -47,7 +44,7 @@ function EasyCropper({ modalHandler }) {
   return (
     <div>
       <div className="flex justify-end mt-3 mr-3">
-        <Button content={STICKER_CLOSE_BUTTON_CONTENT} onClick={modalHandler} />
+        <BiX onClick={modalHandler} size={36} />
       </div>
       <input type="file" accept="image/*" onChange={onChange} />
       <Cropper
@@ -55,9 +52,9 @@ function EasyCropper({ modalHandler }) {
         src={inputImage}
         ref={cropperRef}
       />
-      <Button onClick={getCropData} content={STICKER_SAVE_BUTTON_CONTENT} />
+      <BiDuplicate className="m-4" size={40} onClick={getCropData} />
     </div>
   );
 }
 
-export default EasyCropper;
+export default StickerCropper;
