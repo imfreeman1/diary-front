@@ -40,6 +40,7 @@
     "react-cropper": "^2.1.8",
     "react-datepicker": "^4.11.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-icons": "^4.7.1",
     "tailwind-datepicker-react": "^1.2.3",
     "uuid": "^9.0.0"
