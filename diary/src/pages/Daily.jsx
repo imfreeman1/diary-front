@@ -33,7 +33,7 @@ function Daily() {
     (state) => state.dailyReducer.dailyContents
   );
   const dailyHighlightArr = Object.keys(dailyHighlight)
-    .filter((key) => key !== "currentDate")
+    .filter((key) => dailyHighlight[key].editorContent)
     .map((item) => new Date(dailyHighlight[item].locdate));
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
