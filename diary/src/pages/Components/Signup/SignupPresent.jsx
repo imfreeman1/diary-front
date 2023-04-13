@@ -5,6 +5,7 @@ import Button from "../Button";
 const SignupPresent = ({
   emailRegister,
   passwordRegister,
+  passwordCheckRegister,
   nameRegister,
   handleSubmit,
   isDirty,
@@ -27,7 +28,8 @@ const SignupPresent = ({
           onSubmit={handleSubmit(onSubmit)}
         >
           <input
-            type="email"
+            id="email"
+            type="text"
             {...emailRegister}
             aria-invalid={
               !isDirty ? undefined : errors.email ? "true" : "false"
@@ -53,16 +55,21 @@ const SignupPresent = ({
           </span>
           <input
             type="password"
-            {...passwordRegister}
+            {...passwordCheckRegister}
+            aria-invalid={
+              !isDirty ? undefined : errors.passwordCheck ? "true" : "false"
+            }
             className=" border-2 rounded-md h-10 px-3 mt-5"
             placeholder="비밀번호 확인"
           />
           <span className=" text-pink-300 text-sm h-3 px-3">
-            {errors["password"] ? errors["password"].message : " "}
+            {errors["passwordCheck"] ? errors["passwordCheck"].message : " "}
           </span>
           <input
-            type="name"
+            id="name"
+            type="text"
             {...nameRegister}
+            aria-invalid={!isDirty ? undefined : errors.name ? "true" : "false"}
             className=" border-2 rounded-md h-10 px-3 mt-5"
             placeholder="이름"
           />
