@@ -1,6 +1,10 @@
+
+import { setSelectedWeek } from "@/Redux/action";
 import React, { forwardRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from "react-redux";
+
 /**
  *
  * @param {selectedDate} date
@@ -12,12 +16,14 @@ const DatepickerComponent = ({
   setSelectedDate,
   highlightDatesArr,
 }) => {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = (state) => {
     setShow(state);
   };
   const handleChange = (selectedDate) => {
     setSelectedDate(selectedDate);
+    dispatch(setSelectedWeek(selectedDate));
   };
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button
