@@ -1,6 +1,7 @@
-import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import axios from "./Utils/api";
 
 const Signup = () => {
   const router = useRouter();
@@ -12,29 +13,40 @@ const Signup = () => {
     formState: { errors, isSubmitting, isDirty, isValid },
   } = useForm({ mode: "onChange" });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    fetch("http://132.145.86.117:3000/users/signup", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        name: data.username,
-        email: data.email,
-        password: data.password,
-      }),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        alert("회원가입 완료! 로그인 후 이용해주세요.");
-        router.push("/Login");
-      });
-  };
-  const onError = (errors) => console.log(errors);
+  const handleSignup = handleSubmit(async (resData) => {
+    try {
+      await axios
+        .post(
+          "/users/signup/",
+          {
+            email: resData.email,
+            password: resData.password,
+            name: resData.username,
+            image: "",
+            image_type: "",
+          },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .then(() => {
+          alert("회원가입 완료! 로그인 후 이용해주세요.");
+          router.push("/Login");
+        })
+        .catch((err) => console.log(err));
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
   return (
     <div className="bg-white py-20 w-screen h-screen">
       <div className="w-1/2 h-3/4 p-5 mx-auto bg-white shadow-2xl">
         <h1 className="text-4xl text-center">회원가입</h1>
-        <form onSubmit={handleSubmit(onSubmit, onError)}>
+        <form onSubmit={handleSignup}>
           {errors.username && errors.username?.type === "required" && (
             <span>이름을 입력하세요</span>
           )}
