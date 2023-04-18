@@ -1,20 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { getMonday } from "@/pages/Utils/useGetWeekly";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const calNAME = "weeklyPlanner";
-
 export const weeklySlice = createSlice({
   name: calNAME,
   initialState: {
-    weeklyContent: [],
+    selectedDateInWeek: getMonday(new Date(), 1).toISOString().substring(0, 10),
+    weeklyContents: {},
   },
   reducers: {
-    setWeek: (state, action) => {
-      state.weeklyContent = action.payload;
+    setWeekly: (
+      { weeklyContents },
+      { payload: { locWeek, currentWeeklyPage } }
+    ) => {
+      if (!weeklyContents[`W-${locWeek}`]) {
+        weeklyContents[`W-${locWeek}`] = currentWeeklyPage;
+      }
     },
-    setWeekText: (state, action) => {
-      // console.log(action.payload, current(state.weeklyContent[action.payload.idx]))
-      state.weeklyContent[action.payload.idx].textContent =
-        action.payload.content;
+    setlocWeek: ({ weeklyContents }, { payload }) => {
+      weeklyContents.currlocWeek = payload;
+    },
+    setSelectedWeek: (state, { payload }) => {
+      state.selectedDateInWeek = payload;
+    },
+    setTextContent: (
+      { weeklyContents },
+      { payload: { idx, content, locThisWeek } }
+    ) => {
+      weeklyContents[`W-${locThisWeek}`][idx].textContent = content;
     },
   },
 });

@@ -1,53 +1,56 @@
-import React, { useState } from 'react';
-import Datepicker from 'tailwind-datepicker-react';
-
+<<<<<<< HEAD
+import { setSelectedWeek } from "@/Redux/action";
+import React, { forwardRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from "react-redux";
+=======
+import React, { forwardRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+>>>>>>> 277a64037449c257564e923a1f33c714a4627235
 /**
  *
  * @param {selectedDate} date
  * @param {setSelectedDate} func
  * @returns
  */
-
-const options = {
-  title: '날짜 선택하기',
-  autoHide: true,
-  todayBtn: false,
-  clearBtn: false,
-  maxDate: new Date('2023-12-31'),
-  minDate: new Date('2023-01-01'),
-  theme: {
-    background: 'bg-parent',
-    todayBtn: '',
-    clearBtn: '',
-    icons: '',
-    text: '',
-    disabledText: 'text-gray-500',
-    input: '',
-    inputIcon: '',
-    selected: '',
-  },
-  icons: {
-    prev: () => <span>Previous</span>,
-    next: () => <span>Next</span>,
-  },
-  datepickerClassNames: 'top-12',
-  defaultDate: new Date(),
-  language: 'en',
-};
-
-const DatepickerComponent = ({ selectedDate, setSelectedDate }) => {
+const DatepickerComponent = ({
+  selectedDate,
+  setSelectedDate,
+  highlightDatesArr,
+}) => {
+<<<<<<< HEAD
+  const dispatch = useDispatch();
+=======
+>>>>>>> 277a64037449c257564e923a1f33c714a4627235
   const [show, setShow] = useState(false);
-
   const handleClose = (state) => {
     setShow(state);
   };
   const handleChange = (selectedDate) => {
     setSelectedDate(selectedDate);
+    dispatch(setSelectedWeek(selectedDate));
   };
-
+  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    <button
+      className="bg-gray-200 border-2 shadow-md p-2 px-5 rounded"
+      onClick={onClick}
+      ref={ref}
+    >
+      {value}
+    </button>
+  ));
   return (
     <div className="absolute inset-y-0 left-0">
-      <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose} />
+      <DatePicker
+        selected={selectedDate}
+        onChange={handleChange}
+        highlightDates={highlightDatesArr}
+        show={show}
+        setShow={handleClose}
+        customInput={<ExampleCustomInput />}
+      />
     </div>
   );
 };
