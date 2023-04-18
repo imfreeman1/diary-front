@@ -12,7 +12,6 @@ const Login = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-
   const handleLogin = handleSubmit(async (resData) => {
     try {
       await axios
