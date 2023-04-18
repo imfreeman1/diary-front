@@ -1,17 +1,18 @@
-import React from 'react'
-import Button from '../Button'
-import { useRouter } from 'next/router'
+import React from "react";
+import Button from "../Button";
+import { NAVBAR_HOVER_BG_COLOR_OBJECT } from "@/constants/navbarConstants";
+import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
 
-const hoverBgColorObj = {Month:"hover:bg-orange-200", Weekly:"hover:bg-[#9DBC9D]",};
-
-const NavItem = ({title}) => {
-  const router = useRouter().pathname.replace('/','');
-  
+function NavItem({ title, routerSelector }) {
   return (
-    <li className={`font-bold p-2 w-min ${hoverBgColorObj[router]}`}>
-      <Button content={title} />
+    <li
+      className={`font-bold p-2 w-min ${
+        NAVBAR_HOVER_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH()]
+      }`}
+    >
+      <Button content={title} onClick={(e) => routerSelector(e)} />
     </li>
-  )
+  );
 }
 
-export default NavItem
+export default NavItem;
