@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 /**
  * 모든 날짜를 월요일로 나타내어 관리하기
+ * ++ weekly 페이지에서 주 단위로 이동 가능하게
  * @param {selectedDateInWeek} str store에 저장된 현재 날짜 정보
  * @param {locThisWeek} str, 몇째주인지를 나타냄 ex."2023-03-W3"
  * @param {moveToWeek} func, selectedDateInWeek를 저번달, 다음달로 바꿈
@@ -68,7 +69,7 @@ const WeeklyMovingBtn = ({ locThisWeek }) => {
                 locThisWeek.slice(-1) * 1 === idx + 1
                   ? "text-red-500"
                   : "text-black"
-              }`}
+              } hover:ring hover:ring-gray-300`}
             >
               {WEEK}
               {idx + 1}
