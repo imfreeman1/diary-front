@@ -35,7 +35,6 @@ function MonthlyPage() {
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
-  console.log(monthCalendar);
   useEffect(() => {
     dispatch(setCal(useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth])));
   }, [selectedMonth, yearInMonth]);
@@ -70,11 +69,11 @@ function MonthlyPage() {
             <div className="text-3xl w-min px-6 my-auto">
               <BiCaretUp
                 onClick={moveToNextMonth}
-                className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
+                className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
               />
               <BiCaretDown
                 onClick={moveToLastMonth}
-                className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
+                className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
               />
             </div>
             <p className="text-5xl w-fit px-6 m-3 text-gray-700 select-none">
@@ -83,11 +82,11 @@ function MonthlyPage() {
             </p>
             <p className="text-2xl text-green-900 select-none">{yearInMonth}</p>
           </div>
-          <div className="flex my-2 border-2">
+          <div className="flex my-2 border-2 border-y-green-900">
             {DAY_OF_WEEK.map((day) => (
               <div
                 className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
-                  day === "Sun" ? "text-[#FF0000]" : ""
+                  day === "Sun" ? "text-red-500" : ""
                 }`}
                 key={v4()}
               >
@@ -95,7 +94,7 @@ function MonthlyPage() {
               </div>
             ))}
           </div>
-          <table className="border-collapse border border-gray-400">
+          <table className="border-collapse border border-green-900">
             {monthCalendar.length
               ? monthCalendar.map((week) => (
                   <MonthWeekPresenter key={v4()} week={week} />

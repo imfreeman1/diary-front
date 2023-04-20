@@ -1,12 +1,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
-import React from 'react';
-import { v4 } from 'uuid';
-import PropTypes from 'prop-types';
-import Button from '../../Button';
-import MonthTodoItemContainer from '../MonthTodoItem/MonthTodoItemContainer';
-import MonthListModalContainer from '../MonthModal/MonthListModal/MonthListModalContainer';
-import { SHOW_MORE_TODO } from '@/Constants/monthlyConstants';
+import React from "react";
+import { v4 } from "uuid";
+import PropTypes from "prop-types";
+import Button from "../../Button";
+import MonthTodoItemContainer from "../MonthTodoItem/MonthTodoItemContainer";
+import MonthListModalContainer from "../MonthModal/MonthListModal/MonthListModalContainer";
+import { SHOW_MORE_TODO } from "@/Constants/monthlyConstants";
 
 const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;
@@ -25,7 +25,7 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
                 key={v4()}
                 onClick={() => ctrListModal.handleModalOpen()}
                 content={SHOW_MORE_TODO(dayInfo.todos)}
-                className="block font-semibold p-1 pl-2 my-2 mx-auto rounded hover:bg-gray-300 hover:cursor-pointer"
+                className="block p-1 pl-2 my-2 mx-auto hover:font-semibold hover:cursor-pointer text-green-900"
               />
               <MonthListModalContainer
                 dayInfo={dayInfo}
