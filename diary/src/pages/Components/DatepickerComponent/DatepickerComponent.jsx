@@ -3,6 +3,7 @@ import React, { forwardRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
+import { BiCalendar } from "react-icons/bi";
 /**
  *
  * @param {selectedDate} date
@@ -25,11 +26,12 @@ const DatepickerComponent = ({
   };
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button
-      className="bg-gray-200 border-2 shadow-md p-2 px-5 rounded"
+      className="flex bg-translate border-double border-4 border-black m-1 p-2 px-5 rounded shadow-inner"
       onClick={onClick}
       ref={ref}
     >
-      {value}
+      <p className="">{value}</p>
+      <BiCalendar size="20" />
     </button>
   ));
   return (
