@@ -15,20 +15,20 @@ export const monthSelectorSlice = createSlice({
       state.yearInMonth = currYear;
     },
     setMoveToLastMonth: (state) => {
-      if (state.selectedMonth > 0) {
+      if (state.selectedMonth >= 0) {
         state.selectedMonth -= 1;
       }
-      if (state.selectedMonth <= 0) {
-        state.selectedMonth += 11;
+      if (state.selectedMonth < 0) {
+        state.selectedMonth += 12;
         state.yearInMonth -= 1;
       }
     },
     setMoveToNextMonth: (state) => {
-      if (state.selectedMonth < 11) {
+      if (state.selectedMonth <= 11) {
         state.selectedMonth += 1;
       }
-      if (state.selectedMonth >= 11) {
-        state.selectedMonth -= 11;
+      if (state.selectedMonth > 11) {
+        state.selectedMonth -= 12;
         state.yearInMonth += 1;
       }
     },

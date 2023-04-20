@@ -16,7 +16,7 @@ const MonthTodoItemPresenter = ({ todo, dayInfo, ctrEditModal }) => (
     <li
       key={v4()}
       onClick={() => ctrEditModal.handleModalOpen()}
-      className="block truncate bg-gradient-to-b from-gray-200 to-gray-300 p-1 pl-2 my-2 mx-0.5 border-gray-400 border-2 rounded-xl hover:bg-gray-300 hover:border-gray-600 hover:cursor-pointer"
+      className="block truncate bg-gradient-to-r from-green-600 from-10% via-green-500 via-30% to-green-100 to-60% opacity-100 p-1 pl-2 my-2.5 mx-0.5 rounded hover:from-green-500 hover:cursor-pointer"
     >
       {todo.todoContent}
     </li>
