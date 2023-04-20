@@ -18,12 +18,12 @@ const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
     className="static w-36 h-40 border border-green-900"
   >
     <div
-      className={`pl-1 text-left bg-green-900 bg-opacity-10 ${
+      className={`pl-1 text-left border-b-2 border-green-800 bg-gray-900 bg-opacity-10 ${
         dayInfo.isInMonth
           ? dayInfo.isHoliday
             ? "text-red-500"
             : "text-black"
-          : "text-gray-400 bg-opacity-0"
+          : "text-gray-400 bg-opacity-0 border-none"
       }`}
     >
       <span>{dayInfo.date}</span>
