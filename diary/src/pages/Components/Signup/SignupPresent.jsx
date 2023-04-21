@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Button from "../Button";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Button from '../Button';
 
 const SignupPresent = ({
   emailRegister,
@@ -32,54 +32,54 @@ const SignupPresent = ({
             type="text"
             {...emailRegister}
             aria-invalid={
-              !isDirty ? undefined : errors.email ? "true" : "false"
+              !isDirty ? undefined : errors.email ? 'true' : 'false'
             }
             className=" border-2 rounded-md h-10 px-3 mt-5"
             placeholder="이메일"
           />
           <span className=" text-pink-300 text-sm h-3 px-3">
-            {errors["email"] ? errors["email"].message : " "}
+            {errors['email'] ? errors['email'].message : ' '}
           </span>
           <input
             id="password"
             type="password"
             {...passwordRegister}
             aria-invalid={
-              !isDirty ? undefined : errors.password ? "true" : "false"
+              !isDirty ? undefined : errors.password ? 'true' : 'false'
             }
             className=" border-2 rounded-md h-10 px-3 mt-5"
             placeholder="비밀번호"
           />
           <span className=" text-pink-300 text-sm h-3 px-3">
-            {errors["password"] ? errors["password"].message : " "}
+            {errors['password'] ? errors['password'].message : ' '}
           </span>
           <input
             type="password"
             {...passwordCheckRegister}
             aria-invalid={
-              !isDirty ? undefined : errors.passwordCheck ? "true" : "false"
+              !isDirty ? undefined : errors.passwordCheck ? 'true' : 'false'
             }
             className=" border-2 rounded-md h-10 px-3 mt-5"
             placeholder="비밀번호 확인"
           />
           <span className=" text-pink-300 text-sm h-3 px-3">
-            {errors["passwordCheck"] ? errors["passwordCheck"].message : " "}
+            {errors['passwordCheck'] ? errors['passwordCheck'].message : ' '}
           </span>
           <input
             id="name"
             type="text"
             {...nameRegister}
-            aria-invalid={!isDirty ? undefined : errors.name ? "true" : "false"}
+            aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
             className=" border-2 rounded-md h-10 px-3 mt-5"
             placeholder="이름"
           />
           <span className=" text-pink-300 text-sm h-3 px-3">
-            {errors["name"] ? errors["name"].message : " "}
+            {errors['name'] ? errors['name'].message : ' '}
           </span>
           <Button
-            className={"bg-orange-300 rounded-md h-10 mt-6"}
-            content={"제출"}
-            type={"submit"}
+            className={'bg-orange-300 rounded-md h-10 mt-6'}
+            content={'제출'}
+            type={'submit'}
             disabled={isSubmitting}
           />
         </form>
