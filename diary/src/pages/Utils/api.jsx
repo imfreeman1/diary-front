@@ -1,7 +1,7 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 const axios = Axios.create({
-  baseURL: "http://132.145.86.117:3000/",
+  baseURL: 'https://api.mydiary.site',
 });
 
 export default axios;
