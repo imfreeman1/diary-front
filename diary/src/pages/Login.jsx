@@ -1,69 +1,61 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import axios from "./Utils/api";
-import { setCookie } from "./Utils/cookies";
-import { useRouter } from "next/router";
-import LogoutButton from "./Components/LogoutButton/LogoutButton";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { getCookie } from 'src/pages/Utils/useCookie';
+import axios from './Utils/api';
 
-const Login = () => {
-  const router = useRouter();
+function Login() {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-  const handleLogin = handleSubmit(async (resData) => {
-    try {
-      await axios
-        .post(
-          "/users/signin/",
-          {
-            email: resData.email,
-            password: resData.password,
-            name: "dmswl",
-            image: "",
-            image_type: "",
-          },
-          {
-            withCredentials: true,
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          // setCookie("Authorization", res.data.data.accessToken);
-          // setCookie("Refresh", res.data.data.refreshToken);
-        })
-        // .then(() => router.push("/Main"))
-        .catch((err) => console.log(err));
-    } catch (e) {
-      console.log(e);
-    }
-  });
 
   return (
-    <>
-      <form onSubmit={handleLogin}>
-        <label htmlFor="email">이메일</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="test@email.com"
-          {...register("email")}
-        />
-        <label htmlFor="password">비밀번호</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="****************"
-          {...register("password")}
-        />
-        <button type="submit" disabled={isSubmitting}>
-          로그인
-        </button>
-      </form>
-      <LogoutButton></LogoutButton>
-    </>
+    <form
+      onSubmit={handleSubmit(async (resData) => {
+        try {
+          const payload = {
+            email: resData.email,
+            password: resData.password,
+            name: resData.name,
+            image: '',
+            image_type: '',
+          };
+          await axios.post('/users/signin/', payload, {
+            withCredentials: true,
+          });
+          alert('로그인 완료');
+        } catch (e) {
+          console.log(e);
+        }
+      })}
+    >
+      <label htmlFor="email">이메일</label>
+      <input
+        id="email"
+        type="email"
+        placeholder="test@email.com"
+        {...register('email')}
+      />
+      <label htmlFor="password">비밀번호</label>
+      <input
+        id="password"
+        type="password"
+        placeholder="****************"
+        {...register('password')}
+      />
+      <label htmlFor="name">이름</label>
+      <input
+        id="name"
+        type="string"
+        placeholder="이름입력"
+        {...register('name')}
+      />
+      <button type="submit" disabled={isSubmitting}>
+        로그인
+      </button>
+    </form>
   );
-};
+}
 
 export default Login;

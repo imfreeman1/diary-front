@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const StickerButtonPresent = ({ id, imgURL, makeStickerHandler }) => (
   <button
     id={id}
     type="button"
     onDoubleClick={(e) => makeStickerHandler(e)}
-    className="w-16 h-16"
+    className="w-16 h-16 shadow-lg"
   >
     <img
       className=" object-fill w-full h-full"
