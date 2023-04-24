@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['airbnb', 'airbnb/hooks', 'next/babel', 'next/core-web-vitals'],
+  extends: ['airbnb', 'airbnb/hooks', 'next', 'next/core-web-vitals'],
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module',

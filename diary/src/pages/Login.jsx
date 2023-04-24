@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import axios from './Utils/api';
 import { getCookie } from 'src/pages/Utils/useCookie';
+import axios from './Utils/api';
 
 function Login() {
   const {
@@ -21,7 +21,7 @@ function Login() {
             image: '',
             image_type: '',
           };
-          const data = await axios.post('/users/signin/', payload, {
+          await axios.post('/users/signin/', payload, {
             withCredentials: true,
           });
           alert('로그인 완료');

@@ -5,7 +5,6 @@ import Logo from 'public/Logo/logo.svg';
 import Pen from 'public/Logo/pen.svg';
 import Lottie from 'lottie-react';
 import GleLoginContainer from './Components/GleLoginContainer';
-import App from 'next/app';
 import { landingPageContent } from '@/Constants/constants';
 
 function Landing() {

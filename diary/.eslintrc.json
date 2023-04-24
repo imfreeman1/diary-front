@@ -1,6 +1,6 @@
 {
   "root":true,
-  "extends": ["next/babel","next/core-web-vitals","airbnb"],
+  "extends": ["next","next/core-web-vitals","airbnb"],
   "rules":{
     "react/function-component-definition":[
     2,

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import DailyDisplayContainer from "./Components/Daily/DailyDisplayContainer";
-import DatepickerComponent from "./Components/DatepickerComponent/DatepickerComponent";
-import { setDate } from "@/Redux/action";
-import { DAILY_LOGO } from "@/Constants/dailyConstant";
-import NavBarContainer from "./Components/NavBar/NavBarContainer";
-import SideBarContainer from "./Components/SideBar/SideBarContainer";
-import StickerContainer from "./Components/Sticker/StickerContainer";
-import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
-import { v4 } from "uuid";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 } from 'uuid';
+import DailyDisplayContainer from './Components/Daily/DailyDisplayContainer';
+import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
+import { setDate } from '@/Redux/action';
+import { DAILY_LOGO } from '@/Constants/dailyConstant';
+import NavBarContainer from './Components/NavBar/NavBarContainer';
+import SideBarContainer from './Components/SideBar/SideBarContainer';
+import StickerContainer from './Components/Sticker/StickerContainer';
+import { CURRENT_ROUTER_PATH } from '@/Constants/constants';
 
 /**
  *
@@ -27,10 +27,10 @@ function Daily() {
   // 기본 설정은 현재 날짜, 달력 선택한 날짜
   const dateInDaily = selectedDate || new Date();
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray
+    (state) => state.stickerReducer.stickersArray,
   );
   const dailyHighlight = useSelector(
-    (state) => state.dailyReducer.dailyContents
+    (state) => state.dailyReducer.dailyContents,
   );
   const dailyHighlightArr = Object.keys(dailyHighlight)
     .filter((key) => dailyHighlight[key].editorContent)

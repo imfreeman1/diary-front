@@ -14,7 +14,7 @@ const SignupContainer = () => {
   passwordRef.current = getValues('password');
   const onSubmit = async (resData) => {
     try {
-      let payload = {
+      const payload = {
         email: resData.email,
         password: resData.password,
         name: resData.name,
@@ -35,7 +35,7 @@ const SignupContainer = () => {
     required: { value: true, message: '이메일을 입력해주세요' },
     pattern: { value: Regex.email, message: '이메일 형식을 입력해주세요' },
   });
-  //isDirty를 사용해야 내가 입력한 값이 몇 자리인지 알 수 있을 것 같은데?
+  // isDirty를 사용해야 내가 입력한 값이 몇 자리인지 알 수 있을 것 같은데?
   const passwordRegister = register('password', {
     required: { value: true, message: '비밀번호를 입력해주세요' },
     minLength: { value: 4, message: '4자리이상 입력해주세요' },
