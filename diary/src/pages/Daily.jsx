@@ -9,7 +9,8 @@ import SideBarContainer from "./Components/SideBar/SideBarContainer";
 import StickerContainer from "./Components/Sticker/StickerContainer";
 import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
 import { v4 } from "uuid";
-
+import Image from "next/image";
+import Bookmark from "public/Img/bookmark.png";
 /**
  *
  * @param {selectedDate} date
@@ -33,11 +34,7 @@ function Daily() {
     (state) => state.dailyReducer.dailyContents
   );
   const dailyHighlightArr = Object.keys(dailyHighlight)
-<<<<<<< HEAD
     .filter((key) => key !== "currentDate")
-=======
-    .filter((key) => dailyHighlight[key].editorContent)
->>>>>>> 277a64037449c257564e923a1f33c714a4627235
     .map((item) => new Date(dailyHighlight[item].locdate));
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
@@ -65,18 +62,22 @@ function Daily() {
           selected={sticker.selected}
         />
       ))}
-      <div className="h-full p-10 bg-[#E5C7AF] ">
+      <div className="relative h-full w-full p-5 bg-[#E5C7AF] ">
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           highlightDatesArr={dailyHighlightArr}
         />
-        <div className="w-[964px] h-fit my-10 pb-5 bg-white mx-auto rounded">
-          <div className="p-2 px-5 ml-20 border-4 border-gray-200 font-bold text-2xl text-left rounded-full w-fit">
+        <div className="relative bg-zinc-50 w-fit h-fit border pb-5 my-10 mx-auto shadow-lg rounded">
+          <div className="absolute right-0 w-24 h-24 mr-5">
+            <Image src={Bookmark}></Image>
+          </div>
+          <div className="w-fit p-2 px-5 ml-5 mt-5 border-4 border-gray-200 font-bold text-2xl rounded-full shadow">
             {DAILY_LOGO}
           </div>
           <DailyDisplayContainer />
         </div>
+
         <SideBarContainer />
       </div>
     </>

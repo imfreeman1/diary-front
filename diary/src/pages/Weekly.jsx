@@ -70,13 +70,13 @@ const WeeklyPage = () => {
           selected={sticker.selected}
         />
       ))}
-      <div className="h-full w-full bg-[#9DBC9D] text-center p-10">
+      <div className="relative h-full w-full bg-[#9DBC9D] text-center p-10">
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           highlightDatesArr={weeklyHighlightArr}
         />
-        <div className="w-fit h-fit rounded border-2 bg-white shadow-sm my-10 mx-auto">
+        <div className="bg-white w-fit h-fit border my-10 mx-auto shadow-lg rounded">
           <div className="text-2xl font-bold text-left ml-5">
             <span className="text-black border-4 rounded-full p-2 bg-white">
               {WEEKLY_LOGO}
@@ -87,7 +87,7 @@ const WeeklyPage = () => {
           </div>
           <WeeklyMovingBtn locThisWeek={locThisWeek} />
 
-          <div className="m-3 mx-5 grid grid-cols-4 shadow">
+          <div className="m-3 mx-5 grid grid-cols-4">
             {weeklyContents
               ? weeklyContents.map((day, i) => (
                   <WeeklyDisplayContainer key={day.id} idx={i} day={day} />
