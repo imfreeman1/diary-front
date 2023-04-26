@@ -1,9 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const SignupInputContainer = (props) => {
-  return <div>SignupInputContainer</div>;
-};
+const SignupInputContainer = (props) => <div>SignupInputContainer</div>;
 
 SignupInputContainer.propTypes = {};
 

@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const WeeklyDisplayPresenter = ({ weekly, weekTextContent, handleChange }) => (
   <div className="relative w-[250px] h-[450px] bg-white rounded-xl border-2 border-black border-dashed">
@@ -13,7 +13,7 @@ const WeeklyDisplayPresenter = ({ weekly, weekTextContent, handleChange }) => (
     />
     <p
       className={`absolute bottom-0 right-0 m-3 text-sm ${
-        weekly.day === "Weekly" ? "hidden" : "text-gray-400"
+        weekly.day === 'Weekly' ? 'hidden' : 'text-gray-400'
       }`}
     >
       {weekly.locdate}

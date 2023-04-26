@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import DatepickerComponent from "./Components/DatepickerComponent/DatepickerComponent";
-import useGetWeekly, { getlocWeek } from "./Utils/useGetWeekly";
-import { setlocWeek, setWeekly } from "@/Redux/action";
-import { WEEKLY_LOGO } from "@/Constants/weeklyConstant";
-import WeeklyDisplayContainer from "./Components/Weekly/WeeklyDisplayContainer";
-import NavBarContainer from "./Components/NavBar/NavBarContainer";
-import SideBarContainer from "./Components/SideBar/SideBarContainer";
-import StickerContainer from "./Components/Sticker/StickerContainer";
-import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
-import { v4 } from "uuid";
-import WeeklyMovingBtn from "./Components/Weekly/WeeklyMovingBtn";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 } from 'uuid';
+import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
+import useGetWeekly, { getlocWeek } from './Utils/useGetWeekly';
+import { setlocWeek, setWeekly } from '@/Redux/action';
+import { WEEKLY_LOGO } from '@/Constants/weeklyConstant';
+import WeeklyDisplayContainer from './Components/Weekly/WeeklyDisplayContainer';
+import NavBarContainer from './Components/NavBar/NavBarContainer';
+import SideBarContainer from './Components/SideBar/SideBarContainer';
+import StickerContainer from './Components/Sticker/StickerContainer';
+import { CURRENT_ROUTER_PATH } from '@/Constants/constants';
+import WeeklyMovingBtn from './Components/Weekly/WeeklyMovingBtn';
 
 /**
  * 모든 날짜를 월요일로 나타내어 관리하기
@@ -32,11 +32,11 @@ const WeeklyPage = () => {
   const currentWeeklyPage = useGetWeekly(selectedDateInWeek);
   const locThisWeek = getlocWeek(selectedDateInWeek);
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray
+    (state) => state.stickerReducer.stickersArray,
   );
   const currRouter = CURRENT_ROUTER_PATH();
   const weeklyContents = useSelector(
-    (state) => state.weeklyReducer.weeklyContents[`W-${locThisWeek}`]
+    (state) => state.weeklyReducer.weeklyContents[`W-${locThisWeek}`],
   );
   useEffect(() => {
     dispatch(setlocWeek(locThisWeek));
@@ -46,10 +46,10 @@ const WeeklyPage = () => {
   }, [dispatch, selectedDateInWeek]);
 
   const weeklyHighlight = useSelector(
-    (state) => state.weeklyReducer.weeklyContents
+    (state) => state.weeklyReducer.weeklyContents,
   );
   const weeklyHighlightArr = Object.keys(weeklyHighlight)
-    .filter((key) => key !== "currlocWeek")
+    .filter((key) => key !== 'currlocWeek')
     .map((item) => new Date(weeklyHighlight[item][1].locdate));
   console.log(weeklyHighlight, weeklyHighlightArr);
 
@@ -90,8 +90,12 @@ const WeeklyPage = () => {
           <div className="m-3 mx-5 grid grid-cols-4">
             {weeklyContents
               ? weeklyContents.map((day, i) => (
-                  <WeeklyDisplayContainer key={day.id} idx={i} day={day} />
-                ))
+                <WeeklyDisplayContainer
+                  key={day.id}
+                  idx={i}
+                  day={day}
+                />
+              ))
               : null}
           </div>
         </div>

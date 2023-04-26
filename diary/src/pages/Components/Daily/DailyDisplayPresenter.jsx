@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { v4 } from "uuid";
-import { TITLE } from "@/Constants/dailyConstant";
-import TiptapContainer from "@/pages/Components/Tiptap/TiptapContainer";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { v4 } from 'uuid';
+import { TITLE } from '../Constants/dailyConstant';
+import TiptapContainer from '../pages/Components/Tiptap/TiptapContainer';
 
 function DailyDisplayPresenter({ Daily, content, handleInput }) {
   const roundLine = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];

@@ -1,10 +1,10 @@
+import React, { forwardRef, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch } from 'react-redux';
+import { BiCalendar } from 'react-icons/bi';
+import { setSelectedWeek } from '@/Redux/action';
 
-import { setSelectedWeek } from "@/Redux/action";
-import React, { forwardRef, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useDispatch } from "react-redux";
-import { BiCalendar } from "react-icons/bi";
 /**
  *
  * @param {selectedDate} date

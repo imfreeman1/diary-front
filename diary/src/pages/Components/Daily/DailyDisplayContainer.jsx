@@ -27,11 +27,11 @@ function DailyDisplayContainer() {
   useEffect(() => {
     if (currentDate) dispatch(setDaily(getDaily));
     setContent(initContent);
-  }, [currentDate, dispatch]);
+  }, [currentDate, getDaily, dispatch, initContent]);
 
   useEffect(() => {
     dispatch(setTitle({ titleText: content, locdate: currentDate }));
-  }, [dispatch, content]);
+  }, [dispatch, currentDate, content]);
 
   const handleInput = (e) => {
     setContent(e.target.value);

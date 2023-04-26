@@ -30,7 +30,7 @@ const SignupPresent = ({
           id="email"
           type="text"
           {...emailRegister}
-          aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
+          aria-invalid={isDirty ? errors.email : false}
           className=" border-2 rounded-md h-10 px-3 mt-5"
           placeholder="이메일"
         />
@@ -42,36 +42,36 @@ const SignupPresent = ({
           type="password"
           {...passwordRegister}
           aria-invalid={
-            !isDirty ? undefined : errors.password ? 'true' : 'false'
+            isDirty ? errors.password : false
           }
           className=" border-2 rounded-md h-10 px-3 mt-5"
           placeholder="비밀번호"
         />
         <span className=" text-pink-300 text-sm h-3 px-3">
-          {errors['password'] ? errors['password'].message : ' '}
+          {errors.password ? errors.password.message : ' '}
         </span>
         <input
           type="password"
           {...passwordCheckRegister}
           aria-invalid={
-            !isDirty ? undefined : errors.passwordCheck ? 'true' : 'false'
+            isDirty ? errors.passwordCheck : false
           }
           className=" border-2 rounded-md h-10 px-3 mt-5"
           placeholder="비밀번호 확인"
         />
         <span className=" text-pink-300 text-sm h-3 px-3">
-          {errors['passwordCheck'] ? errors['passwordCheck'].message : ' '}
+          {errors.passwordCheck ? errors.passwordCheck.message : ' '}
         </span>
         <input
           id="name"
           type="text"
           {...nameRegister}
-          aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
+          aria-invalid={!isDirty ? errors.name : false}
           className=" border-2 rounded-md h-10 px-3 mt-5"
           placeholder="이름"
         />
         <span className=" text-pink-300 text-sm h-3 px-3">
-          {errors['name'] ? errors['name'].message : ' '}
+          {errors.name ? errors.name.message : ' '}
         </span>
         <Button
           className="bg-orange-300 rounded-md h-10 mt-6"

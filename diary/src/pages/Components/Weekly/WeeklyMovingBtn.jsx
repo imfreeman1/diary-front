@@ -1,9 +1,9 @@
-import { WEEK } from "@/Constants/weeklyConstant";
-import { getMonday } from "@/pages/Utils/useGetWeekly";
-import { setlocWeek, setSelectedWeek } from "@/Redux/action";
-import React from "react";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import { WEEK } from '@/Constants/weeklyConstant';
+import { getMonday } from '@/pages/Utils/useGetWeekly';
+import { setlocWeek, setSelectedWeek } from '@/Redux/action';
 
 /**
  * 모든 날짜를 월요일로 나타내어 관리하기
@@ -22,7 +22,7 @@ const WeeklyMovingBtn = ({ locThisWeek }) => {
     const dateCalculation = new Date(
       dateConv.getFullYear(),
       dateConv.getMonth() + nextWeek,
-      dateConv.getDate()
+      dateConv.getDate(),
     );
     const dateConvStr = getMonday(dateCalculation, 1)
       .toISOString()
@@ -36,7 +36,7 @@ const WeeklyMovingBtn = ({ locThisWeek }) => {
     const lastDayOfMonth = new Date(
       dateConv.getFullYear(),
       dateConv.getMonth() + 1,
-      0
+      0,
     ).getDate();
     const weekArr = [];
     for (let mon = calcMon % 7; mon <= lastDayOfMonth; mon += 7) {
@@ -61,21 +61,19 @@ const WeeklyMovingBtn = ({ locThisWeek }) => {
   return (
     <div className="flex justify-end">
       <div className="flex justify-end gap-6 py-2 px-10">
-        {weeks.map((mondayOfWeek, idx) => {
-          return (
-            <button
-              onClick={() => getWeeksfunc(selectedDateInWeek, mondayOfWeek)}
-              className={`${
-                locThisWeek.slice(-1) * 1 === idx + 1
-                  ? "text-red-500"
-                  : "text-black"
-              } hover:ring hover:ring-gray-300`}
-            >
-              {WEEK}
-              {idx + 1}
-            </button>
-          );
-        })}
+        {weeks.map((mondayOfWeek, idx) => (
+          <button
+            onClick={() => getWeeksfunc(selectedDateInWeek, mondayOfWeek)}
+            className={`${
+              locThisWeek.slice(-1) * 1 === idx + 1
+                ? 'text-red-500'
+                : 'text-black'
+            } hover:ring hover:ring-gray-300`}
+          >
+            {WEEK}
+            {idx + 1}
+          </button>
+        ))}
       </div>
       <div className="flex text-3xl px-6 justify-end gap-5 h-10">
         <BiChevronLeft

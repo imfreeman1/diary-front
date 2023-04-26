@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SignupInputPresent = (props) => {
-  return <div>SignupInputPresent</div>;
-};
+const SignupInputPresent = (props) => <div>SignupInputPresent</div>;
 
 SignupInputPresent.propTypes = {};
 

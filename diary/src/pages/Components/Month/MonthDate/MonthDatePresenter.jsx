@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import MonthTodoContainer from "../MonthTodo/MonthTodoContainer";
-import MonthInputModalContainer from "@/pages/Components/Month/MonthModal/MonthInputModal/MonthInputModalContainer";
+import React from 'react';
+import PropTypes from 'prop-types';
+import MonthTodoContainer from '../MonthTodo/MonthTodoContainer';
+import MonthInputModalContainer from '@/pages/Components/Month/MonthModal/MonthInputModal/MonthInputModalContainer';
 
 // MonthTodo : 입력한 투두 나타냄
 // MonthInputModal : 더블 클릭 -> input창 열림
@@ -21,9 +21,9 @@ const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
       className={`pl-1 text-left border-b-2 border-green-800 bg-gray-900 bg-opacity-10 ${
         dayInfo.isInMonth
           ? dayInfo.isHoliday
-            ? "text-red-500"
-            : "text-black"
-          : "text-gray-400 bg-opacity-0 border-none"
+            ? 'text-red-500'
+            : 'text-black'
+          : 'text-gray-400 bg-opacity-0 border-none'
       }`}
     >
       <span>{dayInfo.date}</span>

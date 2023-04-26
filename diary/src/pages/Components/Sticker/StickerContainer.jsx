@@ -28,7 +28,9 @@ import StickerPresent from './StickerPresent';
  * @param {height} string
  * @param {selected} boolean
  */
-function StickerContainer({ imgURL, id, position, width, height, selected }) {
+function StickerContainer({
+  imgURL, id, position, width, height, selected,
+}) {
   useDraggable(position);
   // resize를 할때, 왼쪽 축을 잡고 늘리면 오른쪽으로 늘어나는 문제가 있음.
   useResizable();
@@ -45,7 +47,7 @@ function StickerContainer({ imgURL, id, position, width, height, selected }) {
     stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
     const stickerImgSize = stickerPosition.querySelector(SELECT_IN_STICKER_DIV); // 변수명 맘에 안듦.
     Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
-  }, []);
+  }, [position]);
 
   // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
   useEffect(() => {

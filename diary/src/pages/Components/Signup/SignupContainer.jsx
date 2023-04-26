@@ -9,7 +9,9 @@ const SignupContainer = () => {
     register,
     getValues,
     handleSubmit,
-    formState: { isSubmitting, isDirty, errors, dirtyFields },
+    formState: {
+      isSubmitting, isDirty, errors, dirtyFields,
+    },
   } = useForm();
   passwordRef.current = getValues('password');
   const onSubmit = async (resData) => {
@@ -43,9 +45,9 @@ const SignupContainer = () => {
   });
   const passwordCheckRegister = register('passwordCheck', {
     required: { value: true, message: '비밀번호를 입력해주세요' },
+    minLength: { value: 4, message: '4자리이상 입력해주세요' },
     validate: {
-      check: (passwordCheck) =>
-        passwordCheck === passwordRef.current || '비밀번호가 다릅니다',
+      check: (passwordCheck) => passwordCheck === passwordRef.current || '비밀번호가 다릅니다',
     },
   });
   const nameRegister = register('name', {

@@ -1,7 +1,7 @@
-import React from "react";
-import { v4 } from "uuid";
-import PropTypes from "prop-types";
-import MonthEditModalContainer from "../MonthModal/MonthEditModal/MonthEditModalContainer";
+import React from 'react';
+import { v4 } from 'uuid';
+import PropTypes from 'prop-types';
+import MonthEditModalContainer from '../MonthModal/MonthEditModal/MonthEditModalContainer';
 
 /**
  * @param {todo} obj {text, date, id}

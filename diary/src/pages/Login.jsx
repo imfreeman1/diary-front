@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { getCookie } from 'src/pages/Utils/useCookie';
 import axios from './Utils/api';
 
 function Login() {
@@ -30,27 +29,35 @@ function Login() {
         }
       })}
     >
-      <label htmlFor="email">이메일</label>
-      <input
-        id="email"
-        type="email"
-        placeholder="test@email.com"
-        {...register('email')}
-      />
-      <label htmlFor="password">비밀번호</label>
-      <input
-        id="password"
-        type="password"
-        placeholder="****************"
-        {...register('password')}
-      />
-      <label htmlFor="name">이름</label>
-      <input
-        id="name"
-        type="string"
-        placeholder="이름입력"
-        {...register('name')}
-      />
+      <label htmlFor="email">
+        <span>이메일</span>
+        <input
+          id="email"
+          type="email"
+          placeholder="test@email.com"
+          {...register('email')}
+        />
+      </label>
+      <label htmlFor="password">
+        <span>비밀번호</span>
+        <input
+          id="password"
+          type="password"
+          placeholder="****************"
+          {...register('password')}
+        />
+      </label>
+      <label htmlFor="name">
+        <span>
+          이름
+        </span>
+        <input
+          id="name"
+          type="string"
+          placeholder="이름입력"
+          {...register('name')}
+        />
+      </label>
       <button type="submit" disabled={isSubmitting}>
         로그인
       </button>
