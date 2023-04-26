@@ -1,12 +1,19 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
-import React from "react";
-import { v4 } from "uuid";
-import PropTypes from "prop-types";
-import Button from "../../Button";
-import MonthTodoItemContainer from "../MonthTodoItem/MonthTodoItemContainer";
-import MonthListModalContainer from "../MonthModal/MonthListModal/MonthListModalContainer";
-import { SHOW_MORE_TODO } from "@/Constants/monthlyConstants";
+import React, { Component } from 'react';
+import { v4 } from 'uuid';
+import PropTypes from 'prop-types';
+import Button from '../../Button';
+import MonthTodoItemContainer from '../MonthTodoItem/MonthTodoItemContainer';
+import MonthListModalContainer from '../MonthModal/MonthListModal/MonthListModalContainer';
+import { SHOW_MORE_TODO } from '@/Constants/monthlyConstants';
+
+/**
+ * @param {dayInfo} obj
+ * @param {ctrListModal}
+ * { modalVisible: boolean, modalRef:modalRef, handleModalOpen: {f}, handleModalClose: {f}
+ * @returns
+ */
 
 const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;
@@ -42,9 +49,29 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
 };
 
 MonthTodoPresenter.propTypes = {
-  dayInfo: PropTypes.object,
-  ctrListModal: PropTypes.object,
-  viewTodoLen: PropTypes.number,
+  dayInfo: PropTypes.shape({
+    date: PropTypes.number.isRequired,
+    dateName: PropTypes.string.isRequired,
+    day: PropTypes.string.isRequired,
+    isHoliday: PropTypes.bool.isRequired,
+    isInMonth: PropTypes.bool.isRequired,
+    locdate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
+    todos: PropTypes.arrayOf(PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      todoContent: PropTypes.string.isRequired,
+    })).isRequired,
+  }).isRequired,
+  ctrListModal: PropTypes.shape({
+    modalVisible: PropTypes.bool,
+    modalRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
+    ]).isRequired,
+    handleModalOpen: PropTypes.func.isRequired,
+    handleModalClose: PropTypes.func.isRequired,
+  }).isRequired,
+  viewTodoLen: PropTypes.number.isRequired,
 };
 
 export default MonthTodoPresenter;
