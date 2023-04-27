@@ -18,17 +18,6 @@ function SideBarContainer() {
     setSidebarVisible(!sidebarVisible);
   };
 
-  // table column을 만들기 위해서 사용하는 함수.
-  // grid로 변경하자.
-  const tableMaker = (arr, num) => {
-    let slicedArr = [];
-    const arrBox = [];
-    for (let i = 0; i < arr.length; i += num) {
-      slicedArr = arr.slice(i, i + num);
-      arrBox.push(slicedArr);
-    }
-    return arrBox;
-  };
   return (
     <SideBarPresent
       stickerList={stickerList}
@@ -36,7 +25,6 @@ function SideBarContainer() {
       modalHandler={modalHandler}
       sidebarVisible={sidebarVisible}
       sidebarHandler={sidebarHandler}
-      tableMaker={tableMaker}
     />
   );
 }

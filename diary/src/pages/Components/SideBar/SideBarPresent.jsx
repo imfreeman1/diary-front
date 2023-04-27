@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes, { objectOf } from 'prop-types';
 import { v4 } from 'uuid';
 import { BiChevronLeft, BiChevronRight, BiImageAdd } from 'react-icons/bi';
 import StickerMakeModal from '../StickerMakeModal/StickerMakeModal';
-import SideBarColumn from './SideBarColumn';
+import StickerButtonContainer from '../StickerButton/StickerButtonContainer';
 
 /**
  *
@@ -11,7 +12,6 @@ import SideBarColumn from './SideBarColumn';
  * @param {modalHandler} function modalVisible을 관리하는 함수
  * @param {sidebarVisible} boolean sidebar 랜더링을 결정하는 state
  * @param {sidebarHandler} function sidebarVisible을 관리하는 함수
- * @param {tableMaker} function table형태를 만들기위해 2차원 배열을 만들어주는 함수. 추후 grid로 변경, 대체할 예정
  */
 
 function SideBarPresent({
@@ -20,7 +20,6 @@ function SideBarPresent({
   modalHandler,
   sidebarVisible,
   sidebarHandler,
-  tableMaker,
 }) {
   return (
     <div className=" absolute inset-y-0">
@@ -41,17 +40,15 @@ function SideBarPresent({
             />
           )}
           {sidebarVisible ? (
-            <div className="overflow-auto inline-block bg-white border-2">
+            <div className="overflow-auto inline-block bg-white">
               <div className=" flex justify-end mt-2 mr-2 mb-4">
                 <BiImageAdd size={30} onClick={modalHandler} />
               </div>
-              <table>
-                <tbody>
-                  {tableMaker(stickerList, 2).map((stickerCol) => (
-                    <SideBarColumn stickerCol={stickerCol} key={v4()} />
-                  ))}
-                </tbody>
-              </table>
+              <div className="grid grid-cols-2">
+                {stickerList.map((sticker) => (
+                  <StickerButtonContainer imgURL={sticker.imgURL} id={sticker.id} key={v4()} />
+                ))}
+              </div>
             </div>
           ) : null}
         </div>
@@ -59,5 +56,13 @@ function SideBarPresent({
     </div>
   );
 }
+
+SideBarPresent.propTypes = {
+  stickerList: PropTypes.arrayOf(objectOf()).isRequired,
+  modalVisible: PropTypes.bool.isRequired,
+  modalHandler: PropTypes.func.isRequired,
+  sidebarVisible: PropTypes.bool.isRequired,
+  sidebarHandler: PropTypes.func.isRequired,
+};
 
 export default SideBarPresent;
