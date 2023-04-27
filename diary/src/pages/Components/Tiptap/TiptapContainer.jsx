@@ -21,7 +21,6 @@ const TiptapContainer = () => {
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
   const dispatch = useDispatch();
-
   const editor = useGetEditor();
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
   useEffect(() => {

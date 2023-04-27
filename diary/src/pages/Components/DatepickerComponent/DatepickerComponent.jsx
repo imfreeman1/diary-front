@@ -1,9 +1,12 @@
-import { setSelectedWeek } from "@/Redux/action";
-import React, { forwardRef, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useDispatch } from "react-redux";
-import { BiCalendar } from "react-icons/bi";
+import { setSelectedWeek } from '@/Redux/action';
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+// import { ko } from 'date-fns/esm/locale';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import DatepickerCustomInput from './DatepickerCustomInput';
+
 /**
  *
  * @param {selectedDate} date
@@ -20,20 +23,11 @@ const DatepickerComponent = ({
   const handleClose = (state) => {
     setShow(state);
   };
-  const handleChange = (selectedDate) => {
-    setSelectedDate(selectedDate);
-    dispatch(setSelectedWeek(selectedDate));
+  const handleChange = (dateItem) => {
+    setSelectedDate(dateItem);
+    dispatch(setSelectedWeek(dateItem));
   };
-  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <button
-      className="flex bg-translate border-double border-4 border-black m-1 p-2 px-5 rounded shadow-inner"
-      onClick={onClick}
-      ref={ref}
-    >
-      <p className="">{value}</p>
-      <BiCalendar size="20" />
-    </button>
-  ));
+
   return (
     <div className="absolute inset-y-0 left-0">
       <DatePicker
@@ -42,10 +36,20 @@ const DatepickerComponent = ({
         highlightDates={highlightDatesArr}
         show={show}
         setShow={handleClose}
-        customInput={<ExampleCustomInput />}
+        dateFormat="yyyy년 MM월 dd일"
+        dateFormatCalendar="yyyy년 MM월"
+        customInput={<DatepickerCustomInput />}
       />
     </div>
   );
 };
 
+DatepickerComponent.propTypes = {
+  selectedDate: PropTypes.string.isRequired,
+  setSelectedDate: PropTypes.func.isRequired,
+  highlightDatesArr: PropTypes.arrayOf(PropTypes.date),
+};
+DatepickerComponent.defaultProps = {
+  highlightDatesArr: [],
+};
 export default DatepickerComponent;
