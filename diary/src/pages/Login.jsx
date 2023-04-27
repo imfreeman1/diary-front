@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import axios from "./Utils/api";
-import { setCookie } from "./Utils/cookies";
-import { useRouter } from "next/router";
-import LogoutButton from "./Components/LogoutButton/LogoutButton";
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import axios from './Utils/api';
+import { setCookie } from './Utils/cookies';
+import LogoutButton from './Components/LogoutButton/LogoutButton';
 
 const Login = () => {
   const router = useRouter();
@@ -16,17 +16,17 @@ const Login = () => {
     try {
       await axios
         .post(
-          "/users/signin/",
+          '/users/signin/',
           {
             email: resData.email,
             password: resData.password,
-            name: "dmswl",
-            image: "",
-            image_type: "",
+            name: 'dmswl',
+            image: '',
+            image_type: '',
           },
           {
             withCredentials: true,
-          }
+          },
         )
         .then((res) => {
           console.log(res);
@@ -48,20 +48,20 @@ const Login = () => {
           id="email"
           type="email"
           placeholder="test@email.com"
-          {...register("email")}
+          {...register('email')}
         />
         <label htmlFor="password">비밀번호</label>
         <input
           id="password"
           type="password"
           placeholder="****************"
-          {...register("password")}
+          {...register('password')}
         />
         <button type="submit" disabled={isSubmitting}>
           로그인
         </button>
       </form>
-      <LogoutButton></LogoutButton>
+      <LogoutButton />
     </>
   );
 };
