@@ -40,7 +40,7 @@ const WeeklyJumpButtonPresenter = ({
 WeeklyJumpButtonPresenter.propTypes = {
   locThisWeek: PropTypes.string.isRequired,
   moveToWeek: PropTypes.func.isRequired,
-  maximumWeeks: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
+  maximumWeeks: PropTypes.arrayOf(PropTypes.string).isRequired,
   getWeeksfunc: PropTypes.func.isRequired,
 };
 export default WeeklyJumpButtonPresenter;

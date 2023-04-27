@@ -24,8 +24,7 @@ const WeeklyJumpButtonContainer = ({ locThisWeek }) => {
   const maximumWeeks = useGetWeeksTarget(selectedDateInWeek);
 
   const getWeeksfunc = (mday) => {
-    const nextMondayStr = mday.toISOString().substring(0, 10);
-    dispatch(setSelectedWeek(nextMondayStr));
+    dispatch(setSelectedWeek(mday));
   };
 
   return (

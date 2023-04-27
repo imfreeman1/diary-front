@@ -28,7 +28,6 @@ export const weeklySlice = createSlice({
       weeklyContents.currlocWeek = payload;
     },
     setSelectedWeek: (state, { payload }) => {
-      console.log('들어옴');
       state.selectedDateInWeek = payload;
     },
     setTextContent: (

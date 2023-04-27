@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 // import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setSelectedWeek } from '../../../Redux/action';
 import DatepickerCustomInput from './DatepickerCustomInput';
 
 /**
@@ -18,14 +16,12 @@ const DatepickerComponent = ({
   setSelectedDate,
   highlightDatesArr,
 }) => {
-  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = (state) => {
     setShow(state);
   };
   const handleChange = (dateItem) => {
     setSelectedDate(dateItem);
-    dispatch(setSelectedWeek(dateItem));
   };
 
   return (
