@@ -22,5 +22,11 @@
     ],
     "no-console":"off",
     "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*Slice.jsx"],
+      "rules": {
+        "no-param-reassign": "off"
+      }}]
 }
