@@ -78,9 +78,8 @@ function Daily() {
           </div>
           <DailyDisplayContainer />
         </div>
-
-        <SideBarContainer />
       </div>
+      <SideBarContainer />
     </>
   );
 }

@@ -99,8 +99,8 @@ const WeeklyPage = () => {
               : null}
           </div>
         </div>
-        <SideBarContainer />
       </div>
+      <SideBarContainer />
     </>
   );
 };

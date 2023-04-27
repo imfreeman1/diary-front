@@ -102,8 +102,8 @@ function MonthlyPage() {
               : null}
           </table>
         </div>
-        <SideBarContainer />
       </div>
+      <SideBarContainer />
     </>
   );
 }
