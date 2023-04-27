@@ -22,8 +22,13 @@ const WeeklyDisplayPresenter = ({ weekly, weekTextContent, handleChange }) => (
 );
 
 WeeklyDisplayPresenter.propTypes = {
-  weekly: PropTypes.object,
-  weekTextContent: PropTypes.string,
-  handleChange: PropTypes.func,
+  weekly: PropTypes.shape({
+    day: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    locdate: PropTypes.string.isRequired,
+    textContent: PropTypes.string.isRequired,
+  }).isRequired,
+  weekTextContent: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 export default WeeklyDisplayPresenter;

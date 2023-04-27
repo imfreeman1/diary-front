@@ -12,7 +12,7 @@ export const {
 } = monthCalendarSlice.actions;
 
 export const {
-  setWeekly, setlocWeek, setSelectedWeek, setTextContent,
+  setWeekly, setlocWeek, setSelectedWeek, setTextContent, setMoveToWeek,
 } = weeklySlice.actions;
 
 export const {

@@ -1,16 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
 import useGetWeekly, { getlocWeek } from './Utils/useGetWeekly';
-import { setlocWeek, setWeekly } from '@/Redux/action';
-import { WEEKLY_LOGO } from '@/Constants/weeklyConstant';
+import { setlocWeek, setWeekly } from '../Redux/action';
+import { WEEKLY_LOGO } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from './Components/Weekly/WeeklyDisplayContainer';
 import NavBarContainer from './Components/NavBar/NavBarContainer';
 import SideBarContainer from './Components/SideBar/SideBarContainer';
 import StickerContainer from './Components/Sticker/StickerContainer';
-import { CURRENT_ROUTER_PATH } from '@/Constants/constants';
-import WeeklyMovingBtn from './Components/Weekly/WeeklyMovingBtn';
+import { CURRENT_ROUTER_PATH } from '../Constants/constants';
+import WeeklyJumpButtonContainer from './Components/WeeklyJumpButton/WeeklyJumpButtonContainer';
 
 /**
  * 모든 날짜를 월요일로 나타내어 관리하기
@@ -27,8 +28,8 @@ const WeeklyPage = () => {
   const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
   const date = new Date();
   const [selectedDate, setSelectedDate] = useState(date);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const currentWeeklyPage = useGetWeekly(selectedDateInWeek);
   const locThisWeek = getlocWeek(selectedDateInWeek);
   const stickerList = useSelector(
@@ -85,8 +86,7 @@ const WeeklyPage = () => {
               {locThisWeek.slice(0, -3)}
             </span>
           </div>
-          <WeeklyMovingBtn locThisWeek={locThisWeek} />
-
+          <WeeklyJumpButtonContainer locThisWeek={locThisWeek} />
           <div className="m-3 mx-5 grid grid-cols-4">
             {weeklyContents
               ? weeklyContents.map((day, i) => (

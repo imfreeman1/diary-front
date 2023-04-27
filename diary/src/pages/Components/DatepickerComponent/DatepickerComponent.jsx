@@ -1,10 +1,10 @@
-import { setSelectedWeek } from '@/Redux/action';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 // import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setSelectedWeek } from '../../../Redux/action';
 import DatepickerCustomInput from './DatepickerCustomInput';
 
 /**
@@ -45,10 +45,11 @@ const DatepickerComponent = ({
 };
 
 DatepickerComponent.propTypes = {
-  selectedDate: PropTypes.string.isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
   setSelectedDate: PropTypes.func.isRequired,
-  highlightDatesArr: PropTypes.arrayOf(PropTypes.date),
+  highlightDatesArr: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
 };
+
 DatepickerComponent.defaultProps = {
   highlightDatesArr: [],
 };
