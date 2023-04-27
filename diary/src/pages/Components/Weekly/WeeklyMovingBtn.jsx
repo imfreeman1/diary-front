@@ -1,9 +1,9 @@
 import React from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { WEEK } from '@/Constants/weeklyConstant';
-import { getMonday } from '@/pages/Utils/useGetWeekly';
-import { setlocWeek, setSelectedWeek } from '@/Redux/action';
+import { WEEK } from './src/Constants/weeklyConstant';
+import { getMonday } from './src/pages/Utils/useGetWeekly';
+import { setlocWeek, setSelectedWeek } from './src/Redux/action';
 
 /**
  * 모든 날짜를 월요일로 나타내어 관리하기

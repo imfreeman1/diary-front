@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import useDraggable from '@/pages/hooks/useDraggable';
-import useResizable from '@/pages/hooks/useResizable';
-import { removeSticker, resetSelect, setSelect } from '@/Redux/action';
+import PropTypes from 'prop-types';
+import useDraggable from './src/pages/hooks/useDraggable';
+import useResizable from './src/pages/hooks/useResizable';
+import { removeSticker, resetSelect, setSelect } from './src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
   SELECT_IN_STICKER_DIV,
   STICKER_IMG_SIZE_OBJECT,
   STICKER_POSITION_TRANSLATOR,
   STICKER_SELECTOR_ID,
-} from '@/Constants/constants';
+} from './src/Constants/constants';
 import StickerPresent from './StickerPresent';
 
 /*
@@ -33,7 +34,7 @@ function StickerContainer({
 }) {
   useDraggable(position);
   // resize를 할때, 왼쪽 축을 잡고 늘리면 오른쪽으로 늘어나는 문제가 있음.
-  useResizable();
+  useResizable(position);
   const dispatch = useDispatch();
   const routerRef = useRef(null);
   /* CURRENT_ROUTER_PATH function을 dispatch안에서 실행시킬경우
@@ -47,7 +48,7 @@ function StickerContainer({
     stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
     const stickerImgSize = stickerPosition.querySelector(SELECT_IN_STICKER_DIV); // 변수명 맘에 안듦.
     Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
-  }, [position]);
+  }, [position, height, width, id]);
 
   // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
   useEffect(() => {
@@ -92,5 +93,14 @@ function StickerContainer({
     />
   );
 }
+
+StickerContainer.propTypes = {
+  id: PropTypes.string.isRequired,
+  imgURL: PropTypes.string.isRequired,
+  position: PropTypes.objectOf(PropTypes.number).isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  selected: PropTypes.bool.isRequired,
+};
 
 export default StickerContainer;

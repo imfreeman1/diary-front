@@ -5,7 +5,7 @@ import Logo from 'public/Logo/logo.svg';
 import Pen from 'public/Logo/pen.svg';
 import Lottie from 'lottie-react';
 import GleLoginContainer from './Components/GleLoginContainer';
-import { landingPageContent } from '../Constants/constants';
+import { LANDING_PAGE_CONTENT } from '../Constants/constants';
 
 function Landing() {
   return (
@@ -24,7 +24,7 @@ function Landing() {
       </div>
       <div className=" w-full h-screen bg-slate-200 flex flex-col gap-6 items-center justify-center">
         <Lottie animationData={bookDrop} />
-        <div className="text-5xl font-bold">{landingPageContent}</div>
+        <div className="text-5xl font-bold">{LANDING_PAGE_CONTENT}</div>
         <GleLoginContainer />
       </div>
     </>

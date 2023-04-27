@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import interact from 'interactjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPosition } from '@/Redux/action';
+import { setPosition } from './src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
   STICKER_POSITION_TRANSLATOR,
-} from '@/Constants/constants';
+} from './src/Constants/constants';
 
 const useDraggable = (position) => {
   const positions = useRef(null);
@@ -17,13 +17,14 @@ const useDraggable = (position) => {
     (state) => state.stickerReducer.stickersArray[currRouter],
   );
   const debounce = (id, time, timer) => {
-    if (timer.current) clearTimeout(timer.current);
+    let checkTimer = timer.current;
+    if (checkTimer) clearTimeout(checkTimer);
 
-    timer.current = setTimeout(() => {
+    checkTimer = setTimeout(() => {
       dispatch(
         setPosition({ origin: currRouter, id, position: positions.current }),
       );
-      timer.current = null;
+      checkTimer = null;
     }, time);
   };
   // 라이브러리 세팅은 config 따로 관리하자
@@ -39,7 +40,7 @@ const useDraggable = (position) => {
         },
       },
       listeners: {
-        start(event) {
+        start: (event) => {
           const currSticker = currStickersList.find(
             (sticker) => sticker.id === event.target.id,
           );
@@ -48,17 +49,18 @@ const useDraggable = (position) => {
             positionY: currSticker.positionY,
           };
         },
-        move(event) {
+        move: (event) => {
+          const styleOfTarget = event.target.style;
           positions.current.positionX += event.dx;
           positions.current.positionY += event.dy;
-          event.target.style.transform = STICKER_POSITION_TRANSLATOR(
+          styleOfTarget.transform = STICKER_POSITION_TRANSLATOR(
             positions.current,
           );
           debounce(event.target.id, 300, stickerTimer);
         },
       },
     });
-  }, []);
+  });
 };
 
 export default useDraggable;

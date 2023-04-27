@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Bookmark from 'public/Img/bookmark.png';
 import DailyDisplayContainer from './Components/Daily/DailyDisplayContainer';
 import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
-import { setDate } from '@/Redux/action';
+import { setDate } from './src/Redux/action';
 import { DAILY_LOGO } from '../Constants/dailyConstant';
 import NavBarContainer from './Components/NavBar/NavBarContainer';
 import SideBarContainer from './Components/SideBar/SideBarContainer';

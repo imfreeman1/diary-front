@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setSticker } from '@/Redux/action';
-import { CURRENT_ROUTER_PATH } from '@/Constants/constants';
+import { setSticker } from './src/Redux/action';
+import { CURRENT_ROUTER_PATH } from './src/Constants/constants';
 import StickerButtonPresent from './StickerButtonPresent';
 
 function StickerButtonContainer({ id, imgURL }) {

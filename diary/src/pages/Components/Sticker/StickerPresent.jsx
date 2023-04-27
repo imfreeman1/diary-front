@@ -14,6 +14,7 @@ const StickerPresent = ({
   <div
     className="absolute draggable z-20"
     id={id}
+    role="button"
     tabIndex={0}
     ref={focusRef}
     onBlur={selected ? (e) => blurHandler(e) : null}
@@ -24,7 +25,7 @@ const StickerPresent = ({
     >
       {selected ? (
         <BiX
-          className="absolute -right-2 -top-6 hover:cursor-pointer"
+          className="absolute -right-2 -top-6 hover:cursor-pointer pl-1 mb-1"
           onClick={(e) => removeStickerHandler(e)}
           size={24}
         />
@@ -32,14 +33,22 @@ const StickerPresent = ({
       <img
         className="object-fill w-full h-full"
         src={imgURL}
-        width={screen.width}
-        height={screen.height}
+        width={window.screen.width}
+        height={window.screen.height}
         alt="스티커"
       />
     </div>
   </div>
 );
 
-StickerPresent.propTypes = {};
+StickerPresent.propTypes = {
+  id: PropTypes.string.isRequired,
+  imgURL: PropTypes.string.isRequired,
+  selected: PropTypes.bool.isRequired,
+  focusRef: PropTypes.node.isRequired,
+  focusHandler: PropTypes.func.isRequired,
+  removeStickerHandler: PropTypes.func.isRequired,
+  blurHandler: PropTypes.func.isRequired,
+};
 
 export default StickerPresent;

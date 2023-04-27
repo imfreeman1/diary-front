@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Button';
 
 const SignupPresent = ({
   emailRegister,
@@ -73,17 +72,38 @@ const SignupPresent = ({
         <span className=" text-pink-300 text-sm h-3 px-3">
           {errors.name ? errors.name.message : ' '}
         </span>
-        <Button
+        <button
           className="bg-orange-300 rounded-md h-10 mt-6"
-          content="제출"
           type="submit"
           disabled={isSubmitting}
-        />
+        >
+          제출
+        </button>
       </form>
     </div>
   </div>
 );
 
-SignupPresent.propTypes = {};
+// errors의 타입을 제대로 적어줄 필요가 있음. Warning 발생.
+
+SignupPresent.propTypes = {
+  emailRegister: PropTypes.shape({
+    name: PropTypes.string, onChange: PropTypes.func, onBlur: PropTypes.func, ref: PropTypes.func,
+  }).isRequired,
+  passwordRegister: PropTypes.shape({
+    name: PropTypes.string, onChange: PropTypes.func, onBlur: PropTypes.func, ref: PropTypes.func,
+  }).isRequired,
+  passwordCheckRegister: PropTypes.shape({
+    name: PropTypes.string, onChange: PropTypes.func, onBlur: PropTypes.func, ref: PropTypes.func,
+  }).isRequired,
+  nameRegister: PropTypes.shape({
+    name: PropTypes.string, onChange: PropTypes.func, onBlur: PropTypes.func, ref: PropTypes.func,
+  }).isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  isDirty: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.objectOf()).isRequired,
+};
 
 export default SignupPresent;

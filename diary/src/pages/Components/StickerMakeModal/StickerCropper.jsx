@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { BiDuplicate, BiX } from 'react-icons/bi';
-import { addTableSticker } from '@/Redux/action';
+import { addTableSticker } from './src/Redux/action';
 
 function StickerCropper({ modalHandler }) {
   const dispatch = useDispatch();
@@ -76,5 +77,9 @@ function StickerCropper({ modalHandler }) {
     </div>
   );
 }
+
+StickerCropper.propTypes = {
+  modalHandler: PropTypes.func.isRequired,
+};
 
 export default StickerCropper;

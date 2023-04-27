@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 import ProfilePresent from './ProfilePresent';
 
 const ProfileContainer = () => {
   const [inputImg, setInputImg] = useState(null);
   const files = useRef(null);
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { isSubmitting },
+  // } = useForm();
 
   useEffect(() => {
     const imgTag = document.querySelector('#imageDisplay');

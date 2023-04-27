@@ -29,4 +29,8 @@ export const {
   resetSelect,
 } = stickerSlice.actions;
 
-export const { setMonthRouter, setMoveToLastMonth, setMoveToNextMonth } = monthSelectorSlice.actions;
+export const {
+  setMonthRouter,
+  setMoveToLastMonth,
+  setMoveToNextMonth,
+} = monthSelectorSlice.actions;

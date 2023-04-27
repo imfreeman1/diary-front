@@ -58,6 +58,8 @@ const ProfilePresent = ({ onChange }) => (
   </>
 );
 
-ProfilePresent.propTypes = {};
+ProfilePresent.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 
 export default ProfilePresent;

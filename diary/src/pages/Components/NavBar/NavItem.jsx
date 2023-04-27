@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button';
-import { NAVBAR_HOVER_BG_COLOR_OBJECT } from '@/constants/navbarConstants';
-import { CURRENT_ROUTER_PATH } from '@/Constants/constants';
+import { NAVBAR_HOVER_BG_COLOR_OBJECT } from './src/Constants/navbarConstants';
+import { CURRENT_ROUTER_PATH } from './src/Constants/constants';
 
 function NavItem({ title, routerSelector }) {
   return (
@@ -17,5 +18,10 @@ function NavItem({ title, routerSelector }) {
     </li>
   );
 }
+
+NavItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  routerSelector: PropTypes.func.isRequired,
+};
 
 export default NavItem;

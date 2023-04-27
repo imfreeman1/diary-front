@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit';
-import { getMonday } from '@/pages/Utils/useGetWeekly';
+import { getMonday } from './src/pages/Utils/useGetWeekly';
 
 const calNAME = 'weeklyPlanner';
 export const weeklySlice = createSlice({

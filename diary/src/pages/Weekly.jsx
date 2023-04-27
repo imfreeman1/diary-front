@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
 import useGetWeekly, { getlocWeek } from './Utils/useGetWeekly';
-import { setlocWeek, setWeekly } from '@/Redux/action';
-import { WEEKLY_LOGO } from '@/Constants/weeklyConstant';
+import { setlocWeek, setWeekly } from './src/Redux/action';
+import { WEEKLY_LOGO } from './src/Constants/weeklyConstant';
 import WeeklyDisplayContainer from './Components/Weekly/WeeklyDisplayContainer';
 import NavBarContainer from './Components/NavBar/NavBarContainer';
 import SideBarContainer from './Components/SideBar/SideBarContainer';
 import StickerContainer from './Components/Sticker/StickerContainer';
-import { CURRENT_ROUTER_PATH } from '@/Constants/constants';
+import { CURRENT_ROUTER_PATH } from './src/Constants/constants';
 import WeeklyMovingBtn from './Components/Weekly/WeeklyMovingBtn';
 
 /**

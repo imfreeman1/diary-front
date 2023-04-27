@@ -29,7 +29,6 @@ export const stickerSlice = createSlice({
       Table: [...exStickers],
       Weekly: [],
       Daily: [],
-      Test: [],
     },
   },
   reducers: {
@@ -46,7 +45,9 @@ export const stickerSlice = createSlice({
       const selectedChecker = stickersArray[origin].some(
         (sticker) => sticker.selected === true,
       );
-      if (selectedChecker) stickersArray[origin].map((sticker) => (sticker.selected = false));
+      if (selectedChecker) {
+        stickersArray[origin].map((sticker) => (sticker.selected ? sticker.selected : true));
+      }
       stickersArray[origin] = [...stickersArray[origin], newSticker];
     },
     removeSticker: ({ stickersArray }, { payload: { id, origin } }) => {
@@ -58,7 +59,10 @@ export const stickerSlice = createSlice({
       const selectedSticker = stickersArray[origin].find(
         (sticker) => sticker.id === id,
       );
-      if (!selectedSticker.selected) stickersArray[origin].map((sticker) => (sticker.selected = false));
+      if (!selectedSticker.selected) {
+        stickersArray[origin]
+          .map((sticker) => (sticker.selected ? sticker.selected : true));
+      }
       selectedSticker.positionX = position.positionX;
       selectedSticker.positionY = position.positionY;
     },
@@ -94,14 +98,17 @@ export const stickerSlice = createSlice({
       const selectedChecker = stickersArray[origin].some(
         (sticker) => sticker.selected === true,
       );
-      if (selectedChecker) stickersArray[origin].map((sticker) => (sticker.selected = false));
+      if (selectedChecker) {
+        stickersArray[origin]
+          .map((sticker) => (sticker.selected ? sticker.selected : true));
+      }
       const selectedSticker = stickersArray[origin].find(
         (sticker) => sticker.id === id,
       );
       selectedSticker.selected = !selectedSticker.selected;
     },
     resetSelect: ({ stickersArray }, { payload: { origin } }) => {
-      stickersArray[origin].map((sticker) => (sticker.selected = false));
+      stickersArray[origin].map((sticker) => (sticker.selected ? sticker.selected : true));
     },
   },
 });

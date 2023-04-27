@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from '@/pages/Utils/api';
-import { removeCookie } from '@/pages/Utils/cookies';
+import axios from './src/pages/Utils/api';
+import { removeCookie } from './src/pages/Utils/cookies';
 
 const LogoutButton = () => {
   const send = async () => {
@@ -32,6 +32,7 @@ const LogoutButton = () => {
   return (
     <button
       onClick={send}
+      type="button"
       className="m-5 p-5 bg-blue-50"
     >
       Logout

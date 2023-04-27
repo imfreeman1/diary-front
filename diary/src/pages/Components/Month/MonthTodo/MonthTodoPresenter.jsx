@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Button from '../../Button';
 import MonthTodoItemContainer from '../MonthTodoItem/MonthTodoItemContainer';
 import MonthListModalContainer from '../MonthModal/MonthListModal/MonthListModalContainer';
-import { SHOW_MORE_TODO } from '@/Constants/monthlyConstants';
+import { SHOW_MORE_TODO } from './src/Constants/monthlyConstants';
 
 const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;

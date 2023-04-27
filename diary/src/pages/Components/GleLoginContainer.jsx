@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useGoogleLogin } from '@react-oauth/google';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import getInfo from '../api/googleAPI';
 import GleLoginPresenter from './GleLoginPresenter';
-import { setAuth } from '@/Redux/action';
+import { setAuth } from './src/Redux/action';
 
 function GleLoginContainer() {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.googleAuthReducer);
   const [{ token }, setCookie] = useCookies(['token']);
 
   const setUserInfoCookies = (data) => {

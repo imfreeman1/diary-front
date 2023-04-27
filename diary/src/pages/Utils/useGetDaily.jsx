@@ -1,5 +1,5 @@
 import React from 'react';
-import { DAY_OF_WEEK } from '@/Constants/monthlyConstants';
+import { DAY_OF_WEEK } from './src/Constants/monthlyConstants';
 
 /**
  *

@@ -1,32 +1,33 @@
 import interact from 'interactjs';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setResize } from '@/Redux/action';
+import { setResize } from './src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
   STICKER_IMG_SIZE_OBJECT,
-} from '@/Constants/constants';
+} from '../../Constants/constants';
+// 넌 내가 다시 조지러 온다...
 
-const useResizable = () => {
+const useResizable = (position) => {
   const stickerSize = useRef(null);
   const stickerTimer = useRef(null);
   const dispatch = useDispatch();
   const currRouter = useRef(null);
   currRouter.current = CURRENT_ROUTER_PATH();
 
-  const debounce = (id, time, timer, position) => {
-    if (timer.current) clearTimeout(timer.current);
-
-    timer.current = setTimeout(() => {
+  const debounce = (id, time, timer, stickerPosition) => {
+    let checkTimer = timer.current;
+    if (checkTimer) clearTimeout(checkTimer);
+    checkTimer = setTimeout(() => {
       dispatch(
         setResize({
           origin: currRouter.current,
           id,
           size: stickerSize.current,
-          position,
+          position: stickerPosition,
         }),
       );
-      timer.current = null;
+      checkTimer = null;
     }, time);
   };
 
@@ -40,12 +41,10 @@ const useResizable = () => {
       },
       // invert: 'reposition',
       listeners: {
-        move(event) {
+        move: (event) => {
           let { x, y } = event.target.dataset;
-
           x = (parseFloat(x) || 0) + event.deltaRect.left;
           y = (parseFloat(y) || 0) + event.deltaRect.top;
-
           const parentElem = event.target.parentNode;
           stickerSize.current = {
             width: event.rect.width,
@@ -56,12 +55,12 @@ const useResizable = () => {
           debounce(parentElem.id, 500, stickerTimer, { x, y });
 
           Object.assign(
-            event.target.style,
+            parentElem.style,
             STICKER_IMG_SIZE_OBJECT(
               stickerSize.current.width,
               stickerSize.current.height,
-              x,
-              y,
+              position.x - x,
+              position.y - y,
             ),
           );
           /* move event가 발생하는 동안 event.target.dataset을 실시간 변경해줌. */
@@ -69,7 +68,7 @@ const useResizable = () => {
         },
       },
     });
-  }, []);
+  });
 };
 
 export default useResizable;

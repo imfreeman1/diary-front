@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useControlModal from '@/pages/hooks/useControlModal';
+import useControlModal from './src/pages/hooks/useControlModal';
 import MonthTodoItemPresenter from './MonthTodoItemPresenter';
 
 /**

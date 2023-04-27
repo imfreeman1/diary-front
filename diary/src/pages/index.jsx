@@ -16,5 +16,5 @@ export default function Home() {
     return null;
   }
 
-  return <>{token ? <Main /> : <Landing />}</>;
+  return <div>{token ? <Main /> : <Landing />}</div>;
 }
