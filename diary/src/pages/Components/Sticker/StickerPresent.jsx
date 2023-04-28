@@ -45,7 +45,7 @@ StickerPresent.propTypes = {
   id: PropTypes.string.isRequired,
   imgURL: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
-  focusRef: PropTypes.node.isRequired,
+  focusRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }).isRequired,
   focusHandler: PropTypes.func.isRequired,
   removeStickerHandler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
