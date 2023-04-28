@@ -17,14 +17,13 @@ const useDraggable = (position) => {
     (state) => state.stickerReducer.stickersArray[currRouter],
   );
   const debounce = (id, time, timer) => {
-    let checkTimer = timer.current;
-    if (checkTimer) clearTimeout(checkTimer);
+    if (timer.current) clearTimeout(timer.current);
 
-    checkTimer = setTimeout(() => {
+    timer.current = setTimeout(() => {
       dispatch(
         setPosition({ origin: currRouter, id, position: positions.current }),
       );
-      checkTimer = null;
+      timer.current = null;
     }, time);
   };
   // 라이브러리 세팅은 config 따로 관리하자

@@ -6,9 +6,8 @@ import {
   CURRENT_ROUTER_PATH,
   STICKER_IMG_SIZE_OBJECT,
 } from '../../Constants/constants';
-// 넌 내가 다시 조지러 온다...
 
-const useResizable = (position) => {
+const useResizable = () => {
   const stickerSize = useRef(null);
   const stickerTimer = useRef(null);
   const dispatch = useDispatch();
@@ -16,9 +15,8 @@ const useResizable = (position) => {
   currRouter.current = CURRENT_ROUTER_PATH();
 
   const debounce = (id, time, timer, stickerPosition) => {
-    let checkTimer = timer.current;
-    if (checkTimer) clearTimeout(checkTimer);
-    checkTimer = setTimeout(() => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
       dispatch(
         setResize({
           origin: currRouter.current,
@@ -27,7 +25,7 @@ const useResizable = (position) => {
           position: stickerPosition,
         }),
       );
-      checkTimer = null;
+      timer.current = null;
     }, time);
   };
 
@@ -52,19 +50,19 @@ const useResizable = (position) => {
           };
 
           // 여기 부분에서 debounce가 아닌 mouseUp될때 dispatch를 실행할 수 있도록 변경해야하 할 것 같음. draggable에서도 동일.
-          debounce(parentElem.id, 500, stickerTimer, { x, y });
 
           Object.assign(
-            parentElem.style,
+            event.target.style,
             STICKER_IMG_SIZE_OBJECT(
               stickerSize.current.width,
               stickerSize.current.height,
-              position.x - x,
-              position.y - y,
+              x,
+              y,
             ),
           );
           /* move event가 발생하는 동안 event.target.dataset을 실시간 변경해줌. */
           Object.assign(event.target.dataset, { x, y });
+          debounce(parentElem.id, 500, stickerTimer, { x, y });
         },
       },
     });
