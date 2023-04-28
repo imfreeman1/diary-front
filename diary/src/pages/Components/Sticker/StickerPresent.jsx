@@ -12,7 +12,7 @@ const StickerPresent = ({
   blurHandler,
 }) => (
   <div
-    className="absolute draggable z-20"
+    className="absolute draggable"
     id={id}
     role="button"
     tabIndex={0}
@@ -45,7 +45,7 @@ StickerPresent.propTypes = {
   id: PropTypes.string.isRequired,
   imgURL: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
-  focusRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }).isRequired,
+  focusRef: PropTypes.shape({ current: PropTypes.instanceOf(PropTypes.element) }).isRequired,
   focusHandler: PropTypes.func.isRequired,
   removeStickerHandler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
