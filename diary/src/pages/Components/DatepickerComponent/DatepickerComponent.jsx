@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from 'react-redux';
 import { BiCalendar } from 'react-icons/bi';
-import { setSelectedWeek } from './src/Redux/action';
+import { setSelectedWeek } from 'src/Redux/action';
 
 /**
  *

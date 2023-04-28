@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import interact from 'interactjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPosition } from './src/Redux/action';
+import { setPosition } from 'src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
   STICKER_POSITION_TRANSLATOR,
-} from './src/Constants/constants';
+} from 'src/Constants/constants';
 
 const useDraggable = (position) => {
   const positions = useRef(null);

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setMonthRouter } from './src/Redux/action';
+import { setMonthRouter } from 'src/Redux/action';
 import NavBarPresent from './NavBarPresent';
 
 const NavBarContainer = () => {

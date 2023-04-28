@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setTextContent } from './src/Redux/action';
+import { setTextContent } from 'src/Redux/action';
 import WeeklyDisplayPresenter from './WeeklyDisplayPresenter';
 /**
  * @param {idx} number, 배열의 idx (0-7)

@@ -1,7 +1,7 @@
 import interact from 'interactjs';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setResize } from './src/Redux/action';
+import { setResize } from 'src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
   STICKER_IMG_SIZE_OBJECT,

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'src/pages/Utils/api';
 import SignupPresent from './SignupPresent';
-import axios from './src/pages/Utils/api';
 
 const SignupContainer = () => {
   const passwordRef = useRef(null);

@@ -4,7 +4,7 @@ import 'cropperjs/dist/cropper.css';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { BiDuplicate, BiX } from 'react-icons/bi';
-import { addTableSticker } from './src/Redux/action';
+import { addTableSticker } from 'src/Redux/action';
 
 function StickerCropper({ modalHandler }) {
   const dispatch = useDispatch();

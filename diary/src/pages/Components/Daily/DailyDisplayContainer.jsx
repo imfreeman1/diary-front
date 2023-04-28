@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useGetDaily from './src/pages/Utils/useGetDaily';
-import { setDaily, setTitle } from './src/Redux/action';
+import useGetDaily from 'src/pages/Utils/useGetDaily';
+import { setDaily, setTitle } from 'src/Redux/action';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
 
 /**

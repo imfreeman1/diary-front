@@ -3,7 +3,7 @@ import {
   BiEdit, BiTrash, BiTransfer, BiX,
 } from 'react-icons/bi';
 import PropTypes from 'prop-types';
-import { INPUT_PLACEHOLDER } from './src/Constants/monthlyConstants';
+import { INPUT_PLACEHOLDER } from 'src/Constants/monthlyConstants';
 
 function MonthEditModalPresenter({
   todo,

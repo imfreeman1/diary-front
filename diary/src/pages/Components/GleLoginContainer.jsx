@@ -3,9 +3,9 @@ import { useGoogleLogin } from '@react-oauth/google';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
+import { setAuth } from 'src/Redux/action';
 import getInfo from '../api/googleAPI';
 import GleLoginPresenter from './GleLoginPresenter';
-import { setAuth } from './src/Redux/action';
 
 function GleLoginContainer() {
   const dispatch = useDispatch();

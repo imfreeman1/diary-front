@@ -3,10 +3,10 @@
 import React from 'react';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
+import { SHOW_MORE_TODO } from 'src/Constants/monthlyConstants';
 import Button from '../../Button';
 import MonthTodoItemContainer from '../MonthTodoItem/MonthTodoItemContainer';
 import MonthListModalContainer from '../MonthModal/MonthListModal/MonthListModalContainer';
-import { SHOW_MORE_TODO } from './src/Constants/monthlyConstants';
 
 const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;

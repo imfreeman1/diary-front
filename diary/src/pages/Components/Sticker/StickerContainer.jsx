@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import useDraggable from './src/pages/hooks/useDraggable';
-import useResizable from './src/pages/hooks/useResizable';
-import { removeSticker, resetSelect, setSelect } from './src/Redux/action';
+import useDraggable from 'src/pages/hooks/useDraggable';
+import useResizable from 'src/pages/hooks/useResizable';
+import { removeSticker, resetSelect, setSelect } from 'src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
   SELECT_IN_STICKER_DIV,
   STICKER_IMG_SIZE_OBJECT,
   STICKER_POSITION_TRANSLATOR,
   STICKER_SELECTOR_ID,
-} from './src/Constants/constants';
+} from 'src/Constants/constants';
 import StickerPresent from './StickerPresent';
 
 /*

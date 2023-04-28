@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from './src/pages/Utils/api';
-import { removeCookie } from './src/pages/Utils/cookies';
+import axios from 'src/pages/Utils/api';
+import { removeCookie } from 'src/pages/Utils/cookies';
 
 const LogoutButton = () => {
   const send = async () => {

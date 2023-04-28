@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Button = ({
-  onClick, content, className, disabled = false,
+  onClick, content, className, disabled,
 }) => (
   <button
     className={`cursor-pointer ${className}`}
@@ -14,11 +14,17 @@ const Button = ({
   </button>
 );
 
+Button.defaultProps = {
+  disabled: null,
+  className: '',
+};
+
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   content: PropTypes.node.isRequired,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+
 };
 
 export default Button;
