@@ -7,7 +7,7 @@ function NavItem({
 }) {
   return (
     <li
-      className={`font-bold p-2 w-min ${
+      className={`font-bold p-3 w-min ${
         NAVBAR_HOVER_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH]
       }`}
     >
