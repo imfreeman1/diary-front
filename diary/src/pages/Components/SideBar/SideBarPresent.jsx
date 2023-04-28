@@ -58,7 +58,15 @@ function SideBarPresent({
 }
 
 SideBarPresent.propTypes = {
-  stickerList: PropTypes.arrayOf(objectOf()).isRequired,
+  stickerList: PropTypes.arrayOf(objectOf({
+    id: PropTypes.string,
+    imgURL: PropTypes.string,
+    positionX: PropTypes.number,
+    positionY: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    selected: PropTypes.bool,
+  })).isRequired,
   modalVisible: PropTypes.bool.isRequired,
   modalHandler: PropTypes.func.isRequired,
   sidebarVisible: PropTypes.bool.isRequired,
