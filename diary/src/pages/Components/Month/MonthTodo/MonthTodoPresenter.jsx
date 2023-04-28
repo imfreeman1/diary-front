@@ -1,12 +1,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
-import React from "react";
-import { v4 } from "uuid";
-import PropTypes from "prop-types";
-import Button from "../../Button";
-import MonthTodoItemContainer from "../MonthTodoItem/MonthTodoItemContainer";
-import MonthListModalContainer from "../MonthModal/MonthListModal/MonthListModalContainer";
-import { SHOW_MORE_TODO } from "@/Constants/monthlyConstants";
+import React from 'react';
+import { v4 } from 'uuid';
+import PropTypes from 'prop-types';
+import { SHOW_MORE_TODO } from 'src/Constants/monthlyConstants';
+import Button from '../../Button';
+import MonthTodoItemContainer from '../MonthTodoItem/MonthTodoItemContainer';
+import MonthListModalContainer from '../MonthModal/MonthListModal/MonthListModalContainer';
 
 const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;
@@ -15,7 +15,11 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
       {todos.map((todo, idx) => {
         if (idx < viewTodoLen) {
           return (
-            <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />
+            <MonthTodoItemContainer
+              key={v4()}
+              todo={todo}
+              dayInfo={dayInfo}
+            />
           );
         }
         if (idx === viewTodoLen) {

@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import useOnClickOutside from "./useOnClickOutSide";
-import PropTypes from "prop-types";
+import { useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import useOnClickOutside from './useOnClickOutSide';
 
 const useControlModal = (dayInfo) => {
   const [modalVisible, setModalVisible] = useState(false);

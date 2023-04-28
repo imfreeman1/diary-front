@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useControlModal from '@/pages/hooks/useControlModal';
+import useControlModal from 'src/pages/hooks/useControlModal';
 import MonthDatePresenter from './MonthDatePresenter';
 
 /**
@@ -12,7 +12,12 @@ import MonthDatePresenter from './MonthDatePresenter';
 function MonthDateContainer({ dayInfo }) {
   const ctrInputModal = useControlModal(dayInfo);
 
-  return <MonthDatePresenter dayInfo={dayInfo} ctrInputModal={ctrInputModal} />;
+  return (
+    <MonthDatePresenter
+      dayInfo={dayInfo}
+      ctrInputModal={ctrInputModal}
+    />
+  );
 }
 
 MonthDateContainer.propTypes = {

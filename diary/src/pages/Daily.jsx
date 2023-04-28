@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import DailyDisplayContainer from "./Components/Daily/DailyDisplayContainer";
-import DatepickerComponent from "./Components/DatepickerComponent/DatepickerComponent";
-import { setDate } from "@/Redux/action";
-import { DAILY_LOGO } from "@/Constants/dailyConstant";
-import NavBarContainer from "./Components/NavBar/NavBarContainer";
-import SideBarContainer from "./Components/SideBar/SideBarContainer";
-import StickerContainer from "./Components/Sticker/StickerContainer";
-import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
-import { v4 } from "uuid";
-import Image from "next/image";
-import Bookmark from "public/Img/bookmark.png";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 } from 'uuid';
+import Image from 'next/image';
+import Bookmark from 'public/Img/bookmark.png';
+import { setDate } from 'src/Redux/action';
+import DailyDisplayContainer from './Components/Daily/DailyDisplayContainer';
+import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
+import { DAILY_LOGO } from '../Constants/dailyConstant';
+import NavBarContainer from './Components/NavBar/NavBarContainer';
+import SideBarContainer from './Components/SideBar/SideBarContainer';
+import StickerContainer from './Components/Sticker/StickerContainer';
+import { CURRENT_ROUTER_PATH } from '../Constants/constants';
+
 /**
  *
  * @param {selectedDate} date
@@ -28,13 +29,13 @@ function Daily() {
   // 기본 설정은 현재 날짜, 달력 선택한 날짜
   const dateInDaily = selectedDate || new Date();
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray
+    (state) => state.stickerReducer.stickersArray,
   );
   const dailyHighlight = useSelector(
-    (state) => state.dailyReducer.dailyContents
+    (state) => state.dailyReducer.dailyContents,
   );
   const dailyHighlightArr = Object.keys(dailyHighlight)
-    .filter((key) => key !== "currentDate")
+    .filter((key) => dailyHighlight[key].editorContent)
     .map((item) => new Date(dailyHighlight[item].locdate));
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
@@ -62,24 +63,23 @@ function Daily() {
           selected={sticker.selected}
         />
       ))}
-      <div className="relative h-full w-full p-5 bg-[#E5C7AF] ">
+      <div className="h-full w-full p-5 bg-[#E5C7AF] ">
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           highlightDatesArr={dailyHighlightArr}
         />
-        <div className="relative bg-zinc-50 w-fit h-fit border pb-5 my-10 mx-auto shadow-lg rounded">
+        <div className="bg-zinc-50 w-fit h-fit border pb-5 my-10 mx-auto shadow-lg rounded">
           <div className="absolute right-0 w-24 h-24 mr-5">
-            <Image src={Bookmark}></Image>
+            <Image src={Bookmark} />
           </div>
           <div className="w-fit p-2 px-5 ml-5 mt-5 border-4 border-gray-200 font-bold text-2xl rounded-full shadow">
             {DAILY_LOGO}
           </div>
           <DailyDisplayContainer />
         </div>
-
-        <SideBarContainer />
       </div>
+      <SideBarContainer />
     </>
   );
 }

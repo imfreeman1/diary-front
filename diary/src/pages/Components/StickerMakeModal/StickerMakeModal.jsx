@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import StickerCropper from "./StickerCropper";
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import StickerCropper from './StickerCropper';
 
 function StickerMakeModal({ modalHandler }) {
   const focusRef = useRef(null);
@@ -18,5 +19,9 @@ function StickerMakeModal({ modalHandler }) {
     </div>
   );
 }
+
+StickerMakeModal.propTypes = {
+  modalHandler: PropTypes.func.isRequired,
+};
 
 export default StickerMakeModal;

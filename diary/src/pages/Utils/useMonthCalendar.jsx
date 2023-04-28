@@ -1,7 +1,7 @@
-import React from "react";
-import { DAY_OF_WEEK, MONTH_DAYS } from "../../Constants/monthlyConstants";
-import Holiday from "../Json/holidays_kr.json";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { DAY_OF_WEEK, MONTH_DAYS } from '../../Constants/monthlyConstants';
+import Holiday from '../Json/holidays_kr.json';
 
 /**
  * @param {idxMonth} number, (ex. 03 -> 2)
@@ -20,38 +20,35 @@ const useMonthCalendar = (year, month) => {
   const MonthTable = Array.from(Array(MAX_WEEKS), (_, fewWeeks) => {
     let week = [];
     let startday = 1;
-    for (let dayOfWeek of DAY_OF_WEEK) {
-      let monthCalendar = {
-        locdate: "",
-        date: "",
+    for (const dayOfWeek of DAY_OF_WEEK) {
+      const monthCalendar = {
+        locdate: '',
+        date: '',
         isInMonth: false,
-        day: "",
-        dateName: "",
+        day: '',
+        dateName: '',
         isHoliday: false,
         todos: [],
       };
-      let date = fewWeeks * 7 - monthStartDay + startday++;
+      const date = fewWeeks * 7 - monthStartDay + startday++;
 
       if (date > MONTH_DAYS[idxMonth]) {
         monthCalendar.locdate = false;
         monthCalendar.date = date - MONTH_DAYS[idxMonth];
-        if (fewWeeks === 5 && dayOfWeek === "Sun") break;
+        if (fewWeeks === 5 && dayOfWeek === 'Sun') break;
       } else if (date < 1) {
         monthCalendar.locdate = false;
         monthCalendar.date = date + (MONTH_DAYS[idxMonth - 1] || 31);
       } else if (date >= 1 && date <= MONTH_DAYS[idxMonth]) {
-        monthCalendar.locdate =
-          `${year}-${month}-` + date.toString().padStart(2, "0");
+        monthCalendar.locdate = `${year}-${month}-${date.toString().padStart(2, '0')}`;
         monthCalendar.date = date;
         monthCalendar.isInMonth = true;
       }
       monthCalendar.day = dayOfWeek;
-      monthCalendar.dateName =
-        Holiday[year] && Holiday[year][monthCalendar.locdate]
-          ? Holiday[year][monthCalendar.locdate]
-          : "";
-      monthCalendar.isHoliday =
-        dayOfWeek === "Sun" || monthCalendar.dateName ? true : false;
+      monthCalendar.dateName = Holiday[year] && Holiday[year][monthCalendar.locdate]
+        ? Holiday[year][monthCalendar.locdate]
+        : '';
+      monthCalendar.isHoliday = !!(dayOfWeek === 'Sun' || monthCalendar.dateName);
       week = [...week, monthCalendar];
     }
     return week;

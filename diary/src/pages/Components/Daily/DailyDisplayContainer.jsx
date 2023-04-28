@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useGetDaily from '@/pages/Utils/useGetDaily';
-import { setDaily, setTitle } from '@/Redux/action';
+import useGetDaily from 'src/pages/Utils/useGetDaily';
+import { setDaily, setTitle } from 'src/Redux/action';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
 
 /**
@@ -27,11 +27,11 @@ function DailyDisplayContainer() {
   useEffect(() => {
     if (currentDate) dispatch(setDaily(getDaily));
     setContent(initContent);
-  }, [currentDate, dispatch]);
+  }, [currentDate, getDaily, dispatch, initContent]);
 
   useEffect(() => {
     dispatch(setTitle({ titleText: content, locdate: currentDate }));
-  }, [dispatch, content]);
+  }, [dispatch, currentDate, content]);
 
   const handleInput = (e) => {
     setContent(e.target.value);

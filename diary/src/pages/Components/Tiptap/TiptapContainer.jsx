@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditor } from '@/Redux/action';
-import useGetEditor from '@/pages/Utils/useGetEditor';
+import { setEditor } from 'src/Redux/action';
+import useGetEditor from 'src/pages/Utils/useGetEditor';
 import TiptapPresenter from './TiptapPresenter';
 
 /**

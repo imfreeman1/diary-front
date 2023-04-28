@@ -1,9 +1,10 @@
-import { setSelectedWeek } from "@/Redux/action";
-import React, { forwardRef, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useDispatch } from "react-redux";
-import { BiCalendar } from "react-icons/bi";
+import React, { forwardRef, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch } from 'react-redux';
+import { BiCalendar } from 'react-icons/bi';
+import { setSelectedWeek } from 'src/Redux/action';
+
 /**
  *
  * @param {selectedDate} date
@@ -35,7 +36,7 @@ const DatepickerComponent = ({
     </button>
   ));
   return (
-    <div className="absolute inset-y-0 left-0">
+    <div className="absolute inset-y-11 left-0">
       <DatePicker
         selected={selectedDate}
         onChange={handleChange}

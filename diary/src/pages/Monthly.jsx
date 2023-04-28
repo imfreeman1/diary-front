@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BiCaretUp, BiCaretDown } from "react-icons/bi";
-import { v4 } from "uuid";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BiCaretUp, BiCaretDown } from 'react-icons/bi';
+import { v4 } from 'uuid';
 import {
   setCal,
   setMoveToLastMonth,
   setMoveToNextMonth,
   setMonth,
-} from "@/Redux/action";
-import MonthWeekPresenter from "./Components/Month/MonthWeek/MonthWeekPresenter";
-import useMonthCalendar from "./Utils/useMonthCalendar";
+} from 'src/Redux/action';
+import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
+import MonthWeekPresenter from './Components/Month/MonthWeek/MonthWeekPresenter';
+import useMonthCalendar from './Utils/useMonthCalendar';
 import {
   DAY_OF_WEEK,
   MONTH_LIST,
   MONTH_INDICATING,
-} from "../Constants/monthlyConstants";
-import NavBarContainer from "./Components/NavBar/NavBarContainer";
-import StickerContainer from "./Components/Sticker/StickerContainer";
-import SideBarContainer from "./Components/SideBar/SideBarContainer";
-import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
+} from '../Constants/monthlyConstants';
+import NavBarContainer from './Components/NavBar/NavBarContainer';
+import StickerContainer from './Components/Sticker/StickerContainer';
+import SideBarContainer from './Components/SideBar/SideBarContainer';
 
 /**
  * @param {selectedMonth} number, 기본 날짜는 현재 월 (0-11)
@@ -27,10 +27,10 @@ import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
 
 function MonthlyPage() {
   const { yearInMonth, selectedMonth } = useSelector(
-    (state) => state.monthSelectorReducer
+    (state) => state.monthSelectorReducer,
   );
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray
+    (state) => state.stickerReducer.stickersArray,
   );
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function MonthlyPage() {
   useEffect(() => {
     dispatch(setCal(useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth])));
   }, [selectedMonth, yearInMonth]);
-  //여기서부터 reducer로 변경 useEffect에서 selectedMonth에 종속되는걸 빼야할까요? 의미가 있나? 그
+  // 여기서부터 reducer로 변경 useEffect에서 selectedMonth에 종속되는걸 빼야할까요? 의미가 있나? 그
   const moveToLastMonth = () => {
     dispatch(setMoveToLastMonth());
   };
@@ -86,7 +86,7 @@ function MonthlyPage() {
             {DAY_OF_WEEK.map((day) => (
               <div
                 className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
-                  day === "Sun" ? "text-red-500" : ""
+                  day === 'Sun' ? 'text-red-500' : ''
                 }`}
                 key={v4()}
               >
@@ -97,13 +97,13 @@ function MonthlyPage() {
           <table className="border-collapse border border-green-900">
             {monthCalendar.length
               ? monthCalendar.map((week) => (
-                  <MonthWeekPresenter key={v4()} week={week} />
-                ))
+                <MonthWeekPresenter key={v4()} week={week} />
+              ))
               : null}
           </table>
         </div>
-        <SideBarContainer />
       </div>
+      <SideBarContainer />
     </>
   );
 }
