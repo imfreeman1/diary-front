@@ -36,7 +36,7 @@ const DatepickerComponent = ({
     </button>
   ));
   return (
-    <div className="absolute inset-y-0 left-0">
+    <div className="absolute inset-y-11 left-0">
       <DatePicker
         selected={selectedDate}
         onChange={handleChange}
