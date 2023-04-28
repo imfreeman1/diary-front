@@ -63,13 +63,13 @@ function Daily() {
           selected={sticker.selected}
         />
       ))}
-      <div className="relative h-full w-full p-5 bg-[#E5C7AF] ">
+      <div className="h-full w-full p-5 bg-[#E5C7AF] ">
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           highlightDatesArr={dailyHighlightArr}
         />
-        <div className="relative bg-zinc-50 w-fit h-fit border pb-5 my-10 mx-auto shadow-lg rounded">
+        <div className="bg-zinc-50 w-fit h-fit border pb-5 my-10 mx-auto shadow-lg rounded">
           <div className="absolute right-0 w-24 h-24 mr-5">
             <Image src={Bookmark} />
           </div>

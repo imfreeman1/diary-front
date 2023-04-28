@@ -70,7 +70,7 @@ const WeeklyPage = () => {
           selected={sticker.selected}
         />
       ))}
-      <div className="relative h-full w-full bg-[#9DBC9D] text-center p-10">
+      <div className="h-full w-full bg-[#9DBC9D] text-center p-10">
         <DatepickerComponent
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
