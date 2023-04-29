@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { BiCalendar } from 'react-icons/bi';
+import PropTypes from 'prop-types';
 
 const DatepickerCustomInput = forwardRef(({ value, onClick }, ref) => (
   <button
@@ -15,4 +16,11 @@ const DatepickerCustomInput = forwardRef(({ value, onClick }, ref) => (
     <BiCalendar size="20" />
   </button>
 ));
+DatepickerCustomInput.propType = {
+  value: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
+DatepickerCustomInput.defaultProps = {
+  value: '',
+};
 export default DatepickerCustomInput;

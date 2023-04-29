@@ -3,7 +3,7 @@ import {
   BiEdit, BiTrash, BiTransfer, BiX,
 } from 'react-icons/bi';
 import PropTypes from 'prop-types';
-import { INPUT_PLACEHOLDER } from '@/Constants/monthlyConstants';
+import { INPUT_PLACEHOLDER } from '../../../../../Constants/monthlyConstants';
 
 // input Modal의 수정창 === editmodal
 function MonthEditModalPresenter({

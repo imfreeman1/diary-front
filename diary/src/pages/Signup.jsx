@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import axios from './Utils/api';
@@ -11,7 +11,7 @@ const Signup = () => {
     handleSubmit,
     watch,
     formState: {
-      errors, isSubmitting, isDirty, isValid,
+      errors, isDirty, isValid,
     },
   } = useForm({ mode: 'onChange' });
 
@@ -35,7 +35,7 @@ const Signup = () => {
           console.log(res);
         })
         .then(() => {
-          alert('회원가입 완료! 로그인 후 이용해주세요.');
+          // alert('회원가입 완료! 로그인 후 이용해주세요.');
           router.push('/Login');
         })
         .catch((err) => console.log(err));

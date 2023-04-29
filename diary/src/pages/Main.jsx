@@ -7,7 +7,7 @@ const Main = () => (
     <div className="h-12 bg-slate-200">Header</div>
     <div className="h-full">
       <div className="bg-gray-200 w-[950px] border-dashed border-2 border-black mx-auto my-10 p-5 text-center">
-        <button className="bg-gray-300 m-2 p-2 text-lg border-black border-2 rounded">❤귀염뽀작 다이어리 시작하기❤</button>
+        <button className="bg-gray-300 m-2 p-2 text-lg border-black border-2 rounded" type="button">❤귀염뽀작 다이어리 시작하기❤</button>
         <div className="text-gray-600 text-sm">
           <p>하루하루 일상을 기록할 다이어리를 소개합니다! ( ⸝⸝ ᷇࿀ ᷆⸝⸝ƪ)✧</p>
           <p>우리가 손수 쓰던 다이어리에 맞춰 Month, Weekly, Daily로 취향에 맞춰 쓸 수 있어요!</p>

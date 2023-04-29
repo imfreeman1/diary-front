@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BASIC_SHOW_TODO, MAX_SHOW_TODO } from '@/Constants/monthlyConstants';
-import useControlModal from '@/pages/hooks/useControlModal';
+import { BASIC_SHOW_TODO, MAX_SHOW_TODO } from '../../../../Constants/monthlyConstants';
+import useControlModal from '../../../hooks/useControlModal';
 import MonthTodoPresenter from './MonthTodoPresenter';
 
 /**

@@ -4,13 +4,13 @@ import { v4 } from 'uuid';
 import Image from 'next/image';
 import Bookmark from 'public/Img/bookmark.png';
 import DailyDisplayContainer from './Components/Daily/DailyDisplayContainer';
-import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponent';
-import { setDate } from '@/Redux/action';
-import { DAILY_LOGO } from '@/Constants/dailyConstant';
+import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponentContainer';
+import { setDate } from '../Redux/action';
+import { DAILY_LOGO } from '../Constants/dailyConstant';
 import NavBarContainer from './Components/NavBar/NavBarContainer';
 import SideBarContainer from './Components/SideBar/SideBarContainer';
 import StickerContainer from './Components/Sticker/StickerContainer';
-import { CURRENT_ROUTER_PATH } from '@/Constants/constants';
+import { CURRENT_ROUTER_PATH } from '../Constants/constants';
 import useGetDateOffset from './hooks/useGetDateOffset';
 /**
  *
@@ -19,9 +19,10 @@ import useGetDateOffset from './hooks/useGetDateOffset';
  */
 
 function Daily() {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const date = new Date();
+  const [selectedDate, setSelectedDate] = useState(date);
   // 기본 설정은 현재 날짜, 달력 선택한 날짜
-  const dateInDaily = selectedDate || new Date();
+  const dateInDaily = selectedDate;
   const stickerList = useSelector(
     (state) => state.stickerReducer.stickersArray,
   );
@@ -31,7 +32,6 @@ function Daily() {
   const dailyHighlightArr = Object.keys(dailyHighlight)
     .filter((key) => key !== 'currentDate')
     .map((item) => new Date(dailyHighlight[item].locdate));
-  console.log(dailyHighlightArr, '=-------fsd');
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   // date() 객체는 redux action 객체로 불러올 수 없음. 간단한 날짜 형식으로 바꿔 넣어주기

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BiX } from 'react-icons/bi';
 import PropTypes from 'prop-types';
-import { INPUT_PLACEHOLDER } from '@/Constants/monthlyConstants';
+import { INPUT_PLACEHOLDER } from '../../../../../Constants/monthlyConstants';
 
 const MonthInputModalPresenter = ({
   dayInfo,

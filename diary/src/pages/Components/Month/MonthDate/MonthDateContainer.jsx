@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useControlModal from '@/pages/hooks/useControlModal';
+import useControlModal from '../../../hooks/useControlModal';
 import MonthDatePresenter from './MonthDatePresenter';
 
 /**

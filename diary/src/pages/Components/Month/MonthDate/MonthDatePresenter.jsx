@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MonthTodoContainer from '../MonthTodo/MonthTodoContainer';
-import MonthInputModalContainer from '@/pages/Components/Month/MonthModal/MonthInputModal/MonthInputModalContainer';
+import MonthInputModalContainer from '../MonthModal/MonthInputModal/MonthInputModalContainer';
 
 // MonthTodo : 입력한 투두 나타냄
 // MonthInputModal : 더블 클릭 -> input창 열림

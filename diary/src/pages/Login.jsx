@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import axios from './Utils/api';
-import { setCookie } from './Utils/cookies';
 import LogoutButton from './Components/LogoutButton/LogoutButton';
 
 const Login = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -20,7 +19,7 @@ const Login = () => {
           {
             email: resData.email,
             password: resData.password,
-            name: 'dmswl',
+            name: '',
             image: '',
             image_type: '',
           },
@@ -39,24 +38,27 @@ const Login = () => {
       console.log(e);
     }
   });
-
   return (
     <>
       <form onSubmit={handleLogin}>
-        <label htmlFor="email">이메일</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="test@email.com"
-          {...register('email')}
-        />
-        <label htmlFor="password">비밀번호</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="****************"
-          {...register('password')}
-        />
+        <label htmlFor="email">
+          이메일
+          <input
+            id="email"
+            type="email"
+            placeholder="test@email.com"
+            {...register('email')}
+          />
+        </label>
+        <label htmlFor="password">
+          비밀번호
+          <input
+            id="password"
+            type="password"
+            placeholder="****************"
+            {...register('password')}
+          />
+        </label>
         <button type="submit" disabled={isSubmitting}>
           로그인
         </button>

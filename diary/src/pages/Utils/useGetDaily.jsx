@@ -1,4 +1,4 @@
-import { DAY_OF_WEEK } from '@/Constants/monthlyConstants';
+import { DAY_OF_WEEK } from '../../Constants/monthlyConstants';
 
 /**
  *
