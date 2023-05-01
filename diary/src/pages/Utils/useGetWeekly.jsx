@@ -1,5 +1,5 @@
-import React from 'react';
 import { v4 } from 'uuid';
+import { PropTypes } from 'prop-types';
 import { DAYS_WEEKLY } from '../../Constants/weeklyConstant';
 
 /**
@@ -12,13 +12,16 @@ import { DAYS_WEEKLY } from '../../Constants/weeklyConstant';
  */
 
 export const getMonday = (dateInWeekly, plusDay) => {
-  console.log('week', dateInWeekly.getDate());
   const calcMonday = dateInWeekly.getDate() - dateInWeekly.getDay();
   const nextDate = (calc) => {
     const copyDate = new Date(dateInWeekly);
     return new Date(copyDate.setDate(calc));
   };
   return nextDate(calcMonday + plusDay);
+};
+getMonday.propTypes = {
+  dateInWeekly: PropTypes.string.isRequired,
+  plusDay: PropTypes.number.isRequired,
 };
 
 export const getlocWeek = (dateInWeekly) => {
@@ -29,10 +32,12 @@ export const getlocWeek = (dateInWeekly) => {
   const weeks = parseInt(mondayDate.getDate() / 7, 10);
   return `${year}-${month.toString().padStart(2, '0')}-W${weeks + 1}`;
 };
+getlocWeek.propTypes = {
+  dateInWeekly: PropTypes.oneOf([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
+};
 
 const useGetWeekly = (dateInWeekly) => {
   const dateConv = new Date(dateInWeekly);
-  console.log(dateConv);
   const representWeekly = getlocWeek(dateConv);
 
   let weeklyList = [];
@@ -55,5 +60,7 @@ const useGetWeekly = (dateInWeekly) => {
   }
   return weeklyList;
 };
-
+useGetWeekly.propTypes = {
+  dateInWeekly: PropTypes.string.isRequired,
+};
 export default useGetWeekly;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { CookiesProvider } from 'react-cookie';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import store from '../Redux/store';
+import store from 'src/Redux/store';
 
 function App({ Component, pageProps }) {
   return (
