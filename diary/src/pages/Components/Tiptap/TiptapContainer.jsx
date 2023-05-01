@@ -22,7 +22,6 @@ const TiptapContainer = () => {
   );
   const dispatch = useDispatch();
   const editor = useGetEditor();
-  console.log(editor);
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
   useEffect(() => {
     editor?.off('update');
