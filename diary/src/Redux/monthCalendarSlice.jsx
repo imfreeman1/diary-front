@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable array-callback-return */
+
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 } from 'uuid';
 import { MONTH_CALENDAR_NAME } from './sliceName';
@@ -8,7 +11,7 @@ export const monthCalendarSlice = createSlice({
     monthCalendar: {},
   },
   reducers: {
-    setCal: (state, { payload }) => {
+    setCalendar: (state, { payload }) => {
       state.monthCalendar = payload;
     },
     setTodo: ({ monthCalendar }, { payload: { dayInfo, text } }) => {

@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiCaretUp, BiCaretDown } from 'react-icons/bi';
 import { v4 } from 'uuid';
 import {
-  setCal,
+  setCalendar,
   setMoveToLastMonth,
   setMoveToNextMonth,
-  setMonth,
-} from 'src/Redux/action';
-import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
+} from '../Redux/action';
 import MonthWeekPresenter from './Components/Month/MonthWeek/MonthWeekPresenter';
 import useMonthCalendar from './Utils/useMonthCalendar';
 import {
@@ -19,6 +18,7 @@ import {
 import NavBarContainer from './Components/NavBar/NavBarContainer';
 import StickerContainer from './Components/Sticker/StickerContainer';
 import SideBarContainer from './Components/SideBar/SideBarContainer';
+import { CURRENT_ROUTER_PATH } from '../Constants/constants';
 
 /**
  * @param {selectedMonth} number, 기본 날짜는 현재 월 (0-11)
@@ -35,17 +35,19 @@ function MonthlyPage() {
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
+
+  // month, year 바뀔 때 마다 calendar를 새로 불러오게 함
+  const controlCalendar = useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth]);
   useEffect(() => {
-    dispatch(setCal(useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth])));
-  }, [selectedMonth, yearInMonth]);
-  // 여기서부터 reducer로 변경 useEffect에서 selectedMonth에 종속되는걸 빼야할까요? 의미가 있나? 그
+    dispatch(setCalendar(controlCalendar));
+  }, [dispatch, selectedMonth, yearInMonth]);
+
   const moveToLastMonth = () => {
     dispatch(setMoveToLastMonth());
   };
   const moveToNextMonth = () => {
     dispatch(setMoveToNextMonth());
   };
-
   return (
     <>
       <NavBarContainer />

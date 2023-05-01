@@ -41,8 +41,21 @@ function DailyDisplayPresenter({ Daily, content, handleInput }) {
   );
 }
 DailyDisplayPresenter.propTypes = {
-  Daily: PropTypes.object,
-  content: PropTypes.string,
-  handleInput: PropTypes.func,
+  Daily: PropTypes.shape({
+    day: PropTypes.string,
+    editorContent: PropTypes.string,
+    locdate: PropTypes.string,
+    titleText: PropTypes.string,
+  }),
+  content: PropTypes.string.isRequired,
+  handleInput: PropTypes.func.isRequired,
+};
+DailyDisplayPresenter.defaultProps = {
+  Daily: PropTypes.shape({
+    day: '',
+    editorContent: '',
+    locdate: '',
+    titleText: '',
+  }),
 };
 export default DailyDisplayPresenter;

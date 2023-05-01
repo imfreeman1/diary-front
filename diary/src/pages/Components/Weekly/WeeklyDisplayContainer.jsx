@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setTextContent } from 'src/Redux/action';
+import { setTextContent } from '../../../Redux/action';
 import WeeklyDisplayPresenter from './WeeklyDisplayPresenter';
 /**
  * @param {idx} number, 배열의 idx (0-7)
@@ -43,7 +43,7 @@ const WeeklyDisplayContainer = ({ idx }) => {
 };
 
 WeeklyDisplayContainer.propTypes = {
-  idx: PropTypes.number,
+  idx: PropTypes.number.isRequired,
 };
 
 export default WeeklyDisplayContainer;

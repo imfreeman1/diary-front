@@ -8,11 +8,11 @@ import { monthSelectorSlice } from './monthSelectorSlice';
 export const { setAuth, removeAuth } = googleAuthSlice.actions;
 
 export const {
-  setCal, setTodo, delTodo, editTodo,
+  setCalendar, setTodo, delTodo, editTodo,
 } = monthCalendarSlice.actions;
 
 export const {
-  setWeekly, setlocWeek, setSelectedWeek, setTextContent,
+  setWeekly, setlocWeek, setSelectedWeek, setTextContent, setMoveToWeek,
 } = weeklySlice.actions;
 
 export const {

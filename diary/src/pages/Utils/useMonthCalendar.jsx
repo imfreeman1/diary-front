@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { DAY_OF_WEEK, MONTH_DAYS } from '../../Constants/monthlyConstants';
 import Holiday from '../Json/holidays_kr.json';
@@ -13,12 +12,12 @@ import Holiday from '../Json/holidays_kr.json';
  */
 
 const useMonthCalendar = (year, month) => {
-  const idxMonth = month * 1 - 1;
-  const monthStartDay = new Date(year, idxMonth, 1).getDay();
+  const monthIdx = month * 1 - 1;
+  const monthStartDay = new Date(year, monthIdx, 1).getDay();
   const MAX_WEEKS = 6;
 
   const MonthTable = Array.from(Array(MAX_WEEKS), (_, fewWeeks) => {
-    let week = [];
+    let weekArr = [];
     let startday = 1;
     for (const dayOfWeek of DAY_OF_WEEK) {
       const monthCalendar = {
@@ -30,16 +29,16 @@ const useMonthCalendar = (year, month) => {
         isHoliday: false,
         todos: [],
       };
-      const date = fewWeeks * 7 - monthStartDay + startday++;
-
-      if (date > MONTH_DAYS[idxMonth]) {
+      const date = fewWeeks * 7 - monthStartDay + startday;
+      startday += 1;
+      if (date > MONTH_DAYS[monthIdx]) {
         monthCalendar.locdate = false;
-        monthCalendar.date = date - MONTH_DAYS[idxMonth];
+        monthCalendar.date = date - MONTH_DAYS[monthIdx];
         if (fewWeeks === 5 && dayOfWeek === 'Sun') break;
       } else if (date < 1) {
         monthCalendar.locdate = false;
-        monthCalendar.date = date + (MONTH_DAYS[idxMonth - 1] || 31);
-      } else if (date >= 1 && date <= MONTH_DAYS[idxMonth]) {
+        monthCalendar.date = date + (MONTH_DAYS[monthIdx - 1] || 31);
+      } else if (date >= 1 && date <= MONTH_DAYS[monthIdx]) {
         monthCalendar.locdate = `${year}-${month}-${date.toString().padStart(2, '0')}`;
         monthCalendar.date = date;
         monthCalendar.isInMonth = true;
@@ -49,9 +48,9 @@ const useMonthCalendar = (year, month) => {
         ? Holiday[year][monthCalendar.locdate]
         : '';
       monthCalendar.isHoliday = !!(dayOfWeek === 'Sun' || monthCalendar.dateName);
-      week = [...week, monthCalendar];
+      weekArr = [...weekArr, monthCalendar];
     }
-    return week;
+    return weekArr;
   });
   return MonthTable;
 };
