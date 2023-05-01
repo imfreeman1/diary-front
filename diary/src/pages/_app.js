@@ -1,9 +1,9 @@
-import '@/styles/globals.css';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import '../styles/globals.css';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { CookiesProvider } from 'react-cookie';
-import { store } from '../Redux/store';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import store from 'src/Redux/store';
 
 function App({ Component, pageProps }) {
   return (

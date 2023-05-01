@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { delTodo, editTodo } from '../../../../../Redux/action';
+import { delTodo, editTodo } from 'src/Redux/action';
 import MonthEditModalPresenter from './MonthEditModalPresenter';
 
 /**

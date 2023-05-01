@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import Image from 'next/image';
 import Bookmark from 'public/Img/bookmark.png';
+import { setDate } from 'src/Redux/action';
 import DailyDisplayContainer from './Components/Daily/DailyDisplayContainer';
-import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponentContainer';
-import { setDate } from '../Redux/action';
+import DatepickerComponentContainer from './Components/DatepickerComponent/DatepickerComponentContainer';
 import { DAILY_LOGO } from '../Constants/dailyConstant';
 import NavBarContainer from './Components/NavBar/NavBarContainer';
 import SideBarContainer from './Components/SideBar/SideBarContainer';
@@ -56,8 +56,8 @@ function Daily() {
           selected={sticker.selected}
         />
       ))}
-      <div className="relative h-full w-full p-5 bg-[#E5C7AF] ">
-        <DatepickerComponent
+      <div className="h-full w-full p-5 bg-[#E5C7AF] ">
+        <DatepickerComponentContainer
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           highlightDatesArr={dailyHighlightArr}
@@ -71,9 +71,8 @@ function Daily() {
           </div>
           <DailyDisplayContainer />
         </div>
-
-        <SideBarContainer />
       </div>
+      <SideBarContainer />
     </>
   );
 }

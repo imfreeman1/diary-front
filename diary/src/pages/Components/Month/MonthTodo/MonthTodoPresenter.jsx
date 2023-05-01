@@ -22,6 +22,15 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   return (
     <>
       {todos.map((todo, idx) => {
+        if (idx < viewTodoLen) {
+          return (
+            <MonthTodoItemContainer
+              key={v4()}
+              todo={todo}
+              dayInfo={dayInfo}
+            />
+          );
+        }
         if (idx === viewTodoLen) {
           return (
             <div key={v4()}>

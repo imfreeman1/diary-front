@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setTodo } from '../../../../../Redux/action';
+import { setTodo } from 'src/Redux/action';
 import MonthInputModalPresenter from './MonthInputModalPresenter';
 /**
  *

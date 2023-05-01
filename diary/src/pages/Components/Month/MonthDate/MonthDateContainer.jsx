@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useControlModal from '../../../hooks/useControlModal';
 import MonthDatePresenter from './MonthDatePresenter';
+import useControlModal from '../../../hooks/useControlModal';
 
 /**
  * @param {ctrInputModal}

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setMonthRouter } from '@/Redux/action';
+import { setMonthRouter } from 'src/Redux/action';
 import NavBarPresent from './NavBarPresent';
 
 const NavBarContainer = () => {
@@ -19,7 +19,7 @@ const NavBarContainer = () => {
       case 'Daily':
         return router.push(routerKey);
       case 'Personal':
-        return;
+        return router.push('/Profile');
       case '2023':
         dispatch(setMonthRouter({ willMoveMonth: currMonth, currYear }));
         return router.push('/Monthly');

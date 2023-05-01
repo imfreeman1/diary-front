@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 const DatepickerComponentPresenter = ({
   selectedDate, highlightDatesArr, isShow, handleChange, handleClose,
 }) => (
-  <div className="absolute inset-y-0 left-0">
+  <div className="absolute inset-y-11 left-0">
     <DatePicker
       selected={selectedDate}
       onChange={handleChange}

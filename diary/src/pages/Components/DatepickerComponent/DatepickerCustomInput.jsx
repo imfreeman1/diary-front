@@ -11,7 +11,6 @@ const DatepickerCustomInput = forwardRef(({ value, onClick }, ref) => (
   >
     <p className="">
       {value}
-      f
     </p>
     <BiCalendar size="20" />
   </button>

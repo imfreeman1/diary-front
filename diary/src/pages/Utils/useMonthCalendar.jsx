@@ -31,7 +31,6 @@ const useMonthCalendar = (year, month) => {
       };
       const date = fewWeeks * 7 - monthStartDay + startday;
       startday += 1;
-
       if (date > MONTH_DAYS[monthIdx]) {
         monthCalendar.locdate = false;
         monthCalendar.date = date - MONTH_DAYS[monthIdx];

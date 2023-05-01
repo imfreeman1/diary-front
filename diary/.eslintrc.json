@@ -1,4 +1,5 @@
 {
+  "root":true,
   "extends": ["next","next/core-web-vitals","airbnb"],
   "env": {
       "browser": true,
@@ -25,5 +26,11 @@
     ],
     "no-console":"off",
     "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*Slice.jsx","useDraggable.jsx","useResizable.jsx"],
+      "rules": {
+        "no-param-reassign": "off"
+      }}]
 }

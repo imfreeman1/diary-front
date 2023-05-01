@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import Landing from './Landing';
 import Main from './Main';
@@ -17,5 +16,5 @@ export default function Home() {
     return null;
   }
 
-  return <>{token ? <Main /> : <Landing />}</>;
+  return <div>{token ? <Main /> : <Landing />}</div>;
 }

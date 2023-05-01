@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { BiDuplicate, BiX } from 'react-icons/bi';
-import { addTableSticker } from '@/Redux/action';
+import { addTableSticker } from 'src/Redux/action';
 
 function StickerCropper({ modalHandler }) {
   const dispatch = useDispatch();
@@ -46,15 +47,39 @@ function StickerCropper({ modalHandler }) {
       <div className="flex justify-end mt-3 mr-3">
         <BiX onClick={modalHandler} size={36} />
       </div>
-      <input type="file" accept="image/*" onChange={onChange} />
-      <Cropper
-        className=" h-[60vh] w-[65vw] mx-12 my-8"
-        src={inputImage}
-        ref={cropperRef}
-      />
-      <BiDuplicate className="m-4" size={40} onClick={getCropData} />
+      {!inputImage ? (
+        <label htmlFor="file">
+          <div className=" h-[60vh] w-[65vw] mx-12 my-8 border-dashed border-4 rounded-lg">
+            11111111
+          </div>
+          <input
+            id="file"
+            className="hidden"
+            type="file"
+            accept="image/*"
+            onChange={onChange}
+          />
+        </label>
+      ) : (
+        <Cropper
+          className=" h-[60vh] w-[65vw] mx-12 my-8"
+          src={inputImage}
+          ref={cropperRef}
+        />
+      )}
+      <div className="m-6 ml-14">
+        {!inputImage ? (
+          <div className=" h-10" />
+        ) : (
+          <BiDuplicate size={40} onClick={getCropData} />
+        )}
+      </div>
     </div>
   );
 }
+
+StickerCropper.propTypes = {
+  modalHandler: PropTypes.func.isRequired,
+};
 
 export default StickerCropper;
