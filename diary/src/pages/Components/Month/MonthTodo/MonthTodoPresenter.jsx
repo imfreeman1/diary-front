@@ -1,6 +1,7 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
-import React, { Component } from 'react';
+import React from 'react';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
 import Button from '../../Button';
@@ -17,17 +18,13 @@ import { SHOW_MORE_TODO } from '../../../../Constants/monthlyConstants';
 
 const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
   const { todos } = dayInfo;
+
   return (
     <>
       {todos.map((todo, idx) => {
-        if (idx < viewTodoLen) {
-          return (
-            <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />
-          );
-        }
         if (idx === viewTodoLen) {
           return (
-            <>
+            <div key={v4()}>
               <Button
                 key={v4()}
                 onClick={() => ctrListModal.handleModalOpen()}
@@ -40,7 +37,12 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
                 handleListModalClose={ctrListModal.handleModalClose}
                 listModalRef={ctrListModal.modalRef}
               />
-            </>
+            </div>
+          );
+        }
+        if (idx < viewTodoLen) {
+          return (
+            <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />
           );
         }
       })}
@@ -64,10 +66,7 @@ MonthTodoPresenter.propTypes = {
   }).isRequired,
   ctrListModal: PropTypes.shape({
     modalVisible: PropTypes.bool,
-    modalRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-    ]).isRequired,
+    modalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
     handleModalOpen: PropTypes.func.isRequired,
     handleModalClose: PropTypes.func.isRequired,
   }).isRequired,

@@ -1,5 +1,6 @@
+/* eslint-disable react/forbid-prop-types */
 import React, {
-  useEffect, useRef, useState, Component,
+  useEffect, useRef, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -82,9 +83,6 @@ MonthEditModalContainer.propTypes = {
   }).isRequired,
   editModalVisible: PropTypes.bool.isRequired,
   handleEditModalClose: PropTypes.func.isRequired,
-  editModalRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-  ]).isRequired,
+  editModalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
 };
 export default MonthEditModalContainer;

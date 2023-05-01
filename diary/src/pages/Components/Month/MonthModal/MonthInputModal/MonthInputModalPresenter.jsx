@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
 import { BiX } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 import { INPUT_PLACEHOLDER } from '../../../../../Constants/monthlyConstants';
@@ -40,7 +41,6 @@ const MonthInputModalPresenter = ({
     </div>
   </div>
 ) : null);
-
 MonthInputModalPresenter.propTypes = {
   dayInfo: PropTypes.shape({
     date: PropTypes.number.isRequired,
@@ -56,26 +56,12 @@ MonthInputModalPresenter.propTypes = {
     })).isRequired,
   }).isRequired,
   inputModalVisible: PropTypes.bool.isRequired,
-  inputModalRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-  ]).isRequired,
+  inputModalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
   handleInputModalClose: PropTypes.func.isRequired,
   onChildDbclick: PropTypes.func.isRequired,
   inputText: PropTypes.string.isRequired,
-  focusRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({
-      current: PropTypes.oneOfType(
-        [PropTypes.instanceOf(Component), PropTypes.element],
-      ),
-    }),
-  ]),
+  focusRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleKeyPress: PropTypes.func.isRequired,
-};
-// ref의 propTypes를 뭘로해야할까
-MonthInputModalPresenter.defaultProps = {
-  focusRef: PropTypes.shape({ current: null }),
 };
 export default MonthInputModalPresenter;

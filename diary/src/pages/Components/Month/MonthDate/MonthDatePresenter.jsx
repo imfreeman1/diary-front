@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
 import PropTypes from 'prop-types';
 import MonthTodoContainer from '../MonthTodo/MonthTodoContainer';
 import MonthInputModalContainer from '../MonthModal/MonthInputModal/MonthInputModalContainer';
@@ -18,7 +19,7 @@ const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
     className="static w-36 h-40 border border-green-900"
   >
     <div
-      className={`pl-1 text-left border-b-2 border-green-800 bg-gray-900 bg-opacity-10 ${
+      className={`pl-1 text-left border-b-2 border-green-800${
         dayInfo.isHoliday
           ? 'text-red-500'
           : 'text-black'
@@ -54,10 +55,7 @@ MonthDatePresenter.propTypes = {
   }).isRequired,
   ctrInputModal: PropTypes.shape({
     modalVisible: PropTypes.bool,
-    modalRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-    ]).isRequired,
+    modalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
     handleModalOpen: PropTypes.func.isRequired,
     handleModalClose: PropTypes.func.isRequired,
   }).isRequired,

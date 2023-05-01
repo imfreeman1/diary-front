@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
 import PropTypes from 'prop-types';
 import MonthListModalPresenter from './MonthListModalPresenter';
 
@@ -32,9 +33,6 @@ MonthListModalContainer.propTypes = {
   }).isRequired,
   listModalVisible: PropTypes.bool.isRequired,
   handleListModalClose: PropTypes.func.isRequired,
-  listModalRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-  ]).isRequired,
+  listModalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
 };
 export default MonthListModalContainer;

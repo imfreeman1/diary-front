@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
 import {
   BiEdit, BiTrash, BiTransfer, BiX,
 } from 'react-icons/bi';
@@ -91,19 +92,13 @@ MonthEditModalPresenter.propTypes = {
   }).isRequired,
   editModalVisible: PropTypes.bool.isRequired,
   handleEditModalClose: PropTypes.func.isRequired,
-  editModalRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-  ]).isRequired,
+  editModalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
   handleEditKeyPress: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   setIsEdited: PropTypes.func.isRequired,
   isEdited: PropTypes.bool.isRequired,
   editText: PropTypes.string.isRequired,
-  focusRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-  ]).isRequired,
+  focusRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
   handleEditText: PropTypes.func.isRequired,
 
 };

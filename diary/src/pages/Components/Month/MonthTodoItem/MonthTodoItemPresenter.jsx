@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
 import MonthEditModalContainer from '../MonthModal/MonthEditModal/MonthEditModalContainer';
@@ -54,10 +55,7 @@ MonthTodoItemPresenter.propTypes = {
   }).isRequired,
   ctrEditModal: PropTypes.shape({
     modalVisible: PropTypes.bool,
-    modalRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-    ]).isRequired,
+    modalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
     handleModalOpen: PropTypes.func.isRequired,
     handleModalClose: PropTypes.func.isRequired,
   }).isRequired,

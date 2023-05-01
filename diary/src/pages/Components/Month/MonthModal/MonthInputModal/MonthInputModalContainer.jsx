@@ -1,5 +1,6 @@
+/* eslint-disable react/forbid-prop-types */
 import React, {
-  useEffect, useRef, useState, Component,
+  useEffect, useRef, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -22,7 +23,6 @@ function MonthInputModalContainer({
   const dispatch = useDispatch();
   const [inputText, setInputText] = useState('');
   const focusRef = useRef(null);
-
   const handleChange = (e) => {
     setInputText(e.target.value);
   };
@@ -72,9 +72,6 @@ MonthInputModalContainer.propTypes = {
   }).isRequired,
   inputModalVisible: PropTypes.bool.isRequired,
   handleInputModalClose: PropTypes.func.isRequired,
-  inputModalRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Component) }),
-  ]).isRequired,
+  inputModalRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
 };
 export default MonthInputModalContainer;
