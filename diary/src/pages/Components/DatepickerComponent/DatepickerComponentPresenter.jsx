@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
-import DatepickerCustomInput from './DatepickerCustomInput';
+// import DatepickerCustomInput from './DatepickerCustomInput';
 import 'react-datepicker/dist/react-datepicker.css';
 // import { ko } from 'date-fns/esm/locale';
 
@@ -17,7 +17,7 @@ const DatepickerComponentPresenter = ({
       setShow={handleClose}
       dateFormat="yyyy년 MM월 dd일"
       dateFormatCalendar="yyyy년 MM월"
-      customInput={<DatepickerCustomInput />}
+      // customInput={<DatepickerCustomInput />}
     />
   </div>
 );

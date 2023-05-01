@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// import React from 'react';
+// import PropTypes from 'prop-types';
 
-const SignupInputContainer = (props) => <div>SignupInputContainer</div>;
+// const SignupInputContainer = (props) => <div>SignupInputContainer</div>;
 
-SignupInputContainer.propTypes = {};
+// SignupInputContainer.propTypes = {};
 
-export default SignupInputContainer;
+// export default SignupInputContainer;

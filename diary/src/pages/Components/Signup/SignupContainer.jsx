@@ -24,7 +24,7 @@ const SignupContainer = () => {
         image_type: '',
       };
       await axios.post('/users/signup', payload);
-      await alert('회원가입 완료');
+      // await alert('회원가입 완료');
     } catch (e) {
       console.log(e);
     }
