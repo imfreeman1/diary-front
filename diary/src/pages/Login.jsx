@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 // import { useRouter } from 'next/router';
-import axios from 'Utils/api';
-import LogoutButton from 'Components/LogoutButton/LogoutButton';
+import axios from 'src/Utils/api';
+import LogoutButton from 'src/Components/LogoutButton/LogoutButton';
 
 const Login = () => {
   // const router = useRouter();

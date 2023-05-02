@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { getMonday } from '../pages/Utils/useGetWeekly';
+import { getMonday } from '../Utils/useGetWeekly';
 
 /**
  * {setWeekly} Weekly의 모든 것
