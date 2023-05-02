@@ -4,14 +4,14 @@ import { v4 } from 'uuid';
 import Image from 'next/image';
 import Bookmark from 'public/Img/bookmark.png';
 import { setDate } from 'src/Redux/action';
-import DailyDisplayContainer from './Components/Daily/DailyDisplayContainer';
-import DatepickerComponentContainer from './Components/DatepickerComponent/DatepickerComponentContainer';
+import DailyDisplayContainer from '../Components/Daily/DailyDisplayContainer';
+import DatepickerComponentContainer from '../Components/DatepickerComponent/DatepickerComponentContainer';
 import { DAILY_LOGO } from '../Constants/dailyConstant';
-import NavBarContainer from './Components/NavBar/NavBarContainer';
-import SideBarContainer from './Components/SideBar/SideBarContainer';
-import StickerContainer from './Components/Sticker/StickerContainer';
+import NavBarContainer from '../Components/NavBar/NavBarContainer';
+import SideBarContainer from '../Components/SideBar/SideBarContainer';
+import StickerContainer from '../Components/Sticker/StickerContainer';
 import { CURRENT_ROUTER_PATH } from '../Constants/constants';
-import useGetDateOffset from './hooks/useGetDateOffset';
+import useGetDateOffset from '../hooks/useGetDateOffset';
 /**
  *
  * @param {selectedDate} date

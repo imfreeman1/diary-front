@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
-import DatepickerComponent from './Components/DatepickerComponent/DatepickerComponentContainer';
-import useGetWeekly, { getlocWeek } from './Utils/useGetWeekly';
+import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
+import useGetWeekly, { getlocWeek } from '../Utils/useGetWeekly';
 import { setlocWeek, setSelectedWeek, setWeekly } from '../Redux/action';
 import { WEEKLY_LOGO } from '../Constants/weeklyConstant';
-import WeeklyDisplayContainer from './Components/Weekly/WeeklyDisplayContainer';
-import NavBarContainer from './Components/NavBar/NavBarContainer';
-import SideBarContainer from './Components/SideBar/SideBarContainer';
-import StickerContainer from './Components/Sticker/StickerContainer';
+import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
+import NavBarContainer from '../Components/NavBar/NavBarContainer';
+import SideBarContainer from '../Components/SideBar/SideBarContainer';
+import StickerContainer from '../Components/Sticker/StickerContainer';
 import { CURRENT_ROUTER_PATH } from '../Constants/constants';
-import WeeklyJumpButtonContainer from './Components/WeeklyJumpButton/WeeklyJumpButtonContainer';
-import useGetDateOffset from './hooks/useGetDateOffset';
+import WeeklyJumpButtonContainer from '../Components/WeeklyJumpButton/WeeklyJumpButtonContainer';
+import useGetDateOffset from '../hooks/useGetDateOffset';
 
 /**
  * 모든 날짜를 월요일로 나타내어 관리하기

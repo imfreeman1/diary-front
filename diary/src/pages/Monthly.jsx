@@ -8,16 +8,16 @@ import {
   setMoveToLastMonth,
   setMoveToNextMonth,
 } from '../Redux/action';
-import MonthWeekPresenter from './Components/Month/MonthWeek/MonthWeekPresenter';
-import useMonthCalendar from './Utils/useMonthCalendar';
+import MonthWeekPresenter from '../Components/Month/MonthWeek/MonthWeekPresenter';
+import useMonthCalendar from '../Utils/useMonthCalendar';
 import {
   DAY_OF_WEEK,
   MONTH_LIST,
   MONTH_INDICATING,
 } from '../Constants/monthlyConstants';
-import NavBarContainer from './Components/NavBar/NavBarContainer';
-import StickerContainer from './Components/Sticker/StickerContainer';
-import SideBarContainer from './Components/SideBar/SideBarContainer';
+import NavBarContainer from '../Components/NavBar/NavBarContainer';
+import StickerContainer from '../Components/Sticker/StickerContainer';
+import SideBarContainer from '../Components/SideBar/SideBarContainer';
 import { CURRENT_ROUTER_PATH } from '../Constants/constants';
 
 /**

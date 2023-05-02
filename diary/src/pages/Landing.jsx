@@ -4,7 +4,7 @@ import bookDrop from 'public/Lottie/bookdrop.json';
 import Logo from 'public/Logo/logo.svg';
 import Pen from 'public/Logo/pen.svg';
 import Lottie from 'lottie-react';
-import GleLoginContainer from './Components/GleLoginContainer';
+import GleLoginContainer from '../Components/GleLoginContainer';
 import { LANDING_PAGE_CONTENT } from '../Constants/constants';
 
 function Landing() {
