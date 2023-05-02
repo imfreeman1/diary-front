@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BiX } from 'react-icons/bi';
+import Image from 'next/image';
 
 const StickerPresent = ({
   id,
@@ -30,7 +31,7 @@ const StickerPresent = ({
           size={24}
         />
       ) : null}
-      <img
+      <Image
         className="object-fill w-full h-full"
         src={imgURL}
         width={window.screen.width}
