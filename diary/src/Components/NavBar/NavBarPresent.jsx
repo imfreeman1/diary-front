@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
-import { NAV_ITEM_LIST, NAVBAR_HOVER_BG_COLOR_OBJECT } from 'src/constants/navbarConstants';
+import {
+  NAV_ITEM_LIST,
+  NAVBAR_HOVER_BG_COLOR_OBJECT,
+} from 'src/Constants/navbarConstants';
 import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
 import NavItem from './NavItem';
 
