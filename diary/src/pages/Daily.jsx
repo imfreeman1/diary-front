@@ -22,6 +22,7 @@ import useGetDateOffset from '../hooks/useGetDateOffset';
 const Daily = () => {
   const date = new Date();
   const [selectedDate, setSelectedDate] = useState(date);
+  const yearInMonth = selectedDate.getFullYear();
   // 기본 설정은 현재 날짜, 달력 선택한 날짜
   const dateInDaily = selectedDate;
   const stickerList = useSelector(
@@ -86,7 +87,7 @@ const Daily = () => {
 
   return (
     <>
-      <NavBarContainer />
+      <NavBarContainer yearInMonth={yearInMonth} />
       {stickerList[currRouter]?.map((sticker) => (
         <StickerContainer
           imgURL={sticker.imgURL}

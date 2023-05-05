@@ -35,7 +35,7 @@ const WeeklyPage = () => {
   // datepicker에 필요한 변수 설정
   const date = new Date();
   const [selectedDate, setSelectedDate] = useState(date);
-
+  const yearInMonth = selectedDate.getFullYear();
   const dispatch = useDispatch();
   const currentWeeklyPage = useGetWeekly(selectedDateInWeek);
   const locThisWeek = getlocWeek(selectedDateInWeek);
@@ -66,7 +66,7 @@ const WeeklyPage = () => {
 
   return (
     <>
-      <NavBarContainer />
+      <NavBarContainer yearInMonth={yearInMonth} />
       {stickerList[currRouter]?.map((sticker) => (
         <StickerContainer
           imgURL={sticker.imgURL}

@@ -49,7 +49,7 @@ const MonthlyPage = () => {
   };
   return (
     <>
-      <NavBarContainer />
+      <NavBarContainer yearInMonth={yearInMonth} />
       {stickerList[currRouter]?.map((sticker) => (
         <StickerContainer
           imgURL={sticker.imgURL}

@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
-import {
-  NAV_ITEM_LIST,
-  NAVBAR_HOVER_BG_COLOR_OBJECT,
-} from 'src/Constants/navbarConstants';
+import { NAVBAR_HOVER_BG_COLOR_OBJECT } from 'src/constants/navbarConstants';
 import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
 import NavItem from './NavItem';
 
-function NavBarPresent({ routerSelector }) {
+function NavBarPresent({ routerSelector, navItemList }) {
   return (
     <div className=" relative w-full">
       <ul className="flex justify-center gap-3">
-        {NAV_ITEM_LIST.map((navItem) => (
+        {navItemList.map((navItem) => (
           <NavItem
             title={navItem}
             key={v4()}
@@ -28,6 +25,7 @@ function NavBarPresent({ routerSelector }) {
 
 NavBarPresent.propTypes = {
   routerSelector: PropTypes.func.isRequired,
+  navItemList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default NavBarPresent;

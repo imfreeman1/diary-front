@@ -1,14 +1,17 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setMonthRouter } from 'src/Redux/action';
+import MakeNavItemList from 'src/Utils/makeNavItem';
 import NavBarPresent from './NavBarPresent';
 
-const NavBarContainer = () => {
+const NavBarContainer = ({ yearInMonth }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const currMonth = new Date().getMonth();
   const currYear = new Date().getFullYear();
+  const currMonth = new Date().getMonth();
+  const navItemList = MakeNavItemList(yearInMonth);
   const routerSelector = (e) => {
     const routerKey = e.target.innerText;
     switch (routerKey) {
@@ -20,7 +23,7 @@ const NavBarContainer = () => {
         return router.push(routerKey);
       case 'Personal':
         return router.push('/Profile');
-      case '2023':
+      case `${yearInMonth}`:
         dispatch(setMonthRouter({ willMoveMonth: currMonth, currYear }));
         return router.push('/Monthly');
       default:
@@ -28,7 +31,11 @@ const NavBarContainer = () => {
         return router.push('/Monthly');
     }
   };
-  return <NavBarPresent routerSelector={routerSelector} />;
+  return <NavBarPresent routerSelector={routerSelector} navItemList={navItemList} />;
+};
+
+NavBarContainer.propTypes = {
+  yearInMonth: PropTypes.number.isRequired,
 };
 
 export default NavBarContainer;
