@@ -1,7 +1,8 @@
 const MakeNavItemList = (yearInMonth) => {
+  const currYear = new Date().getFullYear();
   const NAV_ITEM_LIST = [
     'Cover',
-    `${yearInMonth}`,
+    yearInMonth ? `${yearInMonth}` : `${currYear}`,
     '1',
     '2',
     '3',
