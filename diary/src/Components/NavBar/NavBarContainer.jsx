@@ -10,7 +10,7 @@ const NavBarContainer = ({ yearInMonth }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const currYear = new Date().getFullYear();
-  const currMonth = new Date().getMonth();
+  const currMonth = new Date().getMonth(currYear);
   const navItemList = MakeNavItemList(yearInMonth);
   const routerSelector = (e) => {
     const routerKey = e.target.innerText;
@@ -23,7 +23,7 @@ const NavBarContainer = ({ yearInMonth }) => {
         return router.push(routerKey);
       case 'Personal':
         return router.push('/Profile');
-      case `${yearInMonth}`:
+      case yearInMonth ? `${yearInMonth}` : `${currYear}`:
         dispatch(setMonthRouter({ willMoveMonth: currMonth, currYear }));
         return router.push('/Monthly');
       default:
