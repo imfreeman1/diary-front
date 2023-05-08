@@ -29,8 +29,8 @@ const useAxios = ({
       });
       console.log('response', response);
       setData(response.data);
-    } catch (error) {
-      setError(error);
+    } catch (err) {
+      setError(err);
     } finally {
       setLoading(false);
     }

@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import LogoutButton from 'src/Components/LogoutButton/LogoutButton';
 import axios from 'src/Utils/api';
 
 const Login = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
