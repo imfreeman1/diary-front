@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-import axios from 'src/Utils/api';
 import LogoutButton from 'src/Components/LogoutButton/LogoutButton';
+import useAxios from 'src/hooks/useAxios';
 
 const Login = () => {
   const router = useRouter();
@@ -11,33 +11,35 @@ const Login = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-  const handleLogin = handleSubmit(async (resData) => {
-    try {
-      await axios
-        .post(
-          '/users/signin/',
-          {
-            email: resData.email,
-            password: resData.password,
-            name: '',
-            image: '',
-            image_type: '',
-          },
-          {
-            withCredentials: true,
-          },
-        )
-        .then((res) => {
-          console.log(res);
-          // setCookie("Authorization", res.data.data.accessToken);
-          // setCookie("Refresh", res.data.data.refreshToken);
-        })
-        .then(() => router.push('/Main'))
-        .catch((err) => console.log(err));
-    } catch (e) {
-      console.log(e);
-    }
+
+  const handleLogin = handleSubmit((resData) => {
+    const { response, loading, error } = useAxios({
+      method: 'post',
+      url: '/users/signin',
+      body: JSON.stringfy({
+        email: resData.email,
+        password: resData.password,
+        name: '',
+        image: '',
+        image_type: '',
+      }),
+      routePath: 'Main',
+    });
+    console.log('login page', response, loading, error);
   });
+
+  // const { response, loading, error } = useAxios({
+  //   method: 'post',
+  //   url: '/users/signin',
+  //   body: JSON.stringfy({
+  //     email: resData.email,
+  //     password: resData.password,
+  //     name: '',
+  //     image: '',
+  //     image_type: '',
+  //   }),
+  // });
+
   return (
     <div className="flex justify-center items-center h-screen bg-orange-100">
       <div className="relative w-1/3 h-[620px] bg-white flex items-center justify-center shadow-md rounded-2xl flex-col">
