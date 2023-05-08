@@ -5,7 +5,6 @@ import LogoutButton from 'src/Components/LogoutButton/LogoutButton';
 import useAxios from 'src/hooks/useAxios';
 
 const Login = () => {
-  const router = useRouter();
   const {
     register,
     handleSubmit,
