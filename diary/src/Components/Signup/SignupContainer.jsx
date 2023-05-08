@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import useAxios from 'src/hooks/useAxios';
 import SignupPresent from './SignupPresent';
 
 const SignupContainer = () => {
@@ -9,44 +8,11 @@ const SignupContainer = () => {
   const {
     register,
     getValues,
-    handleSubmit,
     formState: {
       isSubmitting, isDirty, errors,
     },
   } = useForm();
   passwordRef.current = getValues('password');
-
-  const handleSignup = handleSubmit((resData) => {
-    const { response, loading, error } = useAxios({
-      method: 'post',
-      url: '/users/signup',
-      body: JSON.stringfy({
-        email: resData.email,
-        password: resData.password,
-        name: resData.name,
-        image: '',
-        image_type: '',
-      }),
-      routePath: 'Login',
-    });
-    console.log('signup page', response, loading, error);
-  });
-  // const onSubmit = async (resData) => {
-  //   try {
-  //     const payload = {
-  //       email: resData.email,
-  //       password: resData.password,
-  //       name: resData.name,
-  //       image: '',
-  //       image_type: '',
-  //     };
-  //     await axios.post('/users/signup', payload);
-  //     // await alert('회원가입 완료');
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   const Regex = {
     email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
     name: /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/,
@@ -83,7 +49,6 @@ const SignupContainer = () => {
       isDirty={isDirty}
       isSubmitting={isSubmitting}
       errors={errors}
-      handleSignup={handleSignup}
     />
   );
 };

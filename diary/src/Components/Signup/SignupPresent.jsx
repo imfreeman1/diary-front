@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import useAxios from 'src/hooks/useAxios';
 
 const SignupPresent = ({
   emailRegister,
@@ -8,7 +9,6 @@ const SignupPresent = ({
   nameRegister,
   isDirty,
   isSubmitting,
-  handleSignup,
   errors,
 }) => (
   <div className="flex justify-center items-center h-screen bg-orange-100">
@@ -22,7 +22,11 @@ const SignupPresent = ({
       </div>
       <form
         className="flex flex-col mx-5 w-3/4"
-        onSubmit={handleSignup}
+        onSubmit={useAxios({
+          method: 'post',
+          url: '/users/signup',
+          headers: { accept: '*/*' },
+        })}
       >
         <input
           id="email"
@@ -100,7 +104,6 @@ SignupPresent.propTypes = {
   }).isRequired,
   isDirty: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  handleSignup: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(PropTypes.objectOf()).isRequired,
 };
 

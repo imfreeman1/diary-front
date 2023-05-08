@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 import axios from 'src/Utils/api';
 // import { removeCookie } from 'src/Utils/cookies';
 /**
@@ -13,35 +14,40 @@ import axios from 'src/Utils/api';
  */
 
 const useAxios = ({
-  url, method, body, routePath,
+  method, url, headers,
 }) => {
-  const [respense, setResponse] = useState(null);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const { handleSubmit } = useForm();
 
-  const router = useRouter();
-
-  const fetchData = async () => {
-    await axios[method](url, JSON.parse(body), {
+  // const router = useRouter();
+  // 로그인 할때는 name이 필요없음
+  const fetchData = handleSubmit(async (resData) => {
+    await axios.request({
+      method,
+      url,
+      headers,
+      data: {
+        email: resData.email,
+        password: resData.password,
+        name: resData.name ? resData.name : '',
+        image: '',
+        image_type: '',
+      },
       withCredentials: true,
     })
       .then((res) => {
         console.log('useaxios', res);
-        setResponse(res.data);
       })
       .then(() => {
-        router.push(`/${routePath}`);
+        // router.push(`/${routePath}`);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  });
 
   useEffect(() => {
     fetchData();
-  }, [method, url, body]);
-
-  return { respense, error, isLoading };
+  }, []);
 };
 
 export default useAxios;
