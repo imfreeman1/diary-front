@@ -48,18 +48,15 @@ function StickerCropper({ modalHandler }) {
         <BiX onClick={modalHandler} size={36} />
       </div>
       {!inputImage ? (
-        <label htmlFor="file">
-          <div className=" h-[60vh] w-[65vw] mx-12 my-8 border-dashed border-4 rounded-lg">
-            11111111
-          </div>
+        <div className="h-[60vh] w-[65vw] mx-12 my-8 border-dashed border-4 rounded-lg">
           <input
             id="file"
-            className="hidden"
+            className=" opacity-0 h-full w-full"
             type="file"
             accept="image/*"
             onChange={onChange}
           />
-        </label>
+        </div>
       ) : (
         <Cropper
           className=" h-[60vh] w-[65vw] mx-12 my-8"
