@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { objectOf } from 'prop-types';
+import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
 import { BiChevronLeft, BiChevronRight, BiImageAdd } from 'react-icons/bi';
 import StickerMakeModal from '../StickerMakeModal/StickerMakeModal';
@@ -58,7 +58,7 @@ function SideBarPresent({
 }
 
 SideBarPresent.propTypes = {
-  stickerList: PropTypes.arrayOf(objectOf({
+  stickerList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     imgURL: PropTypes.string,
     positionX: PropTypes.number,
