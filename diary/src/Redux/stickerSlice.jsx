@@ -46,7 +46,7 @@ export const stickerSlice = createSlice({
         (sticker) => sticker.selected === true,
       );
       if (selectedChecker) {
-        stickersArray[origin].map((sticker) => (sticker.selected ? sticker.selected : true));
+        stickersArray[origin].map((sticker) => sticker.selected = false);
       }
       stickersArray[origin] = [...stickersArray[origin], newSticker];
     },
@@ -61,7 +61,7 @@ export const stickerSlice = createSlice({
       );
       if (!selectedSticker.selected) {
         stickersArray[origin]
-          .map((sticker) => (sticker.selected ? sticker.selected : true));
+          .map((sticker) => sticker.selected = false);
       }
       selectedSticker.positionX = position.positionX;
       selectedSticker.positionY = position.positionY;
@@ -100,7 +100,7 @@ export const stickerSlice = createSlice({
       );
       if (selectedChecker) {
         stickersArray[origin]
-          .map((sticker) => (sticker.selected ? sticker.selected : true));
+          .map((sticker) => sticker.selected = false);
       }
       const selectedSticker = stickersArray[origin].find(
         (sticker) => sticker.id === id,
@@ -108,7 +108,7 @@ export const stickerSlice = createSlice({
       selectedSticker.selected = !selectedSticker.selected;
     },
     resetSelect: ({ stickersArray }, { payload: { origin } }) => {
-      stickersArray[origin].map((sticker) => (sticker.selected ? sticker.selected : true));
+      stickersArray[origin].map((sticker) => sticker.selected = false);
     },
   },
 });
