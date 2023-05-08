@@ -1,17 +1,52 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'src/Utils/api';
+import { useRouter } from 'next/router';
 import SignupPresent from './SignupPresent';
 
 const SignupContainer = () => {
+  const router = useRouter();
   const passwordRef = useRef(null);
   const {
     register,
     getValues,
+    handleSubmit,
     formState: {
       isSubmitting, isDirty, errors,
     },
   } = useForm();
+
+  const handleSignup = handleSubmit(async (resData) => {
+    try {
+      const response = await axios.post(
+        '/users/signup',
+        {
+          email: resData.email,
+          password: resData.password,
+          name: resData.name,
+          image: '',
+          image_type: '',
+        },
+        { withCredentials: true },
+      );
+      // console.log(response.data.code);
+      if (response.data.code === 'USI10001') {
+        router.push('/Login');
+      } else {
+        console.log('가입 실패');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  // useAxios({
+  //   method: 'post',
+  //   url: '/users/signup',
+  //   payload: { accept: '*/*' },
+  // });
+
   passwordRef.current = getValues('password');
   const Regex = {
     email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
@@ -48,6 +83,7 @@ const SignupContainer = () => {
       nameRegister={nameRegister}
       isDirty={isDirty}
       isSubmitting={isSubmitting}
+      handleSignup={handleSignup}
       errors={errors}
     />
   );

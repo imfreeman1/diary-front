@@ -1,45 +1,41 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import LogoutButton from 'src/Components/LogoutButton/LogoutButton';
-import useAxios from 'src/hooks/useAxios';
+import axios from 'src/Utils/api';
 
 const Login = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
 
-  const handleLogin = handleSubmit((resData) => {
-    const { response, loading, error } = useAxios({
-      method: 'post',
-      url: '/users/signin',
-      body: JSON.stringfy({
-        email: resData.email,
-        password: resData.password,
-        name: '',
-        image: '',
-        image_type: '',
-      }),
-      routePath: 'Main',
-    });
-    console.log('login page', response, loading, error);
+  const handleLogin = handleSubmit(async (resData) => {
+    try {
+      const response = await axios.post(
+        '/users/signin',
+        {
+          email: resData.email,
+          password: resData.password,
+          name: '',
+          image: '',
+          image_type: '',
+        },
+        {
+          withCredentials: true,
+        },
+      );
+      console.log(response);
+      if (response.data.code === 'USI20001') {
+        // router.push('/Main');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   });
-
-  // const { response, loading, error } = useAxios({
-  //   method: 'post',
-  //   url: '/users/signin',
-  //   body: JSON.stringfy({
-  //     email: resData.email,
-  //     password: resData.password,
-  //     name: '',
-  //     image: '',
-  //     image_type: '',
-  //   }),
-  // });
 
   return (
     <div className="flex justify-center items-center h-screen bg-orange-100">
