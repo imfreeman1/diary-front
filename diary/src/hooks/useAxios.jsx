@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
 // import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import axios from 'src/Utils/api';
