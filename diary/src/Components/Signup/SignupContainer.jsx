@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'src/Utils/api';
 import useAxios from 'src/hooks/useAxios';
 import SignupPresent from './SignupPresent';
 
