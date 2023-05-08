@@ -44,10 +44,11 @@ const useAxios = ({
         console.log(err);
       });
   });
+  fetchData();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 };
 
 export default useAxios;
