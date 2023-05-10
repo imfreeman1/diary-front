@@ -25,7 +25,7 @@ import { CURRENT_ROUTER_PATH } from '../Constants/constants';
  * @returns
  */
 
-function MonthlyPage() {
+const MonthlyPage = () => {
   const { yearInMonth, selectedMonth } = useSelector(
     (state) => state.monthSelectorReducer,
   );
@@ -107,6 +107,6 @@ function MonthlyPage() {
       <SideBarContainer />
     </>
   );
-}
+};
 
 export default MonthlyPage;
