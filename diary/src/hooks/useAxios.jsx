@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'src/Utils/api';
-// import { removeCookie } from 'src/Utils/cookies';
 
 /**
  * axios
@@ -12,34 +11,33 @@ import axios from 'src/Utils/api';
  * @param {routePath}
  */
 
-const useAxios = ({
-  method, url, payload,
-}) => {
-  const [data, setData] = useState(null);
+const useAxios = () => {
+  const [response, setResponse] = useState(undefined);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const fetchData = async () => {
+  const operation = async (param) => {
     try {
-      const response = await axios.request({
-        method,
-        url,
-        data: payload,
-        withCredentials: true,
-      });
-      console.log('response', response);
-      setData(response.data);
+      setLoading(true);
+      // const response = await axios.request({
+      //   method,
+      //   url,
+      //   data: payload,
+      //   withCredentials: true,
+      // });
+      const result = await axios.request(param);
+      console.log('response', result);
+      setResponse(result.data);
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
-  return { data, error, loading };
+  return {
+    response, error, loading, operation,
+  };
 };
 
 export default useAxios;
