@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { v4 } from 'uuid';
 import { BiChevronLeft, BiChevronRight, BiImageAdd } from 'react-icons/bi';
 import StickerMakeModal from '../StickerMakeModal/StickerMakeModal';
 import StickerButtonContainer from '../StickerButton/StickerButtonContainer';
@@ -46,7 +45,10 @@ function SideBarPresent({
               </div>
               <div className="grid grid-cols-2">
                 {stickerList.map((sticker) => (
-                  <StickerButtonContainer imgURL={sticker.imgURL} id={sticker.id} key={v4()} />
+                  <StickerButtonContainer
+                    sticker={sticker}
+                    key={sticker.id}
+                  />
                 ))}
               </div>
             </div>
