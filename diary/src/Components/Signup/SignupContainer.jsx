@@ -19,25 +19,20 @@ const SignupContainer = () => {
 
   const handleSignup = handleSubmit(async (resData) => {
     try {
-      const response = await axios.post(
-        '/users/signup',
-        {
-          email: resData.email,
-          password: resData.password,
-          name: resData.name,
-          image: '',
-          image_type: '',
-        },
-        { withCredentials: true },
-      );
-      // console.log(response.data.code);
-      if (response.data.code === 'USI10001') {
-        router.push('/Login');
-      } else {
-        console.log('가입 실패');
-      }
-    } catch (error) {
-      console.log(error);
+      const payload = {
+        email: resData.email,
+        password: resData.password,
+        name: resData.name,
+        image: '',
+        image_type: '',
+      };
+      const credential = {
+        withCredentials: true,
+      };
+      await axios.post('/users/signup', payload, credential);
+      // await alert('회원가입 완료');
+    } catch (e) {
+      console.log(e);
     }
   });
 
