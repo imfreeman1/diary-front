@@ -1,10 +1,8 @@
 /* eslint-disable consistent-return */
 const selectedItemChecker = (router, month, navContent) => {
-  let bool = false;
   switch (router) {
     case navContent:
-      bool = true;
-      return bool;
+      return true;
     case 'Profile':
       if (navContent === 'Personal') return true;
       break;
@@ -12,7 +10,7 @@ const selectedItemChecker = (router, month, navContent) => {
       if (navContent === `${month + 1}`) return true;
       break;
     default:
-      return bool;
+      return false;
   }
 };
 
