@@ -13,7 +13,6 @@ function StickerCropper({ modalHandler }) {
   const [inputImage, setInputImage] = useState(null);
   // 유저가 선택한 영역만큼 크롭된 이미지
   const files = useRef(null);
-
   // input이 들어왔을때, file을 읽음.
   const onChange = (e) => {
     e.preventDefault();
@@ -62,6 +61,8 @@ function StickerCropper({ modalHandler }) {
           className=" h-[60vh] w-[65vw] mx-12 my-8"
           src={inputImage}
           ref={cropperRef}
+          minCropBoxHeight={40}
+          minCropBoxWidth={40}
         />
       )}
       <div className="m-6 ml-14">
