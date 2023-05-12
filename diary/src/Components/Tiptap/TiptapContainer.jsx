@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setEditor } from '../../Redux/action';
 import useGetEditor from '../../Utils/useGetEditor';
 import TiptapPresenter from './TiptapPresenter';
 /**
@@ -21,16 +22,17 @@ const TiptapContainer = ({ setIsSave, resContent }) => {
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
   const dispatch = useDispatch();
-  const editor = useGetEditor();
+  const editor = useGetEditor({ content: resContent });
+
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
   useEffect(() => {
     editor?.off('update');
-    if (editor && !editor.isDestroyed && Daily) {
-      editor?.commands.setContent(resContent);
+    if (editor && !editor.isDestroyed && Daily && Daily.editorContent) {
+      editor?.commands.setContent(Daily.editorContent);
     }
     editor?.on('update', () => {
-      // const html = editor.getHTML();
-      // dispatch(setEditor({ locdate: Daily.locdate, html }));
+      const html = editor.getHTML();
+      dispatch(setEditor({ locdate: Daily.locdate, editorContent: html }));
       setIsSave(false);
     });
   }, [dispatch, editor, Daily]);

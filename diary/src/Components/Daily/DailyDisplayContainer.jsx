@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useGetDaily from 'src/Utils/useGetDaily';
-import { setDaily } from 'src/Redux/action';
+import { setDaily, setTitle } from 'src/Redux/action';
 import PropTypes from 'prop-types';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
 /**
@@ -31,7 +31,11 @@ function DailyDisplayContainer({ setIsSave, resTitle, resContent }) {
 
   // 처음만 저장된 title 있으면 불러오게
   useEffect(() => {
-    setContent(initContent);
+    dispatch(setTitle({ locdate: currentDate, titleText: content }));
+  }, [dispatch, currentDate, content]);
+
+  useEffect(() => {
+    if (Daily) setContent(initContent);
   }, []);
 
   const handleInput = (e) => {
