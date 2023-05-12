@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setEditor } from '../../Redux/action';
 import useGetEditor from '../../Utils/useGetEditor';
 import TiptapPresenter from './TiptapPresenter';
 /**
@@ -14,7 +13,7 @@ import TiptapPresenter from './TiptapPresenter';
  * @returns
  */
 
-const TiptapContainer = ({ setIsSave }) => {
+const TiptapContainer = ({ setIsSave, resContent }) => {
   const { currentDate } = useSelector(
     (state) => state.dailyReducer.dailyContents,
   );
@@ -27,11 +26,11 @@ const TiptapContainer = ({ setIsSave }) => {
   useEffect(() => {
     editor?.off('update');
     if (editor && !editor.isDestroyed && Daily) {
-      editor?.commands.setContent(Daily.editorContent);
+      editor?.commands.setContent(resContent);
     }
     editor?.on('update', () => {
-      const html = editor.getHTML();
-      dispatch(setEditor({ locdate: Daily.locdate, html }));
+      // const html = editor.getHTML();
+      // dispatch(setEditor({ locdate: Daily.locdate, html }));
       setIsSave(false);
     });
   }, [dispatch, editor, Daily]);
@@ -43,5 +42,6 @@ const TiptapContainer = ({ setIsSave }) => {
 
 TiptapContainer.propTypes = {
   setIsSave: PropTypes.func.isRequired,
+  resContent: PropTypes.string.isRequired,
 };
 export default TiptapContainer;

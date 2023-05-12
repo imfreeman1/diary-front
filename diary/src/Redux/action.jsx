@@ -16,7 +16,7 @@ export const {
 } = weeklySlice.actions;
 
 export const {
-  setDaily, setDate, setEditor, setTitle,
+  setDaily, setDate, setEditor, setTitle, setSave,
 } = dailySlice.actions;
 
 export const {

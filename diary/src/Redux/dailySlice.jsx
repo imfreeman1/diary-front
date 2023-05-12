@@ -25,6 +25,12 @@ export const dailySlice = createSlice({
         dailyContents[`D-${locdate}`].titleText = titleText;
       }
     },
+    setSave: ({ dailyContents }, { payload: { locdate, titleText, editorContent } }) => {
+      if (dailyContents[`D-${locdate}`]) {
+        dailyContents[`D-${locdate}`].titleText = titleText;
+        dailyContents[`D-${locdate}`].editorContent = editorContent;
+      }
+    },
   },
 });
 
