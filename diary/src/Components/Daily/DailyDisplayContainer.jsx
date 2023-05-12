@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useGetDaily from 'src/Utils/useGetDaily';
-import { setDaily, setTitle } from 'src/Redux/action';
+import { setDaily } from 'src/Redux/action';
 import PropTypes from 'prop-types';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
 /**
@@ -11,7 +11,7 @@ import DailyDisplayPresenter from './DailyDisplayPresenter';
  * @returns
  */
 
-function DailyDisplayContainer({ setIsSave }) {
+function DailyDisplayContainer({ setIsSave, resTitle, resContent }) {
   const dispatch = useDispatch();
 
   const { currentDate } = useSelector(
@@ -20,23 +20,23 @@ function DailyDisplayContainer({ setIsSave }) {
   const Daily = useSelector(
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
-  // console.log(currentDate, Daily.locdate, Daily.titleText, Daily.editorContent);
-  const initContent = Daily?.titleText ? Daily.titleText : '';
+  const initContent = resTitle || '';
   const [content, setContent] = useState('');
 
+  // currentDate가 바뀌면 daily 페이지 재렌더링
   const getDaily = useGetDaily(currentDate);
   useEffect(() => {
     if (currentDate) dispatch(setDaily(getDaily));
-    setContent(initContent);
   }, [dispatch, getDaily]);
 
+  // 처음만 저장된 title 있으면 불러오게
   useEffect(() => {
-    dispatch(setTitle({ titleText: content, locdate: currentDate }));
-    setIsSave(false);
-  }, [dispatch, currentDate, content]);
+    setContent(initContent);
+  }, []);
 
   const handleInput = (e) => {
     setContent(e.target.value);
+    setIsSave(false);
   };
 
   return (
@@ -45,11 +45,14 @@ function DailyDisplayContainer({ setIsSave }) {
       content={content}
       handleInput={handleInput}
       setIsSave={setIsSave}
+      resContent={resContent}
     />
   );
 }
 
 DailyDisplayContainer.propTypes = {
   setIsSave: PropTypes.func.isRequired,
+  resTitle: PropTypes.string.isRequired,
+  resContent: PropTypes.string.isRequired,
 };
 export default DailyDisplayContainer;

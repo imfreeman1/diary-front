@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,19 +53,19 @@ const Daily = () => {
     });
   };
 
+  // 현재 날짜 정보 store에 저장
   useEffect(() => {
     dispatch(setDate(offsetDate));
     getReadDailyAxios();
   }, [dispatch, offsetDate]);
-  // console.log(dateInDaily, offsetDate);
 
-  // code = DAR10001  , DAR10002
   // result :{id:1, user_id:2, title:'1', content:'', date:'2023-05-12',}
   // createAt, updateAt / title, content
-  console.log('getread', response, error, loading);
-  const axiosCode = response?.code;
-  // const axiosResTitle = response.result.title
-  // const axiosResContent = response.result.content
+  // console.log('getread', response, error, loading);
+  const axiosCode = response?.code || '';
+  const resTitle = response?.result?.title || '';
+  const resContent = response?.result?.content || '';
+  // console.log(axiosCode, resContent, resTitle);
   return (
     <>
       <NavBarContainer />
@@ -93,7 +94,11 @@ const Daily = () => {
           <div className="w-fit p-2 px-5 ml-5 mt-5 border-4 border-gray-200 font-bold text-2xl rounded-full shadow">
             <p>{DAILY_LOGO}</p>
           </div>
-          <DailyDisplayContainer setIsSave={setIsSave} />
+          <DailyDisplayContainer
+            setIsSave={setIsSave}
+            resTitle={resTitle}
+            resContent={resContent}
+          />
         </div>
       </div>
       <SideBarContainer />

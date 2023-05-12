@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-alert */
 import React from 'react';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import useAxios from 'src/hooks/useAxios';
+import { setSave } from 'src/Redux/action';
 
 const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
   const { currentDate } = useSelector(
@@ -11,7 +14,8 @@ const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
   const DailyInfo = useSelector(
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
-
+  console.log(DailyInfo);
+  const dispatch = useDispatch();
   // test의 기능은 response를 불러올 때 저장,
   // res를 못불러온다면 이전꺼를 저장해두려고
   // const [test, setTest] = useState([]);
@@ -50,8 +54,12 @@ const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
       if (axiosCode === 'DAR10001') postUpdateAxios();
       if (axiosCode === 'DAR10002') postWriteAxios();
       setIsSave(true);
+      dispatch(setSave({
+        locdate: DailyInfo.locdate,
+        titleText: DailyInfo.titleText,
+        editorContent: DailyInfo.editorContent,
+      }));
       alert('저장되었습니다.');
-      console.log('-----------------------------------', response, error, loading);
     }
   };
 
