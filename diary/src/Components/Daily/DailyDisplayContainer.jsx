@@ -29,14 +29,14 @@ function DailyDisplayContainer({ setIsSave, resTitle, resContent }) {
     if (currentDate) dispatch(setDaily(getDaily));
   }, [dispatch, currentDate]);
 
-  // 처음만 저장된 title 있으면 불러오게
+  // 처음만 저장된 title 있으면 불러오게 =>
   useEffect(() => {
     dispatch(setTitle({ locdate: currentDate, titleText: content }));
   }, [dispatch, currentDate, content]);
 
   useEffect(() => {
     setContent(initContent);
-    if (Daily?.titleText) setContent(Daily.titleText);
+    // if (Daily?.titleText) setContent(Daily.titleText);
   }, [currentDate]);
 
   const handleInput = (e) => {

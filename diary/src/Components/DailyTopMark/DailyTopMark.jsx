@@ -46,8 +46,7 @@ const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
   // DAR10002 다이어리 존재x => 생성
 
   const handleSave = () => {
-    if (DailyInfo.titleText
-      || (DailyInfo.editorContent && DailyInfo.editorContent !== '<p></p>')) {
+    if (!isSave) {
       if (axiosCode === 'DAR10001') postUpdateAxios();
       if (axiosCode === 'DAR10002') postWriteAxios();
       setIsSave(true);

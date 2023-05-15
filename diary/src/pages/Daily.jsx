@@ -40,7 +40,7 @@ const Daily = () => {
   // 날짜가 바뀌면 페이지를 다시 불러옴
   const offsetDate = useGetDateOffset(dateInDaily);
 
-  const [isSave, setIsSave] = useState(false);
+  const [isSave, setIsSave] = useState(true);
 
   const {
     response, error, loading, operation,

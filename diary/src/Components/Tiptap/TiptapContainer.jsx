@@ -28,22 +28,17 @@ const TiptapContainer = ({ setIsSave, resContent }) => {
   useEffect(() => {
     editor?.off('update');
     if (editor && !editor.isDestroyed && Daily) {
-      console.log('.누구세요', Daily.editorContent);
       editor?.commands.setContent(Daily.editorContent);
+    }
+    if (editor && !editor.isDestroyed && resContent) {
+      editor?.commands.setContent(resContent);
     }
     editor?.on('update', () => {
       const html = editor.getHTML();
-      dispatch(setEditor({ locdate: Daily.locdate, editorContent: html }));
+      dispatch(setEditor({ locdate: currentDate, editorContent: html }));
       setIsSave(false);
     });
-  }, [dispatch, editor]);
-
-  useEffect(() => {
-    editor?.off('update');
-    if (editor && !editor.isDistroyed && resContent) {
-      editor?.commands.setContent(resContent);
-    }
-  }, [editor]);
+  }, [dispatch, editor, currentDate]);
 
   return (
     <TiptapPresenter editor={editor} />
