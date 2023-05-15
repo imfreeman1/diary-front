@@ -5,6 +5,7 @@ import React, {
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setTodo } from 'src/Redux/action';
+import useAxios from 'src/hooks/useAxios';
 import MonthInputModalPresenter from './MonthInputModalPresenter';
 /**
  *
@@ -26,14 +27,31 @@ function MonthInputModalContainer({
   const handleChange = (e) => {
     setInputText(e.target.value);
   };
+  const {
+    response, error, loading, operation,
+  } = useAxios();
+
+  const postWriteMonthlyAxios = () => {
+    operation({
+      method: 'post',
+      url: '/monthly/write/',
+      payload: {
+        content: [inputText],
+        date: dayInfo.locdate,
+      },
+    });
+  };
 
   const handleKeyPress = (e) => {
     e.preventDefault();
     dispatch(setTodo({ text: inputText, dayInfo }));
+    postWriteMonthlyAxios();
     setInputText('');
     handleInputModalClose();
   };
-
+  if (response) {
+    console.log(' 확인', response, error, loading);
+  }
   useEffect(() => {
     if (inputModalVisible) focusRef.current.focus();
   }, [inputModalVisible]);

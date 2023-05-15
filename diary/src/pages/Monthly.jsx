@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiCaretUp, BiCaretDown } from 'react-icons/bi';
 import { v4 } from 'uuid';
+import useAxios from 'src/hooks/useAxios';
+import useGetDateOffset from 'src/hooks/useGetDateOffset';
+import axios from 'src/Utils/api';
 import {
   setCalendar,
   setMoveToLastMonth,
@@ -37,9 +40,25 @@ const MonthlyPage = () => {
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
   // month, year 바뀔 때 마다 calendar를 새로 불러오게 함
   const controlCalendar = useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth]);
+  const startDay = new Date(yearInMonth, selectedMonth, 1).toISOString();
+  // const monthDate = useGetDateOffset(startDay);
+  const {
+    response, error, loading, operation,
+  } = useAxios();
+
+  const getReadMonthlyAxios = () => {
+    operation({
+      method: 'get',
+      url: `/monthly/read/${startDay}`,
+      payload: {},
+    });
+  };
+
   useEffect(() => {
     dispatch(setCalendar(controlCalendar));
+    getReadMonthlyAxios();
   }, [dispatch, selectedMonth, yearInMonth]);
+  console.log(startDay, selectedMonth, response, error, loading);
 
   const moveToLastMonth = () => {
     dispatch(setMoveToLastMonth());
