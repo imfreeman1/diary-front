@@ -9,9 +9,9 @@ const nextConfig = {
 module.exports = nextConfig;
 
 // https:// nextjs.org/docs/pages/api-reference/next-config-js/images
-module.exports = {
-  images: {
-    loader: 'akamai',
-    path: '/',
-  },
-};
+// module.exports = {
+//   images: {
+//     loader: 'akamai',
+//     path: '/',
+//   },
+// };
