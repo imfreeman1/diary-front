@@ -21,7 +21,7 @@ function DailyDisplayContainer({ setIsSave, resTitle, resContent }) {
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
   const initContent = resTitle;
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(initContent);
 
   // currentDate가 바뀌면 daily 페이지 재렌더링
   const getDaily = useGetDaily(currentDate);
@@ -29,15 +29,13 @@ function DailyDisplayContainer({ setIsSave, resTitle, resContent }) {
     if (currentDate) dispatch(setDaily(getDaily));
   }, [dispatch, currentDate]);
 
-  // 처음만 저장된 title 있으면 불러오게 =>
   useEffect(() => {
     dispatch(setTitle({ locdate: currentDate, titleText: content }));
   }, [dispatch, currentDate, content]);
 
   useEffect(() => {
     setContent(initContent);
-    // if (Daily?.titleText) setContent(Daily.titleText);
-  }, [currentDate]);
+  }, [initContent, currentDate]);
 
   const handleInput = (e) => {
     setContent(e.target.value);

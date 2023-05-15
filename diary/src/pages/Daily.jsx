@@ -39,9 +39,9 @@ const Daily = () => {
   // date() 객체는 redux action 객체로 불러올 수 없음. 간단한 날짜 형식으로 바꿔 넣어주기
   // 날짜가 바뀌면 페이지를 다시 불러옴
   const offsetDate = useGetDateOffset(dateInDaily);
+  console.log('offsetDate', offsetDate);
 
   const [isSave, setIsSave] = useState(true);
-
   const {
     response, error, loading, operation,
   } = useAxios();
@@ -56,18 +56,16 @@ const Daily = () => {
   // 현재 날짜 정보 store에 저장
   useEffect(() => {
     dispatch(setDate(offsetDate));
-    // getReadDailyAxios();
+    getReadDailyAxios();
   }, [dispatch, offsetDate]);
 
   // result :{id:1, user_id:2, title:'1', content:'', date:'2023-05-12',}
   // createAt, updateAt / title, content
-  // console.log('getread', response, error, loading);
+  console.log('getread', response, error, loading);
   const axiosCode = response?.code || '';
-  // const resTitle = response?.result?.title || '';
-  const resTitle = '임시 타이틀';
-  // const resContent = response?.result?.content || '';
-  const resContent = '임시 글';
-  // console.log(axiosCode, resContent, resTitle);
+  const resTitle = response?.result?.title || '';
+  const resContent = response?.result?.content || '';
+  console.log('---------------------------', resTitle, resContent);
   return (
     <>
       <NavBarContainer />

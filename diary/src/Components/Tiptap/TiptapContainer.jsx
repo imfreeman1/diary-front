@@ -22,8 +22,7 @@ const TiptapContainer = ({ setIsSave, resContent }) => {
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
   const dispatch = useDispatch();
-  const editor = useGetEditor({ content: resContent });
-  console.log('dltorl', Daily?.editorContent);
+  const editor = useGetEditor();
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
   useEffect(() => {
     editor?.off('update');
@@ -38,7 +37,7 @@ const TiptapContainer = ({ setIsSave, resContent }) => {
       dispatch(setEditor({ locdate: currentDate, editorContent: html }));
       setIsSave(false);
     });
-  }, [dispatch, editor, currentDate]);
+  }, [dispatch, editor, currentDate, resContent]);
 
   return (
     <TiptapPresenter editor={editor} />

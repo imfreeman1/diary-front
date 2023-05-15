@@ -55,33 +55,25 @@ const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
   };
 
   return (
-    <>
-      <button
-        onClick={handleSave}
-        className="w-20 h-20 bg-blue-400"
-        type="button"
-      >
-        임시 버튼
-      </button>
-      <div
-        className={`absolute right-0 w-24 h-24 mr-5 cursor-pointer hover:opacity-100 ${isSave ? 'opacity-100' : 'opacity-50'}`}
-        aria-hidden="true"
-      >
-        <Image
-          src="/Img/bookmark.png"
-          width={500}
-          height={500}
-          alt="bookmark"
-          priority
-        />
-        <div className={`absolute top-0 right-1/2 hover:hidden ${isSave ? 'hidden' : ''}`}>
-          <p>s</p>
-          <p>a</p>
-          <p>v</p>
-          <p>e</p>
-        </div>
+    <div
+      onClick={handleSave}
+      className={`absolute right-0 w-24 h-24 mr-5 cursor-pointer hover:opacity-100 ${isSave ? 'opacity-100' : 'opacity-50'}`}
+      aria-hidden="true"
+    >
+      <Image
+        src="/Img/bookmark.png"
+        width={500}
+        height={500}
+        alt="bookmark"
+        priority
+      />
+      <div className={`absolute top-0 right-1/2 hover:hidden ${isSave ? 'hidden' : ''}`}>
+        <p>s</p>
+        <p>a</p>
+        <p>v</p>
+        <p>e</p>
       </div>
-    </>
+    </div>
   );
 };
 

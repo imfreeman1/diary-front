@@ -3,7 +3,7 @@ import StarterKit from '@tiptap/starter-kit';
 import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
 
-const useGetEditor = ({ content }) => {
+const useGetEditor = () => {
   const editor = useEditor({
     extensions: [StarterKit, TextStyle, Color],
     editorProps: {
@@ -13,7 +13,7 @@ const useGetEditor = ({ content }) => {
         spellcheck: 'false',
       },
     },
-    content: `${content}`,
+    content: '',
     injectCSS: false,
     parseOptions: {
       preserveWhitespace: true,
