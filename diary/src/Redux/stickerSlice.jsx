@@ -32,13 +32,17 @@ export const stickerSlice = createSlice({
     },
   },
   reducers: {
-    setSticker: ({ stickersArray }, { payload: { id, position, origin } }) => {
+    setSticker: ({ stickersArray }, {
+      payload: {
+        id, position, origin, newId,
+      },
+    }) => {
       const selectedSticker = stickersArray.Table.find(
         (sticker) => sticker.id === id,
       );
       // 여기서 문제가 생김 table의 sticker id와 page에서 sticker id가 같아짐. 선택된 스티커를 깊은 복사로 복제하여, id를 변경해주어야함.
       const newSticker = selectedSticker;
-      newSticker.id = v4();
+      newSticker.id = newId;
       newSticker.positionX = position.positionX;
       newSticker.positionY = position.positionY;
       // if의 있는 조건 결과물을 변수로 한번 빼내자

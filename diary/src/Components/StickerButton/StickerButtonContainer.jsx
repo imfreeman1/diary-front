@@ -6,17 +6,19 @@ import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
 import urlToFile from 'src/Utils/urlToFile';
 import makeFormData from 'src/Utils/makeFormData';
 import utilAxios from 'src/Utils/utilAxios';
+import { v4 } from 'uuid';
 import StickerButtonPresent from './StickerButtonPresent';
 
 function StickerButtonContainer({ sticker }) {
   const dispatch = useDispatch();
   const currRouter = CURRENT_ROUTER_PATH();
   const makeStickerHandler = async (e) => {
+    const newId = v4();
     const positionX = e.view.innerWidth / 2;
     const positionY = e.view.innerHeight / 4;
     const imgFile = await urlToFile(sticker.imgURL, 'image');
     const stickerFormDataObject = {
-      id: sticker.id,
+      id: newId,
       page_date: '2023-05-10',
       page_type: currRouter.toLowerCase(),
       image_name: '이름',
@@ -31,7 +33,9 @@ function StickerButtonContainer({ sticker }) {
       'Content-Type': 'multipart/form-data',
     });
     dispatch(setSticker(
-      { origin: currRouter, id: sticker.id, position: { positionX, positionY } },
+      {
+        origin: currRouter, id: sticker.id, position: { positionX, positionY }, newId,
+      },
     ));
   };
   return (
