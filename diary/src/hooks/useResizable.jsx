@@ -1,5 +1,5 @@
 import interact from 'interactjs';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { setResize } from 'src/Redux/action';
 import {
@@ -29,7 +29,7 @@ const useResizable = () => {
     }, time);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     interact('.resizable').resizable({
       edges: {
         top: true,
@@ -62,11 +62,11 @@ const useResizable = () => {
           );
           /* move event가 발생하는 동안 event.target.dataset을 실시간 변경해줌. */
           Object.assign(event.target.dataset, { x, y });
-          debounce(parentElem.id, 500, stickerTimer, { x, y });
+          debounce(parentElem.id, 300, stickerTimer, { x, y });
         },
       },
     });
-  });
+  }, [debounce]);
 };
 
 export default useResizable;
