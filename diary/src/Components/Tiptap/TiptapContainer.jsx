@@ -23,11 +23,12 @@ const TiptapContainer = ({ setIsSave, resContent }) => {
   );
   const dispatch = useDispatch();
   const editor = useGetEditor({ content: resContent });
-
+  console.log('dltorl', Daily?.editorContent);
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
   useEffect(() => {
     editor?.off('update');
-    if (editor && !editor.isDestroyed && Daily && Daily.editorContent) {
+    if (editor && !editor.isDestroyed && Daily) {
+      console.log('.누구세요', Daily.editorContent);
       editor?.commands.setContent(Daily.editorContent);
     }
     editor?.on('update', () => {
@@ -35,7 +36,14 @@ const TiptapContainer = ({ setIsSave, resContent }) => {
       dispatch(setEditor({ locdate: Daily.locdate, editorContent: html }));
       setIsSave(false);
     });
-  }, [dispatch, editor, Daily]);
+  }, [dispatch, editor]);
+
+  useEffect(() => {
+    editor?.off('update');
+    if (editor && !editor.isDistroyed && resContent) {
+      editor?.commands.setContent(resContent);
+    }
+  }, [editor]);
 
   return (
     <TiptapPresenter editor={editor} />

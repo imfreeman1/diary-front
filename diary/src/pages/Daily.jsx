@@ -56,15 +56,17 @@ const Daily = () => {
   // 현재 날짜 정보 store에 저장
   useEffect(() => {
     dispatch(setDate(offsetDate));
-    getReadDailyAxios();
+    // getReadDailyAxios();
   }, [dispatch, offsetDate]);
 
   // result :{id:1, user_id:2, title:'1', content:'', date:'2023-05-12',}
   // createAt, updateAt / title, content
   // console.log('getread', response, error, loading);
   const axiosCode = response?.code || '';
-  const resTitle = response?.result?.title || '';
-  const resContent = response?.result?.content || '';
+  // const resTitle = response?.result?.title || '';
+  const resTitle = '임시 타이틀';
+  // const resContent = response?.result?.content || '';
+  const resContent = '임시 글';
   // console.log(axiosCode, resContent, resTitle);
   return (
     <>
