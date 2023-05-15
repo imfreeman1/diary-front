@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import useDraggable from 'src/hooks/useDraggable';
@@ -6,11 +6,10 @@ import useResizable from 'src/hooks/useResizable';
 import { removeSticker, resetSelect, setSelect } from 'src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
-  SELECT_IN_STICKER_DIV,
   STICKER_IMG_SIZE_OBJECT,
   STICKER_POSITION_TRANSLATOR,
-  STICKER_SELECTOR_ID,
 } from 'src/Constants/constants';
+import axios from 'src/Utils/api';
 import StickerPresent from './StickerPresent';
 
 /*
@@ -42,27 +41,51 @@ function StickerContainer({
   더 좋은 방법이 있다면 수정할 예정. */
   routerRef.current = CURRENT_ROUTER_PATH();
   const focusRef = useRef(null);
-
-  useEffect(() => {
-    const stickerPosition = document.querySelector(STICKER_SELECTOR_ID(id));
+  // hook으로 빼낼 수 있겠네.
+  useLayoutEffect(() => {
+    const stickerPosition = focusRef.current;
     stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
-    const stickerImgSize = stickerPosition.querySelector(SELECT_IN_STICKER_DIV); // 변수명 맘에 안듦.
+    const stickerImgSize = stickerPosition.firstChild;
     Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
   }, [position, height, width, id]);
 
   // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
   useEffect(() => {
-    if (selected) focusRef.current.focus();
-  }, [selected]);
+    const stickerData = {
+      id,
+      position: [position.positionX, position.positionY],
+      size: [height, width],
+      page_type: routerRef.current?.toLowerCase(),
+      page_date: '2023-05-10',
+    };
+    console.log(stickerData);
+    const test = async () => {
+      try {
+        const response = await axios.request({
+          url: '/sticker/update',
+          method: 'post',
+          data: stickerData,
+          withCredentials: true,
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const a = () => setTimeout(() => {
+      test();
+    }, 10000);
+    return () => clearTimeout(a);
+  }, [position, height, width]);
 
-  const focusHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.parentNode.id;
-    // if (selected && selectedStickerId===id) return; // 이 조건문을 건 이유 : 처음에 온클릭으로 해서
+  const focusHandler = () => {
+    console.log(focusRef.current);
+    const selectedStickerId = focusRef.current.id;
     dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current }));
   };
 
-  const removeStickerHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.parentNode.id;
+  const removeStickerHandler = () => {
+    const selectedStickerId = focusRef.current.id;
     dispatch(
       removeSticker({ id: selectedStickerId, origin: routerRef.current }),
     );
