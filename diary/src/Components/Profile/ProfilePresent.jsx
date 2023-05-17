@@ -7,7 +7,7 @@ import NavBarContainer from '../NavBar/NavBarContainer';
 // 초기내용은 통신을 통해서 받아와야하고, 아마두... useEffect를 사용해야할 듯? axios로 받아오자.
 // 변경은 post 통신을 사용해야 할 듯.
 
-const ProfilePresent = ({ onChange }) => (
+const ProfilePresent = ({ onChange, imgRef }) => (
   <>
     <NavBarContainer />
     <div className="flex h-screen justify-center items-center bg-orange-200">
@@ -23,7 +23,7 @@ const ProfilePresent = ({ onChange }) => (
                 <label htmlFor="file">
                   <div
                     className=" w-20 h-20 bg-cover rounded-full border border-black"
-                    id="imageDisplay"
+                    ref={imgRef}
                   />
                   <input
                     className="hidden"
