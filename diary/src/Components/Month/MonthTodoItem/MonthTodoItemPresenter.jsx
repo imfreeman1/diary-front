@@ -12,7 +12,9 @@ import MonthEditModalContainer from '../MonthModal/MonthEditModal/MonthEditModal
  * @returns
  */
 
-const MonthTodoItemPresenter = ({ dayInfo, todo, ctrEditModal }) => (
+const MonthTodoItemPresenter = ({
+  dayInfo, todo, ctrEditModal,
+}) => (
   <>
     <div
       key={v4()}

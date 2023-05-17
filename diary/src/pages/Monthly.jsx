@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import useAxios from 'src/hooks/useAxios';
 import useGetDateOffset from 'src/hooks/useGetDateOffset';
 import {
+  getTodo,
   setCalendar,
   setMoveToLastMonth,
   setMoveToNextMonth,
@@ -27,7 +28,7 @@ import { CURRENT_ROUTER_PATH } from '../Constants/constants';
  * @returns
  */
 
-const MonthlyPage = () => {
+const Monthly = () => {
   const { yearInMonth, selectedMonth } = useSelector(
     (state) => state.monthSelectorReducer,
   );
@@ -56,7 +57,10 @@ const MonthlyPage = () => {
     dispatch(setCalendar(controlCalendar));
     getReadMonthlyAxios();
   }, [dispatch, selectedMonth, yearInMonth]);
-  console.log(startDay, selectedMonth, response, error, loading);
+
+  useEffect(() => {
+    if (response?.code === 'MDAR10001') { dispatch(getTodo({ response: response.result })); }
+  }, [dispatch, response]);
 
   const moveToLastMonth = () => {
     dispatch(setMoveToLastMonth());
@@ -126,4 +130,4 @@ const MonthlyPage = () => {
   );
 };
 
-export default MonthlyPage;
+export default Monthly;

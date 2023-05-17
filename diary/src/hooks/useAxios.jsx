@@ -17,7 +17,6 @@ const useAxios = () => {
   const [loading, setLoading] = useState(false);
 
   const operation = async ({ method, url, payload }) => {
-    console.log('axios', method, url, payload);
     try {
       setLoading(true);
       const result = await axios.request({
@@ -26,7 +25,6 @@ const useAxios = () => {
         data: payload,
         withCredentials: true,
       });
-      console.log('res', result);
       setResponse(result.data);
     } catch (err) {
       setError(err);

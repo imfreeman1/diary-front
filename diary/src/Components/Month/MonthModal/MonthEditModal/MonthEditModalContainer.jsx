@@ -5,6 +5,7 @@ import React, {
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { delTodo, editTodo } from 'src/Redux/action';
+import useAxios from 'src/hooks/useAxios';
 import MonthEditModalPresenter from './MonthEditModalPresenter';
 
 /**
@@ -28,15 +29,50 @@ function MonthEditModalContainer({
   const [editText, setEditText] = useState(todo.todoContent);
   const focusRef = useRef(null);
 
+  const {
+    response, error, loading, operation,
+  } = useAxios();
+
+  const postUpdateMonthlyAxios = ({
+    type, text, todoItem,
+  }) => {
+    const editTodoList = dayInfo.todos.map((getTodo) => {
+      if (getTodo.id === todoItem.id) return text;
+      return getTodo.todoContent;
+    });
+
+    const deleteTodoList = dayInfo.todos
+      .filter((findTodo) => findTodo.id !== todoItem.id)
+      .map((getTodo) => getTodo.todoContent);
+
+    operation({
+      method: 'post',
+      url: '/monthly/update',
+      payload: {
+        content: type === 'updateTodo' ? editTodoList : deleteTodoList,
+        date: todoItem.date,
+      },
+    });
+  };
+  const postDeleteMonthlyAxios = ({ date }) => {
+    operation({
+      method: 'post',
+      url: '/monthly/delete',
+      payload: { date },
+    });
+  };
   const handleEditKeyPress = (e) => {
     e.preventDefault();
     dispatch(editTodo({ text: editText, todo }));
+    postUpdateMonthlyAxios({ type: 'updateTodo', text: editText, todoItem: todo });
     setIsEdited(false);
   };
   const handleEditText = (e) => {
     setEditText(e.target.value);
   };
   const onDelete = (item) => {
+    if (dayInfo.todos.length >= 2) postUpdateMonthlyAxios({ type: 'deleteTodo', todoItem: item });
+    if (dayInfo.todos.length === 1)postDeleteMonthlyAxios({ date: item.date });
     dispatch(delTodo(item));
   };
 

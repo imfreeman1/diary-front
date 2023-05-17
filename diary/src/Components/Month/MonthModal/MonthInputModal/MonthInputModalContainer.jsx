@@ -41,17 +41,24 @@ function MonthInputModalContainer({
       },
     });
   };
-
+  const postUpdateMonthlyAxios = () => {
+    operation({
+      method: 'post',
+      url: '/monthly/update',
+      payload: {
+        content: [...dayInfo.todos.map((item) => item.todoContent), inputText],
+        date: dayInfo.locdate,
+      },
+    });
+  };
   const handleKeyPress = (e) => {
     e.preventDefault();
     dispatch(setTodo({ text: inputText, dayInfo }));
-    postWriteMonthlyAxios();
+    if (dayInfo.todos.length >= 1) postUpdateMonthlyAxios();
+    if (dayInfo.todos.length === 0) postWriteMonthlyAxios();
     setInputText('');
     handleInputModalClose();
   };
-  if (response) {
-    console.log(' 확인', response, error, loading);
-  }
   useEffect(() => {
     if (inputModalVisible) focusRef.current.focus();
   }, [inputModalVisible]);
