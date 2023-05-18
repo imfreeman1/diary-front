@@ -19,6 +19,7 @@ function SideBarPresent({
   modalHandler,
   sidebarVisible,
   sidebarHandler,
+  pageDate,
 }) {
   return (
     <div className=" absolute inset-y-0">
@@ -47,6 +48,7 @@ function SideBarPresent({
                 {stickerList.map((sticker) => (
                   <StickerButtonContainer
                     sticker={sticker}
+                    pageDate={pageDate}
                     key={sticker.id}
                   />
                 ))}
@@ -73,6 +75,7 @@ SideBarPresent.propTypes = {
   modalHandler: PropTypes.func.isRequired,
   sidebarVisible: PropTypes.bool.isRequired,
   sidebarHandler: PropTypes.func.isRequired,
+  pageDate: PropTypes.string.isRequired,
 };
 
 export default SideBarPresent;
