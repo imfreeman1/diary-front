@@ -6,20 +6,20 @@ import 'react-datepicker/dist/react-datepicker.css';
 // import { ko } from 'date-fns/esm/locale';
 
 const DatepickerComponentPresenter = ({
-  selectedDate, highlightDatesArr, isShow, handleChange, handleClose,
+  selectedDate, highlightDatesArr, isShow, handleChange, handleClose, isWeekly,
 }) => (
-  <div className="absolute inset-y-11 left-0">
+  <span className={isWeekly ? 'text-green-900  p-2' : 'absolute inset-y-11 left-0'}>
     <DatePicker
       selected={selectedDate}
       onChange={handleChange}
       highlightDates={highlightDatesArr}
       show={isShow}
       setShow={handleClose}
-      dateFormat="yyyy년 MM월 dd일"
+      dateFormat={isWeekly ? 'yyyy년 MM월 ' : 'yyyy년 MM월 dd일'}
       dateFormatCalendar="yyyy년 MM월"
       // customInput={<DatepickerCustomInput />}
     />
-  </div>
+  </span>
 );
 DatepickerComponentPresenter.propTypes = {
   selectedDate: PropTypes.instanceOf(Date).isRequired,
@@ -27,6 +27,7 @@ DatepickerComponentPresenter.propTypes = {
   isShow: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  isWeekly: PropTypes.bool.isRequired,
 };
 
 DatepickerComponentPresenter.defaultProps = {

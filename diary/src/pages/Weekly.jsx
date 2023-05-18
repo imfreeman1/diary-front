@@ -9,7 +9,7 @@ import DatepickerComponent from '../Components/DatepickerComponent/DatepickerCom
 import useGetWeekly, { getlocWeek } from '../Utils/useGetWeekly';
 import {
   setIsWriten,
-  setlocWeek, setSelectedWeek,  setWeekly,
+  setlocWeek, setSelectedWeek, setWeekly,
 } from '../Redux/action';
 import { WEEK, WEEKLY_LOGO } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
@@ -109,6 +109,7 @@ const WeeklyPage = () => {
 
             </span>
             <DatepickerComponent
+              isWeekly
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
               highlightDatesArr={weeklyHighlightArr}
