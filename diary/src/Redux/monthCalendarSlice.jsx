@@ -56,6 +56,13 @@ export const monthCalendarSlice = createSlice({
         }
       }));
     },
+    allDelTodo: ({ monthCalendar }, { payload: { date } }) => {
+      monthCalendar.map((week) => week.map((day) => {
+        if (day.locdate === date) {
+          day.todos = [];
+        }
+      }));
+    },
     editTodo: ({ monthCalendar }, { payload: { todo, text } }) => {
       monthCalendar.map((week) => week.map((day) => {
         if (day.locdate === todo.date) {

@@ -53,11 +53,13 @@ function MonthInputModalContainer({
   };
   const handleKeyPress = (e) => {
     e.preventDefault();
-    dispatch(setTodo({ text: inputText, dayInfo }));
-    if (dayInfo.todos.length >= 1) postUpdateMonthlyAxios();
-    if (dayInfo.todos.length === 0) postWriteMonthlyAxios();
-    setInputText('');
-    handleInputModalClose();
+    if (inputText) {
+      dispatch(setTodo({ text: inputText, dayInfo }));
+      if (dayInfo.todos.length >= 1) postUpdateMonthlyAxios();
+      if (dayInfo.todos.length === 0) postWriteMonthlyAxios();
+      setInputText('');
+      handleInputModalClose();
+    }
   };
   useEffect(() => {
     if (inputModalVisible) focusRef.current.focus();
