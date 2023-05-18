@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 } from 'uuid';
+import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
 import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
 import useGetWeekly, { getlocWeek } from '../Utils/useGetWeekly';
 import { setlocWeek, setSelectedWeek, setWeekly } from '../Redux/action';
@@ -9,8 +9,6 @@ import { WEEKLY_LOGO } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
-import StickerContainer from '../Components/Sticker/StickerContainer';
-import { CURRENT_ROUTER_PATH } from '../Constants/constants';
 import WeeklyJumpButtonContainer from '../Components/WeeklyJumpButton/WeeklyJumpButtonContainer';
 import useGetDateOffset from '../hooks/useGetDateOffset';
 
@@ -26,11 +24,6 @@ import useGetDateOffset from '../hooks/useGetDateOffset';
  */
 
 const WeeklyPage = () => {
-  const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray,
-  );
-  const currRouter = CURRENT_ROUTER_PATH();
-
   const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
   // datepicker에 필요한 변수 설정
   const date = new Date();
@@ -39,6 +32,7 @@ const WeeklyPage = () => {
   const dispatch = useDispatch();
   const currentWeeklyPage = useGetWeekly(selectedDateInWeek);
   const locThisWeek = getlocWeek(selectedDateInWeek);
+  const mondayInWeek = currentWeeklyPage.find((findDate) => findDate.day === 'Mon').locdate;
   // 최초 렌더링=> 현재 date 정보 전달 (월요일로 변환 & str로 전달)
   useEffect(() => {
     dispatch(setlocWeek(locThisWeek));
@@ -67,20 +61,7 @@ const WeeklyPage = () => {
   return (
     <>
       <NavBarContainer yearInMonth={yearInMonth} />
-      {stickerList[currRouter]?.map((sticker) => (
-        <StickerContainer
-          imgURL={sticker.imgURL}
-          key={v4()}
-          id={sticker.id}
-          position={{
-            positionX: sticker.positionX,
-            positionY: sticker.positionY,
-          }}
-          width={sticker.width}
-          height={sticker.height}
-          selected={sticker.selected}
-        />
-      ))}
+      <StickerDisplay pageDate={mondayInWeek} />
       <div className="h-full w-full bg-[#9DBC9D] text-center p-10">
         <DatepickerComponent
           selectedDate={selectedDate}
@@ -106,7 +87,7 @@ const WeeklyPage = () => {
           </div>
         </div>
       </div>
-      <SideBarContainer />
+      <SideBarContainer pageDate={mondayInWeek} />
     </>
   );
 };

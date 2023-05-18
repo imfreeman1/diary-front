@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 } from 'uuid';
 import Image from 'next/image';
 import { setDate } from 'src/Redux/action';
-import useAxios from 'src/hooks/useAxios';
+import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
 import DailyDisplayContainer from '../Components/Daily/DailyDisplayContainer';
 import DatepickerComponentContainer from '../Components/DatepickerComponent/DatepickerComponentContainer';
 import { DAILY_LOGO } from '../Constants/dailyConstant';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
-import StickerContainer from '../Components/Sticker/StickerContainer';
-import { CURRENT_ROUTER_PATH } from '../Constants/constants';
 import useGetDateOffset from '../hooks/useGetDateOffset';
 /**
  *
@@ -25,16 +22,12 @@ const Daily = () => {
   const yearInMonth = selectedDate.getFullYear();
   // 기본 설정은 현재 날짜, 달력 선택한 날짜
   const dateInDaily = selectedDate;
-  const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray,
-  );
   const dailyHighlight = useSelector(
     (state) => state.dailyReducer.dailyContents,
   );
   const dailyHighlightArr = Object.keys(dailyHighlight)
     .filter((key) => key !== 'currentDate')
     .map((item) => new Date(dailyHighlight[item].locdate));
-  const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   // date() 객체는 redux action 객체로 불러올 수 없음. 간단한 날짜 형식으로 바꿔 넣어주기
   // 날짜가 바뀌면 페이지를 다시 불러옴
@@ -88,20 +81,7 @@ const Daily = () => {
   return (
     <>
       <NavBarContainer yearInMonth={yearInMonth} />
-      {stickerList[currRouter]?.map((sticker) => (
-        <StickerContainer
-          imgURL={sticker.imgURL}
-          key={v4()}
-          id={sticker.id}
-          position={{
-            positionX: sticker.positionX,
-            positionY: sticker.positionY,
-          }}
-          width={sticker.width}
-          height={sticker.height}
-          selected={sticker.selected}
-        />
-      ))}
+      <StickerDisplay pageDate={offsetDate} />
       <div className="h-full w-full p-5 bg-[#E5C7AF] ">
         <DatepickerComponentContainer
           selectedDate={selectedDate}
@@ -133,7 +113,7 @@ const Daily = () => {
           <DailyDisplayContainer setIsSave={setIsSave} />
         </div>
       </div>
-      <SideBarContainer />
+      <SideBarContainer pageDate={offsetDate} />
     </>
   );
 };
