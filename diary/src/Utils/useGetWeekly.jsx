@@ -47,6 +47,8 @@ const useGetWeekly = (dateInWeekly) => {
       day: days,
       locdate: '',
       textContent: '',
+      isEditable: false,
+      isWriten: false,
       id: v4(),
     };
     if (days === 'Weekly') weekObj.locdate = representWeekly;
