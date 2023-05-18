@@ -2,14 +2,14 @@ import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
 
 const useGetEditor = () => {
   const editor = useEditor({
-    extensions: [StarterKit, TextStyle, Color],
+    extensions: [StarterKit, TextStyle, Color, Highlight],
     editorProps: {
       attributes: {
-        class:
-              'prose sm:prose lg:prose-lg xl:prose-2xl text-lg m-5 focus:outline-none',
+        class: 'text-lg leading-8 m-5 focus:outline-none',
         spellcheck: 'false',
       },
     },
