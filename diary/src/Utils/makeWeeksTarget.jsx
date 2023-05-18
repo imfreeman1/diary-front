@@ -7,7 +7,7 @@ const getDateOffset = (dateInDaily) => {
   return dateOffset.toISOString().substring(0, 10);
 };
 // 주차별로 이동가능한 컴포넌트 만들기
-const useGetWeeksTarget = (date) => {
+const makeWeeksTarget = (date) => {
   const dateConv = new Date(date);
   const calcMon = dateConv.getDate() - dateConv.getDay() + 1;
   const lastDayOfMonth = new Date(
@@ -29,4 +29,4 @@ const useGetWeeksTarget = (date) => {
   }
   return weekArr;
 };
-export default useGetWeeksTarget;
+export default makeWeeksTarget;

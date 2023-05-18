@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +13,7 @@ import {
   setMoveToNextMonth,
 } from '../Redux/action';
 import MonthWeekPresenter from '../Components/Month/MonthWeek/MonthWeekPresenter';
-import useMonthCalendar from '../Utils/useMonthCalendar';
+import makeMonthCalendar from '../Utils/makeMonthCalendar';
 import {
   DAY_OF_WEEK,
   MONTH_LIST,
@@ -39,7 +40,7 @@ const Monthly = () => {
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
   // month, year 바뀔 때 마다 calendar를 새로 불러오게 함
-  const controlCalendar = useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth]);
+  const controlCalendar = makeMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth]);
   const startDay = new Date(yearInMonth, selectedMonth, 1);
   const monthDate = useGetDateOffset(startDay);
 
@@ -58,7 +59,7 @@ const Monthly = () => {
   }, [dispatch, selectedMonth, yearInMonth]);
 
   useEffect(() => {
-    if (!error) { dispatch(getTodo({ response: response.result })); }
+    if (response?.code === 'MDAR10001') { dispatch(getTodo({ response: response.result })); }
   }, [dispatch, response]);
 
   const moveToLastMonth = () => {

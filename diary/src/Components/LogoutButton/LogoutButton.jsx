@@ -1,20 +1,24 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-// import { removeCookie } from 'src/Utils/cookies';
 import useAxios from 'src/hooks/useAxios';
 
 const LogoutButton = () => {
-  const handleLogout = useAxios({
-    method: 'post',
-    url: '/users/signout',
-    payload: {
-      email: 'mmmm@m.com',
-      password: 'mmmm',
-      name: '이이이',
-      image: '',
-      image_type: '',
-    },
-  });
-
+  const {
+    response, error, loading, operation,
+  } = useAxios();
+  const handleLogout = () => {
+    operation({
+      method: 'post',
+      url: '/users/signout',
+      payload: {
+        email: 'mmmm@m.com',
+        password: 'mmmm',
+        name: '이이이',
+        image: '',
+        image_type: '',
+      },
+    });
+  };
   return (
     <button
       onClick={handleLogout}

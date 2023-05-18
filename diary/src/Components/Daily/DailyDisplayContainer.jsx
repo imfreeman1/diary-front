@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useGetDaily from 'src/Utils/useGetDaily';
+import makeDaily from 'src/Utils/makeDaily';
 import { setDaily, setTitle } from 'src/Redux/action';
 import PropTypes from 'prop-types';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
@@ -26,7 +26,7 @@ function DailyDisplayContainer({
   const [content, setContent] = useState(initContent);
 
   // currentDate가 바뀌면 daily 페이지 재렌더링
-  const getDaily = useGetDaily(currentDate);
+  const getDaily = makeDaily(currentDate);
   useEffect(() => {
     if (currentDate) dispatch(setDaily(getDaily));
   }, [dispatch, currentDate]);

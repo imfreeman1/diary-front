@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Holiday from 'src/Json/holidays_kr.json'assert{ type: "json"};
 import { DAY_OF_WEEK, MONTH_DAYS } from '../Constants/monthlyConstants';
 
@@ -11,7 +10,7 @@ import { DAY_OF_WEEK, MONTH_DAYS } from '../Constants/monthlyConstants';
  * @returns array 6 [[],[],[],[],[],[]]
  */
 
-const useMonthCalendar = (year, month) => {
+const makeMonthCalendar = (year, month) => {
   const monthIdx = month * 1 - 1;
   const monthStartDay = new Date(year, monthIdx, 1).getDay();
   const MAX_WEEKS = 6;
@@ -55,8 +54,4 @@ const useMonthCalendar = (year, month) => {
   return MonthTable;
 };
 
-useMonthCalendar.propTypes = {
-  year: PropTypes.number,
-  month: PropTypes.string,
-};
-export default useMonthCalendar;
+export default makeMonthCalendar;
