@@ -11,7 +11,9 @@ import DailyDisplayPresenter from './DailyDisplayPresenter';
  * @returns
  */
 
-function DailyDisplayContainer({ setIsSave, resTitle, resContent }) {
+function DailyDisplayContainer({
+  setIsSave, resTitle, resContent, selectedDate, setSelectedDate,
+}) {
   const dispatch = useDispatch();
 
   const { currentDate } = useSelector(
@@ -49,6 +51,8 @@ function DailyDisplayContainer({ setIsSave, resTitle, resContent }) {
       handleInput={handleInput}
       setIsSave={setIsSave}
       resContent={resContent}
+      selectedDate={selectedDate}
+      setSelectedDate={setSelectedDate}
     />
   );
 }
@@ -57,5 +61,7 @@ DailyDisplayContainer.propTypes = {
   setIsSave: PropTypes.func.isRequired,
   resTitle: PropTypes.string.isRequired,
   resContent: PropTypes.string.isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
+  setSelectedDate: PropTypes.func.isRequired,
 };
 export default DailyDisplayContainer;

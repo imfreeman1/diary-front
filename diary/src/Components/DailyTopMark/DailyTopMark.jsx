@@ -13,9 +13,6 @@ const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
   const DailyInfo = useSelector(
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
-  // test의 기능은 response를 불러올 때 저장,
-  // res를 못불러온다면 이전꺼를 저장해두려고
-  // const [test, setTest] = useState([]);
   const {
     response, error, loading, operation,
   } = useAxios();
@@ -50,14 +47,14 @@ const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
       if (axiosCode === 'DAR10001') postUpdateAxios();
       if (axiosCode === 'DAR10002') postWriteAxios();
       setIsSave(true);
-      alert('저장되었습니다.');
+      // alert('저장되었습니다.');
     }
   };
 
   return (
     <div
       onClick={handleSave}
-      className={`absolute right-0 w-24 h-24 mr-5 cursor-pointer hover:opacity-100 ${isSave ? 'opacity-100' : 'opacity-50'}`}
+      className={`relative flex items-center w-24 h-24 mt-1 mr-5 cursor-pointer hover:opacity-100 ${isSave ? 'opacity-100' : 'opacity-60'}`}
       aria-hidden="true"
     >
       <Image
@@ -67,7 +64,7 @@ const DailyTopMark = ({ isSave, setIsSave, axiosCode }) => {
         alt="bookmark"
         priority
       />
-      <div className={`absolute top-0 right-1/2 hover:hidden ${isSave ? 'hidden' : ''}`}>
+      <div className={`absolute p-10 text-center hover:hidden ${isSave ? 'hidden' : ''}`}>
         <p>s</p>
         <p>a</p>
         <p>v</p>
