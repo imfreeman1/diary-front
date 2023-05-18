@@ -1,21 +1,17 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-const DatepickerCustomInput = forwardRef(({ value, onClick, inputStyle }, ref) => {
-  console.log(inputStyle);
-  return (
-    <div className={`${inputStyle}}`}>
-      <button
-        className="bg-translate shadow-inner"
-        onClick={onClick}
-        ref={ref}
-        type="button"
-      >
-        <p>{value}</p>
-      </button>
-    </div>
-  );
-});
+const DatepickerCustomInput = forwardRef(({ value, onClick, inputStyle }, ref) => (
+  <div className={`${inputStyle}}`}>
+    <button
+      onClick={onClick}
+      ref={ref}
+      type="button"
+    >
+      <p>{value}</p>
+    </button>
+  </div>
+));
 
 DatepickerCustomInput.propTypes = {
   value: PropTypes.string,

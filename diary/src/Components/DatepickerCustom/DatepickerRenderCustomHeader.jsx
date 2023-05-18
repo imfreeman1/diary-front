@@ -2,6 +2,7 @@ import React from 'react';
 import { getMonth, getYear } from 'date-fns';
 import range from 'lodash/range';
 import PropTypes from 'prop-types';
+import { MONTHS, MONTH_INDICATING, YEAR_INDICATING } from 'src/Constants/monthlyConstants';
 
 const DatepickerRenderCustomHeader = ({
   date,
@@ -14,7 +15,6 @@ const DatepickerRenderCustomHeader = ({
 }) => {
   const years = range(2023, getYear(new Date()) + 1, 1);
 
-  const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
   return (
     <div className="flex p-5 justify-around bg-red-100">
       <button
@@ -36,19 +36,19 @@ const DatepickerRenderCustomHeader = ({
           </option>
         ))}
       </select>
-      <span className="text-lg">년</span>
+      <span className="text-lg">{YEAR_INDICATING}</span>
       <select
-        value={months[getMonth(date)]}
-        onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}
+        value={MONTHS[getMonth(date)]}
+        onChange={({ target: { value } }) => changeMonth(MONTHS.indexOf(value))}
         className="text-lg"
       >
-        {months.map((option) => (
+        {MONTHS.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
         ))}
       </select>
-      <span className="text-lg">월</span>
+      <span className="text-lg">{MONTH_INDICATING}</span>
       <button
         type="button"
         onClick={increaseMonth}
