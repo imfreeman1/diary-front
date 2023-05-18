@@ -39,6 +39,25 @@ export const weeklySlice = createSlice({
       const currWeekContents = weeklyContents[WEEK(locThisWeek)][idx];
       currWeekContents.textContent = content;
     },
+    setIsWriten: (
+      { weeklyContents },
+      {
+        payload: {
+          idx, content, isWriten, locThisWeek,
+        },
+      },
+    ) => {
+      const currWeekContents = weeklyContents[WEEK(locThisWeek)][idx];
+      currWeekContents.textContent = content;
+      currWeekContents.isWriten = isWriten;
+    },
+    setEditable: (
+      { weeklyContents },
+      { payload: { idx, locThisWeek } },
+    ) => {
+      const { isEditable } = weeklyContents[WEEK(locThisWeek)][idx];
+      weeklyContents[WEEK(locThisWeek)][idx].isEditable = !isEditable;
+    },
     setMoveToWeek: (state, { payload: nextWeek }) => {
       const currDate = state.selectedDateInWeek;
       const dateConv = new Date(currDate);
