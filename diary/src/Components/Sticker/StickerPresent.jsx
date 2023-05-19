@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BiX } from 'react-icons/bi';
@@ -46,7 +47,7 @@ StickerPresent.propTypes = {
   id: PropTypes.string.isRequired,
   imgURL: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
-  focusRef: PropTypes.shape({ current: PropTypes.instanceOf(PropTypes.element) }).isRequired,
+  focusRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
   focusHandler: PropTypes.func.isRequired,
   removeStickerHandler: PropTypes.func.isRequired,
   blurHandler: PropTypes.func.isRequired,
