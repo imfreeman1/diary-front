@@ -34,8 +34,8 @@ const StickerPresent = ({
       <Image
         className="object-fill w-full h-full"
         src={imgURL}
-        width={window.screen.width}
-        height={window.screen.height}
+        width={500}
+        height={500}
         alt="스티커"
       />
     </div>
