@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import WeeklyAxiosNetwork from 'src/network/weekly';
 import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
-import useGetWeekly, { getlocWeek } from '../Utils/useGetWeekly';
+import makeWeekly, { getlocWeek } from '../Utils/makeWeekly';
 import {
   setIsWriten,
   setlocWeek, setSelectedWeek, setWeekly,
@@ -42,7 +42,7 @@ const WeeklyPage = () => {
   const [selectedDate, setSelectedDate] = useState(date);
 
   const dispatch = useDispatch();
-  const currentWeeklyPage = useGetWeekly(selectedDateInWeek);
+  const currentWeeklyPage = makeWeekly(selectedDateInWeek);
   const locThisWeek = getlocWeek(selectedDateInWeek);
   const currWeeklyContents = useSelector(
     ({ weeklyReducer }) => weeklyReducer.weeklyContents[WEEK(locThisWeek)],

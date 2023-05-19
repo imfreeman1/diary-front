@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { setEditor } from '../../Redux/action';
 import useGetEditor from '../../Utils/useGetEditor';
 import TiptapPresenter from './TiptapPresenter';
-
 /**
  *
  * @param {currentDate} date 현재 날짜
@@ -13,7 +14,7 @@ import TiptapPresenter from './TiptapPresenter';
  * @returns
  */
 
-const TiptapContainer = () => {
+const TiptapContainer = ({ setIsSave, resContent }) => {
   const { currentDate } = useSelector(
     (state) => state.dailyReducer.dailyContents,
   );
@@ -28,15 +29,23 @@ const TiptapContainer = () => {
     if (editor && !editor.isDestroyed && Daily) {
       editor?.commands.setContent(Daily.editorContent);
     }
+    if (editor && !editor.isDestroyed && resContent) {
+      editor?.commands.setContent(resContent);
+    }
     editor?.on('update', () => {
       const html = editor.getHTML();
-      dispatch(setEditor({ locdate: Daily.locdate, html }));
+      dispatch(setEditor({ locdate: currentDate, editorContent: html }));
+      setIsSave(false);
     });
-  }, [dispatch, editor, Daily]);
+  }, [dispatch, editor, currentDate, resContent]);
 
   return (
     <TiptapPresenter editor={editor} />
   );
 };
 
+TiptapContainer.propTypes = {
+  setIsSave: PropTypes.func.isRequired,
+  resContent: PropTypes.string.isRequired,
+};
 export default TiptapContainer;

@@ -6,7 +6,7 @@ import { DAY_OF_WEEK } from '../Constants/monthlyConstants';
  * @returns
  */
 
-const useGetDaily = (date) => {
+const makeDaily = (date) => {
   const dateInDaily = new Date(date);
 
   const dailyContent = {
@@ -15,4 +15,4 @@ const useGetDaily = (date) => {
   return dailyContent;
 };
 
-export default useGetDaily;
+export default makeDaily;

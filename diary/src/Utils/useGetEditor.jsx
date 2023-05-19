@@ -13,7 +13,7 @@ const useGetEditor = () => {
     editorProps: {
       attributes: {
         class:
-              'text-base leading-8 m-5 focus:outline-none',
+              'text-lg leading-8 m-5 focus:outline-none',
         spellcheck: 'false',
       },
     },

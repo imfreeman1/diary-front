@@ -1,5 +1,4 @@
 import { v4 } from 'uuid';
-import { PropTypes } from 'prop-types';
 import { DAYS_WEEKLY } from '../Constants/weeklyConstant';
 
 /**
@@ -19,10 +18,6 @@ export const getMonday = (dateInWeekly, plusDay) => {
   };
   return nextDate(calcMonday + plusDay);
 };
-getMonday.propTypes = {
-  dateInWeekly: PropTypes.string.isRequired,
-  plusDay: PropTypes.number.isRequired,
-};
 
 export const getlocWeek = (dateInWeekly) => {
   const dateConv = new Date(dateInWeekly);
@@ -32,11 +27,8 @@ export const getlocWeek = (dateInWeekly) => {
   const weeks = parseInt(mondayDate.getDate() / 7, 10);
   return `${year}-${month.toString().padStart(2, '0')}-W${weeks + 1}`;
 };
-getlocWeek.propTypes = {
-  dateInWeekly: PropTypes.oneOf([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
-};
 
-const useGetWeekly = (dateInWeekly) => {
+const makeWeekly = (dateInWeekly) => {
   const dateConv = new Date(dateInWeekly);
   const representWeekly = getlocWeek(dateConv);
 
@@ -62,7 +54,4 @@ const useGetWeekly = (dateInWeekly) => {
   }
   return weeklyList;
 };
-useGetWeekly.propTypes = {
-  dateInWeekly: PropTypes.string.isRequired,
-};
-export default useGetWeekly;
+export default makeWeekly;
