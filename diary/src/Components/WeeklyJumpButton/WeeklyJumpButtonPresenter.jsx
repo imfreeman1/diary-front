@@ -20,8 +20,7 @@ const WeeklyJumpButtonPresenter = ({
           type="button"
           key={v4()}
         >
-          {WEEK}
-          {idx + 1}
+          {WEEK(idx + 1)}
         </button>
       ))}
     </div>

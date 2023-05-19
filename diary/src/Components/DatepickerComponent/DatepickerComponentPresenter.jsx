@@ -8,22 +8,24 @@ import DatepickerRenderCustomHeader from '../DatepickerCustom/DatepickerRenderCu
 // import { ko } from 'date-fns/esm/locale';
 
 const DatepickerComponentPresenter = ({
-  selectedDate, highlightDatesArr, inputStyle, isShow, handleChange, handleClose,
+  selectedDate, highlightDatesArr, inputStyle, isShow, handleChange, handleClose, isWeekly,
 }) => (
-  <DatePicker
-    selected={selectedDate}
-    onChange={handleChange}
-    highlightDates={highlightDatesArr}
-    show={isShow}
-    setShow={handleClose}
-    customInput={<DatepickerCustomInput inputStyle={inputStyle} />}
-    renderDayContents={DatepickerRenderDayContents}
-    renderCustomHeader={DatepickerRenderCustomHeader}
-    withPortal
-    portalId="root-portal"
-    dateFormat="yyyy-MM-dd"
-    dateFormatCalendar="yyyy년 MM월"
-  />
+  <span className={isWeekly ? 'text-green-900  p-2' : 'absolute inset-y-11 left-0'}>
+    <DatePicker
+      selected={selectedDate}
+      onChange={handleChange}
+      highlightDates={highlightDatesArr}
+      show={isShow}
+      setShow={handleClose}
+      customInput={<DatepickerCustomInput inputStyle={inputStyle} />}
+      renderDayContents={DatepickerRenderDayContents}
+      renderCustomHeader={DatepickerRenderCustomHeader}
+      withPortal
+      portalId="root-portal"
+      dateFormat={isWeekly ? 'yyyy년 MM월 ' : 'yyyy-MM-dd'}
+      dateFormatCalendar="yyyy년 MM월"
+    />
+  </span>
 );
 DatepickerComponentPresenter.propTypes = {
   selectedDate: PropTypes.instanceOf(Date).isRequired,
@@ -32,6 +34,7 @@ DatepickerComponentPresenter.propTypes = {
   handleClose: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   inputStyle: PropTypes.string.isRequired,
+  isWeekly: PropTypes.bool.isRequired,
 };
 
 DatepickerComponentPresenter.defaultProps = {

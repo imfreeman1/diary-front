@@ -1,11 +1,17 @@
+/* eslint-disable camelcase */
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
+import WeeklyAxiosNetwork from 'src/network/weekly';
 import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
 import makeWeekly, { getlocWeek } from '../Utils/makeWeekly';
-import { setlocWeek, setSelectedWeek, setWeekly } from '../Redux/action';
-import { WEEKLY_LOGO } from '../Constants/weeklyConstant';
+import {
+  setIsWriten,
+  setlocWeek, setSelectedWeek, setWeekly,
+} from '../Redux/action';
+import { WEEK, WEEKLY_LOGO } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
@@ -27,10 +33,9 @@ import useGetDateOffset from '../hooks/useGetDateOffset';
 
 const WeeklyPage = () => {
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray,
+    ({ stickerReducer }) => stickerReducer.stickersArray,
   );
   const currRouter = CURRENT_ROUTER_PATH();
-
   const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
   // datepicker에 필요한 변수 설정
   const date = new Date();
@@ -39,6 +44,10 @@ const WeeklyPage = () => {
   const dispatch = useDispatch();
   const currentWeeklyPage = makeWeekly(selectedDateInWeek);
   const locThisWeek = getlocWeek(selectedDateInWeek);
+  const currWeeklyContents = useSelector(
+    ({ weeklyReducer }) => weeklyReducer.weeklyContents[WEEK(locThisWeek)],
+  );
+
   // 최초 렌더링=> 현재 date 정보 전달 (월요일로 변환 & str로 전달)
   useEffect(() => {
     dispatch(setlocWeek(locThisWeek));
@@ -53,10 +62,18 @@ const WeeklyPage = () => {
     dispatch(setSelectedWeek(offsetDate));
   }, [dispatch, selectedDate]);
 
-  const currWeeklyContents = useSelector(
-    (state) => state.weeklyReducer.weeklyContents[`W-${locThisWeek}`],
-  );
-
+  useEffect(() => {
+    WeeklyAxiosNetwork.Read(locThisWeek).then((res) => {
+      res.result.map(({ number_of_week, content }) => {
+        dispatch(setIsWriten({
+          content,
+          idx: number_of_week,
+          isWriten: true,
+          locThisWeek,
+        }));
+      });
+    });
+  }, []);
   const weeklyHighlight = useSelector(
     (state) => state.weeklyReducer.weeklyContents,
   );
@@ -82,27 +99,30 @@ const WeeklyPage = () => {
         />
       ))}
       <div className="h-full w-full bg-[#9DBC9D] text-center p-10">
-        <DatepickerComponent
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          highlightDatesArr={weeklyHighlightArr}
-        />
+
         <div className="bg-white w-fit h-fit border my-10 mx-auto shadow-lg rounded">
-          <div className="text-2xl font-bold text-left ml-5">
+          <div className="text-2xl font-bold text-left ml-5 flex flex-row">
             <span className="text-black border-4 rounded-full p-2 bg-white">
               {WEEKLY_LOGO}
+
             </span>
-            <span className="text-green-900 p-2">
-              {locThisWeek.slice(0, -3)}
-            </span>
+            <DatepickerComponent
+              isWeekly
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              highlightDatesArr={weeklyHighlightArr}
+            />
           </div>
           <WeeklyJumpButtonContainer locThisWeek={locThisWeek} />
           <div className="m-3 mx-5 grid grid-cols-4">
             {currWeeklyContents
-              ? currWeeklyContents.map((day, i) => (
-                <WeeklyDisplayContainer key={day.id} idx={i} day={day} />
-              ))
-              : null}
+              && currWeeklyContents.map((day, i) => (
+                <WeeklyDisplayContainer
+                  key={day.id}
+                  idx={i}
+                  day={day}
+                />
+              ))}
           </div>
         </div>
       </div>

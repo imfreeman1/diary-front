@@ -9,6 +9,7 @@ import DatepickerComponentPresenter from './DatepickerComponentPresenter';
  * @returns
  */
 const DatepickerComponentContainer = ({
+  isWeekly,
   selectedDate,
   setSelectedDate,
   highlightDatesArr,
@@ -31,6 +32,7 @@ const DatepickerComponentContainer = ({
       isShow={isShow}
       handleClose={handleClose}
       handleChange={handleChange}
+      isWeekly={isWeekly}
     />
   );
 };
@@ -40,6 +42,7 @@ DatepickerComponentContainer.propTypes = {
   setSelectedDate: PropTypes.func.isRequired,
   highlightDatesArr: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   inputStyle: PropTypes.string.isRequired,
+  isWeekly: PropTypes.bool.isRequired,
 };
 
 DatepickerComponentContainer.defaultProps = {
