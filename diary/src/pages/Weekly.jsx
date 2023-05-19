@@ -36,7 +36,6 @@ const WeeklyPage = () => {
     ({ stickerReducer }) => stickerReducer.stickersArray,
   );
   const currRouter = CURRENT_ROUTER_PATH();
-  const [axiosRes, setAxiosRes] = useState();
   const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
   // datepicker에 필요한 변수 설정
   const date = new Date();
@@ -65,7 +64,6 @@ const WeeklyPage = () => {
 
   useEffect(() => {
     WeeklyAxiosNetwork.Read(locThisWeek).then((res) => {
-      setAxiosRes(res, locThisWeek);
       res.result.map(({ number_of_week, content }) => {
         dispatch(setIsWriten({
           content,
@@ -75,7 +73,7 @@ const WeeklyPage = () => {
         }));
       });
     });
-  }, [setAxiosRes]);
+  }, []);
   const weeklyHighlight = useSelector(
     (state) => state.weeklyReducer.weeklyContents,
   );
