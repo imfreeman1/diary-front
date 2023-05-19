@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BiCaretUp, BiCaretDown } from "react-icons/bi";
-import { v4 } from "uuid";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BiCaretUp, BiCaretDown } from 'react-icons/bi';
+import { v4 } from 'uuid';
 import {
-  setCal,
+  setCalendar,
   setMoveToLastMonth,
   setMoveToNextMonth,
-  setMonth,
-} from "@/Redux/action";
-import MonthWeekPresenter from "./Components/Month/MonthWeek/MonthWeekPresenter";
-import useMonthCalendar from "./Utils/useMonthCalendar";
+} from '../Redux/action';
+import MonthWeekPresenter from '../Components/Month/MonthWeek/MonthWeekPresenter';
+import useMonthCalendar from '../Utils/useMonthCalendar';
 import {
   DAY_OF_WEEK,
   MONTH_LIST,
   MONTH_INDICATING,
-} from "../Constants/monthlyConstants";
-import NavBarContainer from "./Components/NavBar/NavBarContainer";
-import StickerContainer from "./Components/Sticker/StickerContainer";
-import SideBarContainer from "./Components/SideBar/SideBarContainer";
-import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
+} from '../Constants/monthlyConstants';
+import NavBarContainer from '../Components/NavBar/NavBarContainer';
+import StickerContainer from '../Components/Sticker/StickerContainer';
+import SideBarContainer from '../Components/SideBar/SideBarContainer';
+import { CURRENT_ROUTER_PATH } from '../Constants/constants';
 
 /**
  * @param {selectedMonth} number, 기본 날짜는 현재 월 (0-11)
@@ -27,26 +27,27 @@ import { CURRENT_ROUTER_PATH } from "@/Constants/constants";
 
 function MonthlyPage() {
   const { yearInMonth, selectedMonth } = useSelector(
-    (state) => state.monthSelectorReducer
+    (state) => state.monthSelectorReducer,
   );
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray
+    (state) => state.stickerReducer.stickersArray,
   );
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
-  console.log(monthCalendar);
+
+  // month, year 바뀔 때 마다 calendar를 새로 불러오게 함
+  const controlCalendar = useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth]);
   useEffect(() => {
-    dispatch(setCal(useMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth])));
-  }, [selectedMonth, yearInMonth]);
-  //여기서부터 reducer로 변경 useEffect에서 selectedMonth에 종속되는걸 빼야할까요? 의미가 있나? 그
+    dispatch(setCalendar(controlCalendar));
+  }, [dispatch, selectedMonth, yearInMonth]);
+
   const moveToLastMonth = () => {
     dispatch(setMoveToLastMonth());
   };
   const moveToNextMonth = () => {
     dispatch(setMoveToNextMonth());
   };
-
   return (
     <>
       <NavBarContainer />
@@ -70,11 +71,11 @@ function MonthlyPage() {
             <div className="text-3xl w-min px-6 my-auto">
               <BiCaretUp
                 onClick={moveToNextMonth}
-                className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
+                className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
               />
               <BiCaretDown
                 onClick={moveToLastMonth}
-                className="cursor-pointer text-gray-700 hover:text-red-700 hover:ring hover:ring-gray-300"
+                className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
               />
             </div>
             <p className="text-5xl w-fit px-6 m-3 text-gray-700 select-none">
@@ -83,11 +84,11 @@ function MonthlyPage() {
             </p>
             <p className="text-2xl text-green-900 select-none">{yearInMonth}</p>
           </div>
-          <div className="flex my-2 border-2">
+          <div className="flex my-2 border-2 border-y-green-900">
             {DAY_OF_WEEK.map((day) => (
               <div
                 className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
-                  day === "Sun" ? "text-[#FF0000]" : ""
+                  day === 'Sun' ? 'text-red-500' : ''
                 }`}
                 key={v4()}
               >
@@ -95,16 +96,16 @@ function MonthlyPage() {
               </div>
             ))}
           </div>
-          <table className="border-collapse border border-gray-400">
+          <table className="border-collapse border border-green-900">
             {monthCalendar.length
               ? monthCalendar.map((week) => (
-                  <MonthWeekPresenter key={v4()} week={week} />
-                ))
+                <MonthWeekPresenter key={v4()} week={week} />
+              ))
               : null}
           </table>
         </div>
-        <SideBarContainer />
       </div>
+      <SideBarContainer />
     </>
   );
 }
