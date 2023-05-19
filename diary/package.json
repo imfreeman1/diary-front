@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -45,6 +45,7 @@
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.10.0",
+    "sharp": "^0.32.1",
     "tailwind-datepicker-react": "^1.2.3",
     "uuid": "^9.0.0"
   },
