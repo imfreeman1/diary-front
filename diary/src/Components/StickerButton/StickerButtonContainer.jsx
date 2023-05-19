@@ -9,7 +9,7 @@ import utilAxios from 'src/Utils/utilAxios';
 import { v4 } from 'uuid';
 import StickerButtonPresent from './StickerButtonPresent';
 
-function StickerButtonContainer({ sticker }) {
+function StickerButtonContainer({ sticker, pageDate }) {
   const dispatch = useDispatch();
   const currRouter = CURRENT_ROUTER_PATH();
   const makeStickerHandler = async (e) => {
@@ -19,7 +19,7 @@ function StickerButtonContainer({ sticker }) {
     const imgFile = await urlToFile(sticker.imgURL, 'image');
     const stickerFormDataObject = {
       id: newId,
-      page_date: '2023-05-10',
+      page_date: pageDate,
       page_type: currRouter.toLowerCase(),
       image_name: '이름',
       image: imgFile,
@@ -29,9 +29,13 @@ function StickerButtonContainer({ sticker }) {
       'position[1]': positionY,
     };
     const formData = makeFormData(stickerFormDataObject);
-    await utilAxios('/sticker/write', 'post', formData, {
-      'Content-Type': 'multipart/form-data',
-    });
+    const setStickerOptions = {
+      url: '/sticker/write',
+      method: 'post',
+      header: { 'Content-Type': 'multipart/form-data' },
+      data: formData,
+    };
+    await utilAxios(setStickerOptions);
     dispatch(setSticker(
       {
         origin: currRouter, id: sticker.id, position: { positionX, positionY }, newId,
@@ -58,4 +62,5 @@ StickerButtonContainer.propTypes = {
     height: PropTypes.number,
     selected: PropTypes.bool,
   }).isRequired,
+  pageDate: PropTypes.string.isRequired,
 };

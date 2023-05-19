@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import useDraggable from 'src/hooks/useDraggable';
@@ -9,7 +9,8 @@ import {
   STICKER_IMG_SIZE_OBJECT,
   STICKER_POSITION_TRANSLATOR,
 } from 'src/Constants/constants';
-import axios from 'src/Utils/api';
+import debounce from 'src/Utils/debounce';
+import utilAxios from 'src/Utils/utilAxios';
 import StickerPresent from './StickerPresent';
 
 /*
@@ -42,13 +43,6 @@ function StickerContainer({
   routerRef.current = CURRENT_ROUTER_PATH();
   const focusRef = useRef(null);
   // hook으로 빼낼 수 있겠네.
-  useLayoutEffect(() => {
-    const stickerPosition = focusRef.current;
-    stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
-    const stickerImgSize = stickerPosition.firstChild;
-    Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
-  }, [position, height, width, id]);
-
   // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
   useEffect(() => {
     const stickerData = {
@@ -56,27 +50,23 @@ function StickerContainer({
       position: [position.positionX, position.positionY],
       size: [height, width],
       page_type: routerRef.current?.toLowerCase(),
-      page_date: '2023-05-10',
     };
-    console.log(stickerData);
-    const test = async () => {
-      try {
-        const response = await axios.request({
-          url: '/sticker/update',
-          method: 'post',
-          data: stickerData,
-          withCredentials: true,
-        });
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
+    const updateStickerOptions = {
+      url: '/sticker/update',
+      method: 'post',
+      data: stickerData,
     };
-    const a = () => setTimeout(() => {
-      test();
-    }, 10000);
-    return () => clearTimeout(a);
-  }, [position, height, width]);
+    // update는 componentUnDidMount에서 실행하는 하는 것도 괜찮을거 같음.
+    // 현재 마지막 남은 스티커를 삭제 할 경우 debounce에서 에러가 발생.
+    const updateSticker = () => utilAxios(updateStickerOptions);
+    debounce(2000, updateSticker);
+    const stickerPosition = focusRef.current;
+    stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
+    const stickerImgSize = stickerPosition.firstChild;
+    Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
+
+    return () => clearTimeout(debounce(updateSticker));
+  }, [position, height, width, id]);
 
   const focusHandler = () => {
     console.log(focusRef.current);
@@ -84,11 +74,21 @@ function StickerContainer({
     dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current }));
   };
 
-  const removeStickerHandler = () => {
-    const selectedStickerId = focusRef.current.id;
-    dispatch(
-      removeSticker({ id: selectedStickerId, origin: routerRef.current }),
-    );
+  const removeStickerHandler = async () => {
+    try {
+      const removeStickerOptions = {
+        url: '/sticker/delete',
+        method: 'post',
+        data: { id },
+        getReturn: true,
+      };
+      await utilAxios(removeStickerOptions);
+      dispatch(
+        removeSticker({ id, origin: routerRef.current }),
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // onBlur event를 사용할 때에는 tabIndex속성을 같이 사용해줘야 onBlur가 트리거 됨.
