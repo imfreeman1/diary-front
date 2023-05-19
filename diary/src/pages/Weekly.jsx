@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
-import useGetWeekly, { getlocWeek } from '../Utils/useGetWeekly';
+import makeWeekly, { getlocWeek } from '../Utils/makeWeekly';
 import { setlocWeek, setSelectedWeek, setWeekly } from '../Redux/action';
 import { WEEKLY_LOGO } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
@@ -37,7 +37,7 @@ const WeeklyPage = () => {
   const [selectedDate, setSelectedDate] = useState(date);
 
   const dispatch = useDispatch();
-  const currentWeeklyPage = useGetWeekly(selectedDateInWeek);
+  const currentWeeklyPage = makeWeekly(selectedDateInWeek);
   const locThisWeek = getlocWeek(selectedDateInWeek);
   // 최초 렌더링=> 현재 date 정보 전달 (월요일로 변환 & str로 전달)
   useEffect(() => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 import React, {
   useEffect, useRef, useState,
@@ -5,6 +6,7 @@ import React, {
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setTodo } from 'src/Redux/action';
+import useAxios from 'src/hooks/useAxios';
 import MonthInputModalPresenter from './MonthInputModalPresenter';
 /**
  *
@@ -26,14 +28,40 @@ function MonthInputModalContainer({
   const handleChange = (e) => {
     setInputText(e.target.value);
   };
+  const {
+    response, error, loading, operation,
+  } = useAxios();
 
+  const postWriteMonthlyAxios = () => {
+    operation({
+      method: 'post',
+      url: '/monthly/write/',
+      payload: {
+        content: [inputText],
+        date: dayInfo.locdate,
+      },
+    });
+  };
+  const postUpdateMonthlyAxios = () => {
+    operation({
+      method: 'post',
+      url: '/monthly/update',
+      payload: {
+        content: [...dayInfo.todos.map((item) => item.todoContent), inputText],
+        date: dayInfo.locdate,
+      },
+    });
+  };
   const handleKeyPress = (e) => {
     e.preventDefault();
-    dispatch(setTodo({ text: inputText, dayInfo }));
-    setInputText('');
-    handleInputModalClose();
+    if (inputText) {
+      dispatch(setTodo({ text: inputText, dayInfo }));
+      if (dayInfo.todos.length >= 1) postUpdateMonthlyAxios();
+      if (dayInfo.todos.length === 0) postWriteMonthlyAxios();
+      setInputText('');
+      handleInputModalClose();
+    }
   };
-
   useEffect(() => {
     if (inputModalVisible) focusRef.current.focus();
   }, [inputModalVisible]);

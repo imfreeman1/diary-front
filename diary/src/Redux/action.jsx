@@ -8,7 +8,7 @@ import { monthSelectorSlice } from './monthSelectorSlice';
 export const { setAuth, removeAuth } = googleAuthSlice.actions;
 
 export const {
-  setCalendar, setTodo, delTodo, editTodo,
+  setCalendar, getTodo, setTodo, delTodo, allDelTodo, editTodo,
 } = monthCalendarSlice.actions;
 
 export const {
@@ -16,7 +16,7 @@ export const {
 } = weeklySlice.actions;
 
 export const {
-  setDaily, setDate, setEditor, setTitle,
+  setDaily, setDate, setEditor, setTitle, setSave,
 } = dailySlice.actions;
 
 export const {

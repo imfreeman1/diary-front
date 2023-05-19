@@ -16,17 +16,15 @@ const useAxios = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const operation = async (param) => {
+  const operation = async ({ method, url, payload }) => {
     try {
       setLoading(true);
-      // const response = await axios.request({
-      //   method,
-      //   url,
-      //   data: payload,
-      //   withCredentials: true,
-      // });
-      const result = await axios.request(param);
-      console.log('response', result);
+      const result = await axios.request({
+        method,
+        url,
+        data: payload,
+        withCredentials: true,
+      });
       setResponse(result.data);
     } catch (err) {
       setError(err);

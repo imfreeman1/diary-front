@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useGetDaily from 'src/Utils/useGetDaily';
+import makeDaily from 'src/Utils/makeDaily';
 import { setDaily, setTitle } from 'src/Redux/action';
 import PropTypes from 'prop-types';
 import DailyDisplayPresenter from './DailyDisplayPresenter';
@@ -11,7 +11,9 @@ import DailyDisplayPresenter from './DailyDisplayPresenter';
  * @returns
  */
 
-function DailyDisplayContainer({ setIsSave }) {
+function DailyDisplayContainer({
+  setIsSave, resTitle, resContent, selectedDate, setSelectedDate,
+}) {
   const dispatch = useDispatch();
 
   const { currentDate } = useSelector(
@@ -20,23 +22,26 @@ function DailyDisplayContainer({ setIsSave }) {
   const Daily = useSelector(
     (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
   );
-  // console.log(currentDate, Daily.locdate, Daily.titleText, Daily.editorContent);
-  const initContent = Daily?.titleText ? Daily.titleText : '';
-  const [content, setContent] = useState('');
+  const initContent = resTitle;
+  const [content, setContent] = useState(initContent);
 
-  const getDaily = useGetDaily(currentDate);
+  // currentDate가 바뀌면 daily 페이지 재렌더링
+  const getDaily = makeDaily(currentDate);
   useEffect(() => {
     if (currentDate) dispatch(setDaily(getDaily));
-    setContent(initContent);
-  }, [dispatch, getDaily]);
+  }, [dispatch, currentDate]);
 
   useEffect(() => {
-    dispatch(setTitle({ titleText: content, locdate: currentDate }));
-    setIsSave(false);
+    dispatch(setTitle({ locdate: currentDate, titleText: content }));
   }, [dispatch, currentDate, content]);
+
+  useEffect(() => {
+    setContent(initContent);
+  }, [initContent, currentDate]);
 
   const handleInput = (e) => {
     setContent(e.target.value);
+    setIsSave(false);
   };
 
   return (
@@ -45,11 +50,18 @@ function DailyDisplayContainer({ setIsSave }) {
       content={content}
       handleInput={handleInput}
       setIsSave={setIsSave}
+      resContent={resContent}
+      selectedDate={selectedDate}
+      setSelectedDate={setSelectedDate}
     />
   );
 }
 
 DailyDisplayContainer.propTypes = {
   setIsSave: PropTypes.func.isRequired,
+  resTitle: PropTypes.string.isRequired,
+  resContent: PropTypes.string.isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
+  setSelectedDate: PropTypes.func.isRequired,
 };
 export default DailyDisplayContainer;

@@ -14,7 +14,7 @@ import TiptapPresenter from './TiptapPresenter';
  * @returns
  */
 
-const TiptapContainer = ({ setIsSave }) => {
+const TiptapContainer = ({ setIsSave, resContent }) => {
   const { currentDate } = useSelector(
     (state) => state.dailyReducer.dailyContents,
   );
@@ -29,12 +29,15 @@ const TiptapContainer = ({ setIsSave }) => {
     if (editor && !editor.isDestroyed && Daily) {
       editor?.commands.setContent(Daily.editorContent);
     }
+    if (editor && !editor.isDestroyed && resContent) {
+      editor?.commands.setContent(resContent);
+    }
     editor?.on('update', () => {
       const html = editor.getHTML();
-      dispatch(setEditor({ locdate: Daily.locdate, html }));
+      dispatch(setEditor({ locdate: currentDate, editorContent: html }));
       setIsSave(false);
     });
-  }, [dispatch, editor, Daily]);
+  }, [dispatch, editor, currentDate, resContent]);
 
   return (
     <TiptapPresenter editor={editor} />
@@ -43,5 +46,6 @@ const TiptapContainer = ({ setIsSave }) => {
 
 TiptapContainer.propTypes = {
   setIsSave: PropTypes.func.isRequired,
+  resContent: PropTypes.string.isRequired,
 };
 export default TiptapContainer;
