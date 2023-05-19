@@ -6,19 +6,13 @@ import {
   CURRENT_ROUTER_PATH,
   STICKER_POSITION_TRANSLATOR,
 } from 'src/Constants/constants';
+import debounce from 'src/Utils/debounce';
 
-let timer;
-const debounce = (time, callBack) => {
-  clearTimeout(timer);
-  timer = setTimeout(() => {
-    callBack();
-  }, time);
-};
 const useDraggable = (position) => {
   const positions = useRef(null);
   const dispatch = useDispatch();
-  const currRouter = CURRENT_ROUTER_PATH();
   positions.current = position;
+  const currRouter = CURRENT_ROUTER_PATH();
   const currStickersList = useSelector(
     (state) => state.stickerReducer.stickersArray[currRouter],
   );
@@ -59,14 +53,15 @@ const useDraggable = (position) => {
                 position: positions.current,
               }),
             );
-            debounce(2000, callBackDispatch);
+            debounce(400, callBackDispatch);
           },
         },
       });
+      return () => {
+        clearTimeout(debounce);
+      };
     },
-    // return (()=> {
-    // })
-    [],
+    [dispatch],
   );
 };
 
