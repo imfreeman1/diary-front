@@ -21,12 +21,19 @@ const StickerDisplay = ({ pageDate }) => {
     };
     const asyncGetSticker = async () => {
       const responseData = await utilAxios(getStickerOptions);
-      if (responseData.length) dispatch(getStickers({ origin: currRouter, getStickerArray: responseData.data.result }));
+      if (responseData.data.code
+        === 'STKR10001') {
+        dispatch(getStickers({
+          origin: currRouter,
+          getStickerArray: responseData.data.result,
+        }));
+      }
     };
     asyncGetSticker();
   }, [dispatch]);
   return (
     <>
+      <div className="hidden">스티커</div>
       {stickerList[currRouter]?.map((sticker) => (
         <StickerContainer
           imgURL={sticker.imgURL}
