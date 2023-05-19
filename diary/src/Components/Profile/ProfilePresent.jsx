@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
@@ -60,6 +61,8 @@ const ProfilePresent = ({ onChange, imgRef }) => (
 
 ProfilePresent.propTypes = {
   onChange: PropTypes.func.isRequired,
+  imgRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
+
 };
 
 export default ProfilePresent;
