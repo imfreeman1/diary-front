@@ -10,7 +10,8 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     domains: ['mydiary-iamges.s3.ap-northeast-2.amazonaws.com'],
   },
-  output: 'export',
+  output: 'standalone',
+  distDir: 'out',
 };
 
 module.exports = nextConfig;
