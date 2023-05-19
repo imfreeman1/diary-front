@@ -54,6 +54,21 @@ export const stickerSlice = createSlice({
       }
       stickersArray[origin] = [...stickersArray[origin], newSticker];
     },
+    getStickers: ({ stickersArray }, { payload: { origin, getStickerArray } }) => {
+      const newStickersArray = getStickerArray.map((sticker) => {
+        const newSticker = {
+          id: sticker.id,
+          imgURL: `${sticker.image}`,
+          positionX: sticker.position[0],
+          positionY: sticker.position[1],
+          height: sticker.size[0],
+          width: sticker.size[1],
+          selected: false,
+        };
+        return newSticker;
+      });
+      stickersArray[origin] = newStickersArray;
+    },
     removeSticker: ({ stickersArray }, { payload: { id, origin } }) => {
       stickersArray[origin] = stickersArray[origin].filter(
         (sticker) => sticker.id !== id,
