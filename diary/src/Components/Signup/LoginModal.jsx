@@ -2,7 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import axios from 'src/Utils/api';
-// import LogoutButton from 'src/Components/LogoutButton/LogoutButton';
+import PropTypes from 'prop-types';
+
 const LoginModal = ({ setOnSignup }) => {
   const router = useRouter();
 
@@ -42,26 +43,22 @@ const LoginModal = ({ setOnSignup }) => {
       <form onSubmit={handleLogin}>
         <div className="flex justify-center m-3">
           <div className="flex flex-col justify-around">
-            <p className="px-3">
-              이메일
-            </p>
-            <p className="px-3">
-              비밀번호
-            </p>
+            <p className="px-3">이메일</p>
+            <p className="px-3">비밀번호</p>
           </div>
           <div className="flex flex-col justify-between gap-1">
             <input
               id="email"
               type="email"
               placeholder="test@email.com"
-              className=" border-2 rounded-md h-10 px-3"
+              className="border-2 rounded-md h-10 px-3"
               {...register('email')}
             />
             <input
               id="password"
               type="password"
               placeholder="****************"
-              className=" border-2 rounded-md h-10 px-3"
+              className="border-2 rounded-md h-10 px-3"
               {...register('password')}
             />
           </div>
@@ -79,7 +76,6 @@ const LoginModal = ({ setOnSignup }) => {
             <span
               onClick={() => setOnSignup(true)}
               aria-hidden="true"
-              type="button"
               className="w-fit text-blue-900 cursor-pointer hover:underline"
             >
               회원가입 하러가기
@@ -94,10 +90,10 @@ const LoginModal = ({ setOnSignup }) => {
       >
         구글로 간편 로그인
       </button>
-      {/* <p className="mt-10">로그아웃 확인하기 위한 임시 버튼</p> */}
-      {/* <LogoutButton /> */}
     </div>
   );
 };
-
+LoginModal.propTypes = {
+  setOnSignup: PropTypes.func.isRequired,
+};
 export default LoginModal;

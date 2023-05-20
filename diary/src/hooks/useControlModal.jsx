@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import useOnClickOutside from './useOnClickOutSide';
 
 /**
@@ -16,7 +15,10 @@ const useControlModal = (isInMonth) => {
 
   // Month 내의 날짜가 아니면 모달창이 나타나지 않게 설정
   const handleModalOpen = () => {
+    console.log('here', isInMonth);
     if (isInMonth) {
+      console.log('here222');
+
       setTimeout(() => {
         setModalVisible(true);
       }, 300);
@@ -35,8 +37,4 @@ const useControlModal = (isInMonth) => {
     handleModalClose,
   };
 };
-useControlModal.propTypes = {
-  isInMonth: PropTypes.bool.isRequired,
-};
-
 export default useControlModal;

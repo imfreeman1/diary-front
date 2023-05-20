@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import SignupFinish from './SignupFinish';
 import SignupForm from './SignupForm';
 
 const SignupModal = ({
   setOnSignup,
-  onSignup,
 }) => {
   const [emailPage, setEmailPage] = useState(false);
 
@@ -28,7 +28,7 @@ const SignupModal = ({
       </div>
       {emailPage
         ? <SignupFinish setOnSignup={setOnSignup} />
-        : <SignupForm setOnSignup={setOnSignup} onSignup={onSignup} />}
+        : <SignupForm setOnSignup={setOnSignup} />}
 
       <button
         type="button"
@@ -40,5 +40,7 @@ const SignupModal = ({
     </>
   );
 };
-
+SignupModal.propTypes = {
+  setOnSignup: PropTypes.func.isRequired,
+};
 export default SignupModal;

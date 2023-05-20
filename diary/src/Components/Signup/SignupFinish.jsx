@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SignupFinish = ({ setOnSignup }) => (
   <div className="flex flex-col justify-center items-center">
@@ -25,5 +26,7 @@ const SignupFinish = ({ setOnSignup }) => (
   </div>
 
 );
-
+SignupFinish.propTypes = {
+  setOnSignup: PropTypes.func.isRequired,
+};
 export default SignupFinish;
