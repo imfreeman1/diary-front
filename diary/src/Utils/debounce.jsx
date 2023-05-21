@@ -2,6 +2,7 @@
 
 let timer;
 const debounce = (time, callBack) => {
+  if (typeof callBack !== 'function') return;
   clearTimeout(timer);
   timer = setTimeout(() => {
     callBack();
