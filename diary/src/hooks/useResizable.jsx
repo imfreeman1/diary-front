@@ -8,11 +8,12 @@ import {
   STICKER_IMG_SIZE_OBJECT,
 } from '../Constants/constants';
 
-const useResizable = () => {
+const useResizable = (pageDate, focusRef, id) => {
   const stickerSize = useRef(null);
   const dispatch = useDispatch();
   const currRouter = useRef(null);
   currRouter.current = CURRENT_ROUTER_PATH();
+  console.log(focusRef);
 
   useLayoutEffect(() => {
     interact('.resizable').resizable({
@@ -28,7 +29,6 @@ const useResizable = () => {
           let { x, y } = event.target.dataset;
           x = (parseFloat(x) || 0) + event.deltaRect.left;
           y = (parseFloat(y) || 0) + event.deltaRect.top;
-          const parentElem = event.target.parentNode;
           stickerSize.current = {
             width: event.rect.width,
             height: event.rect.height,
@@ -48,9 +48,10 @@ const useResizable = () => {
           const callBackDispatch = () => dispatch(
             setResize({
               origin: currRouter.current,
-              id: parentElem.id,
+              id,
               size: stickerSize.current,
               position: { x, y },
+              pageDate,
             }),
           );
           debounce(300, callBackDispatch);
