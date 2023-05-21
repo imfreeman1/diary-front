@@ -8,13 +8,13 @@ import {
 } from 'src/Constants/constants';
 import debounce from 'src/Utils/debounce';
 
-const useDraggable = (position) => {
+const useDraggable = (position, pageDate) => {
   const positions = useRef(null);
   const dispatch = useDispatch();
   positions.current = position;
   const currRouter = CURRENT_ROUTER_PATH();
   const currStickersList = useSelector(
-    (state) => state.stickerReducer.stickersArray[currRouter],
+    (state) => state.stickerReducer.stickersArray[currRouter][pageDate],
   );
   // 라이브러리 세팅은 config 따로 관리하자
   useLayoutEffect(
@@ -51,6 +51,7 @@ const useDraggable = (position) => {
                 origin: currRouter,
                 id: event.target.id,
                 position: positions.current,
+                pageDate,
               }),
             );
             debounce(400, callBackDispatch);
