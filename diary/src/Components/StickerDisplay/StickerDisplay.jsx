@@ -26,15 +26,16 @@ const StickerDisplay = ({ pageDate }) => {
         dispatch(getStickers({
           origin: currRouter,
           getStickerArray: responseData.data.result,
+          pageDate,
         }));
       }
     };
     asyncGetSticker();
-  }, [dispatch]);
+  }, [dispatch, currRouter, pageDate]);
   return (
     <>
       <div className="hidden">스티커</div>
-      {stickerList[currRouter]?.map((sticker) => (
+      {stickerList[currRouter][pageDate]?.map((sticker) => (
         <StickerContainer
           imgURL={sticker.imgURL}
           key={sticker.id}
@@ -46,6 +47,7 @@ const StickerDisplay = ({ pageDate }) => {
           width={sticker.width}
           height={sticker.height}
           selected={sticker.selected}
+          pageDate={pageDate}
         />
       ))}
     </>

@@ -19,22 +19,33 @@ const makeSticker = (num) => {
   return arr;
 };
 
+/*
+stickerState = {
+  monthly: {
+    '2023-05-01':[
+      {sticker}
+    ]
+  }
+
+}
+*/
+
 const exStickers = makeSticker(10);
 
 export const stickerSlice = createSlice({
   name: STICKER_NAME,
   initialState: {
     stickersArray: {
-      Monthly: [],
+      Monthly: {},
       Table: [...exStickers],
-      Weekly: [],
-      Daily: [],
+      Weekly: {},
+      Daily: {},
     },
   },
   reducers: {
     setSticker: ({ stickersArray }, {
       payload: {
-        id, position, origin, newId,
+        id, position, origin, newId, pageDate,
       },
     }) => {
       const selectedSticker = stickersArray.Table.find(
@@ -46,15 +57,15 @@ export const stickerSlice = createSlice({
       newSticker.positionX = position.positionX;
       newSticker.positionY = position.positionY;
       // if의 있는 조건 결과물을 변수로 한번 빼내자
-      const selectedChecker = stickersArray[origin].some(
+      const selectedChecker = stickersArray[origin][pageDate]?.some(
         (sticker) => sticker.selected === true,
       );
       if (selectedChecker) {
-        stickersArray[origin].map((sticker) => sticker.selected = false);
+        stickersArray[origin][pageDate].map((sticker) => sticker.selected = false);
       }
-      stickersArray[origin] = [...stickersArray[origin], newSticker];
+      stickersArray[origin][pageDate] = [...stickersArray[origin][pageDate], newSticker];
     },
-    getStickers: ({ stickersArray }, { payload: { origin, getStickerArray } }) => {
+    getStickers: ({ stickersArray }, { payload: { origin, getStickerArray, pageDate } }) => {
       const newStickersArray = getStickerArray.map((sticker) => {
         const newSticker = {
           id: sticker.id,
@@ -67,19 +78,23 @@ export const stickerSlice = createSlice({
         };
         return newSticker;
       });
-      stickersArray[origin] = newStickersArray;
+      stickersArray[origin][pageDate] = newStickersArray;
     },
-    removeSticker: ({ stickersArray }, { payload: { id, origin } }) => {
-      stickersArray[origin] = stickersArray[origin].filter(
+    removeSticker: ({ stickersArray }, { payload: { id, origin, pageDate } }) => {
+      stickersArray[origin][pageDate] = stickersArray[origin][pageDate].filter(
         (sticker) => sticker.id !== id,
       );
     },
-    setPosition: ({ stickersArray }, { payload: { origin, id, position } }) => {
-      const selectedSticker = stickersArray[origin].find(
+    setPosition: ({ stickersArray }, {
+      payload: {
+        origin, id, position, pageDate,
+      },
+    }) => {
+      const selectedSticker = stickersArray[origin][pageDate].find(
         (sticker) => sticker.id === id,
       );
       if (!selectedSticker.selected) {
-        stickersArray[origin]
+        stickersArray[origin][pageDate]
           .map((sticker) => sticker.selected = false);
       }
       selectedSticker.positionX = position.positionX;
@@ -89,11 +104,11 @@ export const stickerSlice = createSlice({
       { stickersArray },
       {
         payload: {
-          origin, id, size, position,
+          origin, id, size, position, pageDate,
         },
       },
     ) => {
-      const selectedSticker = stickersArray[origin].find(
+      const selectedSticker = stickersArray[origin][pageDate].find(
         (sticker) => sticker.id === id,
       );
       selectedSticker.positionX += position.x;
@@ -113,21 +128,21 @@ export const stickerSlice = createSlice({
       };
       stickersArray.Table.push(newSticker);
     },
-    setSelect: ({ stickersArray }, { payload: { origin, id } }) => {
-      const selectedChecker = stickersArray[origin].some(
+    setSelect: ({ stickersArray }, { payload: { origin, id, pageDate } }) => {
+      const selectedChecker = stickersArray[origin][pageDate].some(
         (sticker) => sticker.selected === true,
       );
       if (selectedChecker) {
-        stickersArray[origin]
+        stickersArray[origin][pageDate]
           .map((sticker) => sticker.selected = false);
       }
-      const selectedSticker = stickersArray[origin].find(
+      const selectedSticker = stickersArray[origin][pageDate].find(
         (sticker) => sticker.id === id,
       );
       selectedSticker.selected = !selectedSticker.selected;
     },
-    resetSelect: ({ stickersArray }, { payload: { origin } }) => {
-      stickersArray[origin].map((sticker) => sticker.selected = false);
+    resetSelect: ({ stickersArray }, { payload: { origin, pageDate } }) => {
+      stickersArray[origin][pageDate].map((sticker) => sticker.selected = false);
     },
   },
 });

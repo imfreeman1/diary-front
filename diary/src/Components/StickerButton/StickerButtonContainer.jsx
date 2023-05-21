@@ -38,7 +38,7 @@ function StickerButtonContainer({ sticker, pageDate }) {
     await utilAxios(setStickerOptions);
     dispatch(setSticker(
       {
-        origin: currRouter, id: sticker.id, position: { positionX, positionY }, newId,
+        origin: currRouter, id: sticker.id, position: { positionX, positionY }, newId, pageDate,
       },
     ));
   };

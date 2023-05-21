@@ -30,11 +30,9 @@ import StickerPresent from './StickerPresent';
  * @param {selected} boolean
  */
 function StickerContainer({
-  imgURL, id, position, width, height, selected,
+  imgURL, id, position, width, height, selected, pageDate,
 }) {
-  useDraggable(position);
   // resize를 할때, 왼쪽 축을 잡고 늘리면 오른쪽으로 늘어나는 문제가 있음.
-  useResizable(position);
   const dispatch = useDispatch();
   const routerRef = useRef(null);
   /* CURRENT_ROUTER_PATH function을 dispatch안에서 실행시킬경우
@@ -44,6 +42,8 @@ function StickerContainer({
   const focusRef = useRef(null);
   // hook으로 빼낼 수 있겠네.
   // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
+  useDraggable(position, pageDate);
+  useResizable(pageDate, focusRef, id);
   useEffect(() => {
     const stickerData = {
       id,
@@ -69,9 +69,8 @@ function StickerContainer({
   }, [position, height, width, id]);
 
   const focusHandler = () => {
-    console.log(focusRef.current);
     const selectedStickerId = focusRef.current.id;
-    dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current }));
+    dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current, pageDate }));
   };
 
   const removeStickerHandler = async () => {
@@ -84,7 +83,7 @@ function StickerContainer({
       };
       await utilAxios(removeStickerOptions);
       dispatch(
-        removeSticker({ id, origin: routerRef.current }),
+        removeSticker({ id, origin: routerRef.current, pageDate }),
       );
     } catch (error) {
       console.log(error);
@@ -97,7 +96,7 @@ function StickerContainer({
     const nextElem = e.relatedTarget;
     // 문제가 생기기 전까지는 보류.
     if (!nextElem) {
-      dispatch(resetSelect({ origin: routerRef.current }));
+      dispatch(resetSelect({ origin: routerRef.current, pageDate }));
     }
   };
 
@@ -124,6 +123,7 @@ StickerContainer.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   selected: PropTypes.bool.isRequired,
+  pageDate: PropTypes.string.isRequired,
 };
 
 export default StickerContainer;
