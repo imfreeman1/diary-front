@@ -19,10 +19,8 @@ const MonthTodoItemPresenter = ({
     <div
       key={v4()}
       onClick={() => ctrEditModal.handleModalOpen()}
-      onKeyDown={ctrEditModal.handleModalOpen}
-      role="button"
-      tabIndex={0}
-      className="block truncate bg-gradient-to-r text-white from-gray-600 from-10% via-gray-400 via-50% to-gray-100 to-80% opacity-100 p-1 pl-2 my-2.5 mx-0.5 rounded hover:text-black hover:from-gray-400 hover:cursor-pointer"
+      aria-hidden
+      className="block truncate p-1 pl-2 my-2.5 mx-0.5 text-gray-800 bg-gradient-to-t from-orange-100 from-10% via-pink-100 via-50% to-red-100 to-80% shadow-inner rounded hover:text-black hover:from-pink-200 hover:to-red-200 hover:cursor-pointer"
     >
       {todo.todoContent}
     </div>
