@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { setDate } from 'src/Redux/action';
 import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
 import { v4 } from 'uuid';
-import { setDate } from 'src/Redux/action';
 import useAxios from 'src/hooks/useAxios';
 import DailyTopMark from 'src/Components/DailyTopMark/DailyTopMark';
 import DailyDisplayContainer from '../Components/Daily/DailyDisplayContainer';

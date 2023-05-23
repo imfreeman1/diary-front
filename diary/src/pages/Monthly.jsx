@@ -36,6 +36,7 @@ const Monthly = () => {
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
   // month, year 바뀔 때 마다 calendar를 새로 불러오게 함
   const controlCalendar = makeMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth]);
+  const firstDayInMonth = controlCalendar[0].find((date) => date.isInMonth === true).locdate;
   const startDay = new Date(yearInMonth, selectedMonth, 1);
   const monthDate = useGetDateOffset(startDay);
 
@@ -65,60 +66,61 @@ const Monthly = () => {
   };
   return (
     <>
-      <NavBarContainer />
-      <StickerDisplay pageDate={startDay} />
+      <NavBarContainer yearInMonth={yearInMonth} />
+      <StickerDisplay pageDate={firstDayInMonth} />
       {loading ? null
         : (
-          <div className="flex justify-center p-10 h-full w-full bg-gray-100">
-            <div className="bg-zinc-50 border p-2 my-10 h-fit shadow-lg rounded">
-              <div className="flex gap-5">
-                <div className="text-3xl w-min px-6 my-auto">
-                  <BiCaretUp
-                    onClick={moveToNextMonth}
-                    className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
-                  />
-                  <BiCaretDown
-                    onClick={moveToLastMonth}
-                    className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
-                  />
-                </div>
-                <p className="text-5xl w-fit px-6 m-3 text-gray-700 select-none">
-                  {selectedMonth + 1}
-                  {MONTH_INDICATING}
-                </p>
-                <p className="text-2xl text-green-900 select-none">{yearInMonth}</p>
-              </div>
-              <div className="flex my-2 border-2 border-y-green-900">
-                {DAY_OF_WEEK.map((day) => (
-                  <div
-                    className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
-                      day === 'Sun' ? 'text-red-500' : ''
-                    }`}
-                    key={v4()}
-                  >
-                    {day[0]}
+          <>
+            <div className="flex justify-center p-10 h-full w-full bg-gray-100">
+              <div className="bg-zinc-50 border p-2 my-10 h-fit shadow-lg rounded">
+                <div className="flex gap-5">
+                  <div className="text-3xl w-min px-6 my-auto">
+                    <BiCaretUp
+                      onClick={moveToNextMonth}
+                      className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
+                    />
+                    <BiCaretDown
+                      onClick={moveToLastMonth}
+                      className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
+                    />
                   </div>
-                ))}
+                  <p className="text-5xl w-fit px-6 m-3 text-gray-700 select-none">
+                    {selectedMonth + 1}
+                    {MONTH_INDICATING}
+                  </p>
+                  <p className="text-2xl text-green-900 select-none">{yearInMonth}</p>
+                </div>
+                <div className="flex my-2 border-2 border-y-green-900">
+                  {DAY_OF_WEEK.map((day) => (
+                    <div
+                      className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
+                        day === 'Sun' ? 'text-red-500' : ''
+                      }`}
+                      key={v4()}
+                    >
+                      {day[0]}
+                    </div>
+                  ))}
+                </div>
+                <table className="border-collapse border border-green-900">
+                  {monthCalendar.length
+                    ? monthCalendar.map((week) => (
+                      <MonthWeekPresenter key={v4()} week={week} />
+                    ))
+                    : null}
+                </table>
               </div>
-              <table className="border-collapse border border-green-900">
-                {monthCalendar.length
-                  ? monthCalendar.map((week) => (
-                    <MonthWeekPresenter key={v4()} week={week} />
-                  ))
-                  : null}
-              </table>
             </div>
-          </div>
-          <table className="border-collapse border border-green-900">
-            {monthCalendar.length
-              ? monthCalendar.map((week) => (
-                <MonthWeekPresenter key={v4()} week={week} />
-              ))
-              : null}
-          </table>
-        </div>
-      </div>
-      <SideBarContainer pageDate={startDay} />
+            <table className="border-collapse border border-green-900">
+              {monthCalendar.length
+                ? monthCalendar.map((week) => (
+                  <MonthWeekPresenter key={v4()} week={week} />
+                ))
+                : null}
+            </table>
+            <SideBarContainer pageDate={firstDayInMonth} />
+          </>
+        )}
     </>
   );
 };
