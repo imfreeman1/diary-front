@@ -21,6 +21,7 @@ export const {
 
 export const {
   setSticker,
+  getStickers,
   removeSticker,
   setPosition,
   setResize,

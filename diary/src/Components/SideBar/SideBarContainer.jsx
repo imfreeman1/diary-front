@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import SideBarPresent from './SideBarPresent';
 
-function SideBarContainer() {
+function SideBarContainer({ pageDate }) {
   const stickerList = useSelector(
     (state) => state.stickerReducer.stickersArray.Table,
   );
@@ -25,8 +26,13 @@ function SideBarContainer() {
       modalHandler={modalHandler}
       sidebarVisible={sidebarVisible}
       sidebarHandler={sidebarHandler}
+      pageDate={pageDate}
     />
   );
 }
+
+SideBarContainer.propTypes = {
+  pageDate: PropTypes.string.isRequired,
+};
 
 export default SideBarContainer;

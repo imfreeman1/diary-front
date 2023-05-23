@@ -6,11 +6,11 @@ import useResizable from 'src/hooks/useResizable';
 import { removeSticker, resetSelect, setSelect } from 'src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
-  SELECT_IN_STICKER_DIV,
   STICKER_IMG_SIZE_OBJECT,
   STICKER_POSITION_TRANSLATOR,
-  STICKER_SELECTOR_ID,
 } from 'src/Constants/constants';
+import debounce from 'src/Utils/debounce';
+import utilAxios from 'src/Utils/utilAxios';
 import StickerPresent from './StickerPresent';
 
 /*
@@ -30,11 +30,9 @@ import StickerPresent from './StickerPresent';
  * @param {selected} boolean
  */
 function StickerContainer({
-  imgURL, id, position, width, height, selected,
+  imgURL, id, position, width, height, selected, pageDate,
 }) {
-  useDraggable(position);
   // resize를 할때, 왼쪽 축을 잡고 늘리면 오른쪽으로 늘어나는 문제가 있음.
-  useResizable(position);
   const dispatch = useDispatch();
   const routerRef = useRef(null);
   /* CURRENT_ROUTER_PATH function을 dispatch안에서 실행시킬경우
@@ -42,30 +40,54 @@ function StickerContainer({
   더 좋은 방법이 있다면 수정할 예정. */
   routerRef.current = CURRENT_ROUTER_PATH();
   const focusRef = useRef(null);
-
+  // hook으로 빼낼 수 있겠네.
+  // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
+  useDraggable(position, pageDate);
+  useResizable(pageDate, focusRef, id);
   useEffect(() => {
-    const stickerPosition = document.querySelector(STICKER_SELECTOR_ID(id));
+    const stickerData = {
+      id,
+      position: [position.positionX, position.positionY],
+      size: [height, width],
+      page_type: routerRef.current?.toLowerCase(),
+    };
+    const updateStickerOptions = {
+      url: '/sticker/update',
+      method: 'post',
+      data: stickerData,
+    };
+    // update는 componentUnDidMount에서 실행하는 하는 것도 괜찮을거 같음.
+    // 현재 마지막 남은 스티커를 삭제 할 경우 debounce에서 에러가 발생.
+    const updateSticker = () => utilAxios(updateStickerOptions);
+    debounce(2000, updateSticker);
+    const stickerPosition = focusRef.current;
     stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
-    const stickerImgSize = stickerPosition.querySelector(SELECT_IN_STICKER_DIV); // 변수명 맘에 안듦.
+    const stickerImgSize = stickerPosition.firstChild;
     Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
+
+    return () => clearTimeout(debounce(updateSticker));
   }, [position, height, width, id]);
 
-  // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
-  useEffect(() => {
-    if (selected) focusRef.current.focus();
-  }, [selected]);
-
-  const focusHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.parentNode.id;
-    // if (selected && selectedStickerId===id) return; // 이 조건문을 건 이유 : 처음에 온클릭으로 해서
-    dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current }));
+  const focusHandler = () => {
+    const selectedStickerId = focusRef.current.id;
+    dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current, pageDate }));
   };
 
-  const removeStickerHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.parentNode.id;
-    dispatch(
-      removeSticker({ id: selectedStickerId, origin: routerRef.current }),
-    );
+  const removeStickerHandler = async () => {
+    try {
+      const removeStickerOptions = {
+        url: '/sticker/delete',
+        method: 'post',
+        data: { id },
+        getReturn: true,
+      };
+      await utilAxios(removeStickerOptions);
+      dispatch(
+        removeSticker({ id, origin: routerRef.current, pageDate }),
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // onBlur event를 사용할 때에는 tabIndex속성을 같이 사용해줘야 onBlur가 트리거 됨.
@@ -74,7 +96,7 @@ function StickerContainer({
     const nextElem = e.relatedTarget;
     // 문제가 생기기 전까지는 보류.
     if (!nextElem) {
-      dispatch(resetSelect({ origin: routerRef.current }));
+      dispatch(resetSelect({ origin: routerRef.current, pageDate }));
     }
   };
 
@@ -101,6 +123,7 @@ StickerContainer.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   selected: PropTypes.bool.isRequired,
+  pageDate: PropTypes.string.isRequired,
 };
 
 export default StickerContainer;

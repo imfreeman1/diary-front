@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiCaretUp, BiCaretDown } from 'react-icons/bi';
 import { v4 } from 'uuid';
+import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
 import useAxios from 'src/hooks/useAxios';
 import useGetDateOffset from 'src/hooks/useGetDateOffset';
 import {
@@ -20,9 +21,7 @@ import {
   MONTH_INDICATING,
 } from '../Constants/monthlyConstants';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
-import StickerContainer from '../Components/Sticker/StickerContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
-import { CURRENT_ROUTER_PATH } from '../Constants/constants';
 
 /**
  * @param {selectedMonth} number, 기본 날짜는 현재 월 (0-11)
@@ -33,10 +32,6 @@ const Monthly = () => {
   const { yearInMonth, selectedMonth } = useSelector(
     (state) => state.monthSelectorReducer,
   );
-  const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray,
-  );
-  const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
   // month, year 바뀔 때 마다 calendar를 새로 불러오게 함
@@ -71,20 +66,7 @@ const Monthly = () => {
   return (
     <>
       <NavBarContainer />
-      {stickerList[currRouter]?.map((sticker) => (
-        <StickerContainer
-          imgURL={sticker.imgURL}
-          key={v4()}
-          id={sticker.id}
-          position={{
-            positionX: sticker.positionX,
-            positionY: sticker.positionY,
-          }}
-          width={sticker.width}
-          height={sticker.height}
-          selected={sticker.selected}
-        />
-      ))}
+      <StickerDisplay pageDate={startDay} />
       {loading ? null
         : (
           <div className="flex justify-center p-10 h-full w-full bg-gray-100">
@@ -127,8 +109,16 @@ const Monthly = () => {
               </table>
             </div>
           </div>
-        )}
-      <SideBarContainer />
+          <table className="border-collapse border border-green-900">
+            {monthCalendar.length
+              ? monthCalendar.map((week) => (
+                <MonthWeekPresenter key={v4()} week={week} />
+              ))
+              : null}
+          </table>
+        </div>
+      </div>
+      <SideBarContainer pageDate={startDay} />
     </>
   );
 };
