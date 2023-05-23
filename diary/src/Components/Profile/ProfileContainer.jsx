@@ -1,20 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import useAxios from 'src/hooks/useAxios';
+import axios from 'src/Utils/api';
 import ProfilePresent from './ProfilePresent';
 
 const ProfileContainer = () => {
   const [inputImg, setInputImg] = useState(null);
   const files = useRef(null);
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { isSubmitting },
-  // } = useForm();
+  const passwordRef = useRef(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { isDirty, errors },
+  } = useForm();
+
+  const makeFormData = (object) => {
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(object)) {
+      formData.append(`${key}`, value);
+    }
+    return formData;
+  };
 
   useEffect(() => {
     const imgTag = document.querySelector('#imageDisplay');
     imgTag.style = `background-image: url(${inputImg || '/Logo/pen.svg'})`;
   }, [inputImg]);
+
   const onChange = (e) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -27,9 +39,88 @@ const ProfileContainer = () => {
       setInputImg(reader.result);
     };
     if (files.current.length) reader.readAsDataURL(files.current[0]);
+    console.log(files.current);
   };
 
-  return <ProfilePresent onChange={onChange} />;
+  const passwordRegister = register('password', {
+    required: { value: true, message: '비밀번호를 입력해주세요' },
+    minLength: { value: 4, message: '4자리이상 입력해주세요' },
+    maxLength: { value: 16, message: '16자리이하로 입력해주세요' },
+  });
+  const passwordCheckRegister = register('passwordCheck', {
+    required: { value: true, message: '비밀번호를 입력해주세요' },
+    minLength: { value: 4, message: '4자리이상 입력해주세요' },
+    validate: {
+      check: (passwordCheck) => passwordCheck === passwordRef.current || '비밀번호가 다릅니다',
+    },
+  });
+
+  const {
+    response, error, loading, operation,
+  } = useAxios();
+
+  const GetProfileAxios = () => {
+    operation({
+      method: 'get',
+      url: '/users/getprofile',
+    });
+  };
+  // USP10001 email, image, image_type, name, password, refresh
+
+  useEffect(() => {
+    GetProfileAxios();
+    console.log('한번만 실행');
+  }, []);
+  console.log(response, error, loading);
+  const userImg = makeFormData({ image: files?.current });
+  console.log(userImg);
+  const postModify = () => {
+    operation({
+      method: 'post',
+      url: '/users/updateprofile',
+      payload: {
+        email: response?.result.email,
+        password: response?.result.password,
+        name: '은지1',
+        image: response?.result.image,
+        image_type: '',
+      },
+    });
+  };
+  const handleSignup = handleSubmit(async () => {
+    const userImg = makeFormData({ image: files?.current });
+
+    try {
+      const res = await axios.post(
+        '/users/updateprofile',
+        {
+          email: response?.result.email,
+          password: response?.result.password,
+          name: response?.result.name,
+          image: userImg || response?.result.image,
+          image_type: '',
+        },
+        { withCredentials: true },
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  return (
+    <ProfilePresent
+      onChange={onChange}
+      users={response?.result}
+      passwordRegister={passwordRegister}
+      passwordCheckRegister={passwordCheckRegister}
+      isDirty={isDirty}
+      errors={errors}
+      handleSignup={handleSignup}
+      postModify={postModify}
+    />
+
+  );
 };
 
 export default ProfileContainer;
