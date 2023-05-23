@@ -13,7 +13,6 @@ const useResizable = (pageDate, focusRef, id) => {
   const dispatch = useDispatch();
   const currRouter = useRef(null);
   currRouter.current = CURRENT_ROUTER_PATH();
-  console.log(focusRef);
 
   useLayoutEffect(() => {
     interact('.resizable').resizable({
@@ -45,15 +44,26 @@ const useResizable = (pageDate, focusRef, id) => {
           );
           /* move event가 발생하는 동안 event.target.dataset을 실시간 변경해줌. */
           Object.assign(event.target.dataset, { x, y });
-          const callBackDispatch = () => dispatch(
-            setResize({
-              origin: currRouter.current,
-              id,
-              size: stickerSize.current,
-              position: { x, y },
-              pageDate,
-            }),
-          );
+          const callBackDispatch = () => {
+            dispatch(
+              setResize({
+                origin: currRouter.current,
+                id,
+                size: stickerSize.current,
+                position: { x, y },
+                pageDate,
+              }),
+            );
+            Object.assign(
+              event.target.style,
+              STICKER_IMG_SIZE_OBJECT(
+                stickerSize.current.width,
+                stickerSize.current.height,
+                0,
+                0,
+              ),
+            );
+          };
           debounce(300, callBackDispatch);
         },
       },
