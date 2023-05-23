@@ -7,7 +7,8 @@ import Lottie from 'lottie-react';
 // import GleLoginContainer from '../Components/GleLoginContainer';
 import LandingModal from 'src/Components/Signup/LandingModal';
 import useControlModal from 'src/hooks/useControlModal';
-import { LANDING_PAGE_CONTENT } from '../Constants/constants';
+import Button from 'src/Components/Button/Button';
+import { LANDING_NAV_LOGIN_GO, LANDING_PAGE_CONTENT } from '../Constants/constants';
 
 const Landing = () => {
   const {
@@ -24,13 +25,11 @@ const Landing = () => {
           alt="로고"
         />
         <div className="w-56 flex justify-between">
-          <button
-            type="button"
-            className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          <Button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
             onClick={() => handleModalOpen()}
-          >
-            로그인하기
-          </button>
+            content={LANDING_NAV_LOGIN_GO}
+          />
           <Image
             width={32}
             src={Pen}

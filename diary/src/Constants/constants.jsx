@@ -7,7 +7,17 @@ import { useRouter } from 'next/router';
 2. 기능에 역할을 하고 있는가?
 */
 
+// Landing
 export const LANDING_PAGE_CONTENT = "Let's Write";
+export const LANDING_NAV_LOGIN_GO = '로그인하기';
+
+export const LOGIN_CONTENT = 'LOGIN';
+export const LOGIN_CONTENT_KR = '로그인';
+
+export const FORM_NAME = '이름';
+export const FORM_EMAIL = '이메일';
+export const FORM_PASSWORD = '비밀번호';
+
 export const SELECT_IN_STICKER_DIV = 'div';
 
 // 얘들은 hook으로 빼내는게 좋지 않을까? 특히 PATH나 OBJECT 같은 경우.

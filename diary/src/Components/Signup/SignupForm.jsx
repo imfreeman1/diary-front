@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import axios from 'src/Utils/api';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 const SignupForm = ({ setOnSignup }) => {
   const router = useRouter();
@@ -124,4 +125,7 @@ const SignupForm = ({ setOnSignup }) => {
   );
 };
 
+SignupForm.propTypes = {
+  setOnSignup: PropTypes.func.isRequired,
+};
 export default SignupForm;

@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import axios from 'src/Utils/api';
 import PropTypes from 'prop-types';
+import {
+  FORM_EMAIL, FORM_PASSWORD, LOGIN_CONTENT, LOGIN_CONTENT_KR,
+} from 'src/Constants/constants';
 
 const LoginModal = ({ setOnSignup }) => {
   const router = useRouter();
@@ -39,12 +42,12 @@ const LoginModal = ({ setOnSignup }) => {
 
   return (
     <div className="flex flex-col justify-center gap-1">
-      <p className="text-2xl mb-2 font-bold text-center">LOGIN</p>
+      <p className="text-2xl mb-2 font-bold text-center">{LOGIN_CONTENT}</p>
       <form onSubmit={handleLogin}>
         <div className="flex justify-center m-3">
           <div className="flex flex-col justify-around">
-            <p className="px-3">이메일</p>
-            <p className="px-3">비밀번호</p>
+            <p className="px-3">{FORM_EMAIL}</p>
+            <p className="px-3">{FORM_PASSWORD}</p>
           </div>
           <div className="flex flex-col justify-between gap-1">
             <input
@@ -69,7 +72,7 @@ const LoginModal = ({ setOnSignup }) => {
             type="submit"
             disabled={isSubmitting}
           >
-            로그인
+            {LOGIN_CONTENT_KR}
           </button>
           <div className="text-sm text-center mt-2">
             <span className="text-gray-700">아직 회원이 아니라면? </span>
@@ -79,6 +82,16 @@ const LoginModal = ({ setOnSignup }) => {
               className="w-fit text-blue-900 cursor-pointer hover:underline"
             >
               회원가입 하러가기
+            </span>
+          </div>
+          <div className="text-sm text-center mt-2">
+            <span className="text-gray-700">비밀번호를 잃어버렸다면? </span>
+            <span
+              onClick={() => setOnSignup(true)}
+              aria-hidden="true"
+              className="w-fit text-blue-900 cursor-pointer hover:underline"
+            >
+              비밀번호 찾기
             </span>
           </div>
         </div>
