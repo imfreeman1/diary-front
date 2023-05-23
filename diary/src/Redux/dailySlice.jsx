@@ -17,12 +17,18 @@ export const dailySlice = createSlice({
     setDate: ({ dailyContents }, { payload }) => {
       dailyContents.currentDate = payload;
     },
-    setEditor: ({ dailyContents }, { payload: { locdate, html } }) => {
-      dailyContents[`D-${locdate}`].editorContent = html;
+    setEditor: ({ dailyContents }, { payload: { locdate, editorContent } }) => {
+      dailyContents[`D-${locdate}`].editorContent = editorContent;
     },
     setTitle: ({ dailyContents }, { payload: { locdate, titleText } }) => {
       if (dailyContents[`D-${locdate}`]) {
         dailyContents[`D-${locdate}`].titleText = titleText;
+      }
+    },
+    setSave: ({ dailyContents }, { payload: { locdate, titleText, editorContent } }) => {
+      if (dailyContents[`D-${locdate}`]) {
+        dailyContents[`D-${locdate}`].titleText = titleText;
+        dailyContents[`D-${locdate}`].editorContent = editorContent;
       }
     },
   },

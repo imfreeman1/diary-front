@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import useAxios from 'src/hooks/useAxios';
+import { allDelTodo } from 'src/Redux/action';
+import { useDispatch } from 'react-redux';
 import MonthListModalPresenter from './MonthListModalPresenter';
 
 const MonthListModalContainer = ({
@@ -8,14 +12,32 @@ const MonthListModalContainer = ({
   listModalVisible,
   handleListModalClose,
   listModalRef,
-}) => (
-  <MonthListModalPresenter
-    dayInfo={dayInfo}
-    listModalVisible={listModalVisible}
-    handleListModalClose={handleListModalClose}
-    listModalRef={listModalRef}
-  />
-);
+}) => {
+  const dispatch = useDispatch();
+  const {
+    response, error, loading, operation,
+  } = useAxios();
+  const postDeleteMonthlyAxios = () => {
+    operation({
+      method: 'post',
+      url: '/monthly/delete',
+      payload: { date: dayInfo.locdate },
+    });
+  };
+  const handleDelete = () => {
+    dispatch(allDelTodo({ date: dayInfo.locdate }));
+    postDeleteMonthlyAxios();
+  };
+  return (
+    <MonthListModalPresenter
+      dayInfo={dayInfo}
+      listModalVisible={listModalVisible}
+      handleListModalClose={handleListModalClose}
+      listModalRef={listModalRef}
+      handleDelete={handleDelete}
+    />
+  );
+};
 
 MonthListModalContainer.propTypes = {
   dayInfo: PropTypes.shape({

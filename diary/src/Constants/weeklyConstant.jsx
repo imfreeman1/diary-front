@@ -11,4 +11,4 @@ export const DAYS_WEEKLY = [
 
 export const WEEKLY_LOGO = 'Weekly';
 
-export const WEEK = 'W-';
+export const WEEK = (day) => `W-${day}`;

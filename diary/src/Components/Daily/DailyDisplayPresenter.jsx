@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
 import { TITLE } from '../../Constants/dailyConstant';
 import TiptapContainer from '../Tiptap/TiptapContainer';
+import DatepickerComponentContainer from '../DatepickerComponent/DatepickerComponentContainer';
 
 function DailyDisplayPresenter({
-  Daily, content, handleInput, setIsSave,
+  Daily, content, handleInput, setIsSave, resContent, selectedDate, setSelectedDate,
 }) {
   const roundLine = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   return (
@@ -19,7 +20,13 @@ function DailyDisplayPresenter({
         ))}
       </div>
       <div className="flex text-center text-xl font-bold border">
-        <div className="basis-1/2">{Daily ? Daily.locdate : null}</div>
+        <div className="basis-1/2">
+          <DatepickerComponentContainer
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            inputStyle="text-center text-xl font-bold hover:text-blue-800"
+          />
+        </div>
         <div className="basis-1/2 text-white bg-slate-400">
           {Daily ? Daily.day : null}
         </div>
@@ -37,7 +44,7 @@ function DailyDisplayPresenter({
         />
       </div>
       <div className="border-2 border-gray-200 overflow-hidden">
-        <TiptapContainer setIsSave={setIsSave} />
+        <TiptapContainer setIsSave={setIsSave} resContent={resContent} />
       </div>
     </div>
   );
@@ -52,6 +59,9 @@ DailyDisplayPresenter.propTypes = {
   content: PropTypes.string.isRequired,
   handleInput: PropTypes.func.isRequired,
   setIsSave: PropTypes.func.isRequired,
+  resContent: PropTypes.string.isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
+  setSelectedDate: PropTypes.func.isRequired,
 };
 DailyDisplayPresenter.defaultProps = {
   Daily: PropTypes.shape({

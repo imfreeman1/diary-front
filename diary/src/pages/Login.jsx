@@ -30,7 +30,7 @@ const Login = () => {
       );
       console.log(response);
       if (response.data.code === 'USI20001') {
-        // router.push('/Main');
+        router.push('/Main');
       }
     } catch (error) {
       console.log(error);

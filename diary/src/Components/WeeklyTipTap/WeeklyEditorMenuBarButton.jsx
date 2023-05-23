@@ -9,27 +9,27 @@ import PropTypes from 'prop-types';
  * @returns
  */
 
-const EditorMenuBarButton = ({
+const WeeklyEditorMenuBarButton = ({
   onClick, disabled, className, content,
 }) => (
   <button
     type="button"
     onClick={() => onClick()}
     disabled={disabled}
-    className={`cursor-pointer outline-none focus:outline-none border-r border-gray-200 w-14 h-10 hover:text-indigo-500 active:bg-gray-50 ${className}`}
+    className={`outline-none focus:outline-none border-r border-gray-200 flex justify-center items-center flex-1 h-10 hover:text-indigo-500 active:bg-gray-50 ${className}`}
   >
     {content}
   </button>
 );
-EditorMenuBarButton.propTypes = {
+WeeklyEditorMenuBarButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   className: PropTypes.string,
   content: PropTypes.element.isRequired,
 };
 
-EditorMenuBarButton.defaultProps = {
+WeeklyEditorMenuBarButton.defaultProps = {
   disabled: true,
   className: '',
 };
-export default EditorMenuBarButton;
+export default WeeklyEditorMenuBarButton;

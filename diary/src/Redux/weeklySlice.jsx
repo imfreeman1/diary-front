@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { getMonday } from '../Utils/useGetWeekly';
+import { WEEK } from 'src/Constants/weeklyConstant';
+import { getMonday } from '../Utils/makeWeekly';
 
 /**
  * {setWeekly} Weekly의 모든 것
@@ -13,15 +14,16 @@ export const weeklySlice = createSlice({
   name: calNAME,
   initialState: {
     selectedDateInWeek: getMonday(new Date(), 1).toISOString().substring(0, 10),
-    weeklyContents: {},
+    weeklyContents: {
+    },
   },
   reducers: {
     setWeekly: (
       { weeklyContents },
       { payload: { locWeek, currentWeeklyPage } },
     ) => {
-      if (!weeklyContents[`W-${locWeek}`]) {
-        weeklyContents[`W-${locWeek}`] = currentWeeklyPage;
+      if (!weeklyContents[WEEK(locWeek)]) {
+        weeklyContents[WEEK(locWeek)] = currentWeeklyPage;
       }
     },
     setlocWeek: ({ weeklyContents }, { payload }) => {
@@ -34,7 +36,27 @@ export const weeklySlice = createSlice({
       { weeklyContents },
       { payload: { idx, content, locThisWeek } },
     ) => {
-      weeklyContents[`W-${locThisWeek}`][idx].textContent = content;
+      const currWeekContents = weeklyContents[WEEK(locThisWeek)][idx];
+      currWeekContents.textContent = content;
+    },
+    setIsWriten: (
+      { weeklyContents },
+      {
+        payload: {
+          idx, content, isWriten, locThisWeek,
+        },
+      },
+    ) => {
+      const currWeekContents = weeklyContents[WEEK(locThisWeek)][idx];
+      currWeekContents.textContent = content;
+      currWeekContents.isWriten = isWriten;
+    },
+    setEditable: (
+      { weeklyContents },
+      { payload: { idx, locThisWeek } },
+    ) => {
+      const { isEditable } = weeklyContents[WEEK(locThisWeek)][idx];
+      weeklyContents[WEEK(locThisWeek)][idx].isEditable = !isEditable;
     },
     setMoveToWeek: (state, { payload: nextWeek }) => {
       const currDate = state.selectedDateInWeek;
