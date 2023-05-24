@@ -12,7 +12,7 @@ import {
   setIsWriten,
   setlocWeek, setSelectedWeek, setWeekly,
 } from '../Redux/action';
-import { WEEK, WEEKLY_LOGO } from '../Constants/weeklyConstant';
+import { WEEKLY_CONST } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
@@ -41,7 +41,7 @@ const WeeklyPage = () => {
   const locThisWeek = getlocWeek(selectedDateInWeek);
   const mondayInWeek = currentWeeklyPage.find((findDate) => findDate.day === 'Mon').locdate;
   const currWeeklyContents = useSelector(
-    ({ weeklyReducer }) => weeklyReducer.weeklyContents[WEEK(locThisWeek)],
+    ({ weeklyReducer }) => weeklyReducer.weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locThisWeek)],
   );
   // 최초 렌더링=> 현재 date 정보 전달 (월요일로 변환 & str로 전달)
   useEffect(() => {
@@ -85,7 +85,7 @@ const WeeklyPage = () => {
         <div className="bg-white w-fit h-fit border my-10 mx-auto shadow-lg rounded">
           <div className="text-2xl font-bold text-left ml-5 flex flex-row">
             <span className="text-black border-4 rounded-full p-2 bg-white">
-              {WEEKLY_LOGO}
+              {WEEKLY_CONST.LOGO}
 
             </span>
             <DatepickerComponent

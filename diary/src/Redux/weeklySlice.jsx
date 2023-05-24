@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { WEEK } from 'src/Constants/weeklyConstant';
+import { WEEKLY_CONST} from 'src/Constants/weeklyConstant';
 import { getMonday } from '../Utils/makeWeekly';
 
 /**
@@ -22,8 +22,8 @@ export const weeklySlice = createSlice({
       { weeklyContents },
       { payload: { locWeek, currentWeeklyPage } },
     ) => {
-      if (!weeklyContents[WEEK(locWeek)]) {
-        weeklyContents[WEEK(locWeek)] = currentWeeklyPage;
+      if (!weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locWeek)]) {
+        weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locWeek)] = currentWeeklyPage;
       }
     },
     setlocWeek: ({ weeklyContents }, { payload }) => {
@@ -36,7 +36,7 @@ export const weeklySlice = createSlice({
       { weeklyContents },
       { payload: { idx, content, locThisWeek } },
     ) => {
-      const currWeekContents = weeklyContents[WEEK(locThisWeek)][idx];
+      const currWeekContents = weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locThisWeek)][idx];
       currWeekContents.textContent = content;
     },
     setIsWriten: (
@@ -47,7 +47,7 @@ export const weeklySlice = createSlice({
         },
       },
     ) => {
-      const currWeekContents = weeklyContents[WEEK(locThisWeek)][idx];
+      const currWeekContents = weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locThisWeek)][idx];
       currWeekContents.textContent = content;
       currWeekContents.isWriten = isWriten;
     },
@@ -55,8 +55,8 @@ export const weeklySlice = createSlice({
       { weeklyContents },
       { payload: { idx, locThisWeek } },
     ) => {
-      const { isEditable } = weeklyContents[WEEK(locThisWeek)][idx];
-      weeklyContents[WEEK(locThisWeek)][idx].isEditable = !isEditable;
+      const { isEditable } = weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locThisWeek)][idx];
+      weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locThisWeek)][idx].isEditable = !isEditable;
     },
     setMoveToWeek: (state, { payload: nextWeek }) => {
       const currDate = state.selectedDateInWeek;

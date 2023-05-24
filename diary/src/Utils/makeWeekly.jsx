@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { DAYS_WEEKLY } from '../Constants/weeklyConstant';
+import { WEEKLY_CONST } from '../Constants/weeklyConstant';
 
 /**
  * @param {dateInWeekly} str 선택된 날짜,기본 날짜 ex."2023-04-04"
@@ -25,7 +25,7 @@ export const getlocWeek = (dateInWeekly) => {
   const year = mondayDate.getFullYear();
   const month = mondayDate.getMonth() + 1;
   const weeks = parseInt(mondayDate.getDate() / 7, 10);
-  return `${year}-${month.toString().padStart(2, '0')}-W${weeks + 1}`;
+  return WEEKLY_CONST.WEEKLY_NUM_DAY_STR(year, month, weeks);
 };
 
 const makeWeekly = (dateInWeekly) => {
@@ -34,7 +34,7 @@ const makeWeekly = (dateInWeekly) => {
 
   let weeklyList = [];
   let plusDay = 1;
-  for (const days of DAYS_WEEKLY) {
+  for (const days of WEEKLY_CONST.DAYS_STR_LIST) {
     const weekObj = {
       day: days,
       locdate: '',
@@ -43,8 +43,8 @@ const makeWeekly = (dateInWeekly) => {
       isWriten: false,
       id: v4(),
     };
-    if (days === 'Weekly') weekObj.locdate = representWeekly;
-    else if (days !== 'Weekly') {
+    if (days === WEEKLY_CONST.LOGO) weekObj.locdate = representWeekly;
+    else if (days !== WEEKLY_CONST.LOGO) {
       weekObj.locdate = getMonday(dateConv, plusDay)
         .toISOString()
         .substring(0, 10);
