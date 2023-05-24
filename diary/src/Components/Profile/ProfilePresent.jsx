@@ -8,7 +8,10 @@ import NavBarContainer from '../NavBar/NavBarContainer';
 // 변경은 post 통신을 사용해야 할 듯.
 
 const ProfilePresent = ({
-  onChange, users, passwordRegister, passwordCheckRegister, isDirty, errors, handleSignup, postModify,
+  onChange, users,
+  // passwordRegister, passwordCheckRegister,
+  // isDirty, errors, handleSignup,
+  postModify,
 }) => (
   <>
     <NavBarContainer />
@@ -19,7 +22,7 @@ const ProfilePresent = ({
             <h3 className="text-xl font-bold mb-3">회원 정보</h3>
             <form
               className="flex flex-col gap-3"
-              onSubmit={handleSignup}
+              // onSubmit={handleSignup}
             >
               <div className="flex gap-5">
                 <label htmlFor="file">
@@ -66,8 +69,8 @@ const ProfilePresent = ({
                   className="border-2 border-gray-300 py-1 px-2.5 rounded"
                   id="password"
                   type="password"
-                  {...passwordRegister}
-                  aria-invalid={!isDirty ? errors.password : false}
+                  // {...passwordRegister}
+                  // aria-invalid={!isDirty ? errors.password : false}
                 />
                 <span className="text-pink-300 text-sm px-3">
                   {/* {errors.password.invalid ? errors.password.message : ' '} */}
@@ -77,8 +80,8 @@ const ProfilePresent = ({
                   className="border-2 border-gray-300 py-1 px-2.5 rounded"
                   id="passwordCheck"
                   type="password"
-                  {...passwordCheckRegister}
-                  aria-invalid={!isDirty ? errors.passwordCheck : false}
+                  // {...passwordCheckRegister}
+                  // aria-invalid={!isDirty ? errors.passwordCheck : false}
                 />
                 <span className="text-pink-300 text-sm px-3">
                   {/* {errors.passwordCheck.invalid ? errors.passwordCheck.message : ' '} */}
@@ -100,6 +103,11 @@ const ProfilePresent = ({
 
 ProfilePresent.propTypes = {
   onChange: PropTypes.func.isRequired,
+  users: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
+  postModify: PropTypes.func.isRequired,
 };
 
 export default ProfilePresent;

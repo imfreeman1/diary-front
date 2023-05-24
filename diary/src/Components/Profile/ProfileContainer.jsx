@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 import useAxios from 'src/hooks/useAxios';
-import axios from 'src/Utils/api';
+// import axios from 'src/Utils/api';
 import FormData from 'form-data';
 import ProfilePresent from './ProfilePresent';
 // inputImg : <div> 이미지 들어있는
@@ -12,12 +12,12 @@ const ProfileContainer = () => {
   const [inputImg, setInputImg] = useState(null);
   const files = useRef(null);
   const [userImage, setUserImage] = useState(null);
-  const passwordRef = useRef(null);
-  const {
-    register,
-    handleSubmit,
-    formState: { isDirty, errors },
-  } = useForm();
+  // const passwordRef = useRef(null);
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { isDirty, errors },
+  // } = useForm();
 
   const makeFormData = (object) => {
     const formData = new FormData();
@@ -53,18 +53,18 @@ const ProfileContainer = () => {
     console.log(files.current);
   };
 
-  const passwordRegister = register('password', {
-    required: { value: true, message: '비밀번호를 입력해주세요' },
-    minLength: { value: 4, message: '4자리이상 입력해주세요' },
-    maxLength: { value: 16, message: '16자리이하로 입력해주세요' },
-  });
-  const passwordCheckRegister = register('passwordCheck', {
-    required: { value: true, message: '비밀번호를 입력해주세요' },
-    minLength: { value: 4, message: '4자리이상 입력해주세요' },
-    validate: {
-      check: (passwordCheck) => passwordCheck === passwordRef.current || '비밀번호가 다릅니다',
-    },
-  });
+  // const passwordRegister = register('password', {
+  //   required: { value: true, message: '비밀번호를 입력해주세요' },
+  //   minLength: { value: 4, message: '4자리이상 입력해주세요' },
+  //   maxLength: { value: 16, message: '16자리이하로 입력해주세요' },
+  // });
+  // const passwordCheckRegister = register('passwordCheck', {
+  //   required: { value: true, message: '비밀번호를 입력해주세요' },
+  //   minLength: { value: 4, message: '4자리이상 입력해주세요' },
+  //   validate: {
+  //     check: (passwordCheck) => passwordCheck === passwordRef.current || '비밀번호가 다릅니다',
+  //   },
+  // });
 
   const {
     response, error, loading, operation,
@@ -97,36 +97,35 @@ const ProfileContainer = () => {
       },
     });
   };
-  const handleSignup = handleSubmit(async () => {
-    // const userImg = makeFormData(filesImage);
 
-    try {
-      const res = await axios.post(
-        '/users/updateprofile',
-        {
-          email: response?.result.email,
-          password: response?.result.password,
-          name: response?.result.name,
-          image: userImg || response?.result.image,
-          image_type: '',
-        },
-        { withCredentials: true },
-      );
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  });
+  // const handleSignup = handleSubmit(async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       '/users/updateprofile',
+  //       {
+  //         email: response?.result.email,
+  //         password: response?.result.password,
+  //         name: response?.result.name,
+  //         image: response?.result.image,
+  //         image_type: '',
+  //       },
+  //       { withCredentials: true },
+  //     );
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // });
 
   return (
     <ProfilePresent
       onChange={onChange}
       users={response?.result}
-      passwordRegister={passwordRegister}
-      passwordCheckRegister={passwordCheckRegister}
-      isDirty={isDirty}
-      errors={errors}
-      handleSignup={handleSignup}
+      // passwordRegister={passwordRegister}
+      // passwordCheckRegister={passwordCheckRegister}
+      // isDirty={isDirty}
+      // errors={errors}
+      // handleSignup={handleSignup}
       postModify={postModify}
     />
 
