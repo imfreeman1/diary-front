@@ -5,8 +5,8 @@ import { setResize } from 'src/Redux/action';
 import debounce from 'src/Utils/debounce';
 import {
   CURRENT_ROUTER_PATH,
-  STICKER_IMG_SIZE_OBJECT,
 } from '../Constants/constants';
+import { STICKER_CONST } from 'src/Constants/stickerConstant';
 
 const useResizable = (pageDate, focusRef, id) => {
   const stickerSize = useRef(null);
@@ -35,7 +35,7 @@ const useResizable = (pageDate, focusRef, id) => {
           // 여기 부분에서 debounce가 아닌 mouseUp될때 dispatch를 실행할 수 있도록 변경해야하 할 것 같음. draggable에서도 동일.
           Object.assign(
             event.target.style,
-            STICKER_IMG_SIZE_OBJECT(
+            STICKER_CONST.IMG_SIZE_OBJECT(
               stickerSize.current.width,
               stickerSize.current.height,
               x,
@@ -56,7 +56,7 @@ const useResizable = (pageDate, focusRef, id) => {
             );
             Object.assign(
               event.target.style,
-              STICKER_IMG_SIZE_OBJECT(
+              STICKER_CONST.IMG_SIZE_OBJECT(
                 stickerSize.current.width,
                 stickerSize.current.height,
                 0,

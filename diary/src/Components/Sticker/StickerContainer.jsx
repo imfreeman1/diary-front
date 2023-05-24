@@ -6,12 +6,11 @@ import useResizable from 'src/hooks/useResizable';
 import { removeSticker, resetSelect, setSelect } from 'src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
-  STICKER_IMG_SIZE_OBJECT,
-  STICKER_POSITION_TRANSLATOR,
 } from 'src/Constants/constants';
 import debounce from 'src/Utils/debounce';
 import utilAxios from 'src/Utils/utilAxios';
 import StickerPresent from './StickerPresent';
+import { STICKER_CONST } from 'src/Constants/stickerConstant';
 
 /*
 현재 에러 사항
@@ -61,9 +60,9 @@ function StickerContainer({
     const updateSticker = () => utilAxios(updateStickerOptions);
     debounce(2000, updateSticker);
     const stickerPosition = focusRef.current;
-    stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
+    stickerPosition.style.transform = STICKER_CONST.POSITION_TRANSLATOR(position);
     const stickerImgSize = stickerPosition.firstChild;
-    Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
+    Object.assign(stickerImgSize.style, STICKER_CONST.IMG_SIZE_OBJECT(width, height));
 
     return () => clearTimeout(debounce(updateSticker));
   }, [position, height, width, id]);

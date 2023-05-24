@@ -19,7 +19,7 @@ function NavItem({
   selectedItem.current = selectedItemChecker(CURRENT_ROUTER_PATH, selectedMonth, title);
   return (
     <li
-      className={`font-bold p-3 px-5 w-min ${selectedItem.current ? NAVBAR_SELECTED_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH] : null} ${NAVBAR_HOVER_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH]}`}
+      className={`font-bold p-3 px-5 w-min ${selectedItem.current && NAVBAR_SELECTED_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH]} ${NAVBAR_HOVER_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH]}`}
     >
       <Button
         content={title}

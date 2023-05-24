@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPosition } from 'src/Redux/action';
 import {
   CURRENT_ROUTER_PATH,
-  STICKER_POSITION_TRANSLATOR,
 } from 'src/Constants/constants';
 import debounce from 'src/Utils/debounce';
+import { STICKER_CONST } from 'src/Constants/stickerConstant';
 
 const useDraggable = (position, pageDate) => {
   const positions = useRef(null);
@@ -43,7 +43,7 @@ const useDraggable = (position, pageDate) => {
             const styleOfTarget = event.target.style;
             positions.current.positionX += event.dx;
             positions.current.positionY += event.dy;
-            styleOfTarget.transform = STICKER_POSITION_TRANSLATOR(
+            styleOfTarget.transform = STICKER_CONST.POSITION_TRANSLATOR(
               positions.current,
             );
             const callBackDispatch = () => dispatch(
