@@ -5,9 +5,9 @@ import Logo from 'public/Logo/logo.svg';
 import Pen from 'public/Logo/pen.svg';
 import Lottie from 'lottie-react';
 // import GleLoginContainer from '../Components/GleLoginContainer';
-import LandingModal from 'src/Components/Signup/LandingModal';
 import useControlModal from 'src/hooks/useControlModal';
 import Button from 'src/Components/Button/Button';
+import LandingModalContainer from 'src/Components/LandingModal/LandingModalContainer';
 import { LANDING_NAV_LOGIN_GO, LANDING_PAGE_CONTENT } from '../Constants/constants';
 
 const Landing = () => {
@@ -41,7 +41,7 @@ const Landing = () => {
         <Lottie animationData={bookDrop} />
         <div className="text-5xl font-bold">{LANDING_PAGE_CONTENT}</div>
         {/* <GleLoginContainer /> */}
-        {modalVisible ? <LandingModal modalRef={modalRef} /> : null}
+        {modalVisible ? <LandingModalContainer modalRef={modalRef} /> : null}
         <div />
       </div>
     </>

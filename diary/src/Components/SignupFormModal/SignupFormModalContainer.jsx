@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
 import axios from 'src/Utils/api';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
+import SignupFormModalPresenter from './SignupFormModalPresenter';
 
-const SignupForm = ({ setOnSignup }) => {
-  const router = useRouter();
+const SignupFormModalContainer = ({ setIsSignup }) => {
   const passwordRef = useRef(null);
   const {
     register,
@@ -25,13 +24,11 @@ const SignupForm = ({ setOnSignup }) => {
           password: resData.password,
           name: resData.name,
           image: '',
-          image_type: '',
         },
         { withCredentials: true },
       );
-        // console.log(response.data.code);
       if (response.data.code === 'USI10001') {
-        router.push('/Login');
+        setIsSignup(false);
       } else {
         console.log('가입 실패');
       }
@@ -67,7 +64,8 @@ const SignupForm = ({ setOnSignup }) => {
     required: { value: true, message: '이름을 입력해주세요' },
     pattern: { value: Regex.name, message: '이름을 다시 확인해주세요' },
   });
-  const formName = [
+  console.log('eeeeeeeeeeeee', errors.name, typeof (errors.name), errors);
+  const formArr = [
     {
       id: 'name', type: 'text', register: nameRegister, invalid: errors.name, placeholder: '이름',
     },
@@ -82,50 +80,17 @@ const SignupForm = ({ setOnSignup }) => {
     },
   ];
   return (
-    <>
-      <form
-        className="flex flex-col gap-1 my-10"
-        onSubmit={handleSignup}
-      >
-        {formName.map((element) => (
-          <>
-            <input
-              id={element.id}
-              type={element.type}
-              {...element.register}
-              aria-invalid={!isDirty ? element.invalid : false}
-              className="border-2 rounded-md px-3 h-10"
-              placeholder={element.placeholder}
-            />
-            <span className="text-pink-300 text-sm px-3">
-              {element.invalid ? element.invalid.message : ' '}
-            </span>
-          </>
-        ))}
-        <button
-          className="w-full bg-orange-300 text-white rounded-md p-2.5"
-          type="submit"
-          disabled={isSubmitting}
-        >
-          제출
-        </button>
-      </form>
-      <div className="text-sm text-center mt-2">
-        <span className="text-gray-700">이미 회원이신가요? </span>
-        <span
-          onClick={() => setOnSignup(false)}
-          aria-hidden="true"
-          type="button"
-          className="w-fit text-blue-900 cursor-pointer hover:underline"
-        >
-          로그인 하러가기
-        </span>
-      </div>
-    </>
+    <SignupFormModalPresenter
+      setIsSignup={setIsSignup}
+      handleSignup={handleSignup}
+      formArr={formArr}
+      isDirty={isDirty}
+      isSubmitting={isSubmitting}
+    />
   );
 };
 
-SignupForm.propTypes = {
-  setOnSignup: PropTypes.func.isRequired,
+SignupFormModalContainer.propTypes = {
+  setIsSignup: PropTypes.func.isRequired,
 };
-export default SignupForm;
+export default SignupFormModalContainer;
