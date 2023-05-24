@@ -2,11 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAxios from 'src/hooks/useAxios';
 import axios from 'src/Utils/api';
+import FormData from 'form-data';
 import ProfilePresent from './ProfilePresent';
+// inputImg : <div> 이미지 들어있는
+// files : 이미지 정보
+// userImage : 이미지(files)를 form 데이터로 변환된 정보를 담고 있는 state
 
 const ProfileContainer = () => {
   const [inputImg, setInputImg] = useState(null);
   const files = useRef(null);
+  const [userImage, setUserImage] = useState(null);
   const passwordRef = useRef(null);
   const {
     register,
@@ -26,6 +31,12 @@ const ProfileContainer = () => {
     const imgTag = document.querySelector('#imageDisplay');
     imgTag.style = `background-image: url(${inputImg || '/Logo/pen.svg'})`;
   }, [inputImg]);
+
+  useEffect(() => {
+    const filesImage = { image: files.current };
+    const formImage = makeFormData(filesImage);
+    setUserImage(formImage);
+  }, [files]);
 
   const onChange = (e) => {
     e.preventDefault();
@@ -72,8 +83,7 @@ const ProfileContainer = () => {
     console.log('한번만 실행');
   }, []);
   console.log(response, error, loading);
-  const userImg = makeFormData({ image: files?.current });
-  console.log(userImg);
+
   const postModify = () => {
     operation({
       method: 'post',
@@ -81,14 +91,14 @@ const ProfileContainer = () => {
       payload: {
         email: response?.result.email,
         password: response?.result.password,
-        name: '은지1',
-        image: response?.result.image,
+        name: response?.result.name,
+        image: userImage || response?.result.image,
         image_type: '',
       },
     });
   };
   const handleSignup = handleSubmit(async () => {
-    const userImg = makeFormData({ image: files?.current });
+    // const userImg = makeFormData(filesImage);
 
     try {
       const res = await axios.post(
