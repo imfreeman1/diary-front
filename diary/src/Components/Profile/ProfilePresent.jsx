@@ -49,7 +49,7 @@ const ProfilePresent = ({
                 <span>이름</span>
                 <input
                   placeholder="이름"
-                  value={users?.name || ''}
+                  defaultValue={users?.name || ''}
                   className="border-2 border-gray-300 py-1 px-2.5 rounded"
                 />
               </div>

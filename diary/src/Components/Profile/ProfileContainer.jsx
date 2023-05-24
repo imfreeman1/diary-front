@@ -4,7 +4,7 @@ import useAxios from 'src/hooks/useAxios';
 // import axios from 'src/Utils/api';
 import FormData from 'form-data';
 import ProfilePresent from './ProfilePresent';
-// inputImg : <div> 이미지 들어있는
+// inputImg : 이미지 들어가는 <div>
 // files : 이미지 정보
 // userImage : 이미지(files)를 form 데이터로 변환된 정보를 담고 있는 state
 
@@ -67,7 +67,7 @@ const ProfileContainer = () => {
   // });
 
   const {
-    response, error, loading, operation,
+    response, operation,
   } = useAxios();
 
   const GetProfileAxios = () => {
@@ -80,10 +80,10 @@ const ProfileContainer = () => {
 
   useEffect(() => {
     GetProfileAxios();
-    console.log('한번만 실행');
   }, []);
-  console.log(response, error, loading);
+  // console.log(response, error, loading);
 
+  // postModify는 image가 넘어가는지 확인용 확인하면 handleSubmit으로 post보낼 것
   const postModify = () => {
     operation({
       method: 'post',
@@ -93,7 +93,7 @@ const ProfileContainer = () => {
         password: response?.result.password,
         name: response?.result.name,
         image: userImage || response?.result.image,
-        image_type: '',
+        // image_type: '',
       },
     });
   };
