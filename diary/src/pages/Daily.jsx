@@ -9,7 +9,7 @@ import { v4 } from 'uuid';
 import useAxios from 'src/hooks/useAxios';
 import DailyTopMark from 'src/Components/DailyTopMark/DailyTopMark';
 import DailyDisplayContainer from '../Components/Daily/DailyDisplayContainer';
-import { DAILY_LOGO } from '../Constants/dailyConstant';
+import { DAILY_CONST } from '../Constants/dailyConstant';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
 import useGetDateOffset from '../hooks/useGetDateOffset';
@@ -71,7 +71,7 @@ const Daily = () => {
         <div className="bg-zinc-50 w-fit h-fit border pb-5 my-10 mx-auto shadow-lg rounded">
           <div className="flex justify-between">
             <div className="w-fit h-fit p-2 px-5 ml-5 mt-5 border-4 border-gray-200 font-bold text-2xl rounded-full shadow">
-              <p>{DAILY_LOGO}</p>
+              <p>{DAILY_CONST.LOGO}</p>
             </div>
             <DailyTopMark isSave={isSave} setIsSave={setIsSave} axiosCode={axiosCode} />
           </div>

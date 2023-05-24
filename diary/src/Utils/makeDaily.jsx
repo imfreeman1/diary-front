@@ -1,4 +1,4 @@
-import { DAY_OF_WEEK } from '../Constants/monthlyConstants';
+import { MONTH_CONST} from '../Constants/monthlyConstants';
 
 /**
  *
@@ -10,7 +10,7 @@ const makeDaily = (date) => {
   const dateInDaily = new Date(date);
 
   const dailyContent = {
-    locdate: date, day: DAY_OF_WEEK[dateInDaily.getDay()], titleText: '', editorContent: '',
+    locdate: date, day: MONTH_CONST.DAY_OF_WEEK[dateInDaily.getDay()], titleText: '', editorContent: '',
   };
   return dailyContent;
 };

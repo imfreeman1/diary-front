@@ -4,7 +4,7 @@ import {
   BiEdit, BiTrash, BiTransfer, BiX,
 } from 'react-icons/bi';
 import PropTypes from 'prop-types';
-import { INPUT_PLACEHOLDER } from '../../../../Constants/monthlyConstants';
+import { MONTH_CONST} from '../../../../Constants/monthlyConstants';
 
 // input Modal의 수정창 === editmodal
 function MonthEditModalPresenter({
@@ -53,7 +53,7 @@ function MonthEditModalPresenter({
           <form onSubmit={handleEditKeyPress}>
             <span>■ </span>
             <input
-              placeholder={INPUT_PLACEHOLDER}
+              placeholder={MONTH_CONST.INPUT_PLACEHOLDER}
               value={editText}
               ref={focusRef}
               onChange={handleEditText}

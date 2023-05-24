@@ -1,5 +1,5 @@
 import Holiday from 'src/Json/holidays_kr.json'assert{ type: "json"};
-import { DAY_OF_WEEK, MONTH_DAYS } from '../Constants/monthlyConstants';
+import { MONTH_CONST} from '../Constants/monthlyConstants';
 
 /**
  * @param {idxMonth} number, (ex. 03 -> 2)
@@ -18,7 +18,7 @@ const makeMonthCalendar = (year, month) => {
   const MonthTable = Array.from(Array(MAX_WEEKS), (_, fewWeeks) => {
     let weekArr = [];
     let startday = 1;
-    for (const dayOfWeek of DAY_OF_WEEK) {
+    for (const dayOfWeek of MONTH_CONST.DAY_OF_WEEK) {
       const monthCalendar = {
         locdate: '',
         date: '',
@@ -30,14 +30,14 @@ const makeMonthCalendar = (year, month) => {
       };
       const date = fewWeeks * 7 - monthStartDay + startday;
       startday += 1;
-      if (date > MONTH_DAYS[monthIdx]) {
+      if (date > MONTH_CONST.LAST_DAYS[monthIdx]) {
         monthCalendar.locdate = false;
-        monthCalendar.date = date - MONTH_DAYS[monthIdx];
+        monthCalendar.date = date - MONTH_CONST.LAST_DAYS[monthIdx];
         if (fewWeeks === 5 && dayOfWeek === 'Sun') break;
       } else if (date < 1) {
         monthCalendar.locdate = false;
-        monthCalendar.date = date + (MONTH_DAYS[monthIdx - 1] || 31);
-      } else if (date >= 1 && date <= MONTH_DAYS[monthIdx]) {
+        monthCalendar.date = date + (MONTH_CONST.LAST_DAYS[monthIdx - 1] || 31);
+      } else if (date >= 1 && date <= MONTH_CONST.LAST_DAYS[monthIdx]) {
         monthCalendar.locdate = `${year}-${month}-${date.toString().padStart(2, '0')}`;
         monthCalendar.date = date;
         monthCalendar.isInMonth = true;

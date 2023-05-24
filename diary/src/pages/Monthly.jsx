@@ -16,9 +16,7 @@ import {
 import MonthWeekPresenter from '../Components/Month/MonthWeek/MonthWeekPresenter';
 import makeMonthCalendar from '../Utils/makeMonthCalendar';
 import {
-  DAY_OF_WEEK,
-  MONTH_LIST,
-  MONTH_INDICATING,
+  MONTH_CONST
 } from '../Constants/monthlyConstants';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
@@ -35,7 +33,7 @@ const Monthly = () => {
   const dispatch = useDispatch();
   const { monthCalendar } = useSelector((state) => state.monthCalendarReducer);
   // month, year 바뀔 때 마다 calendar를 새로 불러오게 함
-  const controlCalendar = makeMonthCalendar(yearInMonth, MONTH_LIST[selectedMonth]);
+  const controlCalendar = makeMonthCalendar(yearInMonth, MONTH_CONST.LIST[selectedMonth]);
   const firstDayInMonth = controlCalendar[0].find((date) => date.isInMonth === true).locdate;
   const startDay = new Date(yearInMonth, selectedMonth, 1);
   const monthDate = useGetDateOffset(startDay);
@@ -86,12 +84,12 @@ const Monthly = () => {
                   </div>
                   <p className="text-5xl w-fit px-6 m-3 text-gray-700 select-none">
                     {selectedMonth + 1}
-                    {MONTH_INDICATING}
+                    {MONTH_CONST.INDICATING}
                   </p>
                   <p className="text-2xl text-green-900 select-none">{yearInMonth}</p>
                 </div>
                 <div className="flex my-2 border-2 border-y-green-900">
-                  {DAY_OF_WEEK.map((day) => (
+                  {MONTH_CONST.DAY_OF_WEEK.map((day) => (
                     <div
                       className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
                         day === 'Sun' ? 'text-red-500' : ''

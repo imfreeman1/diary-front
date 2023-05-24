@@ -2,7 +2,7 @@
 import React from 'react';
 import { BiX } from 'react-icons/bi';
 import PropTypes from 'prop-types';
-import { INPUT_PLACEHOLDER } from '../../../../Constants/monthlyConstants';
+import { MONTH_CONST} from '../../../../Constants/monthlyConstants';
 
 const MonthInputModalPresenter = ({
   dayInfo,
@@ -31,7 +31,7 @@ const MonthInputModalPresenter = ({
       <form onSubmit={handleKeyPress}>
         <span>■ </span>
         <input
-          placeholder={INPUT_PLACEHOLDER}
+          placeholder={MONTH_CONST.INPUT_PLACEHOLDER}
           value={inputText}
           ref={focusRef}
           onChange={handleChange}

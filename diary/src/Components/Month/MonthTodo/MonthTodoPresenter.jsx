@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import Button from '../../Button';
 import MonthTodoItemContainer from '../MonthTodoItem/MonthTodoItemContainer';
 import MonthListModalContainer from '../MonthModal/MonthListModal/MonthListModalContainer';
-import { SHOW_MORE_TODO } from '../../../Constants/monthlyConstants';
+import { MONTH_CONST} from '../../../Constants/monthlyConstants';
 
 /**
  * @param {dayInfo} obj
@@ -37,7 +37,7 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
               <Button
                 key={v4()}
                 onClick={() => ctrListModal.handleModalOpen()}
-                content={SHOW_MORE_TODO(dayInfo.todos)}
+                content={MONTH_CONST.SHOW_MORE_TODO(dayInfo.todos)}
                 className="block p-1 pl-2 my-2 mx-auto hover:font-semibold hover:cursor-pointer text-green-900"
               />
               <MonthListModalContainer

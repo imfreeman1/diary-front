@@ -2,7 +2,7 @@ import React from 'react';
 import { getMonth, getYear } from 'date-fns';
 import range from 'lodash/range';
 import PropTypes from 'prop-types';
-import { MONTHS, MONTH_INDICATING, YEAR_INDICATING } from 'src/Constants/monthlyConstants';
+import { MONTH_CONST } from 'src/Constants/monthlyConstants';
 
 const DatepickerRenderCustomHeader = ({
   date,
@@ -36,19 +36,19 @@ const DatepickerRenderCustomHeader = ({
           </option>
         ))}
       </select>
-      <span className="text-lg">{YEAR_INDICATING}</span>
+      <span className="text-lg">{MONTH_CONST.YEAR_INDICATING}</span>
       <select
-        value={MONTHS[getMonth(date)]}
+        value={number(MONTH_CONST.LIST[getMonth(date)])}
         onChange={({ target: { value } }) => changeMonth(MONTHS.indexOf(value))}
         className="text-lg"
       >
-        {MONTHS.map((option) => (
+        {MONTH_CONST.LIST.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
         ))}
       </select>
-      <span className="text-lg">{MONTH_INDICATING}</span>
+      <span className="text-lg">{MONTH_CONST.INDICATING}</span>
       <button
         type="button"
         onClick={increaseMonth}
