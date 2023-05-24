@@ -19,23 +19,12 @@ const makeSticker = (num) => {
   return arr;
 };
 
-/*
-stickerState = {
-  monthly: {
-    '2023-05-01':[
-      {sticker}
-    ]
-  }
-
-}
-*/
-
 const exStickers = makeSticker(10);
 
 export const stickerSlice = createSlice({
   name: STICKER_NAME,
   initialState: {
-    stickersArray: {
+    stickersObj: {
       Monthly: {},
       Table: [...exStickers],
       Weekly: {},
@@ -43,12 +32,12 @@ export const stickerSlice = createSlice({
     },
   },
   reducers: {
-    setSticker: ({ stickersArray }, {
+    setSticker: ({stickersObj }, {
       payload: {
         id, position, origin, newId, pageDate,
       },
     }) => {
-      const selectedSticker = stickersArray.Table.find(
+      const selectedSticker = stickersObj.Table.find(
         (sticker) => sticker.id === id,
       );
       // 여기서 문제가 생김 table의 sticker id와 page에서 sticker id가 같아짐. 선택된 스티커를 깊은 복사로 복제하여, id를 변경해주어야함.
@@ -57,58 +46,59 @@ export const stickerSlice = createSlice({
       newSticker.positionX = position.positionX;
       newSticker.positionY = position.positionY;
       // if의 있는 조건 결과물을 변수로 한번 빼내자
-      const selectedChecker = stickersArray[origin][pageDate]?.some(
-        (sticker) => sticker.selected === true,
+      const selectedChecker = stickersObj[origin][pageDate]?.some(
+        (sticker) => sticker.selected,
       );
       if (selectedChecker) {
-        stickersArray[origin][pageDate].map((sticker) => sticker.selected = false);
+        stickersObj[origin][pageDate].map(({selected}) => selected = false);
       }
-      stickersArray[origin][pageDate] = [...stickersArray[origin][pageDate], newSticker];
+      stickersObj[origin][pageDate] = [...stickersObj[origin][pageDate], newSticker];
     },
-    getStickers: ({ stickersArray }, { payload: { origin, getStickerArray, pageDate } }) => {
-      const newStickersArray = getStickerArray.map((sticker) => {
+
+    getStickers: ({ stickersObj }, { payload: { origin, getStickerArray, pageDate } }) => {
+      const newStickersArray = getStickerArray.map(({id,image,position,size}) => {
         const newSticker = {
-          id: sticker.id,
-          imgURL: `${sticker.image}`,
-          positionX: sticker.position[0],
-          positionY: sticker.position[1],
-          height: sticker.size[0],
-          width: sticker.size[1],
+          id,
+          imgURL: `${image}`,
+          positionX: position[0],
+          positionY: position[1],
+          height: size[0],
+          width: size[1],
           selected: false,
         };
         return newSticker;
       });
-      stickersArray[origin][pageDate] = newStickersArray;
+      stickersObj[origin][pageDate] = newStickersArray;
     },
-    removeSticker: ({ stickersArray }, { payload: { id, origin, pageDate } }) => {
-      stickersArray[origin][pageDate] = stickersArray[origin][pageDate].filter(
+    removeSticker: ({ stickersObj }, { payload: { id, origin, pageDate } }) => {
+      stickersObj[origin][pageDate] = stickersObj[origin][pageDate].filter(
         (sticker) => sticker.id !== id,
       );
     },
-    setPosition: ({ stickersArray }, {
+    setPosition: ({ stickersObj }, {
       payload: {
         origin, id, position, pageDate,
       },
     }) => {
-      const selectedSticker = stickersArray[origin][pageDate].find(
+      const selectedSticker = stickersObj[origin][pageDate].find(
         (sticker) => sticker.id === id,
       );
       if (!selectedSticker.selected) {
-        stickersArray[origin][pageDate]
+        stickersObj[origin][pageDate]
           .map((sticker) => sticker.selected = false);
       }
       selectedSticker.positionX = position.positionX;
       selectedSticker.positionY = position.positionY;
     },
     setResize: (
-      { stickersArray },
+      { stickersObj},
       {
         payload: {
           origin, id, size, position, pageDate,
         },
       },
     ) => {
-      const selectedSticker = stickersArray[origin][pageDate].find(
+      const selectedSticker = stickersObj[origin][pageDate].find(
         (sticker) => sticker.id === id,
       );
       selectedSticker.positionX += position.x;
@@ -116,7 +106,7 @@ export const stickerSlice = createSlice({
       selectedSticker.height = size.height;
       selectedSticker.width = size.width;
     },
-    addTableSticker: ({ stickersArray }, { payload: { imgURL, size } }) => {
+    addTableSticker: ({ stickersObj }, { payload: { imgURL, size } }) => {
       const newSticker = {
         id: v4(),
         imgURL,
@@ -126,23 +116,23 @@ export const stickerSlice = createSlice({
         height: size.height,
         selected: false,
       };
-      stickersArray.Table.push(newSticker);
+      stickersObj.Table.push(newSticker);
     },
-    setSelect: ({ stickersArray }, { payload: { origin, id, pageDate } }) => {
-      const selectedChecker = stickersArray[origin][pageDate].some(
+    setSelect: ({ stickersObj }, { payload: { origin, id, pageDate } }) => {
+      const selectedChecker = stickersObj[origin][pageDate].some(
         (sticker) => sticker.selected === true,
       );
       if (selectedChecker) {
-        stickersArray[origin][pageDate]
+        stickersObj[origin][pageDate]
           .map((sticker) => sticker.selected = false);
       }
-      const selectedSticker = stickersArray[origin][pageDate].find(
+      const selectedSticker = stickersObj[origin][pageDate].find(
         (sticker) => sticker.id === id,
       );
       selectedSticker.selected = !selectedSticker.selected;
     },
-    resetSelect: ({ stickersArray }, { payload: { origin, pageDate } }) => {
-      stickersArray[origin][pageDate].map((sticker) => sticker.selected = false);
+    resetSelect: ({ stickersObj }, { payload: { origin, pageDate } }) => {
+      stickersObj[origin][pageDate].map(({selected}) => selected = false);
     },
   },
 });
