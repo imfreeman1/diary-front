@@ -10,7 +10,7 @@ const StickerDisplay = ({ pageDate }) => {
   const dispatch = useDispatch();
   const currRouter = CURRENT_ROUTER_PATH();
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray,
+    (state) => state.stickerReducer.stickersObj,
   );
   useEffect(() => {
     const URL = `/sticker/read/${currRouter.toLowerCase()}/${pageDate}/`;

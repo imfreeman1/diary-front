@@ -14,7 +14,7 @@ const useDraggable = (position, pageDate) => {
   positions.current = position;
   const currRouter = CURRENT_ROUTER_PATH();
   const currStickersList = useSelector(
-    (state) => state.stickerReducer.stickersArray[currRouter][pageDate],
+    (state) => state.stickerReducer.stickersObj[currRouter][pageDate],
   );
   // 라이브러리 세팅은 config 따로 관리하자
   useLayoutEffect(

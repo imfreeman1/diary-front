@@ -5,7 +5,7 @@ import SideBarPresent from './SideBarPresent';
 
 function SideBarContainer({ pageDate }) {
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray.Table,
+    (state) => state.stickerReducer.stickersObj.Table,
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
