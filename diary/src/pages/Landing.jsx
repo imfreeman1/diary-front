@@ -40,7 +40,6 @@ const Landing = () => {
       <div className=" w-full h-screen bg-slate-200 flex flex-col gap-6 items-center justify-center">
         <Lottie animationData={bookDrop} />
         <div className="text-5xl font-bold">{LANDING_PAGE_CONTENT}</div>
-        <Button content="로그인" className="bg-blue-400 w-40 h-11 rounded-xl shadow-lg text-white mt-3" onClick={onClick} />
         {/* <GleLoginContainer /> */}
         {modalVisible ? <LandingModalContainer modalRef={modalRef} /> : null}
         <div />
