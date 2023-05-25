@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BiCaretUp, BiCaretDown } from 'react-icons/bi';
+import { BiCaretLeft, BiCaretRight } from 'react-icons/bi';
 import { v4 } from 'uuid';
 import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
 import useAxios from 'src/hooks/useAxios';
@@ -15,9 +15,7 @@ import {
 } from '../Redux/action';
 import MonthWeekPresenter from '../Components/Month/MonthWeek/MonthWeekPresenter';
 import makeMonthCalendar from '../Utils/makeMonthCalendar';
-import {
-  MONTH_CONST
-} from '../Constants/monthlyConstants';
+import { MONTH_CONST } from '../Constants/monthlyConstants';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
 
@@ -39,7 +37,7 @@ const Monthly = () => {
   const monthDate = useGetDateOffset(startDay);
 
   const {
-    response, error, loading, operation,
+    response, loading, operation,
   } = useAxios();
   const getReadMonthlyAxios = () => {
     operation({
@@ -68,56 +66,54 @@ const Monthly = () => {
       <StickerDisplay pageDate={firstDayInMonth} />
       {loading ? null
         : (
-          <>
-            <div className="flex justify-center p-10 h-full w-full bg-gray-100">
-              <div className="bg-zinc-50 border p-2 my-10 h-fit shadow-lg rounded">
-                <div className="flex gap-5">
-                  <div className="text-3xl w-min px-6 my-auto">
-                    <BiCaretUp
-                      onClick={moveToNextMonth}
-                      className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
-                    />
-                    <BiCaretDown
-                      onClick={moveToLastMonth}
-                      className="cursor-pointer text-gray-700 hover:text-green-800 hover:ring hover:ring-gray-400"
-                    />
+          <div className="flex justify-center p-10 h-full w-full bg-orange-100">
+            <BiCaretLeft
+              onClick={moveToLastMonth}
+              size="100"
+              className="cursor-pointer mt-20 text-gray-700 hover:text-orange-700"
+            />
+            <div className="bg-zinc-50 border p-10 my-10 h-fit shadow-lg rounded ">
+              <div className="flex justify-between gap-5 mx-10">
+                <div className="flex">
+                  <div className="w-fit h-fit p-2 px-5 border-4 border-gray-200 font-bold text-5xl rounded-full shadow">
+                    <p className="text-gray-700 select-none">{yearInMonth}</p>
                   </div>
-                  <p className="text-5xl w-fit px-6 m-3 text-gray-700 select-none">
+                  <p className="text-4xl font-semibold w-fit px-6 m-3 my-auto text-gray-700 select-none">
                     {selectedMonth + 1}
                     {MONTH_CONST.INDICATING}
                   </p>
-                  <p className="text-2xl text-green-900 select-none">{yearInMonth}</p>
                 </div>
-                <div className="flex my-2 border-2 border-y-green-900">
-                  {MONTH_CONST.DAY_OF_WEEK.map((day) => (
-                    <div
-                      className={`flex border w-36 text-lg font-bold justify-center bg-gray-200 ${
-                        day === 'Sun' ? 'text-red-500' : ''
-                      }`}
-                      key={v4()}
-                    >
-                      {day[0]}
-                    </div>
-                  ))}
-                </div>
-                <table className="border-collapse border border-green-900">
-                  {monthCalendar.length
-                    ? monthCalendar.map((week) => (
-                      <MonthWeekPresenter key={v4()} week={week} />
-                    ))
-                    : null}
-                </table>
+                <div className="flex flex-col justify-end text-3xl w-min px-6" />
               </div>
+              <div className="flex m-10">
+                {MONTH_CONST.DAY_OF_WEEK.map((day) => (
+                  <div
+                    className={`flex flex-grow text-lg font-bold justify-center w-40 ${
+                      day === 'Sun' ? 'text-red-500' : ''
+                    } ${
+                      day === 'Sat' ? 'text-blue-500' : ''
+                    } `}
+                    key={v4()}
+                  >
+                    {day}
+                  </div>
+                ))}
+              </div>
+              <table className="border-collapse m-10 mt-0">
+                {monthCalendar.length
+                  ? monthCalendar.map((week) => (
+                    <MonthWeekPresenter key={v4()} week={week} />
+                  ))
+                  : null}
+              </table>
+              <SideBarContainer pageDate={firstDayInMonth} />
             </div>
-            <table className="border-collapse border border-green-900">
-              {monthCalendar.length
-                ? monthCalendar.map((week) => (
-                  <MonthWeekPresenter key={v4()} week={week} />
-                ))
-                : null}
-            </table>
-            <SideBarContainer pageDate={firstDayInMonth} />
-          </>
+            <BiCaretRight
+              onClick={moveToNextMonth}
+              size="100"
+              className="cursor-pointer mt-20 text-gray-700 hover:text-orange-700"
+            />
+          </div>
         )}
     </>
   );
