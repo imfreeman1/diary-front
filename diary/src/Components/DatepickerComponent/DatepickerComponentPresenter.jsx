@@ -10,22 +10,20 @@ import DatepickerRenderCustomHeader from '../DatepickerCustom/DatepickerRenderCu
 const DatepickerComponentPresenter = ({
   selectedDate, highlightDatesArr, inputStyle, isShow, handleChange, handleClose, isWeekly,
 }) => (
-  <span className={isWeekly ? 'text-green-900  p-2' : 'absolute inset-y-11 left-0'}>
-    <DatePicker
-      selected={selectedDate}
-      onChange={handleChange}
-      highlightDates={highlightDatesArr}
-      show={isShow}
-      setShow={handleClose}
-      customInput={<DatepickerCustomInput inputStyle={inputStyle} />}
-      renderDayContents={DatepickerRenderDayContents}
-      renderCustomHeader={DatepickerRenderCustomHeader}
-      withPortal
-      portalId="root-portal"
-      dateFormat={isWeekly ? 'yyyy년 MM월 ' : 'yyyy-MM-dd'}
-      dateFormatCalendar="yyyy년 MM월"
-    />
-  </span>
+  <DatePicker
+    selected={selectedDate}
+    onChange={handleChange}
+    highlightDates={highlightDatesArr}
+    show={isShow}
+    setShow={handleClose}
+    customInput={<DatepickerCustomInput inputStyle={inputStyle} />}
+    renderDayContents={DatepickerRenderDayContents}
+    renderCustomHeader={DatepickerRenderCustomHeader}
+    withPortal
+    portalId="root-portal"
+    dateFormat={isWeekly ? 'yyyy년 MM월 ' : 'yyyy-MM-dd'}
+    dateFormatCalendar="yyyy년 MM월"
+  />
 );
 DatepickerComponentPresenter.propTypes = {
   selectedDate: PropTypes.instanceOf(Date).isRequired,

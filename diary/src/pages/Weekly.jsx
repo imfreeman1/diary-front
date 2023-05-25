@@ -93,6 +93,7 @@ const WeeklyPage = () => {
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
               highlightDatesArr={weeklyHighlightArr}
+              inputStyle="text-green-900  p-2"
             />
           </div>
           <WeeklyJumpButtonContainer locThisWeek={locThisWeek} />
