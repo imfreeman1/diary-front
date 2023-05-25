@@ -1,9 +1,8 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Button';
 import NavBarContainer from '../NavBar/NavBarContainer';
-
+import Button from '../Button/Button';
 // 네브바는 필요 없을거 같고, input태그의 placeholder를 기존의 내용으로 저장해두면 될 것 같음.
 // 초기내용은 통신을 통해서 받아와야하고, 아마두... useEffect를 사용해야할 듯? axios로 받아오자.
 // 변경은 post 통신을 사용해야 할 듯.
