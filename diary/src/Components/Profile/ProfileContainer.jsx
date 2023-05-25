@@ -4,7 +4,7 @@ import React, {
 // import { useForm } from 'react-hook-form';
 import useAxios from 'src/hooks/useAxios';
 // import axios from 'src/Utils/api';
-import FormData from 'form-data';
+import makeFormData from 'src/Utils/makeFormData';
 import ProfilePresent from './ProfilePresent';
 // inputImg : 이미지 들어가는 <div>
 // files : 이미지 정보
@@ -13,7 +13,6 @@ import ProfilePresent from './ProfilePresent';
 const ProfileContainer = () => {
   const [inputImg, setInputImg] = useState(null);
   const files = useRef(null);
-  const [userImage, setUserImage] = useState(null);
   // const passwordRef = useRef(null);
   const imgRef = useRef(null);
   // const {
@@ -21,24 +20,11 @@ const ProfileContainer = () => {
   //   handleSubmit,
   //   formState: { isDirty, errors },
   // } = useForm();
-  const makeFormData = (object) => {
-    const formData = new FormData();
-    for (const [key, value] of Object.entries(object)) {
-      formData.append(`${key}`, value);
-    }
-    return formData;
-  };
 
   useLayoutEffect(() => {
     const imgTag = imgRef.current;
     imgTag.style = `background-image: url(${inputImg || '/Logo/pen.svg'})`;
   }, [inputImg]);
-
-  useEffect(() => {
-    const filesImage = { image: files.current };
-    const formImage = makeFormData(filesImage);
-    setUserImage(formImage);
-  }, [files]);
 
   const onChange = (e) => {
     e.preventDefault();
@@ -68,9 +54,7 @@ const ProfileContainer = () => {
   //   },
   // });
 
-  const {
-    response, operation,
-  } = useAxios();
+  const { response, operation } = useAxios();
 
   const GetProfileAxios = () => {
     operation({
@@ -78,25 +62,25 @@ const ProfileContainer = () => {
       url: '/users/getprofile',
     });
   };
-  // USP10001 email, image, image_type, name, password, refresh
+  // USP10001 email, image, info, name, password, refresh
 
   useEffect(() => {
     GetProfileAxios();
   }, []);
-  // console.log(response, error, loading);
 
   // postModify는 image가 넘어가는지 확인용 확인하면 handleSubmit으로 post보낼 것
   const postModify = () => {
     operation({
       method: 'post',
       url: '/users/updateprofile',
-      payload: {
+      payload: makeFormData({
+        image: files.current[0],
         email: response?.result.email,
         password: response?.result.password,
         name: response?.result.name,
-        image: userImage || response?.result.image,
-        // image_type: '',
-      },
+        info: '',
+      }),
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
   };
   // const handleSignup = handleSubmit(async () => {

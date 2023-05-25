@@ -16,7 +16,9 @@ const useAxios = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const operation = async ({ method, url, payload }) => {
+  const operation = async ({
+    method, url, payload, headers,
+  }) => {
     try {
       setLoading(true);
       const result = await axios.request({
@@ -24,6 +26,8 @@ const useAxios = () => {
         url,
         data: payload,
         withCredentials: true,
+        // headers,
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       setResponse(result.data);
     } catch (err) {

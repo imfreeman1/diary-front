@@ -1,3 +1,5 @@
+import FormData from 'form-data';
+
 const makeFormData = (object) => {
   const formData = new FormData();
   for (const [key, value] of Object.entries(object)) {
