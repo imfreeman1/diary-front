@@ -1,12 +1,10 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
-import { useForm } from 'react-hook-form';
 import axios from 'src/Utils/api';
-import { useRouter } from 'next/router';
-import SignupPresent from './SignupPresent';
+import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
+import SignupFormModalPresenter from './SignupFormModalPresenter';
 
-const SignupContainer = () => {
-  const router = useRouter();
+const SignupFormModalContainer = ({ setIsSignup }) => {
   const passwordRef = useRef(null);
   const {
     register,
@@ -19,28 +17,25 @@ const SignupContainer = () => {
 
   const handleSignup = handleSubmit(async (resData) => {
     try {
-      const payload = {
-        email: resData.email,
-        password: resData.password,
-        name: resData.name,
-        image: '',
-        image_type: '',
-      };
-      const credential = {
-        withCredentials: true,
-      };
-      await axios.post('/users/signup', payload, credential);
-      // await alert('회원가입 완료');
-    } catch (e) {
-      console.log(e);
+      const response = await axios.post(
+        '/users/signup',
+        {
+          email: resData.email,
+          password: resData.password,
+          name: resData.name,
+          image: '',
+        },
+        { withCredentials: true },
+      );
+      if (response.data.code === 'USI10001') {
+        setIsSignup(false);
+      } else {
+        console.log('가입 실패');
+      }
+    } catch (error) {
+      console.log(error);
     }
   });
-
-  // useAxios({
-  //   method: 'post',
-  //   url: '/users/signup',
-  //   payload: { accept: '*/*' },
-  // });
 
   passwordRef.current = getValues('password');
   const Regex = {
@@ -69,19 +64,32 @@ const SignupContainer = () => {
     required: { value: true, message: '이름을 입력해주세요' },
     pattern: { value: Regex.name, message: '이름을 다시 확인해주세요' },
   });
-
+  const formArr = [
+    {
+      id: 'name', type: 'text', register: nameRegister, invalid: errors.name, placeholder: '이름',
+    },
+    {
+      id: 'email', type: 'text', register: emailRegister, invalid: errors.email, placeholder: '이메일',
+    },
+    {
+      id: 'password', type: 'password', register: passwordRegister, invalid: errors.password, placeholder: '비밀번호',
+    },
+    {
+      id: 'passwordCheck', type: 'password', register: passwordCheckRegister, invalid: errors.passwordCheck, placeholder: '비밀번호 확인',
+    },
+  ];
   return (
-    <SignupPresent
-      emailRegister={emailRegister}
-      passwordRegister={passwordRegister}
-      passwordCheckRegister={passwordCheckRegister}
-      nameRegister={nameRegister}
+    <SignupFormModalPresenter
+      setIsSignup={setIsSignup}
+      handleSignup={handleSignup}
+      formArr={formArr}
       isDirty={isDirty}
       isSubmitting={isSubmitting}
-      handleSignup={handleSignup}
-      errors={errors}
     />
   );
 };
 
-export default SignupContainer;
+SignupFormModalContainer.propTypes = {
+  setIsSignup: PropTypes.func.isRequired,
+};
+export default SignupFormModalContainer;
