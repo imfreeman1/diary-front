@@ -16,10 +16,10 @@ import MonthInputModalContainer from '../MonthModal/MonthInputModal/MonthInputMo
 const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
   <td
     onDoubleClick={() => ctrInputModal.handleModalOpen()}
-    className="static w-36 h-40 border border-green-900"
+    className="static w-40 h-40 border border-slate-500 rounded"
   >
     <div
-      className={`pl-1 text-left border-b-2 ${
+      className={`pl-1 text-left border-dashed border-b-2 border-slate-500 ${
         dayInfo.isHoliday
           ? 'text-red-500'
           : 'text-black'

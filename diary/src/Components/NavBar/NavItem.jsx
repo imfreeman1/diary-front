@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import selectedItemChecker from 'src/Utils/selectedItemChecker';
-import Button from '../Button';
+import Button from '../Button/Button';
 
 function NavItem({
   title,
