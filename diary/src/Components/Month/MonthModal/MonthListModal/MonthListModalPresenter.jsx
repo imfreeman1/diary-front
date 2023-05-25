@@ -15,25 +15,30 @@ const MonthListModalPresenter = ({
   const { locdate, todos, day } = dayInfo;
 
   return listModalVisible ? (
-    <div
-      onDoubleClick={(e) => e.stopPropagation()}
-      ref={listModalRef}
-      className="z-1 w-96 h-[400px] p-1 bg-white text-right rounded drop-shadow-2xl select-none"
-    >
-      <div className="flex mx-3 my-2 justify-end">
-        <BiX
-          onClick={() => handleListModalClose()}
-          size="25"
-          className="rounded cursor-pointer hover:bg-gray-200"
-        />
-      </div>
-      <div className="text-left px-5">
-        <p className="text-lg py-1 px-2 text-center text-black border-2">
-          {locdate}
-          {' '}
-          {day}
-        </p>
-        <div className="p-2 border max-h-64 overflow-y-scroll">
+    <div className="fixed top-0 left-0 h-screen w-screen bg-opacity-20 bg-[#000000]">
+      <div
+        onDoubleClick={(e) => e.stopPropagation()}
+        ref={listModalRef}
+        className="z-1 fixed top-0 left-0 right-0 bottom-0 m-auto flex flex-col justify-between w-1/2 lg:w-1/3 xl:w-1/4 h-[400px] p-1 bg-neutral-100 text-right rounded drop-shadow-2xl select-none"
+      >
+        {/* <div className="bg-orange-600 h-1" /> */}
+
+        <div className="flex mx-3 my-2 justify-between">
+          <div className="text-xl font-bold py-2 px-2 text-center text-black bg-white border-4 border-neutral-400">
+            <p>
+              {locdate}
+              {' '}
+              {day}
+
+            </p>
+          </div>
+          <BiX
+            onClick={() => handleListModalClose()}
+            size="25"
+            className="rounded cursor-pointer hover:bg-gray-200"
+          />
+        </div>
+        <div className="text-left m-5 p-2 bg-white shadow-inner overflow-auto">
           {todos.map((todo) => (
             <MonthTodoItemContainer
               key={v4()}
@@ -42,16 +47,15 @@ const MonthListModalPresenter = ({
             />
           ))}
         </div>
-      </div>
-      <div className="grid justify-items-center p-3">
-        <button
-          type="button"
-          onClick={handleDelete}
-          className="px-3 border-2 border-black bg-yellow-300"
-        >
-          항목 모두 삭제
-
-        </button>
+        <div className="flex mx-3 my-2 justify-end">
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="inline-block text-sm w-fit px-3 py-0 border-4 border-white bg-orange-300 hover:bg-orange-400"
+          >
+            항목 모두 삭제
+          </button>
+        </div>
       </div>
     </div>
   ) : null;

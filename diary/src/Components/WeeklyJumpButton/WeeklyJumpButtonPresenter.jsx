@@ -2,7 +2,7 @@ import React from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { PropTypes } from 'prop-types';
 import { v4 } from 'uuid';
-import { WEEK } from '../../Constants/weeklyConstant';
+import { WEEKLY_CONST } from '../../Constants/weeklyConstant';
 
 const WeeklyJumpButtonPresenter = ({
   locThisWeek, moveToWeek, maximumWeeks, getWeeksfunc,
@@ -20,7 +20,7 @@ const WeeklyJumpButtonPresenter = ({
           type="button"
           key={v4()}
         >
-          {WEEK(idx + 1)}
+          {WEEKLY_CONST.NUM_OF_WEEK(idx + 1)}
         </button>
       ))}
     </div>

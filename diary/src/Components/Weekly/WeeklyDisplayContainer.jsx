@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { WEEK } from 'src/Constants/weeklyConstant';
+import { WEEKLY_CONST } from 'src/Constants/weeklyConstant';
 import WeeklyAxiosNetwork from 'src/network/weekly';
 import { setTextContent, setEditable, setIsWriten } from '../../Redux/action';
 import WeeklyDisplayPresenter from './WeeklyDisplayPresenter';
@@ -19,7 +19,7 @@ const WeeklyDisplayContainer = ({ idx }) => {
     ({ weeklyReducer }) => weeklyReducer.weeklyContents,
   );
   const { currlocWeek } = weeklyContents;
-  const weekly = weeklyContents[WEEK(currlocWeek)][idx];
+  const weekly = weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(currlocWeek)][idx];
   const {
     textContent, isEditable, isWriten,
   } = weekly;

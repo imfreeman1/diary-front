@@ -4,11 +4,10 @@
 import React from 'react';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
-import Button from '../../Button';
+import Button from 'src/Components/Button/Button';
 import MonthTodoItemContainer from '../MonthTodoItem/MonthTodoItemContainer';
 import MonthListModalContainer from '../MonthModal/MonthListModal/MonthListModalContainer';
-import { MONTH_CONST} from '../../../Constants/monthlyConstants';
-
+import { MONTH_CONST } from '../../../Constants/monthlyConstants';
 /**
  * @param {dayInfo} obj
  * @param {ctrListModal}
@@ -24,21 +23,17 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
       {todos.map((todo, idx) => {
         if (idx < viewTodoLen) {
           return (
-            <MonthTodoItemContainer
-              key={v4()}
-              todo={todo}
-              dayInfo={dayInfo}
-            />
+            <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />
           );
         }
         if (idx === viewTodoLen) {
           return (
-            <div key={v4()}>
+            <div key={v4()} className="p-1 pl-2 px-5 my-2.5 mx-0.5 bg-pink-100 text-pink-900 text-center rounded shadow-inner hover:bg-pink-200">
               <Button
                 key={v4()}
                 onClick={() => ctrListModal.handleModalOpen()}
                 content={MONTH_CONST.SHOW_MORE_TODO(dayInfo.todos)}
-                className="block p-1 pl-2 my-2 mx-auto hover:font-semibold hover:cursor-pointer text-green-900"
+                className=" "
               />
               <MonthListModalContainer
                 dayInfo={dayInfo}
@@ -47,11 +42,6 @@ const MonthTodoPresenter = ({ dayInfo, ctrListModal, viewTodoLen }) => {
                 listModalRef={ctrListModal.modalRef}
               />
             </div>
-          );
-        }
-        if (idx < viewTodoLen) {
-          return (
-            <MonthTodoItemContainer key={v4()} todo={todo} dayInfo={dayInfo} />
           );
         }
       })}

@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import useOnClickOutside from './useOnClickOutSide';
 
 /**
@@ -35,8 +34,4 @@ const useControlModal = (isInMonth) => {
     handleModalClose,
   };
 };
-useControlModal.propTypes = {
-  isInMonth: PropTypes.bool.isRequired,
-};
-
 export default useControlModal;

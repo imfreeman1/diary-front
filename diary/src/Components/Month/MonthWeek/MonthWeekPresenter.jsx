@@ -10,7 +10,7 @@ import MonthDateContainer from '../MonthDate/MonthDateContainer';
 
 const MonthWeekPresenter = ({ week }) => (
   <tbody>
-    <tr className="flex">
+    <tr className="flex flex-grow m-2 gap-3">
       {week.map((dayInfo) => <MonthDateContainer dayInfo={dayInfo} key={v4()} />)}
     </tr>
   </tbody>
