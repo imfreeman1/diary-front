@@ -9,19 +9,16 @@ import { addTableSticker } from 'src/Redux/action';
 function StickerCropper({ modalHandler }) {
   const dispatch = useDispatch();
   const cropperRef = useRef(null);
+  // input이 들어왔을때, file을 읽음.
+  const files = useRef(null);
   // 유저가 첨부한 이미지
   const [inputImage, setInputImage] = useState(null);
   // 유저가 선택한 영역만큼 크롭된 이미지
-  const files = useRef(null);
-  // input이 들어왔을때, file을 읽음.
-  const onChange = (e) => {
-    e.preventDefault();
+  const onChange = ({ target, preventDefault, dataTransfer }) => {
+    preventDefault();
     const reader = new FileReader();
-    if (e.dataTransfer) {
-      files.current = e.dataTransfer.files;
-    } else if (e.target) {
-      files.current = e.target.files;
-    }
+    if (dataTransfer) { files.current = dataTransfer.files; }
+    if (!dataTransfer && target) { files.current = target.files; }
     reader.onload = () => {
       setInputImage(reader.result);
     };
