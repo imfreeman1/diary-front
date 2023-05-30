@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
 import { getStickers } from 'src/Redux/action';
 import utilAxios from 'src/Utils/utilAxios';
+import { GET_STICKER_OPTIONS } from 'src/Constants/stickerConstant';
 import StickerContainer from '../Sticker/StickerContainer';
 
 const StickerDisplay = ({ pageDate }) => {
@@ -13,12 +14,7 @@ const StickerDisplay = ({ pageDate }) => {
     (state) => state.stickerReducer.stickersObj,
   );
   useEffect(() => {
-    const URL = `/sticker/read/${currRouter.toLowerCase()}/${pageDate}/`;
-    const getStickerOptions = {
-      url: URL,
-      method: 'get',
-      getReturn: true,
-    };
+    const getStickerOptions = GET_STICKER_OPTIONS(currRouter, pageDate);
     const asyncGetSticker = async () => {
       const responseData = await utilAxios(getStickerOptions);
       if (responseData.data.code
