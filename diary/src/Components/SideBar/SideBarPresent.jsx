@@ -24,7 +24,7 @@ function SideBarPresent({
   return (
     <div className=" absolute inset-y-0">
       <div className="fixed right-0">
-        {modalVisible ? <StickerMakeModal modalHandler={modalHandler} /> : null}
+        {modalVisible && <StickerMakeModal modalHandler={modalHandler} />}
         <div className="flex h-screen">
           {sidebarVisible ? (
             <BiChevronRight
@@ -39,7 +39,7 @@ function SideBarPresent({
               onClick={sidebarHandler}
             />
           )}
-          {sidebarVisible ? (
+          {sidebarVisible && (
             <div className="overflow-auto inline-block bg-white">
               <div className=" flex justify-end mt-2 mr-2 mb-4">
                 <BiImageAdd size={30} onClick={modalHandler} />
@@ -54,7 +54,7 @@ function SideBarPresent({
                 ))}
               </div>
             </div>
-          ) : null}
+          ) }
         </div>
       </div>
     </div>
