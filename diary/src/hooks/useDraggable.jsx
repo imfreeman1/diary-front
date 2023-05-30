@@ -9,10 +9,10 @@ import debounce from 'src/Utils/debounce';
 import { STICKER_CONST } from 'src/Constants/stickerConstant';
 
 const useDraggable = (position, pageDate) => {
-  const positions = useRef(null);
-  const dispatch = useDispatch();
-  positions.current = position;
   const currRouter = CURRENT_ROUTER_PATH();
+  const dispatch = useDispatch();
+  const positions = useRef(null);
+  positions.current = position;
   const currStickersList = useSelector(
     (state) => state.stickerReducer.stickersObj[currRouter][pageDate],
   );
@@ -31,13 +31,11 @@ const useDraggable = (position, pageDate) => {
         },
         listeners: {
           start: (event) => {
-            const currSticker = currStickersList.find(
-              (sticker) => sticker.id === event.target.id,
+            currStickersList.find(
+              ({ id, positionX, positionY }) => {
+                if (id === event.target.id) position.current = { positionX, positionY };
+              },
             );
-            positions.current = {
-              positionX: currSticker.positionX,
-              positionY: currSticker.positionY,
-            };
           },
           move: (event) => {
             const styleOfTarget = event.target.style;
@@ -54,7 +52,7 @@ const useDraggable = (position, pageDate) => {
                 pageDate,
               }),
             );
-            debounce(400, callBackDispatch);
+            debounce(10, callBackDispatch);
           },
         },
       });
@@ -62,7 +60,7 @@ const useDraggable = (position, pageDate) => {
         clearTimeout(debounce);
       };
     },
-    [dispatch],
+    [dispatch, currRouter, currStickersList, position, pageDate],
   );
 };
 
