@@ -25,13 +25,13 @@ const StickerPresent = ({
       className={`${selected ? 'resizable ring' : null}`}
       onDoubleClick={(e) => focusHandler(e)}
     >
-      {selected ? (
+      {selected && (
         <BiX
           className="absolute -right-2 -top-6 hover:cursor-pointer pl-1 mb-1"
           onClick={(e) => removeStickerHandler(e)}
           size={24}
         />
-      ) : null}
+      )}
       <Image
         className="object-fill w-full h-full"
         src={imgURL}
