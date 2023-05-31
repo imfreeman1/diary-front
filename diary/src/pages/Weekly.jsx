@@ -4,7 +4,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
-import { v4 } from 'uuid';
 import WeeklyAxiosNetwork from 'src/network/weekly';
 import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
 import makeWeekly, { getlocWeek } from '../Utils/makeWeekly';
@@ -12,7 +11,7 @@ import {
   setIsWriten,
   setlocWeek, setSelectedWeek, setWeekly,
 } from '../Redux/action';
-import { WEEKLY_CONST } from '../Constants/weeklyConstant';
+import { IS_DAY, WEEKLY_CONST } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
@@ -31,35 +30,26 @@ import useGetDateOffset from '../hooks/useGetDateOffset';
  */
 
 const WeeklyPage = () => {
-  const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
-  // datepicker에 필요한 변수 설정
-  const date = new Date();
-  const [selectedDate, setSelectedDate] = useState(date);
-  const yearInMonth = selectedDate.getFullYear();
   const dispatch = useDispatch();
-  const currentWeeklyPage = makeWeekly(selectedDateInWeek);
+  const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
   const locThisWeek = getlocWeek(selectedDateInWeek);
-  const mondayInWeek = currentWeeklyPage.find((findDate) => findDate.day === 'Mon').locdate;
+  const currentWeeklyPage = makeWeekly(selectedDateInWeek);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const offsetDate = useGetDateOffset(selectedDate);
+  const mondayInWeek = currentWeeklyPage.find(({ day }) => IS_DAY[day]).locdate;
   const currWeeklyContents = useSelector(
     ({ weeklyReducer }) => weeklyReducer.weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locThisWeek)],
   );
-  // 최초 렌더링=> 현재 date 정보 전달 (월요일로 변환 & str로 전달)
-  useEffect(() => {
-    dispatch(setlocWeek(locThisWeek));
-  });
-  // 현재 날짜가 바뀌면 해당 날짜의 페이지 정보 띄우기
-  useEffect(() => {
-    dispatch(setWeekly({ currentWeeklyPage, locWeek: locThisWeek }));
-  }, [dispatch, selectedDateInWeek]);
-  const offsetDate = useGetDateOffset(selectedDate);
   // datepicker로 인한 날짜 변경 시, selectedDateInWeek를 선택한 date로 변경 (offset+str 변환)
   useEffect(() => {
     dispatch(setSelectedWeek(offsetDate));
-  }, [dispatch, selectedDate]);
+  }, [selectedDate]);
 
   useEffect(() => {
-    WeeklyAxiosNetwork.Read(locThisWeek).then((res) => {
-      res.result.map(({ number_of_week, content }) => {
+    dispatch(setWeekly({ currentWeeklyPage, locWeek: locThisWeek }));
+    dispatch(setlocWeek(locThisWeek));
+    WeeklyAxiosNetwork.Read(locThisWeek).then(({ result }) => {
+      result.map(({ number_of_week, content }) => {
         dispatch(setIsWriten({
           content,
           idx: number_of_week,
@@ -68,17 +58,11 @@ const WeeklyPage = () => {
         }));
       });
     });
-  }, []);
-  const weeklyHighlight = useSelector(
-    (state) => state.weeklyReducer.weeklyContents,
-  );
-  const weeklyHighlightArr = Object.keys(weeklyHighlight)
-    .filter((key) => key !== 'currlocWeek')
-    .map((item) => new Date(weeklyHighlight[item][1].locdate));
+  }, [selectedDateInWeek]);
 
   return (
     <>
-      <NavBarContainer yearInMonth={yearInMonth} />
+      <NavBarContainer yearInMonth={selectedDate.getFullYear()} />
       <StickerDisplay pageDate={mondayInWeek} />
       <div className="h-full w-full bg-[#9DBC9D] text-center p-10">
 
@@ -92,17 +76,16 @@ const WeeklyPage = () => {
               isWeekly
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
-              highlightDatesArr={weeklyHighlightArr}
               inputStyle="text-green-900  p-2"
             />
           </div>
           <WeeklyJumpButtonContainer locThisWeek={locThisWeek} />
           <div className="m-3 mx-5 grid grid-cols-4">
             {currWeeklyContents
-              && currWeeklyContents.map((day, i) => (
+              && currWeeklyContents.map((day, idx) => (
                 <WeeklyDisplayContainer
                   key={day.id}
-                  idx={i}
+                  idx={idx}
                   day={day}
                 />
               ))}
@@ -114,4 +97,4 @@ const WeeklyPage = () => {
   );
 };
 
-export default WeeklyPage;
+export default React.memo(WeeklyPage);
