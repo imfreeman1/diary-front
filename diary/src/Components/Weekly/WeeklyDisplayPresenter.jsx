@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -7,7 +9,7 @@ import WeeklyTiptapContainer from '../WeeklyTipTap/WeeklyTipTapContainer';
 const WeeklyDisplayPresenter = ({
   weekly,
   weekTextContent,
-  handleChange,
+  textHandleChange,
   setIsEditable,
   isEditable,
   onClickWeeklyContentRemove,
@@ -46,7 +48,7 @@ const WeeklyDisplayPresenter = ({
       <WeeklyTiptapContainer
         weekly={weekly}
         weekTextContent={weekTextContent}
-        handleChange={handleChange}
+        textHandleChange={textHandleChange}
         isEditable={isEditable}
       />
     </div>
@@ -61,7 +63,7 @@ WeeklyDisplayPresenter.propTypes = {
     textContent: PropTypes.string.isRequired,
   }).isRequired,
   weekTextContent: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  textHandleChange: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
   setIsEditable: PropTypes.func.isRequired,
   onClickWeeklyContentRemove: PropTypes.func.isRequired,

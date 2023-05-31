@@ -1,5 +1,6 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 import React, { useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import useGetEditor from '../../Utils/useGetEditor';
 import WeeklyTiptapPresenter from './WeeklyTiptapPresenter';
@@ -14,23 +15,19 @@ import WeeklyTiptapPresenter from './WeeklyTiptapPresenter';
  */
 
 const WeeklyTiptapContainer = ({
-  weekly, weekTextContent, handleChange, isEditable,
+  weekly, weekTextContent, textHandleChange, isEditable,
 }) => {
-  const dispatch = useDispatch();
   const editor = useGetEditor();
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
   useLayoutEffect(() => {
     editor?.off('update');
-    if (editor && !editor.isDestroyed && weekly) {
-      editor?.commands.setContent(weekTextContent);
-    }
+    if (editor && !editor.isDestroyed && weekly) { editor?.commands.setContent(weekTextContent); }
     editor?.on('update', () => {
       if (editor.getText().trim() === '') return;
-      const html = editor.getHTML();
-      handleChange(html);
+      textHandleChange(editor.getHTML());
     });
     editor?.setEditable(isEditable);
-  }, [dispatch, editor, weekly, weekTextContent, handleChange, isEditable]);
+  }, [editor, weekly, weekTextContent, textHandleChange, isEditable]);
 
   return (
     <WeeklyTiptapPresenter editor={editor} isEditable={isEditable} />
@@ -45,7 +42,7 @@ WeeklyTiptapContainer.propTypes = {
     textContent: PropTypes.string.isRequired,
   }).isRequired,
   weekTextContent: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  textHandleChange: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
 };
 

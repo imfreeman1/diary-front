@@ -14,7 +14,7 @@ import WeeklyJumpButtonPresenter from './WeeklyJumpButtonPresenter';
  */
 
 const WeeklyJumpButtonContainer = ({ locThisWeek }) => {
-  const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
+  const { selectedDateInWeek } = useSelector(({ weeklyReducer }) => weeklyReducer);
   const dispatch = useDispatch();
 
   const moveToWeek = (nextWeek) => {

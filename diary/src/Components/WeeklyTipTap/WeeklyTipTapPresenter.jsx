@@ -1,12 +1,15 @@
+/* eslint-disable max-len */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import PropTypes from 'prop-types';
 import WeeklyEditorMenuBar from './WeeklyEditorMenuBar';
 
 const WeeklyTiptapPresenter = ({ editor, isEditable }) => (
+
   <div className="p-3 text-left overflow-hidden ">
     {
-      isEditable === true && (
+      isEditable && (
       <div className="w-full h-[56px] flex border-2 text-base text-gray-800">
         <WeeklyEditorMenuBar editor={editor} />
       </div>

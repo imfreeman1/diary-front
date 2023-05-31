@@ -7,17 +7,7 @@ import { Editor } from '@tiptap/react';
 import WeeklyEditorMenuBarButton from './WeeklyEditorMenuBarButton';
 
 const WeeklyEditorMenuBar = ({ editor }) => {
-  if (!editor) {
-    return null;
-  }
-  // const editorFocus = () => {
-  //   console.log(editor.chain().focus());
-  //   return editor.chain().focus();
-  // };
-  // const disabledEditorFocus = () => {
-  //   console.log(!editor.can().chain().focus());
-  //   return !editor.can().chain().focus();
-  // };
+  if (!editor) return null;
 
   return (
     <div className="flex flex-row flex-1">
@@ -35,7 +25,7 @@ const WeeklyEditorMenuBar = ({ editor }) => {
         onClick={() => editor.chain().focus().toggleHighlight().run()}
         disabled={
           !editor.can().chain().focus()
-            .toggleItalic()
+            .toggleHighlight()
             .run()
         }
         className={editor.isActive('highlight') ? 'is-active' : ''}
