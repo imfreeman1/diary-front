@@ -8,7 +8,7 @@ import WeeklyAxiosNetwork from 'src/network/weekly';
 import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
 import makeWeekly, { getlocWeek } from '../Utils/makeWeekly';
 import {
-  setIsWriten,
+  setWeeklyIsWriten,
   setlocWeek, setSelectedWeek, setWeekly,
 } from '../Redux/action';
 import { IS_DAY, WEEKLY_CONST } from '../Constants/weeklyConstant';
@@ -50,7 +50,7 @@ const WeeklyPage = () => {
     dispatch(setlocWeek(locThisWeek));
     WeeklyAxiosNetwork.Read(locThisWeek).then(({ result }) => {
       result.map(({ number_of_week, content }) => {
-        dispatch(setIsWriten({
+        dispatch(setWeeklyIsWriten({
           content,
           idx: number_of_week,
           isWriten: true,
