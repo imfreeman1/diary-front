@@ -7,7 +7,7 @@ export const STICKER_CONST = {
   POSITION_TRANSLATOR: (position) => `translate(${position.positionX}px, ${position.positionY}px)`,
 };
 
-export const STICKER_DATA = (id, position, width, height, routerRef) => {
+export const STICKER_DATA = (id, position, height, width, routerRef) => {
   const { positionX, positionY } = position;
   return {
     id,
@@ -18,7 +18,7 @@ export const STICKER_DATA = (id, position, width, height, routerRef) => {
 };
 
 export const GET_STICKER_OPTIONS = (currRouter, pageDate) => ({
-  url: `/sticker/read${currRouter.toLowerCase()}/${pageDate}`,
+  url: `/sticker/read/${currRouter.toLowerCase()}/${pageDate}/`,
   method: 'get',
   getReturn: true,
 });
@@ -30,9 +30,9 @@ export const UPDATE_STICKER_OPTIONS = (data) => ({
 });
 
 export const REMOVE_STICKER_OPTIONS = (data) => ({
+  data,
   url: '/sticker/delete',
   method: 'post',
-  data,
   getReturn: true,
 });
 
