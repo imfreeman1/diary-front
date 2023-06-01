@@ -16,12 +16,6 @@ const DatepickerComponentContainer = ({
   inputStyle,
 }) => {
   const [isShow, setIsShow] = useState(false);
-  const handleClose = (state) => {
-    setIsShow(state);
-  };
-  const handleChange = (dateItem) => {
-    setSelectedDate(dateItem);
-  };
 
   return (
     <DatepickerComponentPresenter
@@ -30,8 +24,7 @@ const DatepickerComponentContainer = ({
       highlightDatesArr={highlightDatesArr}
       inputStyle={inputStyle}
       isShow={isShow}
-      handleClose={handleClose}
-      handleChange={handleChange}
+      handleClose={setIsShow}
       isWeekly={isWeekly}
     />
   );

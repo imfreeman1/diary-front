@@ -8,14 +8,14 @@ import DatepickerRenderCustomHeader from '../DatepickerCustom/DatepickerRenderCu
 // import { ko } from 'date-fns/esm/locale';
 
 const DatepickerComponentPresenter = ({
-  selectedDate, highlightDatesArr, inputStyle, isShow, handleChange, handleClose, isWeekly,
+  selectedDate, setSelectedDate, highlightDatesArr, inputStyle, isShow, handleClose, isWeekly,
 }) => (
   <DatePicker
     selected={selectedDate}
-    onChange={handleChange}
+    onChange={(value) => setSelectedDate(value)}
     highlightDates={highlightDatesArr}
     show={isShow}
-    setShow={handleClose}
+    setShow={(value) => handleClose(value)}
     customInput={<DatepickerCustomInput inputStyle={inputStyle} />}
     renderDayContents={DatepickerRenderDayContents}
     renderCustomHeader={DatepickerRenderCustomHeader}
@@ -27,10 +27,10 @@ const DatepickerComponentPresenter = ({
 );
 DatepickerComponentPresenter.propTypes = {
   selectedDate: PropTypes.instanceOf(Date).isRequired,
+  setSelectedDate: PropTypes.func.isRequired,
   highlightDatesArr: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   isShow: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
   inputStyle: PropTypes.string.isRequired,
   isWeekly: PropTypes.bool.isRequired,
 };

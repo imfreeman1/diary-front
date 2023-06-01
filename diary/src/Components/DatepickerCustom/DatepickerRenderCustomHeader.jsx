@@ -38,8 +38,8 @@ const DatepickerRenderCustomHeader = ({
       </select>
       <span className="text-lg">{MONTH_CONST.YEAR_INDICATING}</span>
       <select
-        value={number(MONTH_CONST.LIST[getMonth(date)])}
-        onChange={({ target: { value } }) => changeMonth(MONTHS.indexOf(value))}
+        value={Number(MONTH_CONST.LIST[getMonth(date)])}
+        onChange={({ target: { value } }) => changeMonth(MONTH_CONST.LIST.indexOf(value))}
         className="text-lg"
       >
         {MONTH_CONST.LIST.map((option) => (
