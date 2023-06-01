@@ -1,15 +1,12 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
-import { setDate } from 'src/Redux/action';
+import { useDispatch } from 'react-redux';
+import { initDaily, setDate } from 'src/Redux/action';
 import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
-import { v4 } from 'uuid';
 import useAxios from 'src/hooks/useAxios';
-import DailyTopMark from 'src/Components/DailyTopMark/DailyTopMark';
+import DailySaveMarker from 'src/Components/DailySaveMarker/DailySaveMarker';
 import DailyDisplayContainer from '../Components/Daily/DailyDisplayContainer';
-import { DAILY_CONST } from '../Constants/dailyConstant';
+import { DAILY_CONST, GET_DAILY_DIARY_OPT } from '../Constants/dailyConstant';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
 import useGetDateOffset from '../hooks/useGetDateOffset';
@@ -20,49 +17,29 @@ import useGetDateOffset from '../hooks/useGetDateOffset';
  */
 
 const Daily = () => {
-  const date = new Date();
-  const [selectedDate, setSelectedDate] = useState(date);
-  const yearInMonth = selectedDate.getFullYear();
-  // 기본 설정은 현재 날짜, 달력 선택한 날짜
-  const dateInDaily = selectedDate;
-  /**
-  const dailyHighlight = useSelector(
-    (state) => state.dailyReducer.dailyContents,
-  );
-  const dailyHighlightArr = Object.keys(dailyHighlight)
-    .filter((key) => key !== 'currentDate')
-    .map((item) => new Date(dailyHighlight[item].locdate));
-
-   */
   const dispatch = useDispatch();
-
-  // date() 객체는 redux action 객체로 불러올 수 없음. 간단한 날짜 형식으로 바꿔 넣어주기
-  // 날짜가 바뀌면 페이지를 다시 불러옴
-  const offsetDate = useGetDateOffset(dateInDaily);
-
-  const [isSave, setIsSave] = useState(true);
-  const {
-    response, error, loading, operation,
-  } = useAxios();
-
-  const getReadDailyAxios = () => {
-    operation({
-      method: 'get',
-      url: `/daily/read/${offsetDate}`,
-    });
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { response, operation } = useAxios();
+  const yearInMonth = selectedDate.getFullYear();
+  const offsetDate = useGetDateOffset(selectedDate);
+  dispatch(initDaily({ locdate: offsetDate, titleText: '', editorContent: '' }));
+  const getReadDailyAxios = async () => {
+    await operation(GET_DAILY_DIARY_OPT(offsetDate));
   };
 
-  // 현재 날짜 정보 store에 저장
+  useEffect(() => {
+    dispatch(initDaily({
+      locdate: offsetDate,
+      titleText: response?.result?.title || '',
+      editorContent: response?.result?.content || '',
+    }));
+  }, [response]);
+
   useEffect(() => {
     dispatch(setDate(offsetDate));
     getReadDailyAxios();
-  }, [dispatch, offsetDate]);
+  }, [offsetDate]);
 
-  // result :{id:1, user_id:2, title:'1', content:'', date:'2023-05-12',}
-  // createAt, updateAt / title, content
-  const axiosCode = response?.code || '';
-  const resTitle = response?.result?.title || '';
-  const resContent = response?.result?.content || '';
   return (
     <>
       <NavBarContainer yearInMonth={yearInMonth} />
@@ -73,12 +50,9 @@ const Daily = () => {
             <div className="w-fit h-fit p-2 px-5 ml-5 mt-5 border-4 border-gray-200 font-bold text-2xl rounded-full shadow">
               <p>{DAILY_CONST.LOGO}</p>
             </div>
-            <DailyTopMark isSave={isSave} setIsSave={setIsSave} axiosCode={axiosCode} />
+            <DailySaveMarker axiosCode={response?.code || ''} />
           </div>
           <DailyDisplayContainer
-            setIsSave={setIsSave}
-            resTitle={resTitle}
-            resContent={resContent}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
