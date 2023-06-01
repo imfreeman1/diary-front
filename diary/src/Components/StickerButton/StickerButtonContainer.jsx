@@ -16,7 +16,7 @@ function StickerButtonContainer({ sticker, pageDate }) {
   const makeStickerHandler = async ({ view: { innerHeight, innerWidth } }) => {
     const newId = v4();
     const [positionX, positionY] = [innerWidth / 2, innerHeight / 4];
-    const imgFile = await urlToFile(sticker, 'image');
+    const imgFile = await urlToFile(sticker.imgURL, 'image');
     const stickerFormDataObject = STICKER_FORM_DATA_OBJ(
       newId,
       pageDate,
