@@ -6,10 +6,8 @@ import PropTypes from 'prop-types';
 import { Editor } from '@tiptap/react';
 import EditorMenuBarButton from './EditorMenuBarButton';
 
-const EditorMenuBar = ({ editor, setIsErase }) => {
-  if (!editor) {
-    return null;
-  }
+const EditorMenuBar = ({ editor, dailyContentsErase }) => {
+  if (!editor) return null;
 
   return (
     <>
@@ -106,7 +104,7 @@ const EditorMenuBar = ({ editor, setIsErase }) => {
           content={<BiHighlight size="28" className="w-14 text-[#ffcc00]" />}
         />
         <EditorMenuBarButton
-          onClick={() => setIsErase(true)}
+          onClick={dailyContentsErase}
           disabled={
             !editor.can()
               .chain()
@@ -147,7 +145,7 @@ const EditorMenuBar = ({ editor, setIsErase }) => {
 };
 EditorMenuBar.propTypes = {
   editor: PropTypes.instanceOf(Editor),
-  setIsErase: PropTypes.func.isRequired,
+  dailyContentsErase: PropTypes.func.isRequired,
 };
 EditorMenuBar.defaultProps = {
   editor: {},

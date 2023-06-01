@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { setEditor } from '../../Redux/action';
+import { DAILY_CONST } from 'src/Constants/dailyConstant';
+import { setDailyIsWriten, setEditor } from '../../Redux/action';
 import useGetEditor from '../../Utils/useGetEditor';
 import TiptapPresenter from './TiptapPresenter';
 /**
@@ -14,38 +14,43 @@ import TiptapPresenter from './TiptapPresenter';
  * @returns
  */
 
-const TiptapContainer = ({ setIsSave, resContent }) => {
-  const { currentDate } = useSelector(
-    (state) => state.dailyReducer.dailyContents,
-  );
-  const Daily = useSelector(
-    (state) => state.dailyReducer.dailyContents[`D-${currentDate}`],
-  );
+const TiptapContainer = () => {
   const dispatch = useDispatch();
   const editor = useGetEditor();
+  const [isEditable, setIsEditable] = useState(false);
+  const [currentDate, dailyInfo] = useSelector(
+    ({ dailyReducer: { dailyContents } }) => [
+      dailyContents.currentDate,
+      dailyContents[DAILY_CONST.MARK(dailyContents.currentDate)],
+    ],
+  );
+
+  const dailyContentsErase = () => {
+    editor?.commands.setContent('');
+    dispatch(setEditor({ locdate: currentDate, editorContent: '' }));
+  };
+
   // 날짜가 바뀌면 editor content에 날짜에 맞는 content 불러오기
   useEffect(() => {
     editor?.off('update');
-    if (editor && !editor.isDestroyed && Daily) {
-      editor?.commands.setContent(Daily.editorContent);
-    }
-    if (editor && !editor.isDestroyed && resContent) {
-      editor?.commands.setContent(resContent);
+    if (editor && !editor.isDestroyed && dailyInfo) {
+      editor?.commands.setContent(dailyInfo.editorContent);
     }
     editor?.on('update', () => {
-      const html = editor.getHTML();
-      dispatch(setEditor({ locdate: currentDate, editorContent: html }));
-      setIsSave(false);
+      dispatch(setEditor({ locdate: currentDate, editorContent: editor.getHTML() }));
+      dispatch(setDailyIsWriten({ isWriten: false }));
     });
-  }, [dispatch, editor, currentDate, resContent]);
+    editor?.setEditable(isEditable);
+  }, [editor, currentDate, dailyInfo, isEditable]);
 
   return (
-    <TiptapPresenter editor={editor} />
+    <TiptapPresenter
+      editor={editor}
+      setIsEditable={setIsEditable}
+      isEditable={isEditable}
+      dailyContentsErase={dailyContentsErase}
+    />
   );
 };
 
-TiptapContainer.propTypes = {
-  setIsSave: PropTypes.func.isRequired,
-  resContent: PropTypes.string.isRequired,
-};
 export default TiptapContainer;
