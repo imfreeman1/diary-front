@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
-import { TITLE } from '../../Constants/dailyConstant';
+import { DAILY_CONST } from '../../Constants/dailyConstant';
 import TiptapContainer from '../Tiptap/TiptapContainer';
 import DatepickerComponentContainer from '../DatepickerComponent/DatepickerComponentContainer';
 
 function DailyDisplayPresenter({
-  Daily, content, handleInput, setIsSave, resContent, selectedDate, setSelectedDate,
+  dailyInfo, titleText, handleInput, selectedDate, setSelectedDate,
 }) {
   const roundLine = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   return (
@@ -22,49 +22,48 @@ function DailyDisplayPresenter({
       <div className="flex text-center text-xl font-bold border">
         <div className="basis-1/2">
           <DatepickerComponentContainer
+            isWeekly={false}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
             inputStyle="text-center text-xl font-bold hover:text-blue-800"
           />
         </div>
         <div className="basis-1/2 text-white bg-slate-400">
-          {Daily ? Daily.day : null}
+          {dailyInfo && dailyInfo.day }
         </div>
       </div>
       <div className="m-5 my-20">
         <div className="block mb-2 text-md font-medium text-gray-900 dark:text-gray-400">
-          {TITLE}
+          {DAILY_CONST.TITLE}
         </div>
         <textarea
           rows={1}
           spellCheck="false"
-          value={content}
+          value={titleText}
           onChange={handleInput}
           className="block min-h-[52px] max-h-[52px] p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-700"
         />
       </div>
       <div className="border-2 border-gray-200 overflow-hidden">
-        <TiptapContainer setIsSave={setIsSave} resContent={resContent} />
+        <TiptapContainer />
       </div>
     </div>
   );
 }
 DailyDisplayPresenter.propTypes = {
-  Daily: PropTypes.shape({
+  dailyInfo: PropTypes.shape({
     day: PropTypes.string,
     editorContent: PropTypes.string,
     locdate: PropTypes.string,
     titleText: PropTypes.string,
   }),
-  content: PropTypes.string.isRequired,
+  titleText: PropTypes.string.isRequired,
   handleInput: PropTypes.func.isRequired,
-  setIsSave: PropTypes.func.isRequired,
-  resContent: PropTypes.string.isRequired,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
   setSelectedDate: PropTypes.func.isRequired,
 };
 DailyDisplayPresenter.defaultProps = {
-  Daily: PropTypes.shape({
+  dailyInfo: PropTypes.shape({
     day: '',
     editorContent: '',
     locdate: '',
