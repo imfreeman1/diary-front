@@ -12,11 +12,12 @@ export const {
 } = monthCalendarSlice.actions;
 
 export const {
-  setWeekly, setlocWeek, setSelectedWeek, setTextContent, setMoveToWeek, setEditable, setIsWriten,
+  setWeekly, setlocWeek, setSelectedWeek, setTextContent, setMoveToWeek,
+  setEditable, setWeeklyIsWriten,
 } = weeklySlice.actions;
 
 export const {
-  setDaily, setDate, setEditor, setTitle, setSave,
+  setDaily, setDate, setEditor, setTitle, setSave, setDailyIsWriten, initDaily,
 } = dailySlice.actions;
 
 export const {
