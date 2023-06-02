@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import useAxios from 'src/hooks/useAxios';
 import { allDelTodo } from 'src/Redux/action';
 import { useDispatch } from 'react-redux';
+import { POST_MONTH_DELETE_OPT } from 'src/Constants/monthlyConstants';
 import MonthListModalPresenter from './MonthListModalPresenter';
 
 const MonthListModalContainer = ({
@@ -17,16 +18,9 @@ const MonthListModalContainer = ({
 }) => {
   const dispatch = useDispatch();
   const { operation } = useAxios();
-  const postDeleteMonthlyAxios = () => {
-    operation({
-      method: 'post',
-      url: '/monthly/delete',
-      payload: { date: locdate },
-    });
-  };
   const handleDelete = () => {
     dispatch(allDelTodo({ date: locdate }));
-    postDeleteMonthlyAxios();
+    operation(POST_MONTH_DELETE_OPT(locdate));
   };
   return (
     <MonthListModalPresenter
