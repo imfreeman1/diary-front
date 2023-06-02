@@ -14,9 +14,9 @@ function SideBarContainer({ pageDate }) {
     <SideBarPresent
       stickerList={stickerList}
       modalVisible={modalVisible}
-      modalHandler={setModalVisible((s) => !s)}
+      modalHandler={() => { setModalVisible((s) => !s); }}
       sidebarVisible={sidebarVisible}
-      sidebarHandler={setSidebarVisible((s) => !s)}
+      sidebarHandler={() => { setSidebarVisible((s) => !s); }}
       pageDate={pageDate}
     />
   );
