@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import MonthDatePresenter from './MonthDatePresenter';
 import useControlModal from '../../../hooks/useControlModal';
 
@@ -9,24 +10,23 @@ import useControlModal from '../../../hooks/useControlModal';
  * @returns
  */
 
-function MonthDateContainer({ dayInfo }) {
+function MonthDateContainer({ dayIdx, week }) {
+  const monthCalendar = useSelector(({ monthCalendarReducer }) => (
+    monthCalendarReducer.monthCalendar));
+  const dayInfo = monthCalendar[week][dayIdx];
   const ctrInputModal = useControlModal(dayInfo.isInMonth);
-  return <MonthDatePresenter dayInfo={dayInfo} ctrInputModal={ctrInputModal} />;
+
+  return (
+    <MonthDatePresenter
+      dayInfo={dayInfo}
+      ctrInputModal={ctrInputModal}
+      isInMonth={dayInfo.isInMonth}
+    />
+  );
 }
 
 MonthDateContainer.propTypes = {
-  dayInfo: PropTypes.shape({
-    date: PropTypes.number.isRequired,
-    dateName: PropTypes.string.isRequired,
-    day: PropTypes.string.isRequired,
-    isHoliday: PropTypes.bool.isRequired,
-    isInMonth: PropTypes.bool.isRequired,
-    locdate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-    todos: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      todoContent: PropTypes.string.isRequired,
-    })).isRequired,
-  }).isRequired,
+  dayIdx: PropTypes.number.isRequired,
+  week: PropTypes.number.isRequired,
 };
 export default MonthDateContainer;

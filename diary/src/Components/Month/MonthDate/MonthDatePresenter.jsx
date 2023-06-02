@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MonthTodoContainer from '../MonthTodo/MonthTodoContainer';
-import MonthInputModalContainer from '../MonthModal/MonthInputModal/MonthInputModalContainer';
+import MonthInputModalContainer from '../MonthInputModal/MonthInputModalContainer';
 
 // MonthTodo : 입력한 투두 나타냄
 // MonthInputModal : 더블 클릭 -> input창 열림
@@ -15,7 +15,7 @@ import MonthInputModalContainer from '../MonthModal/MonthInputModal/MonthInputMo
 
 const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
   <td
-    onDoubleClick={() => ctrInputModal.handleModalOpen()}
+    onDoubleClick={ctrInputModal.handleModalOpen}
     className="static w-40 h-40 border border-slate-500 rounded"
   >
     <div
@@ -30,9 +30,19 @@ const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
       <span>{dayInfo.date}</span>
       <span className="text-sm ml-1">{dayInfo.dateName}</span>
     </div>
-    <MonthTodoContainer dayInfo={dayInfo} />
+    {
+      dayInfo.isInMonth && (
+        <MonthTodoContainer 
+          isInMonth={dayInfo.isInMonth} 
+          todos={dayInfo.todos} 
+          day={dayInfo.day}  
+          locdate={dayInfo.locdate} 
+        />
+      )
+    }
     <MonthInputModalContainer
-      dayInfo={dayInfo}
+      locdate={dayInfo.locdate}
+      todos={dayInfo.todos}
       inputModalVisible={ctrInputModal.modalVisible}
       handleInputModalClose={ctrInputModal.handleModalClose}
       inputModalRef={ctrInputModal.modalRef}
