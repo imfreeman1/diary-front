@@ -9,13 +9,18 @@ import MonthTodoPresenter from './MonthTodoPresenter';
  * @returns
  */
 
-function MonthTodoContainer({ dayInfo }) {
-  const ctrListModal = useControlModal(dayInfo.isInMonth);
-  const { todos } = dayInfo;
-  const viewTodoLen = todos?.length > MONTH_CONST.MAX_SHOW_TODO ? MONTH_CONST.BASIC_SHOW_TODO : MONTH_CONST.MAX_SHOW_TODO;
+function MonthTodoContainer({
+  todos, day, isInMonth, locdate,
+}) {
+  const ctrListModal = useControlModal(true);
+  const isTodoLenOver = todos?.length > MONTH_CONST.MAX_SHOW_TODO;
+  const viewTodoLen = isTodoLenOver ? MONTH_CONST.BASIC_SHOW_TODO : MONTH_CONST.MAX_SHOW_TODO;
   return (
     <MonthTodoPresenter
-      dayInfo={dayInfo}
+      locdate={locdate}
+      isInMonth={isInMonth}
+      todos={todos}
+      day={day}
       ctrListModal={ctrListModal}
       viewTodoLen={viewTodoLen}
     />
@@ -23,18 +28,13 @@ function MonthTodoContainer({ dayInfo }) {
 }
 
 MonthTodoContainer.propTypes = {
-  dayInfo: PropTypes.shape({
-    date: PropTypes.number.isRequired,
-    dateName: PropTypes.string.isRequired,
-    day: PropTypes.string.isRequired,
-    isHoliday: PropTypes.bool.isRequired,
-    isInMonth: PropTypes.bool.isRequired,
-    locdate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-    todos: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      todoContent: PropTypes.string.isRequired,
-    })).isRequired,
-  }).isRequired,
+  isInMonth: PropTypes.bool.isRequired,
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    todoContent: PropTypes.string.isRequired,
+  })).isRequired,
+  day: PropTypes.number.isRequired,
+  locdate: PropTypes.string.isRequired,
 };
 export default MonthTodoContainer;
