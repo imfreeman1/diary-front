@@ -27,6 +27,15 @@ export const getlocWeek = (dateInWeekly) => {
   return WEEKLY_CONST.WEEKLY_NUM_DAY_STR(year, month, weeks);
 };
 
+export const convertDayOfWeek = (day) => {
+  const baseDate = new Date(day);
+  const dateConv = new Date(day);
+  const firstDay = new Date(baseDate.setDate(1)).getDay();
+  const weeks = Math.ceil((dateConv.getDate() + firstDay) / 7);
+  const idxOfWeeks = dateConv.getDay();
+  return [weeks - 1, idxOfWeeks];
+};
+
 const makeWeekly = (dateInWeekly) => {
   const dateConv = new Date(dateInWeekly);
   const representWeekly = getlocWeek(dateConv);
