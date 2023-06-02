@@ -11,11 +11,12 @@ import MonthTodoItemPresenter from './MonthTodoItemPresenter';
  * @returns
  */
 
-const MonthTodoItemContainer = ({ todo, dayInfo }) => {
-  const ctrEditModal = useControlModal(dayInfo.isInMonth);
+// isInMonth
+const MonthTodoItemContainer = ({ todo, locdate, isInMonth }) => {
+  const ctrEditModal = useControlModal(isInMonth);
   return (
     <MonthTodoItemPresenter
-      dayInfo={dayInfo}
+      locdate={locdate}
       todo={todo}
       ctrEditModal={ctrEditModal}
     />
@@ -23,19 +24,8 @@ const MonthTodoItemContainer = ({ todo, dayInfo }) => {
 };
 
 MonthTodoItemContainer.propTypes = {
-  dayInfo: PropTypes.shape({
-    date: PropTypes.number.isRequired,
-    dateName: PropTypes.string.isRequired,
-    day: PropTypes.string.isRequired,
-    isHoliday: PropTypes.bool.isRequired,
-    isInMonth: PropTypes.bool.isRequired,
-    locdate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-    todos: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      todoContent: PropTypes.string.isRequired,
-    })).isRequired,
-  }).isRequired,
+  isInMonth: PropTypes.bool.isRequired,
+  locdate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   todo: PropTypes.shape({
     date: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
