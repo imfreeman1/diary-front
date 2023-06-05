@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
 import { DAILY_CONST } from '../../Constants/dailyConstant';
