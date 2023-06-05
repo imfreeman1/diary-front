@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import Landing from './Landing';
-import Main from './Main';
+import Cover from './Cover';
 // import { googleLogout } from '@react-oauth/google';
 
 export default function Home() {
@@ -16,5 +16,5 @@ export default function Home() {
     return null;
   }
 
-  return <div>{token ? <Main /> : <Landing />}</div>;
+  return <div>{token ? <Cover /> : <Landing />}</div>;
 }
