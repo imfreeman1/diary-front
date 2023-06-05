@@ -50,4 +50,4 @@ const DailySaveMarker = ({ axiosCode }) => {
 DailySaveMarker.propTypes = {
   axiosCode: PropTypes.string.isRequired,
 };
-export default DailySaveMarker;
+export default React.memo(DailySaveMarker);
