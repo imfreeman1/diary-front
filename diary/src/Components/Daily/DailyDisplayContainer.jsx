@@ -14,24 +14,22 @@ import DailyDisplayPresenter from './DailyDisplayPresenter';
 function DailyDisplayContainer({ selectedDate, setSelectedDate }) {
   const dispatch = useDispatch();
 
-  const [currentDate, isWriten, titleText, dailyInfo] = useSelector(
+  const [currentDate, dailyInfo] = useSelector(
     ({ dailyReducer: { dailyContents } }) => [
       dailyContents.currentDate,
-      dailyContents[DAILY_CONST.MARK(dailyContents.currentDate)]?.isWriten,
-      dailyContents[DAILY_CONST.MARK(dailyContents.currentDate)]?.titleText,
       dailyContents[DAILY_CONST.MARK(dailyContents.currentDate)],
     ],
   );
 
   const handleInput = ({ target }) => {
     dispatch(setTitle({ locdate: currentDate, titleText: target.value }));
-    if (isWriten) dispatch(setDailyIsWriten({ isWriten: false }));
+    if (dailyInfo?.isWriten) dispatch(setDailyIsWriten({ isWriten: false }));
   };
 
   return (
     <DailyDisplayPresenter
       dailyInfo={dailyInfo || {}}
-      titleText={titleText || ''}
+      titleText={dailyInfo?.titleText || ''}
       handleInput={handleInput}
       selectedDate={selectedDate}
       setSelectedDate={setSelectedDate}
