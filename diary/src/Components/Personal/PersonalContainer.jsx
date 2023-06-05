@@ -5,12 +5,12 @@ import React, {
 import useAxios from 'src/hooks/useAxios';
 // import axios from 'src/Utils/api';
 import makeFormData from 'src/Utils/makeFormData';
-import ProfilePresent from './ProfilePresent';
+import PersonalPresent from './PersonalPresent';
 // inputImg : 이미지 들어가는 <div>
 // files : 이미지 정보
 // userImage : 이미지(files)를 form 데이터로 변환된 정보를 담고 있는 state
 
-const ProfileContainer = () => {
+const PersonalContainer = () => {
   const [inputImg, setInputImg] = useState(null);
   const files = useRef(null);
   // const passwordRef = useRef(null);
@@ -102,7 +102,7 @@ const ProfileContainer = () => {
   //   }
   // });
   return (
-    <ProfilePresent
+    <PersonalPresent
       onChange={onChange}
       users={response?.result}
   // passwordRegister={passwordRegister}
@@ -116,4 +116,4 @@ const ProfileContainer = () => {
   );
 };
 
-export default ProfileContainer;
+export default PersonalContainer;

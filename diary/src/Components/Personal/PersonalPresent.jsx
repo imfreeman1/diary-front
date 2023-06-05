@@ -7,7 +7,7 @@ import Button from '../Button/Button';
 // 초기내용은 통신을 통해서 받아와야하고, 아마두... useEffect를 사용해야할 듯? axios로 받아오자.
 // 변경은 post 통신을 사용해야 할 듯.
 
-const ProfilePresent = ({
+const PersonalPresent = ({
   onChange, users, imgRef,
   // passwordRegister, passwordCheckRegister,
   // isDirty, errors, handleSignup,
@@ -101,7 +101,7 @@ const ProfilePresent = ({
   </>
 );
 
-ProfilePresent.propTypes = {
+PersonalPresent.propTypes = {
   onChange: PropTypes.func.isRequired,
   imgRef: PropTypes.shape({ current: PropTypes.object }).isRequired,
   users: PropTypes.shape({
@@ -111,4 +111,4 @@ ProfilePresent.propTypes = {
   postModify: PropTypes.func.isRequired,
 };
 
-export default ProfilePresent;
+export default PersonalPresent;
