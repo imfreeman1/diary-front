@@ -37,14 +37,14 @@ export const monthCalendarSlice = createSlice({
         }));
       });
     },
-    setTodo: ({ monthCalendar }, { payload: { dayInfo, text } }) => {
+    setTodo: ({ monthCalendar }, { payload: { locdate, text } }) => {
       const todo = {
         id: v4(),
-        date: dayInfo.locdate,
+        date: locdate,
         todoContent: text,
       };
       monthCalendar.map((week) => week.map((day) => {
-        if (day.locdate === dayInfo.locdate) {
+        if (day.locdate === locdate) {
           day.todos = [...day.todos, todo];
         }
       }));
