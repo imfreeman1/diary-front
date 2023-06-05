@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Month from 'public/Img/month.png';
 import { useRouter } from 'next/router';
 
-const Main = () => {
+const Cover = () => {
   const router = useRouter();
   const onClick = () => {
     router.push('Monthly');
@@ -35,4 +35,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Cover;
