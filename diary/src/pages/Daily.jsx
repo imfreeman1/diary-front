@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { initDaily, setDate } from 'src/Redux/action';
 import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
 import useAxios from 'src/hooks/useAxios';
@@ -22,7 +22,6 @@ const Daily = () => {
   const { response, operation } = useAxios();
   const yearInMonth = selectedDate.getFullYear();
   const offsetDate = useGetDateOffset(selectedDate);
-  dispatch(initDaily({ locdate: offsetDate, titleText: '', editorContent: '' }));
   const getReadDailyAxios = async () => {
     await operation(GET_DAILY_DIARY_OPT(offsetDate));
   };
@@ -36,7 +35,9 @@ const Daily = () => {
   }, [response]);
 
   useEffect(() => {
+    dispatch(initDaily({ locdate: offsetDate, titleText: '', editorContent: '' }));
     dispatch(setDate(offsetDate));
+    console.log('offsetDate', offsetDate);
     getReadDailyAxios();
   }, [offsetDate]);
 
