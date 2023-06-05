@@ -32,13 +32,11 @@ export const REMOVE_STICKER_OPTIONS = (payload) => ({
   payload,
   url: '/sticker/delete',
   method: 'post',
-  getReturn: true,
 });
 
 export const SET_STICKER_OPTIONS = (payload) => ({
   url: '/sticker/write',
   method: 'post',
-  header: { 'Content-Type': 'multipart/form-data' },
   payload,
   formdata: true,
 });
