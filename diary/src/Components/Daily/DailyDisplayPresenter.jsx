@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
 import { DAILY_CONST } from '../../Constants/dailyConstant';
@@ -9,6 +9,11 @@ function DailyDisplayPresenter({
   dailyInfo, titleText, handleInput, selectedDate, setSelectedDate,
 }) {
   const roundLine = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  // useEffect(()=>{
+  //   console.log(dailyInfo);
+  //   console.log(titleText);
+  //   console.log(selectedDate);
+  // })
   return (
     <div className="mx-10 my-5 p-2 border-4 border-gray-100 shadow-sm">
       <div className="flex m-5">
@@ -70,4 +75,4 @@ DailyDisplayPresenter.defaultProps = {
     titleText: '',
   }),
 };
-export default DailyDisplayPresenter;
+export default React.memo(DailyDisplayPresenter);
