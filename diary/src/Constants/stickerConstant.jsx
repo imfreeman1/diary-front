@@ -20,27 +20,27 @@ export const STICKER_DATA = (id, position, height, width, routerRef) => {
 export const GET_STICKER_OPTIONS = (currRouter, pageDate) => ({
   url: `/sticker/read/${currRouter.toLowerCase()}/${pageDate}/`,
   method: 'get',
-  getReturn: true,
 });
 
-export const UPDATE_STICKER_OPTIONS = (data) => ({
+export const UPDATE_STICKER_OPTIONS = (payload) => ({
   url: '/sticker/update',
   method: 'post',
-  data,
+  payload,
 });
 
-export const REMOVE_STICKER_OPTIONS = (data) => ({
-  data,
+export const REMOVE_STICKER_OPTIONS = (payload) => ({
+  payload,
   url: '/sticker/delete',
   method: 'post',
   getReturn: true,
 });
 
-export const SET_STICKER_OPTIONS = (data) => ({
+export const SET_STICKER_OPTIONS = (payload) => ({
   url: '/sticker/write',
   method: 'post',
   header: { 'Content-Type': 'multipart/form-data' },
-  data,
+  payload,
+  formdata: true,
 });
 
 export const STICKER_FORM_DATA_OBJ = (

@@ -4,14 +4,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
-import WeeklyAxiosNetwork from 'src/network/weekly';
+import useAxios from 'src/hooks/useAxios';
 import DatepickerComponent from '../Components/DatepickerComponent/DatepickerComponentContainer';
 import makeWeekly, { getlocWeek } from '../Utils/makeWeekly';
 import {
   setWeeklyIsWriten,
   setlocWeek, setSelectedWeek, setWeekly,
 } from '../Redux/action';
-import { IS_DAY, WEEKLY_CONST } from '../Constants/weeklyConstant';
+import { GET_WEEKLY_READ_OPT, IS_DAY, WEEKLY_CONST } from '../Constants/weeklyConstant';
 import WeeklyDisplayContainer from '../Components/Weekly/WeeklyDisplayContainer';
 import NavBarContainer from '../Components/NavBar/NavBarContainer';
 import SideBarContainer from '../Components/SideBar/SideBarContainer';
@@ -37,6 +37,7 @@ const WeeklyPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const offsetDate = useGetDateOffset(selectedDate);
   const mondayInWeek = currentWeeklyPage.find(({ day }) => IS_DAY[day]).locdate;
+  const { response, operation } = useAxios();
   const currWeeklyContents = useSelector(
     ({ weeklyReducer }) => weeklyReducer.weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(locThisWeek)],
   );
@@ -48,18 +49,21 @@ const WeeklyPage = () => {
   useEffect(() => {
     dispatch(setWeekly({ currentWeeklyPage, locWeek: locThisWeek }));
     dispatch(setlocWeek(locThisWeek));
-    WeeklyAxiosNetwork.Read(locThisWeek).then(({ result }) => {
-      result.map(({ number_of_week, content }) => {
+    operation(GET_WEEKLY_READ_OPT(locThisWeek));
+  }, [selectedDateInWeek, operation]);
+
+  useEffect(() => {
+    if (response?.result) {
+      response.result.map((day) => {
         dispatch(setWeeklyIsWriten({
-          content,
-          idx: number_of_week,
+          content: day.content,
+          idx: day.number_of_week,
           isWriten: true,
           locThisWeek,
         }));
       });
-    });
-  }, [selectedDateInWeek]);
-
+    }
+  }, [response]);
   return (
     <>
       <NavBarContainer yearInMonth={selectedDate.getFullYear()} />

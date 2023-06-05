@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import axios from 'src/Utils/api';
 
 /**
@@ -16,26 +16,29 @@ const useAxios = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const operation = async ({
-    method, url, payload, headers,
-  }) => {
+  const test = async (
+    {
+      method, url, payload, header, formdata,
+    },
+  ) => {
     try {
       setLoading(true);
+      const headers = { ...header, 'Content-Type': formdata ? 'multipart/form-data' : 'application/json' };
       const result = await axios.request({
         method,
         url,
         data: payload,
         withCredentials: true,
-        // headers,
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers,
       });
-      setResponse(result.data);
+      await setResponse(result.data);
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
   };
+  const operation = useCallback((options) => test(options), []);
 
   return {
     response, error, loading, operation,

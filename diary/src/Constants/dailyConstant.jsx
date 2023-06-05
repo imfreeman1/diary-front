@@ -5,11 +5,13 @@ export const DAILY_CONST = {
 };
 
 // export const DAILY_TITLE = 'Title';
-export const GET_DAILY_DIARY_OPT = (date) => ({
-  method: 'get',
-  url: `/daily/read/${date}`,
-});
-
+export const GET_DAILY_DIARY_OPT = (date) => {
+  if (!date) throw new Error('date is not defined');
+  return ({
+    method: 'get',
+    url: `/daily/read/${date}`,
+  });
+};
 export const POST_DAILY_WRITE_OPT = (dailyInfo) => ({
   method: 'post',
   url: '/daily/write/',

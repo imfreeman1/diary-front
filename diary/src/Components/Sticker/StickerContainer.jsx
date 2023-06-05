@@ -10,6 +10,7 @@ import utilAxios from 'src/Utils/utilAxios';
 import {
   REMOVE_STICKER_OPTIONS, STICKER_CONST, STICKER_DATA, UPDATE_STICKER_OPTIONS,
 } from 'src/Constants/stickerConstant';
+import useAxios from 'src/hooks/useAxios';
 import StickerPresent from './StickerPresent';
 
 /*
@@ -44,6 +45,7 @@ function StickerContainer({
   // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
   useDraggable(position, pageDate);
   useResizable(pageDate, focusRef, id);
+  const { operation } = useAxios();
   useEffect(() => {
     const stickerPosition = focusRef.current;
 
@@ -51,7 +53,7 @@ function StickerContainer({
     const updateStickerOptions = UPDATE_STICKER_OPTIONS(stickerData);
     // update는 componentUnDidMount에서 실행하는 하는 것도 괜찮을거 같음.
     // 현재 마지막 남은 스티커를 삭제 할 경우 debounce에서 에러가 발생.
-    const updateSticker = () => utilAxios(updateStickerOptions);
+    const updateSticker = () => operation(updateStickerOptions);
     debounce(2000, updateSticker);
     stickerPosition.style.transform = STICKER_CONST.POSITION_TRANSLATOR(position);
     const stickerImgSize = stickerPosition.firstChild;
@@ -61,7 +63,7 @@ function StickerContainer({
     );
 
     return () => clearTimeout(debounce(updateSticker));
-  }, [position, height, width, id, routerRef]);
+  }, [position, height, width, id]);
 
   const focusHandler = () => {
     const selectedStickerId = focusRef.current.id;
@@ -70,7 +72,7 @@ function StickerContainer({
 
   const removeStickerHandler = async () => {
     try {
-      await utilAxios(REMOVE_STICKER_OPTIONS(id));
+      operation(REMOVE_STICKER_OPTIONS({ id }));
       dispatch(removeSticker({ id, origin: routerRef, pageDate }));
     } catch (error) {
       throw new Error(error);

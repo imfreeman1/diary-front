@@ -5,14 +5,15 @@ import { setSticker } from 'src/Redux/action';
 import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
 import urlToFile from 'src/Utils/urlToFile';
 import makeFormData from 'src/Utils/makeFormData';
-import utilAxios from 'src/Utils/utilAxios';
 import { v4 } from 'uuid';
 import { SET_STICKER_OPTIONS, STICKER_FORM_DATA_OBJ } from 'src/Constants/stickerConstant';
+import useAxios from 'src/hooks/useAxios';
 import StickerButtonPresent from './StickerButtonPresent';
 
 function StickerButtonContainer({ sticker, pageDate }) {
   const dispatch = useDispatch();
   const currRouter = CURRENT_ROUTER_PATH();
+  const { operation } = useAxios();
   const makeStickerHandler = async ({ view: { innerHeight, innerWidth } }) => {
     const newId = v4();
     const [positionX, positionY] = [innerWidth / 2, innerHeight / 4];
@@ -28,7 +29,7 @@ function StickerButtonContainer({ sticker, pageDate }) {
     );
     const formData = makeFormData(stickerFormDataObject);
     const setStickerOptions = SET_STICKER_OPTIONS(formData);
-    await utilAxios(setStickerOptions);
+    await operation(setStickerOptions);
     dispatch(setSticker(
       {
         origin: currRouter, id: sticker.id, position: { positionX, positionY }, newId, pageDate,
