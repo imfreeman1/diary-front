@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SignupModalContainer from '../SignupModal/SignupModalContainer';
-import LoginModalContainer from '../LoginModal/LoginModalContainer';
+import LoginModalContainer from '../LoginModal/LoginModalPresenter';
 
 const LandingModalPresenter = ({ modalRef, setIsSignup, isSignup }) => (
   <div className="fixed top-0 left-0 h-screen w-screen bg-opacity-20 bg-[#000000]">
