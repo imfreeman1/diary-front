@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { setMoveToWeek, setSelectedWeek } from '../../Redux/action';
-import useGetWeeksTarget from '../../Utils/useGetWeeksTarget';
+import makeWeeksTarget from '../../Utils/makeWeeksTarget';
 import WeeklyJumpButtonPresenter from './WeeklyJumpButtonPresenter';
 /**
  * 모든 날짜를 월요일로 나타내어 관리하기
@@ -14,14 +14,14 @@ import WeeklyJumpButtonPresenter from './WeeklyJumpButtonPresenter';
  */
 
 const WeeklyJumpButtonContainer = ({ locThisWeek }) => {
-  const { selectedDateInWeek } = useSelector((state) => state.weeklyReducer);
+  const { selectedDateInWeek } = useSelector(({ weeklyReducer }) => weeklyReducer);
   const dispatch = useDispatch();
 
   const moveToWeek = (nextWeek) => {
     dispatch(setMoveToWeek(nextWeek));
   };
 
-  const maximumWeeks = useGetWeeksTarget(selectedDateInWeek);
+  const maximumWeeks = makeWeeksTarget(selectedDateInWeek);
 
   const getWeeksfunc = (mday) => {
     dispatch(setSelectedWeek(mday));

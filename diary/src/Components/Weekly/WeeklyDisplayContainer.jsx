@@ -1,7 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setTextContent } from '../../Redux/action';
+import {
+  POST_WEEKLY_DELETE_OPT, POST_WEEKLY_UPDATE_OPT, POST_WEEKLY_WRITE_OPT, WEEKLY_CONST,
+} from 'src/Constants/weeklyConstant';
+import useAxios from 'src/hooks/useAxios';
+import { setTextContent, setEditable, setWeeklyIsWriten } from '../../Redux/action';
 import WeeklyDisplayPresenter from './WeeklyDisplayPresenter';
 /**
  * @param {idx} number, 배열의 idx (0-7)
@@ -11,22 +15,61 @@ import WeeklyDisplayPresenter from './WeeklyDisplayPresenter';
  *
  * @returns
  */
-const WeeklyDisplayContainer = ({ idx }) => {
-  const { currlocWeek } = useSelector(
-    (state) => state.weeklyReducer.weeklyContents,
-  );
-  const weekly = useSelector(
-    (state) => state.weeklyReducer.weeklyContents[`W-${currlocWeek}`][idx],
-  );
-  const dispatch = useDispatch();
-  const weekTextContent = useSelector(
-    (state) => state.weeklyReducer.weeklyContents[`W-${currlocWeek}`][idx].textContent,
-  );
 
-  const handleChange = (e) => {
+const WeeklyDisplayContainer = ({ idx }) => {
+  const weeklyContents = useSelector(
+    ({ weeklyReducer }) => weeklyReducer.weeklyContents,
+  );
+  const { currlocWeek } = weeklyContents;
+  const weekly = weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(currlocWeek)][idx];
+  const { textContent, isEditable, isWriten } = weekly;
+  const { operation, response } = useAxios();
+  const dispatch = useDispatch();
+
+  const onClickWeeklyContentRemove = async () => {
+    operation(POST_WEEKLY_DELETE_OPT({
+      string_of_week: currlocWeek, number_of_week: idx,
+    }));
+    dispatch(
+      setWeeklyIsWriten({
+        idx,
+        content: '',
+        isWriten: false,
+        locThisWeek: currlocWeek,
+      }),
+    );
+  };
+  const textHandleChange = (htmlText) => {
     dispatch(
       setTextContent({
-        content: e.target.value,
+        content: htmlText,
+        idx,
+        locThisWeek: currlocWeek,
+      }),
+    );
+  };
+
+  const weeklyContentWrite = async () => {
+    if (isEditable && !isWriten && textContent.trim() !== '') {
+      operation(POST_WEEKLY_WRITE_OPT({
+        string_of_week: currlocWeek, number_of_week: idx, textContent,
+      }));
+    }
+  };
+
+  const weeklyContentUpdate = async () => {
+    if (isEditable && isWriten) {
+      operation(POST_WEEKLY_UPDATE_OPT({
+        string_of_week: currlocWeek, number_of_week: idx, textContent,
+      }));
+    }
+  };
+
+  const setIsEditable = () => {
+    weeklyContentWrite();
+    weeklyContentUpdate();
+    dispatch(
+      setEditable({
         idx,
         locThisWeek: currlocWeek,
       }),
@@ -35,9 +78,12 @@ const WeeklyDisplayContainer = ({ idx }) => {
 
   return (
     <WeeklyDisplayPresenter
+      isEditable={isEditable}
+      onClickWeeklyContentRemove={onClickWeeklyContentRemove}
+      setIsEditable={setIsEditable}
       weekly={weekly}
-      weekTextContent={weekTextContent}
-      handleChange={handleChange}
+      weekTextContent={textContent}
+      textHandleChange={textHandleChange}
     />
   );
 };

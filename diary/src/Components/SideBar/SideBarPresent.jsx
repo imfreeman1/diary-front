@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes, { objectOf } from 'prop-types';
-import { v4 } from 'uuid';
+import PropTypes from 'prop-types';
 import { BiChevronLeft, BiChevronRight, BiImageAdd } from 'react-icons/bi';
 import StickerMakeModal from '../StickerMakeModal/StickerMakeModal';
 import StickerButtonContainer from '../StickerButton/StickerButtonContainer';
@@ -20,11 +19,12 @@ function SideBarPresent({
   modalHandler,
   sidebarVisible,
   sidebarHandler,
+  pageDate,
 }) {
   return (
     <div className=" absolute inset-y-0">
       <div className="fixed right-0">
-        {modalVisible ? <StickerMakeModal modalHandler={modalHandler} /> : null}
+        {modalVisible && <StickerMakeModal modalHandler={modalHandler} />}
         <div className="flex h-screen">
           {sidebarVisible ? (
             <BiChevronRight
@@ -39,18 +39,22 @@ function SideBarPresent({
               onClick={sidebarHandler}
             />
           )}
-          {sidebarVisible ? (
+          {sidebarVisible && (
             <div className="overflow-auto inline-block bg-white">
               <div className=" flex justify-end mt-2 mr-2 mb-4">
                 <BiImageAdd size={30} onClick={modalHandler} />
               </div>
               <div className="grid grid-cols-2">
                 {stickerList.map((sticker) => (
-                  <StickerButtonContainer imgURL={sticker.imgURL} id={sticker.id} key={v4()} />
+                  <StickerButtonContainer
+                    sticker={sticker}
+                    pageDate={pageDate}
+                    key={sticker.id}
+                  />
                 ))}
               </div>
             </div>
-          ) : null}
+          ) }
         </div>
       </div>
     </div>
@@ -58,7 +62,7 @@ function SideBarPresent({
 }
 
 SideBarPresent.propTypes = {
-  stickerList: PropTypes.arrayOf(objectOf({
+  stickerList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     imgURL: PropTypes.string,
     positionX: PropTypes.number,
@@ -71,6 +75,7 @@ SideBarPresent.propTypes = {
   modalHandler: PropTypes.func.isRequired,
   sidebarVisible: PropTypes.bool.isRequired,
   sidebarHandler: PropTypes.func.isRequired,
+  pageDate: PropTypes.string.isRequired,
 };
 
 export default SideBarPresent;

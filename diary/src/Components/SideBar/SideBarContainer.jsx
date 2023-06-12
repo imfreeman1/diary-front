@@ -1,32 +1,29 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import SideBarPresent from './SideBarPresent';
 
-function SideBarContainer() {
+function SideBarContainer({ pageDate }) {
   const stickerList = useSelector(
-    (state) => state.stickerReducer.stickersArray.Table,
+    ({ stickerReducer }) => stickerReducer.stickersObj.Table,
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
-
-  // visibleHandler로 통합할까?
-  const modalHandler = () => {
-    setModalVisible(!modalVisible);
-  };
-
-  const sidebarHandler = () => {
-    setSidebarVisible(!sidebarVisible);
-  };
 
   return (
     <SideBarPresent
       stickerList={stickerList}
       modalVisible={modalVisible}
-      modalHandler={modalHandler}
+      modalHandler={() => { setModalVisible((s) => !s); }}
       sidebarVisible={sidebarVisible}
-      sidebarHandler={sidebarHandler}
+      sidebarHandler={() => { setSidebarVisible((s) => !s); }}
+      pageDate={pageDate}
     />
   );
 }
+
+SideBarContainer.propTypes = {
+  pageDate: PropTypes.string.isRequired,
+};
 
 export default SideBarContainer;

@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import useOnClickOutside from './useOnClickOutSide';
 
 /**
@@ -13,7 +12,11 @@ import useOnClickOutside from './useOnClickOutSide';
 const useControlModal = (isInMonth) => {
   const [modalVisible, setModalVisible] = useState(false);
   const modalRef = useRef(null);
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
 
+  useOnClickOutside(modalRef, () => setModalVisible(false));
   // Month 내의 날짜가 아니면 모달창이 나타나지 않게 설정
   const handleModalOpen = () => {
     if (isInMonth) {
@@ -23,11 +26,6 @@ const useControlModal = (isInMonth) => {
     }
   };
 
-  const handleModalClose = () => {
-    setModalVisible(false);
-  };
-  useOnClickOutside(modalRef, () => setModalVisible(false));
-
   return {
     modalVisible,
     modalRef,
@@ -35,8 +33,4 @@ const useControlModal = (isInMonth) => {
     handleModalClose,
   };
 };
-useControlModal.propTypes = {
-  isInMonth: PropTypes.bool.isRequired,
-};
-
 export default useControlModal;

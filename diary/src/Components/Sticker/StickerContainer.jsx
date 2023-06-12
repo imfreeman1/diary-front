@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import useDraggable from 'src/hooks/useDraggable';
 import useResizable from 'src/hooks/useResizable';
 import { removeSticker, resetSelect, setSelect } from 'src/Redux/action';
+import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
+import debounce from 'src/Utils/debounce';
+import utilAxios from 'src/Utils/utilAxios';
 import {
-  CURRENT_ROUTER_PATH,
-  SELECT_IN_STICKER_DIV,
-  STICKER_IMG_SIZE_OBJECT,
-  STICKER_POSITION_TRANSLATOR,
-  STICKER_SELECTOR_ID,
-} from 'src/Constants/constants';
+  REMOVE_STICKER_OPTIONS, STICKER_CONST, STICKER_DATA, UPDATE_STICKER_OPTIONS,
+} from 'src/Constants/stickerConstant';
+import useAxios from 'src/hooks/useAxios';
 import StickerPresent from './StickerPresent';
 
 /*
@@ -30,42 +30,53 @@ import StickerPresent from './StickerPresent';
  * @param {selected} boolean
  */
 function StickerContainer({
-  imgURL, id, position, width, height, selected,
+  imgURL,
+  id,
+  position,
+  width,
+  height,
+  selected,
+  pageDate,
 }) {
-  useDraggable(position);
-  // resize를 할때, 왼쪽 축을 잡고 늘리면 오른쪽으로 늘어나는 문제가 있음.
-  useResizable(position);
-  const dispatch = useDispatch();
-  const routerRef = useRef(null);
-  /* CURRENT_ROUTER_PATH function을 dispatch안에서 실행시킬경우
-  react의 hook 규칙을 위반하게 되어 Ref의 current에 저장해서 사용하는 방식을 채택.
-  더 좋은 방법이 있다면 수정할 예정. */
-  routerRef.current = CURRENT_ROUTER_PATH();
+  const routerRef = CURRENT_ROUTER_PATH();
   const focusRef = useRef(null);
-
+  // resize를 할때, 왼쪽 축을 잡고 늘리면 오른쪽으로 늘어나는 문제가 있음.
+  const dispatch = useDispatch();
+  // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
+  useDraggable(position, pageDate);
+  useResizable(pageDate, focusRef, id);
+  const { operation } = useAxios();
   useEffect(() => {
-    const stickerPosition = document.querySelector(STICKER_SELECTOR_ID(id));
-    stickerPosition.style.transform = STICKER_POSITION_TRANSLATOR(position);
-    const stickerImgSize = stickerPosition.querySelector(SELECT_IN_STICKER_DIV); // 변수명 맘에 안듦.
-    Object.assign(stickerImgSize.style, STICKER_IMG_SIZE_OBJECT(width, height));
+    const stickerPosition = focusRef.current;
+
+    const stickerData = STICKER_DATA(id, position, height, width, routerRef);
+    const updateStickerOptions = UPDATE_STICKER_OPTIONS(stickerData);
+    // update는 componentUnDidMount에서 실행하는 하는 것도 괜찮을거 같음.
+    // 현재 마지막 남은 스티커를 삭제 할 경우 debounce에서 에러가 발생.
+    const updateSticker = () => operation(updateStickerOptions);
+    debounce(2000, updateSticker);
+    stickerPosition.style.transform = STICKER_CONST.POSITION_TRANSLATOR(position);
+    const stickerImgSize = stickerPosition.firstChild;
+    Object.assign(
+      stickerImgSize.style,
+      STICKER_CONST.IMG_SIZE_OBJECT(width, height),
+    );
+
+    return () => clearTimeout(debounce(updateSticker));
   }, [position, height, width, id]);
 
-  // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
-  useEffect(() => {
-    if (selected) focusRef.current.focus();
-  }, [selected]);
-
-  const focusHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.parentNode.id;
-    // if (selected && selectedStickerId===id) return; // 이 조건문을 건 이유 : 처음에 온클릭으로 해서
-    dispatch(setSelect({ id: selectedStickerId, origin: routerRef.current }));
+  const focusHandler = () => {
+    const selectedStickerId = focusRef.current.id;
+    dispatch(setSelect({ id: selectedStickerId, origin: routerRef, pageDate }));
   };
 
-  const removeStickerHandler = (e) => {
-    const selectedStickerId = e.target.parentNode.parentNode.id;
-    dispatch(
-      removeSticker({ id: selectedStickerId, origin: routerRef.current }),
-    );
+  const removeStickerHandler = async () => {
+    try {
+      operation(REMOVE_STICKER_OPTIONS({ id }));
+      dispatch(removeSticker({ id, origin: routerRef, pageDate }));
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   // onBlur event를 사용할 때에는 tabIndex속성을 같이 사용해줘야 onBlur가 트리거 됨.
@@ -74,7 +85,7 @@ function StickerContainer({
     const nextElem = e.relatedTarget;
     // 문제가 생기기 전까지는 보류.
     if (!nextElem) {
-      dispatch(resetSelect({ origin: routerRef.current }));
+      dispatch(resetSelect({ origin: routerRef, pageDate }));
     }
   };
 
@@ -101,6 +112,7 @@ StickerContainer.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   selected: PropTypes.bool.isRequired,
+  pageDate: PropTypes.string.isRequired,
 };
 
 export default StickerContainer;
