@@ -26,6 +26,7 @@ export const {
   removeSticker,
   setPosition,
   setResize,
+  resetUpdate,
   addTableSticker,
   setSelect,
   resetSelect,

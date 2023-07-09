@@ -39,6 +39,7 @@ export const stickerSlice = createSlice({
       Table: [...exStickers],
       Weekly: {},
       Daily: {},
+      updateStickers: [],
     },
   },
   reducers: {
@@ -116,6 +117,13 @@ export const stickerSlice = createSlice({
       }
       selectedSticker.positionX = positionX;
       selectedSticker.positionY = positionY;
+      const foundedUpdateStickers = stickersObj.updateStickers.find((sticker)=> sticker.id === id);
+      if (foundedUpdateStickers) {
+        foundedUpdateStickers.position = [positionX, positionY];
+      } else {
+        const updateSticker = {id, position:[positionX, positionY], size:[selectedSticker.width, selectedSticker.height]};
+        stickersObj.updateStickers= [...stickersObj.updateStickers, updateSticker];
+      }
     },
 
     setResize: (
@@ -138,6 +146,17 @@ export const stickerSlice = createSlice({
       selectedSticker.positionY += y;
       selectedSticker.width = width;
       selectedSticker.height = height;
+      const foundedUpdateStickers = stickersObj.updateStickers.find((sticker)=> sticker.id === id);
+      if (foundedUpdateStickers) {
+        foundedUpdateStickers.size = [width, height];
+      } else {
+        const updateSticker = {id, position:[x,y], size:[width,height]};
+        stickersObj.updateStickers = [...stickersObj.updateStickers, updateSticker];
+      }
+    },
+
+    resetUpdate : ({ stickersObj },) => {
+      stickersObj.updateStickers = [];
     },
 
     addTableSticker: (

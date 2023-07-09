@@ -1,6 +1,6 @@
 import interact from 'interactjs';
 import { useLayoutEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setResize } from 'src/Redux/action';
 import debounce from 'src/Utils/debounce';
 import { STICKER_CONST } from 'src/Constants/stickerConstant';
@@ -11,11 +11,11 @@ const resizableStyleApply = (style, width, height, x, y) => {
   Object.assign(style, STICKER_CONST.IMG_SIZE_OBJECT(width, height, x, y));
 };
 
-const useResizable = (pageDate, focusRef, id) => {
+const useResizable = (pageDate) => {
   const currRouter = CURRENT_ROUTER_PATH();
   const stickerSize = useRef(null);
   const dispatch = useDispatch();
-
+  // const selectedSticker = useSelector(({stickerReducer})=> stickerReducer.stickersObj[currRouter][pageDate])
   useLayoutEffect(() => {
     const stickerResizeMoveMethod = ({ target, deltaRect, rect }) => {
       let { x, y } = target.dataset;
@@ -34,15 +34,13 @@ const useResizable = (pageDate, focusRef, id) => {
         x,
         y,
       );
-
       /* move event가 발생하는 동안 event.target.dataset을 실시간 변경해줌. */
       Object.assign(target.dataset, { x, y });
-
       const callBackDispatch = () => {
         dispatch(
           setResize({
             origin: currRouter,
-            id,
+            id: target.parentNode.id,
             size: stickerSize.current,
             position: { x, y },
             pageDate,
@@ -63,7 +61,7 @@ const useResizable = (pageDate, focusRef, id) => {
       interactConfig.resizable(stickerResizeMoveMethod),
     );
     return () => clearTimeout(debounce);
-  }, [currRouter, dispatch, id, pageDate]);
+  }, [currRouter, dispatch, pageDate]);
 };
 
 export default useResizable;

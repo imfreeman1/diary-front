@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import useDraggable from 'src/hooks/useDraggable';
@@ -44,17 +44,10 @@ function StickerContainer({
   const dispatch = useDispatch();
   // onClick했을때 focus가 옮겨가야하는데, 어떻게 구현해야할지 더 고민해볼 것.
   useDraggable(position, pageDate);
-  useResizable(pageDate, focusRef, id);
+  useResizable(pageDate);
   const { operation } = useAxios();
   useEffect(() => {
     const stickerPosition = focusRef.current;
-
-    const stickerData = STICKER_DATA(id, position, height, width, routerRef);
-    const updateStickerOptions = UPDATE_STICKER_OPTIONS(stickerData);
-    // update는 componentUnDidMount에서 실행하는 하는 것도 괜찮을거 같음.
-    // 현재 마지막 남은 스티커를 삭제 할 경우 debounce에서 에러가 발생.
-    const updateSticker = () => operation(updateStickerOptions);
-    debounce(2000, updateSticker);
     stickerPosition.style.transform = STICKER_CONST.POSITION_TRANSLATOR(position);
     const stickerImgSize = stickerPosition.firstChild;
     Object.assign(
@@ -62,7 +55,6 @@ function StickerContainer({
       STICKER_CONST.IMG_SIZE_OBJECT(width, height),
     );
 
-    return () => clearTimeout(debounce(updateSticker));
   }, [position, height, width, id]);
 
   const focusHandler = () => {
