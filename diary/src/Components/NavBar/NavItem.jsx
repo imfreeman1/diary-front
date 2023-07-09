@@ -1,42 +1,49 @@
-import React, { useRef } from 'react';
+import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import selectedItemChecker from 'src/Utils/selectedItemChecker';
 import { useRouter } from 'next/router';
 import { setMonthRouter } from 'src/Redux/action';
 import Button from '../Button/Button';
+import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
+import { NAVBAR_HOVER_BG_COLOR_OBJECT, NAVBAR_SELECTED_BG_COLOR_OBJECT } from 'src/Constants/navbarConstants';
 
 function NavItem({
   title,
-  NAVBAR_HOVER_BG_COLOR_OBJECT,
-  CURRENT_ROUTER_PATH,
-  NAVBAR_SELECTED_BG_COLOR_OBJECT,
 }) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const currRouter = CURRENT_ROUTER_PATH();
   const selectedItem = useRef(null);
-  const { selectedMonth } = useSelector(
-    (state) => state.monthSelectorReducer,
+  const { selectedMonth } = useSelector((state) => state.monthSelectorReducer);
+  selectedItem.current = selectedItemChecker(
+    selectedMonth,
+    title,
   );
-  selectedItem.current = selectedItemChecker(CURRENT_ROUTER_PATH, selectedMonth, title);
-  const navRouter = (arg) => {
+  const navRouter = useCallback((arg) => {
     if (!Number.isNaN(Number(title))) {
       if (arg === '2023') {
         const currMonth = new Date().getMonth() + 1;
-        dispatch(setMonthRouter({ willMoveMonth: currMonth - 1, currYear: 2023 }));
+        dispatch(
+          setMonthRouter({ willMoveMonth: currMonth - 1, currYear: 2023 }),
+        );
         return `Monthly?d=2023-${currMonth}`;
       }
-      dispatch(setMonthRouter({ willMoveMonth: Number(title) - 1, currYear: 2023 }));
+      dispatch(
+        setMonthRouter({ willMoveMonth: Number(title) - 1, currYear: 2023 }),
+      );
       return `Monthly?d=2023-${arg}`;
     }
     return `/${arg}`;
-  };
+  },[dispatch])
 
   return (
-    <li
-      className={`font-bold p-3 px-5 w-min ${selectedItem.current && NAVBAR_SELECTED_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH]} ${NAVBAR_HOVER_BG_COLOR_OBJECT[CURRENT_ROUTER_PATH]}`}
-    >
+    <li className={`font-bold w-min`}>
       <Button
+        className={`p-3 px-5 ${
+          selectedItem.current &&
+          NAVBAR_SELECTED_BG_COLOR_OBJECT[currRouter]
+        } ${NAVBAR_HOVER_BG_COLOR_OBJECT[currRouter]}`}
         content={title}
         onClick={() => {
           router.push(navRouter(title));
@@ -48,9 +55,6 @@ function NavItem({
 
 NavItem.propTypes = {
   title: PropTypes.string.isRequired,
-  NAVBAR_HOVER_BG_COLOR_OBJECT: PropTypes.objectOf(PropTypes.string).isRequired,
-  CURRENT_ROUTER_PATH: PropTypes.string.isRequired,
-  NAVBAR_SELECTED_BG_COLOR_OBJECT: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default NavItem;
+export default React.memo(NavItem);
