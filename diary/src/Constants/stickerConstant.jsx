@@ -22,10 +22,12 @@ export const GET_STICKER_OPTIONS = (currRouter, pageDate) => ({
   method: 'get',
 });
 
-export const UPDATE_STICKER_OPTIONS = (payload) => ({
-  url: '/sticker/update',
+export const UPDATE_STICKER_OPTIONS = (stickersArr) => ({
   method: 'post',
-  payload,
+  url: '/sticker/updateAll',
+  payload: {
+  updateStickers:stickersArr,
+  },
 });
 
 export const REMOVE_STICKER_OPTIONS = (payload) => ({
