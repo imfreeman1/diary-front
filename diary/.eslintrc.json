@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": ["next", "next/core-web-vitals", "airbnb", "next/babel"],
+  "extends": ["next", "next/core-web-vitals", "airbnb"],
   "env": {
     "browser": true,
     "node": true
