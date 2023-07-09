@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { BiDuplicate, BiX } from 'react-icons/bi';
 import { addTableSticker } from 'src/Redux/action';
+import Button from '../Button/Button';
 
 function StickerCropper({ modalHandler }) {
   const dispatch = useDispatch();
@@ -14,11 +15,11 @@ function StickerCropper({ modalHandler }) {
   // 유저가 첨부한 이미지
   const [inputImage, setInputImage] = useState(null);
   // 유저가 선택한 영역만큼 크롭된 이미지
-  const onChange = ({ target, preventDefault, dataTransfer }) => {
-    preventDefault();
+  const onChange = (e) => {
+    e.preventDefault();
     const reader = new FileReader();
-    if (dataTransfer) { files.current = dataTransfer.files; }
-    if (!dataTransfer && target) { files.current = target.files; }
+    if (e.dataTransfer) { files.current = e.dataTransfer.files; }
+    if (!e.dataTransfer && e.target) { files.current = e.target.files; }
     reader.onload = () => {
       setInputImage(reader.result);
     };
@@ -41,7 +42,7 @@ function StickerCropper({ modalHandler }) {
   return (
     <div>
       <div className="flex justify-end mt-3 mr-3">
-        <BiX onClick={modalHandler} size={36} />
+        <Button content={<BiX size={36} />} onClick={modalHandler} />
       </div>
       {!inputImage ? (
         <div className="h-[60vh] w-[65vw] mx-12 my-8 border-dashed border-4 rounded-lg">
@@ -66,7 +67,7 @@ function StickerCropper({ modalHandler }) {
         {!inputImage ? (
           <div className=" h-10" />
         ) : (
-          <BiDuplicate size={40} onClick={getCropData} />
+          <Button content={<BiDuplicate size={40} />} onClick={getCropData} />
         )}
       </div>
     </div>

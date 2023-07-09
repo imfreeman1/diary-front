@@ -74,4 +74,4 @@ MonthTodoPresenter.propTypes = {
   day: PropTypes.string.isRequired,
 };
 
-export default MonthTodoPresenter;
+export default React.memo(MonthTodoPresenter);

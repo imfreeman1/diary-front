@@ -11,8 +11,9 @@ import MonthDatePresenter from './MonthDatePresenter';
  */
 
 function MonthDateContainer({ dayIdx, week }) {
-  const monthCalendar = useSelector(({ monthCalendarReducer }) => (
-    monthCalendarReducer.monthCalendar));
+  const monthCalendar = useSelector(
+    ({ monthCalendarReducer }) => monthCalendarReducer.monthCalendar,
+  );
   const dayInfo = monthCalendar[week][dayIdx];
   const ctrInputModal = useControlModal(dayInfo.isInMonth);
 

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useMemo, useCallback } from 'react';
 import interact from 'interactjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPosition } from 'src/Redux/action';
@@ -12,10 +12,13 @@ const useDraggable = (position, pageDate) => {
   const currRouter = CURRENT_ROUTER_PATH();
   const dispatch = useDispatch();
   const positions = useRef(null);
-  positions.current = position;
   const currStickersList = useSelector(
     (state) => state.stickerReducer.stickersObj[currRouter][pageDate],
   );
+
+  // useMemo(()=> currStickersList.map(({id, positionX, positionY})=>{
+  //   console.log(id, positionX, positionY);
+  // }), [currStickersList])
   // 라이브러리 세팅은 config 따로 관리하자
   useLayoutEffect(
     () => {
@@ -33,7 +36,7 @@ const useDraggable = (position, pageDate) => {
           start: (event) => {
             currStickersList.find(
               ({ id, positionX, positionY }) => {
-                if (id === event.target.id) position.current = { positionX, positionY };
+                if (id === event.target.id) positions.current = { positionX, positionY };
               },
             );
           },
@@ -52,7 +55,7 @@ const useDraggable = (position, pageDate) => {
                 pageDate,
               }),
             );
-            debounce(10, callBackDispatch);
+            debounce(100, callBackDispatch);
           },
         },
       });

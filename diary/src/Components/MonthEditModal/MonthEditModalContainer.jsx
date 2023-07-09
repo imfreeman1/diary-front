@@ -1,14 +1,21 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 import React, {
-  useEffect, useRef, useState,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { delTodo, editTodo } from 'src/Redux/action';
 import useAxios from 'src/hooks/useAxios';
 import { convertDayOfWeek } from 'src/Utils/makeWeekly';
-import { POST_MONTH_DELETE_OPT, POST_MONTH_UPDATE_OPT } from 'src/Constants/monthlyConstants';
+import {
+  POST_MONTH_DELETE_OPT,
+  POST_MONTH_UPDATE_OPT,
+} from 'src/Constants/monthlyConstants';
 import MonthEditModalPresenter from './MonthEditModalPresenter';
 
 /**
@@ -33,12 +40,12 @@ function MonthEditModalContainer({
   const [isEdited, setIsEdited] = useState(false);
   const [editText, setEditText] = useState(todo.todoContent);
   const [week, dayIdx] = convertDayOfWeek(locdate);
-  const { todos } = useSelector(({ monthCalendarReducer }) => (
-    monthCalendarReducer.monthCalendar[week][dayIdx]));
+  const { todos } = useSelector(
+    ({ monthCalendarReducer }) =>
+      monthCalendarReducer.monthCalendar[week][dayIdx],
+  );
 
-  const postUpdateMonthlyAxios = ({
-    type, text, todoItem,
-  }) => {
+  const postUpdateMonthlyAxios = ({ type, text, todoItem }) => {
     const editTodoList = todos.map((findTodo) => {
       if (findTodo.id === todoItem.id) return text;
       return findTodo.todoContent;
@@ -58,14 +65,22 @@ function MonthEditModalContainer({
     });
   };
 
-  const handleEditKeyPress = (e) => {
-    e.preventDefault();
-    dispatch(editTodo({ text: editText, todo }));
-    postUpdateMonthlyAxios({ type: 'updateTodo', text: editText, todoItem: todo });
-    setIsEdited(false);
-  };
+  const handleEditKeyPress = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(editTodo({ text: editText, todo }));
+      postUpdateMonthlyAxios({
+        type: 'updateTodo',
+        text: editText,
+        todoItem: todo,
+      });
+      setIsEdited(false);
+    },
+    [dispatch, isEdited],
+  );
   const onDelete = (item) => {
-    if (todos.length >= 2) postUpdateMonthlyAxios({ type: 'deleteTodo', todoItem: item });
+    if (todos.length >= 2)
+      postUpdateMonthlyAxios({ type: 'deleteTodo', todoItem: item });
     if (todos.length === 1) operation(POST_MONTH_DELETE_OPT(item.date));
     dispatch(delTodo(item));
   };

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import useOnClickOutside from './useOnClickOutSide';
 
 /**
@@ -12,19 +12,19 @@ import useOnClickOutside from './useOnClickOutSide';
 const useControlModal = (isInMonth) => {
   const [modalVisible, setModalVisible] = useState(false);
   const modalRef = useRef(null);
-  const handleModalClose = () => {
+  const handleModalClose = useCallback(() => {
     setModalVisible(false);
-  };
+  }, [modalVisible]);
 
   useOnClickOutside(modalRef, () => setModalVisible(false));
   // Month 내의 날짜가 아니면 모달창이 나타나지 않게 설정
-  const handleModalOpen = () => {
+  const handleModalOpen = useCallback(() => {
     if (isInMonth) {
       setTimeout(() => {
         setModalVisible(true);
       }, 300);
     }
-  };
+  }, [modalVisible]);
 
   return {
     modalVisible,

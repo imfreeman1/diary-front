@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import { MONTH_CONST } from '../../Constants/monthlyConstants';
 import useControlModal from '../../hooks/useControlModal';
@@ -14,7 +14,7 @@ function MonthTodoContainer({
 }) {
   const ctrListModal = useControlModal(true);
   const isTodoLenOver = todos?.length > MONTH_CONST.MAX_SHOW_TODO;
-  const viewTodoLen = isTodoLenOver ? MONTH_CONST.BASIC_SHOW_TODO : MONTH_CONST.MAX_SHOW_TODO;
+  const viewTodoLen = useMemo(()=>isTodoLenOver ? MONTH_CONST.BASIC_SHOW_TODO : MONTH_CONST.MAX_SHOW_TODO,[isTodoLenOver]);
   return (
     <MonthTodoPresenter
       locdate={locdate}
@@ -34,7 +34,7 @@ MonthTodoContainer.propTypes = {
     id: PropTypes.string.isRequired,
     todoContent: PropTypes.string.isRequired,
   })).isRequired,
-  day: PropTypes.number.isRequired,
+  day: PropTypes.string.isRequired,
   locdate: PropTypes.string.isRequired,
 };
 export default MonthTodoContainer;

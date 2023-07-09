@@ -11,7 +11,6 @@ const StickerDisplay = ({ pageDate }) => {
   const dispatch = useDispatch();
   const currRouter = CURRENT_ROUTER_PATH();
   const { operation, response } = useAxios();
-  useMemo(() => operation, [operation]);
   const stickerList = useSelector(
     (state) => state.stickerReducer.stickersObj,
   );

@@ -20,26 +20,20 @@ const MonthDatePresenter = ({ dayInfo, ctrInputModal }) => (
   >
     <div
       className={`pl-1 text-left border-dashed border-b-2 border-slate-500 ${
-        dayInfo.isHoliday
-          ? 'text-red-500'
-          : 'text-black'
-      } ${dayInfo.isInMonth
-        ? ''
-        : 'text-gray-400 bg-opacity-0 border-none'}`}
+        dayInfo.isHoliday ? 'text-red-500' : 'text-black'
+      } ${dayInfo.isInMonth ? '' : 'text-gray-400 bg-opacity-0 border-none'}`}
     >
       <span>{dayInfo.date}</span>
       <span className="text-sm ml-1">{dayInfo.dateName}</span>
     </div>
-    {
-      dayInfo.isInMonth && (
-        <MonthTodoContainer
-          isInMonth={dayInfo.isInMonth}
-          todos={dayInfo.todos}
-          day={dayInfo.day}
-          locdate={dayInfo.locdate}
-        />
-      )
-    }
+    {dayInfo.isInMonth && (
+      <MonthTodoContainer
+        isInMonth={dayInfo.isInMonth}
+        todos={dayInfo.todos}
+        day={dayInfo.day}
+        locdate={dayInfo.locdate}
+      />
+    )}
     <MonthInputModalContainer
       locdate={dayInfo.locdate}
       todos={dayInfo.todos}
@@ -57,11 +51,13 @@ MonthDatePresenter.propTypes = {
     isHoliday: PropTypes.bool.isRequired,
     isInMonth: PropTypes.bool.isRequired,
     locdate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-    todos: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      todoContent: PropTypes.string.isRequired,
-    })).isRequired,
+    todos: PropTypes.arrayOf(
+      PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        todoContent: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
   }).isRequired,
   ctrInputModal: PropTypes.shape({
     modalVisible: PropTypes.bool,
@@ -71,4 +67,4 @@ MonthDatePresenter.propTypes = {
   }).isRequired,
 };
 
-export default MonthDatePresenter;
+export default React.memo(MonthDatePresenter);
