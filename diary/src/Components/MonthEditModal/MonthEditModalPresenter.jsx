@@ -1,6 +1,8 @@
 /* eslint-disable react/forbid-prop-types */
-import React, {useCallback} from 'react';
-import { BiEdit, BiTrash, BiTransfer, BiX } from 'react-icons/bi';
+import React from 'react';
+import {
+  BiEdit, BiTrash, BiTransfer, BiX,
+} from 'react-icons/bi';
 import PropTypes from 'prop-types';
 import { MONTH_CONST } from '../../Constants/monthlyConstants';
 import Input from '../Input/Input';
@@ -21,8 +23,8 @@ function MonthEditModalPresenter({
   focusRef,
 }) {
   return (
-    editModalVisible &&
-    locdate && (
+    editModalVisible
+    && locdate && (
       <div
         onDoubleClick={(e) => e.stopPropagation()}
         ref={editModalRef}

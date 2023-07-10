@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
   useCallback,
-  useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -14,7 +13,6 @@ import useAxios from 'src/hooks/useAxios';
 import { convertDayOfWeek } from 'src/Utils/makeWeekly';
 import {
   POST_MONTH_DELETE_OPT,
-  POST_MONTH_UPDATE_OPT,
 } from 'src/Constants/monthlyConstants';
 import MonthEditModalPresenter from './MonthEditModalPresenter';
 
@@ -41,8 +39,7 @@ function MonthEditModalContainer({
   const [editText, setEditText] = useState(todo.todoContent);
   const [week, dayIdx] = convertDayOfWeek(locdate);
   const { todos } = useSelector(
-    ({ monthCalendarReducer }) =>
-      monthCalendarReducer.monthCalendar[week][dayIdx],
+    ({ monthCalendarReducer }) => monthCalendarReducer.monthCalendar[week][dayIdx],
   );
 
   const postUpdateMonthlyAxios = ({ type, text, todoItem }) => {
@@ -79,8 +76,7 @@ function MonthEditModalContainer({
     [dispatch, isEdited],
   );
   const onDelete = (item) => {
-    if (todos.length >= 2)
-      postUpdateMonthlyAxios({ type: 'deleteTodo', todoItem: item });
+    if (todos.length >= 2) { postUpdateMonthlyAxios({ type: 'deleteTodo', todoItem: item }); }
     if (todos.length === 1) operation(POST_MONTH_DELETE_OPT(item.date));
     dispatch(delTodo(item));
   };

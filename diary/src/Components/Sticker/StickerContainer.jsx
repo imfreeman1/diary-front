@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import useDraggable from 'src/hooks/useDraggable';
 import useResizable from 'src/hooks/useResizable';
 import { removeSticker, resetSelect, setSelect } from 'src/Redux/action';
 import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
-import debounce from 'src/Utils/debounce';
-import utilAxios from 'src/Utils/utilAxios';
 import {
-  REMOVE_STICKER_OPTIONS, STICKER_CONST, STICKER_DATA, UPDATE_STICKER_OPTIONS,
+  REMOVE_STICKER_OPTIONS, STICKER_CONST,
 } from 'src/Constants/stickerConstant';
 import useAxios from 'src/hooks/useAxios';
 import StickerPresent from './StickerPresent';
@@ -54,7 +52,6 @@ function StickerContainer({
       stickerImgSize.style,
       STICKER_CONST.IMG_SIZE_OBJECT(width, height),
     );
-
   }, [position, height, width, id]);
 
   const focusHandler = () => {

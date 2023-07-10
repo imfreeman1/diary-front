@@ -26,7 +26,7 @@ export const UPDATE_STICKER_OPTIONS = (stickersArr) => ({
   method: 'post',
   url: '/sticker/updateAll',
   payload: {
-  updateStickers:stickersArr,
+    updateStickers: stickersArr,
   },
 });
 

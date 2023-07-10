@@ -1,4 +1,6 @@
-import { useLayoutEffect, useRef, useMemo, useCallback } from 'react';
+import {
+  useLayoutEffect, useRef,
+} from 'react';
 import interact from 'interactjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPosition } from 'src/Redux/action';
@@ -35,6 +37,7 @@ const useDraggable = (position, pageDate) => {
         listeners: {
           start: (event) => {
             currStickersList.find(
+              // eslint-disable-next-line array-callback-return
               ({ id, positionX, positionY }) => {
                 if (id === event.target.id) positions.current = { positionX, positionY };
               },

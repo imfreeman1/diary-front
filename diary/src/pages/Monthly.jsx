@@ -93,15 +93,14 @@ const Monthly = () => {
               ))}
             </div>
             <table className="border-collapse m-10 mt-0">
-              {monthCalendar.length &&
-                monthCalendar.map(
-                  (_, idx) =>
-                    _.length !== 0 && (
-                      <MonthWeekPresenter
-                        key={v4()}
-                        week={idx}
-                      />
-                    ),
+              {monthCalendar.length
+                && monthCalendar.map(
+                  (_, idx) => _.length !== 0 && (
+                  <MonthWeekPresenter
+                    key={v4()}
+                    week={idx}
+                  />
+                  ),
                 )}
             </table>
             <SideBarContainer pageDate={firstDayInMonth} />

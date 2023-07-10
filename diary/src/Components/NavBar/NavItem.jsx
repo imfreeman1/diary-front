@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import selectedItemChecker from 'src/Utils/selectedItemChecker';
 import { useRouter } from 'next/router';
 import { setMonthRouter } from 'src/Redux/action';
-import Button from '../Button/Button';
 import { CURRENT_ROUTER_PATH } from 'src/Constants/constants';
 import { NAVBAR_HOVER_BG_COLOR_OBJECT, NAVBAR_SELECTED_BG_COLOR_OBJECT } from 'src/Constants/navbarConstants';
+import Button from '../Button/Button';
 
 function NavItem({
   title,
@@ -35,14 +35,14 @@ function NavItem({
       return `Monthly?d=2023-${arg}`;
     }
     return `/${arg}`;
-  },[dispatch])
+  }, [dispatch]);
 
   return (
-    <li className={`font-bold w-min`}>
+    <li className="font-bold w-min">
       <Button
         className={`p-3 px-5 ${
-          selectedItem.current &&
-          NAVBAR_SELECTED_BG_COLOR_OBJECT[currRouter]
+          selectedItem.current
+          && NAVBAR_SELECTED_BG_COLOR_OBJECT[currRouter]
         } ${NAVBAR_HOVER_BG_COLOR_OBJECT[currRouter]}`}
         content={title}
         onClick={() => {

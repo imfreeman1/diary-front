@@ -23,7 +23,7 @@ const WeeklyDisplayContainer = ({ idx }) => {
   const { currlocWeek } = weeklyContents;
   const weekly = weeklyContents[WEEKLY_CONST.NUM_OF_WEEK(currlocWeek)][idx];
   const { textContent, isEditable, isWriten } = weekly;
-  const { operation, response } = useAxios();
+  const { operation } = useAxios();
   const dispatch = useDispatch();
 
   const onClickWeeklyContentRemove = async () => {

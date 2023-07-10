@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { DAILY_CONST } from 'src/Constants/dailyConstant';
 import { MONTH_CONST } from 'src/Constants/monthlyConstants';
 import { DAILY_CALENDAR_NAME } from './sliceName';

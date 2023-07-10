@@ -74,6 +74,7 @@ export const stickerSlice = createSlice({
         (sticker) => sticker.selected,
       );
       if (selectedChecker) {
+        // eslint-disable-next-line no-unused-vars
         foundedStickerArr.map(({ selected }) => (selected = false));
       }
 
@@ -117,12 +118,16 @@ export const stickerSlice = createSlice({
       }
       selectedSticker.positionX = positionX;
       selectedSticker.positionY = positionY;
-      const foundedUpdateStickers = stickersObj.updateStickers.find((sticker)=> sticker.id === id);
+      const foundedUpdateStickers = stickersObj.updateStickers.find((sticker) => sticker.id === id);
       if (foundedUpdateStickers) {
         foundedUpdateStickers.position = [positionX, positionY];
       } else {
-        const updateSticker = {id, position:[positionX, positionY], size:[selectedSticker.width, selectedSticker.height]};
-        stickersObj.updateStickers= [...stickersObj.updateStickers, updateSticker];
+        const updateSticker = {
+          id,
+          position: [positionX, positionY],
+          size: [selectedSticker.width, selectedSticker.height],
+        };
+        stickersObj.updateStickers = [...stickersObj.updateStickers, updateSticker];
       }
     },
 
@@ -146,16 +151,16 @@ export const stickerSlice = createSlice({
       selectedSticker.positionY += y;
       selectedSticker.width = width;
       selectedSticker.height = height;
-      const foundedUpdateStickers = stickersObj.updateStickers.find((sticker)=> sticker.id === id);
+      const foundedUpdateStickers = stickersObj.updateStickers.find((sticker) => sticker.id === id);
       if (foundedUpdateStickers) {
         foundedUpdateStickers.size = [width, height];
       } else {
-        const updateSticker = {id, position:[x,y], size:[width,height]};
+        const updateSticker = { id, position: [x, y], size: [width, height] };
         stickersObj.updateStickers = [...stickersObj.updateStickers, updateSticker];
       }
     },
 
-    resetUpdate : ({ stickersObj },) => {
+    resetUpdate: ({ stickersObj }) => {
       stickersObj.updateStickers = [];
     },
 
@@ -187,6 +192,7 @@ export const stickerSlice = createSlice({
     },
 
     resetSelect: ({ stickersObj }, { payload: { origin, pageDate } }) => {
+      // eslint-disable-next-line no-unused-vars
       stickersObj[origin][pageDate].map(({ selected }) => (selected = false));
     },
   },

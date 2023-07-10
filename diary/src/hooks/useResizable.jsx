@@ -1,6 +1,6 @@
 import interact from 'interactjs';
 import { useLayoutEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setResize } from 'src/Redux/action';
 import debounce from 'src/Utils/debounce';
 import { STICKER_CONST } from 'src/Constants/stickerConstant';
@@ -15,7 +15,6 @@ const useResizable = (pageDate) => {
   const currRouter = CURRENT_ROUTER_PATH();
   const stickerSize = useRef(null);
   const dispatch = useDispatch();
-  // const selectedSticker = useSelector(({stickerReducer})=> stickerReducer.stickersObj[currRouter][pageDate])
   useLayoutEffect(() => {
     const stickerResizeMoveMethod = ({ target, deltaRect, rect }) => {
       let { x, y } = target.dataset;

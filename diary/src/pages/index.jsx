@@ -5,8 +5,8 @@ import Cover from './Cover';
 // import { googleLogout } from '@react-oauth/google';
 
 export default function Home() {
-  const [{ token }] = useCookies(['token']);
-
+  const [cookies] = useCookies(['user_id']);
+  console.log('token', cookies);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -16,5 +16,5 @@ export default function Home() {
     return null;
   }
 
-  return <div>{token ? <Cover /> : <Landing />}</div>;
+  return <div>{cookies ? <Cover /> : <Landing />}</div>;
 }

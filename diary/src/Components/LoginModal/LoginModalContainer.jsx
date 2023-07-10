@@ -32,6 +32,7 @@ const LoginModalContainer = ({ setIsSignup }) => {
           withCredentials: true,
         },
       );
+      console.log(response);
       if (response.data.code === 'USI20001') {
         router.push('/Cover');
       }

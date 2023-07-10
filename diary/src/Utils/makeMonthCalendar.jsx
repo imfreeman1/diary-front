@@ -1,5 +1,5 @@
 import Holiday from 'src/Json/holidays_kr.json'assert{ type: "json"};
-import { MONTH_CONST} from '../Constants/monthlyConstants';
+import { MONTH_CONST } from '../Constants/monthlyConstants';
 
 /**
  * @param {idxMonth} number, (ex. 03 -> 2)

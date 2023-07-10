@@ -1,6 +1,6 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { MONTH_CONST } from 'src/Constants/monthlyConstants';
 import { MONTH_SELECTOR_NAME } from './sliceName';
 
 const dateInMonth = new Date();

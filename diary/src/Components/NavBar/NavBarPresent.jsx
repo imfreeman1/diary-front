@@ -16,8 +16,8 @@ function NavBarPresent({ navItemList }) {
           />
         ))}
       </ul>
-      <StickerSaveButton/>
-      <LogoutButton/>
+      <StickerSaveButton />
+      <LogoutButton />
     </div>
   );
 }
