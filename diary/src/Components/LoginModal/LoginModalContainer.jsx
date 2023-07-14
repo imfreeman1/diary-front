@@ -32,11 +32,11 @@ const LoginModalContainer = ({ setIsSignup }) => {
   const handleLogin = handleSubmit(async (resData) => {
     try {
       await operation(POST_LOGIN_OPT(resData));
+      if (response?.code === 'USI20001') router.push('/Cover');
     } catch (error) {
       console.log(error);
     }
   });
-  if (response?.code === 'USI20001') router.push('/Cover');
 
   return (
     <LoginModalPresenter
@@ -46,7 +46,6 @@ const LoginModalContainer = ({ setIsSignup }) => {
       passwordRegister={passwordRegister}
       emailRegister={emailRegister}
       register={register}
-      // googleUrl={googleUrl}
     />
   );
 };

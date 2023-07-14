@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 // import getGoogleUrl from 'src/Utils/getGoogleUrl';
 
 const LoginModalPresenter = ({
-  handleLogin, emailRegister, passwordRegister, isSubmitting, setIsSignup,
+  handleLogin,
+  emailRegister,
+  passwordRegister,
+  isSubmitting,
+  setIsSignup,
 }) => (
   <div className="flex flex-col justify-center gap-1">
     <p className="text-2xl mb-2 font-bold text-center">{LOGIN.CONTENT}</p>
