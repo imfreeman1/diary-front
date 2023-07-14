@@ -8,7 +8,7 @@ import LoginModalPresenter from './LoginModalPresenter';
 
 const LoginModalContainer = ({ setIsSignup }) => {
   const router = useRouter();
-  const googleUrl = ((router.state)?.from?.pathname) || '/';
+  // const googleUrl = ((router.state)?.from?.pathname) || '/';
   const {
     register,
     handleSubmit,
@@ -49,7 +49,7 @@ const LoginModalContainer = ({ setIsSignup }) => {
       passwordRegister={passwordRegister}
       emailRegister={emailRegister}
       register={register}
-      googleUrl={googleUrl}
+      // googleUrl={googleUrl}
     />
   );
 };
