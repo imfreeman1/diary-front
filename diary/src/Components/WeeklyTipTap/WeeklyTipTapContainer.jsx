@@ -3,7 +3,7 @@
 import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import useGetEditor from '../../Utils/useGetEditor';
-import WeeklyTiptapPresenter from './WeeklyTiptapPresenter';
+import WeeklyTiptapPresenter from './WeeklyTipTapPresenter';
 
 /**
  *
