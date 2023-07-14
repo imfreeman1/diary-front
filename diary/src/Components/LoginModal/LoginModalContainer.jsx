@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import axios from 'src/Utils/api';
 import PropTypes from 'prop-types';
 import { LOGIN_EMAIL, LOGIN_PWD } from 'src/Constants/LoginConstant';
+import useAxios from 'src/hooks/useAxios';
 import LoginModalPresenter from './LoginModalPresenter';
 
 const LoginModalContainer = ({ setIsSignup }) => {
@@ -17,21 +17,20 @@ const LoginModalContainer = ({ setIsSignup }) => {
 
   const passwordRegister = register(LOGIN_PWD.name, LOGIN_PWD.option);
   const emailRegister = register(LOGIN_EMAIL.name, LOGIN_EMAIL.option);
-
+  const { operation, response } = useAxios();
+  const POST_LOGIN_OPT = (resData) => ({
+    method: 'post',
+    url: '/users/signin/',
+    payload: {
+      email: resData.email,
+      password: resData.password,
+      name: '',
+      image: '',
+    },
+  });
   const handleLogin = handleSubmit(async (resData) => {
     try {
-      const response = await axios.post(
-        '/users/signin',
-        {
-          email: resData.email,
-          password: resData.password,
-          name: '',
-          image: '',
-        },
-        {
-          withCredentials: true,
-        },
-      );
+      await operation(POST_LOGIN_OPT(resData));
       console.log(response);
       if (response.data.code === 'USI20001') {
         router.push('/Cover');
