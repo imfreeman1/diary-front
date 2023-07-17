@@ -1,13 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { LOGIN_EMAIL, LOGIN_PWD } from 'src/Constants/LoginConstant';
 import useAxios from 'src/hooks/useAxios';
 import LoginModalPresenter from './LoginModalPresenter';
 
 const LoginModalContainer = ({ setIsSignup }) => {
-  const router = useRouter();
   // const googleUrl = ((router.state)?.from?.pathname) || '/';
   const {
     register,
@@ -28,13 +26,13 @@ const LoginModalContainer = ({ setIsSignup }) => {
       image: '',
     },
   });
-
   const handleLogin = handleSubmit(async (resData) => {
     try {
       await operation(POST_LOGIN_OPT(resData));
-      if (response?.code === 'USI20001') router.push('/Cover');
     } catch (error) {
       console.log(error);
+    } finally {
+      console.log('2', response);
     }
   });
 

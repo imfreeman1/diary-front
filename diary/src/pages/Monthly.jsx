@@ -7,7 +7,6 @@ import { v4 } from 'uuid';
 import StickerDisplay from 'src/Components/StickerDisplay/StickerDisplay';
 import useAxios from 'src/hooks/useAxios';
 import useGetDateOffset from 'src/hooks/useGetDateOffset';
-import axios from 'src/Utils/api';
 import {
   getTodo,
   setCalendar,
@@ -117,19 +116,16 @@ const Monthly = () => {
   );
 };
 
-export const getServerSideProps = async (ctx) => {
-  const res = await axios.request({
-    method: 'get',
-    url: 'users/getprofile',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    withCredentials: true,
-  });
-  console.log(res);
-  const { data } = res;
-
-  return { props: { data } };
+export const getServerSideProps = ({ req }) => {
+  if (!req.cookies.Authorization) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
 };
 
 export default React.memo(Monthly);
