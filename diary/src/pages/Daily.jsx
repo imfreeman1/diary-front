@@ -64,4 +64,16 @@ const Daily = () => {
   );
 };
 
+export const getServerSideProps = ({ req }) => {
+  if (!req.cookies.Authorization) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+};
+
 export default Daily;

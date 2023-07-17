@@ -47,4 +47,17 @@ const Landing = () => {
     </>
   );
 };
+
+export const getServerSideProps = ({ req }) => {
+  if (req.cookies.Authorization) {
+    return {
+      redirect: {
+        destination: '/Cover',
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+};
+
 export default Landing;
