@@ -8,14 +8,13 @@ import Lottie from 'lottie-react';
 import useControlModal from 'src/hooks/useControlModal';
 import Button from 'src/Components/Button/Button';
 import LandingModalContainer from 'src/Components/LandingModal/LandingModalContainer';
-import { LANDING_NAV_LOGIN_GO, LANDING_PAGE_CONTENT } from '../Constants/constants';
+import {
+  LANDING_NAV_LOGIN_GO,
+  LANDING_PAGE_CONTENT,
+} from '../Constants/constants';
 
 const Landing = () => {
-  const {
-    modalVisible,
-    modalRef,
-    handleModalOpen,
-  } = useControlModal(true);
+  const { modalVisible, modalRef, handleModalOpen } = useControlModal(true);
   return (
     <>
       <div className="flex items-center justify-between px-8 absolute w-full h-12 bg-white">
@@ -48,16 +47,16 @@ const Landing = () => {
   );
 };
 
-export const getServerSideProps = ({ req }) => {
-  if (req.cookies.Authorization) {
-    return {
-      redirect: {
-        destination: '/Cover',
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-};
+// export const getServerSideProps = ({ req }) => {
+//   if (req.cookies.Authorization) {
+//     return {
+//       redirect: {
+//         destination: '/Cover',
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return { props: {} };
+// };
 
 export default Landing;
